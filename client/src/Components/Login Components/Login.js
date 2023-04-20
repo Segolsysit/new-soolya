@@ -124,11 +124,14 @@ const Signup=()=>{
          const[Email,setEmail]=useState("")
          const[Password,setPassword]=useState("")
 
+
          const[errF,setF]=useState("")
          const[errL,setL]=useState("")
          const[errP,seterrP]=useState("")
          const[errEmail,setEE]=useState("")
          const[errPwd,setPwd]=useState("")
+
+
 
 const Register=(e)=>{
     e.preventDefault()
@@ -181,7 +184,7 @@ const Register=(e)=>{
                         <input className="Signup-Input" onChange={(e)=>setLame(e.target.value)}/>
                         <p className="Error-signup">{errL}</p>
                         <label className="Signup-Label">Phone Number</label>
-                        <input className="Signup-Input" onChange={(e)=>setP(e.target.value)}/>
+                        <input type="number" className="Signup-Input" onChange={(e)=>setP(e.target.value)}/>
                         <p className="Error-signup">{errP}</p>
                         <label className="Signup-Label">Email</label>
                         <input type="email" className="Signup-Input" onChange={(e)=>setEmail(e.target.value)}/>

@@ -268,8 +268,12 @@ background: url("https://cdn.pixabay.com/photo/2017/10/11/11/43/multitasking-284
 
 }
 
-.Form-Provider{
 
+
+.input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 @media only screen and (max-width: 600px) {
