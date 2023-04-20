@@ -1,0 +1,368 @@
+.CaroselService-block{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.CaroselCard-block{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.PaginateDiv{
+    display: flex;
+    gap: 10px;
+    align-items: left;
+    justify-content: start;
+    margin: 20px 20px 20px 60px;
+}
+
+.PaginateDiv button{
+    background-color: rgb(200, 220, 241);
+    border: none;
+    padding: 10px;
+    color: rgb(131, 127, 127);
+}
+
+.Paginate{
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(180, 205, 230);
+
+}
+
+.Not-available{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.Err-msg{
+    margin: 10rem;
+}
+
+
+.PaginateDiv button.active{
+    background-color: dodgerblue;
+    text-decoration: none;
+    color: rgb(248, 245, 245);
+}
+
+
+/* Details */
+
+.Main-panel{
+    display: flex;
+    margin: 20px;
+    gap: 20px;
+}
+
+.left-panel{
+    display: flex;
+    flex-direction: column;
+    width:60%;
+    text-align: left;
+    border: rgb(208, 208, 246) solid 1px;
+    border-radius: 8px;
+}
+
+.Ser-Image{
+    object-fit: cover;
+    aspect-ratio: 16/9;
+    width: 100%;
+    border-radius: 8px 8px 0px 0px;  
+}
+
+.Heading{
+    margin: 0px;
+    font-size: 40px;
+    color: black;
+    font-weight: bold;
+}
+
+.subHeading{
+    margin: 0px;
+    font-size: 15px;
+    color: #726f6f;
+}
+
+.Content-div{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    gap: 40px;
+}
+
+.Button-flex{
+    display: flex;
+    gap: 10px;
+    
+}
+
+.Details-button{
+    padding: 10px;
+    background-color: rgb(212, 229, 243);
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    color: black;
+}
+
+.active{
+    padding: 10px;
+    background-color: dodgerblue;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+.Section1{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.Availability{
+    display: flex;
+}
+
+.Timing-section2{
+    list-style: none;
+    color: #726f6f;
+    padding: 0px;
+    }
+
+.Section2-days{
+    color: #726f6f;
+    list-style-type: none;
+    margin-left: 0px;
+    padding: 0px;
+    width: fit-content;
+}
+
+.fa-circle{
+    color: dodgerblue;
+    margin-right: 0px;
+}
+
+.Points-days{
+    padding: 10px;
+}
+
+.Text-area{
+    height: 15rem;
+    width: 100%;
+    border: rgb(211, 229, 244) solid 1px;
+}
+
+.Submit-btn{
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+    background-color: dodgerblue;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.Submit-btn:hover{
+    background-color: rgb(9, 70, 130);
+}
+
+.Side-heading{
+    margin: 0px;
+    color: black;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.points-list{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.List-items{
+    margin: 0px;
+    padding: 10px;
+    color: #726f6f;
+}
+
+.fa-circle-check{
+    color: dodgerblue;
+}
+
+/* Right panel */
+
+.Right-panel{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.Book-card{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: dodgerblue;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    height: 50%;
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.Price-section{
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    background-color: white;
+    border-radius: 50%;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    text-align: center;
+    margin-top: -21%;
+}
+
+.My-price{
+    margin: 0px;
+}
+
+.Book-items{
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.Book-btn{
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    background-color: white;
+    font-weight: bold;
+    transition-duration: 1s;
+}
+
+.Book-btn:hover{
+    color: dodgerblue;
+    cursor: pointer;
+}
+
+.Vendor-detail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 0  20px rgb(221, 237, 244);
+    gap: 20px;
+}
+
+.vendorimage{
+    aspect-ratio: 1/1;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.Contacts-div{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 0px;
+    background-color: rgb(237, 240, 250);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.sub-div{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: black;
+}
+.stars-div{
+    display: flex;
+}
+.stars{
+    color: rgb(249, 198, 45);
+}
+
+.hr{
+    border: rgb(192, 201, 242) solid 0.5px;
+    width: 90%;
+}
+
+.Call{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    color: black;
+}
+
+.contacts-btn{
+    padding: 8px;
+    font-weight: bolder;
+    background-color: dodgerblue;
+    color: white;
+    border: none;
+    border-radius: 3px;
+}
+
+.contacts-btn:hover{
+    background-color: rgb(11, 68, 124);
+}
+
+.Vendor-name{
+    margin: 0px;
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.vendor-date{
+    margin: 0px;
+    color: #726f6f;
+}
+
+.fa-phone{
+    color: dodgerblue;
+}
+
+.fa-envelope{
+    color: dodgerblue;
+}
+
+@media only screen and (max-width:600px){
+    .Main-panel{
+        display: flex;
+        flex-direction: column;
+        margin: 20px;
+        gap: 20px;
+    }
+    .Right-panel{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 20px;
+    }
+
+    .left-panel{
+        display: flex;
+        flex-direction: column;
+        width:100%;
+        text-align: left;
+        border: rgb(208, 208, 246) solid 1px;
+        border-radius: 8px;
+    }
+}

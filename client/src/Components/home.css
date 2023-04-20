@@ -1,0 +1,592 @@
+:root{
+    margin: 0px;
+    padding: 0px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.Header{
+    background-color: rgb(14, 150, 235);
+    margin-top: 0px;
+    height: 50px;
+    align-items: center;
+    display: flex;
+
+    
+}
+
+.contact{
+    display: flex;
+    gap: 30px;
+    margin: 0px;
+    list-style: none;
+    color: white;
+    position: absolute;
+    top:15px;
+
+}
+
+.contact >li>i{
+    color: white;
+}
+
+.social{
+    display: flex;
+    color: rgb(14, 161, 235);
+    list-style: none;
+    gap:10px;
+    font-size: 15px;
+    position: absolute;
+    margin: 0px;
+    top: 10px;
+    left: 85%;
+    
+}
+
+.onephone{
+    color: white;
+}
+
+.fa-brands{
+    background-color: white;
+    padding: 5px;
+    border-radius: 50%;
+    transition-duration: 1s;
+    
+}
+
+.fa-brands:hover{
+    
+    transform: rotatez(720deg);
+    cursor: pointer;
+    
+}
+
+
+
+.fa-facebook-f{
+    aspect-ratio: 1/1;
+    width: 25px;
+}
+
+.Titlebar{
+    display: flex;
+    position: fixed;
+    background-color: white;
+    padding: 0px 3rem 0rem 3rem ;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0px 20px 10px -20px #868585;
+    width: 100%;
+    z-index: 3;
+    
+}
+.Titlebar-sticky{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    display: flex;
+    background-color: white;
+    padding: 0px 3rem 0rem 3rem ;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 20px 10px -20px #868585;
+    z-index: 3;
+    
+}
+
+.menulist{
+    display: flex;
+    list-style: none;
+    gap: 40px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.menulist a{
+    text-decoration: none;
+}
+
+.LogoImage{
+    object-fit: contain;
+    aspect-ratio: 16/9;
+    width: 10rem;
+}
+.buttonflex{
+    display: flex;
+    gap:10px;
+    align-items: center;
+}
+.fa-magnifying-glass{
+    color: white;
+    font-size: 14px;
+}
+
+.Searchbutton{
+    font-size: 15px;
+    padding: 8px;
+    background-color: rgb(14, 150, 235);
+    border-radius: 5px;
+    border: none;
+}
+
+.hireButton{
+    background-color: white;
+    border-color: dodgerblue ;
+    border-style:solid ;
+    border-width: 1.5px;
+    border-radius: 5px;
+    padding: 8px;
+    font-weight:400;
+    color: rgb(10, 12, 14);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.hireButton:hover{
+    background-color:rgb(14, 150, 235) ;
+    color: white;
+    cursor:pointer;
+
+}
+
+.userButton{
+    background-color: white;
+    border-color: rgb(14, 150, 235) ;
+    border-style:solid;
+    border-radius: 5px;
+    border-width: 1.5px;
+    padding: 8px;
+
+}
+
+.userButton-hide{
+    display: none;
+}
+
+.LogoutBtn{
+    background-color: white;
+    border-color: rgb(14, 150, 235) ;
+    border-style:solid;
+    border-radius: 5px;
+    border-width: 1.5px;
+    padding: 8px;
+}
+
+.LogoutBtn:hover{
+    background-color:rgb(14, 150, 235) ;
+    color: white;
+    cursor:pointer;
+}
+
+.LogoutBtn-hide{
+    display: none;
+}
+
+.userButton:hover{
+    background-color:rgb(14, 150, 235) ;
+    color: white;
+    cursor:pointer;
+}
+.Menuitem{
+    color: black;
+}
+
+.Menuitem:hover{
+    color:rgb(14, 150, 235) ;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.cover{
+    
+    z-index: 3;
+
+}
+
+.covercontent{
+    display: flex;
+    background-color: rgb(232, 244, 251);
+    background-image: url(https://images.vexels.com/media/users/3/101746/raw/da01a24b356c2778b7374e174b4806b9-light-blue-abstract-background.jpg);
+    background-blend-mode: lighten;
+    object-fit: fill;
+    background-repeat: no-repeat;
+    height:40rem;
+    margin-top: 0rem;
+
+}
+
+.Covertitle{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 5rem 2rem 5rem 4rem;
+    width: 50rem;
+}
+
+.Primarytitle{
+    font-size: 3.5rem;
+    margin: 10px;
+    font-weight:700;
+    color: black;
+}
+
+.secondaryTitle1{
+    color:rgb(14, 150, 235);
+    font-size: 20px;
+    margin: 10px;
+}
+
+.secondaryTitle2{
+    color: #6c6b6b;
+    margin: 10px;
+}
+
+.coverimage1{
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    width:300px;
+    border-radius: 50%;
+    background-color: rgb(250, 247, 247);
+    padding: 10px;
+    position: relative;
+    top: 10rem;
+    right: -1rem;
+}
+
+.coverimage2{
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    width:200px;
+    border-radius: 50%;
+    background-color: rgb(250, 247, 247);
+    padding: 10px;
+    position: relative;
+    top: -1rem;
+    right: 25rem;
+}
+.coverimage3{
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    width:100px;
+    border-radius: 50%;
+    background-color: rgb(250, 247, 247);
+    padding: 10px;
+    position: relative;
+    top:-11rem;
+    right:-3rem;
+}
+
+.secondarycontent{
+    position: absolute;
+    top:35rem;
+    right:9rem;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    background-color: rgb(14, 150, 235) ;
+    color: white;
+    padding: 10px 40px 10px 40px;
+    border-radius: 50px;
+    border: 5px white;
+    border-style: solid;
+    
+
+}
+
+.secondary{
+    margin: 0px;
+    font-size: 25px;
+    font-weight: bolder;
+}
+.teriary{
+    margin: 0px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.serchblock{
+    display: flex;
+    gap:25px;
+    padding: 15px;
+    background-color: white;
+    width: fit-content;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.SearchBtn{
+    background-color: dodgerblue;
+    border: none;
+    font-size: 20px;
+    color: white;
+    padding: 15px 30px 15px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.SearchBtn:hover{
+    background-color: rgb(15, 108, 200);
+}
+
+.ptagforsearchbox{
+    font-size: 14px;
+    color: #868585;
+    margin-top: 0px;
+}
+
+.selection{
+    padding-right: 15px;
+    
+}
+
+
+
+
+.Body{
+    text-align: center;
+    align-items: center;
+    overflow:hidden;
+}
+
+.category{
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+}
+
+.SubHead{
+    text-align: center;
+    font-size: 35px;
+    margin-top: 100px;
+    margin-bottom: 10px;
+    color: black;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.solid{
+    border-top: 3rem solid #d4d2d2;
+
+}
+.joinus{
+    margin-top: 5rem;
+}
+
+.Search-block{
+    display: flex;
+    gap: 0px;
+    align-items: center;
+    padding: 3px;
+    border: none ;
+    border-radius: 10px;
+    transition-duration: 0.5s;
+}
+
+.Search-box{
+    height: 100%;
+    width: 0rem;
+    margin: 0px;
+    border: none;
+    transition-duration: 0.5s;
+}
+
+.Search-box2{
+    height: 100%;
+    width: 0rem;
+    margin: 0px;
+    border: none;
+    transition-duration: 0.5s;
+}
+
+.Search-box:focus{
+    outline: none;
+}
+
+.Search-block:hover >.Search-box{
+    width: 10rem;
+}
+
+.Search-block:hover >.Search-box2{
+    width: 10rem;
+}
+
+.Search-block:hover >.Searchbutton{
+    cursor:pointer;
+}
+
+.Search-block:hover{
+    border: 2px solid dodgerblue ;
+}
+
+.SelectionBox{
+    background-color: none;
+    border: none;
+}
+
+.SelectionBox:focus{
+    outline: none;
+}
+
+.BurgerBtn{
+    display: none;
+}
+
+
+@media only screen and (max-width: 600px) {
+
+.Logo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.menulist{
+    display: none;
+}    
+.covercontent{
+    flex-direction: column;
+}
+.buttonflex{
+    display: none;
+}
+.Primarytitle{
+    font-size: 2rem;
+}
+.Covertitle{
+    width: 20rem;
+    margin: 5rem 2rem 5rem 1rem;
+}
+.social{
+    display: none;
+}
+.serchblock{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    padding: 15px;
+    background-color: white;
+    width: 100%;
+    align-items: start;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+.solid{
+    display: none;
+}
+
+.covercontent{
+    height: 60rem;
+}
+
+.coverimage1{
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    width:200px;
+    border-radius: 50%;
+    background-color: rgb(250, 247, 247);
+    padding: 10px;
+    position: relative;
+    top: 0rem;
+    right: -1rem;
+}
+
+.coverimage2{
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    width:80px;
+    border-radius: 50%;
+    background-color: rgb(250, 247, 247);
+    padding: 10px;
+    position: relative;
+    top: -7rem;
+    right: 12rem;
+}
+.coverimage3{
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    width:70px;
+    border-radius: 50%;
+    background-color: rgb(250, 247, 247);
+    padding: 10px;
+    position: relative;
+    top:-5rem;
+    right:7rem;
+}
+
+.secondarycontent{
+    position: absolute;
+    top:58rem;
+    right:3rem;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    background-color: rgb(14, 150, 235) ;
+    color: white;
+    padding: 10px 40px 10px 40px;
+    border-radius: 50px;
+    border: 5px white;
+    border-style: solid;
+    
+
+}
+
+.secondary{
+    font-size: 15px;
+}
+
+.selection{
+    padding: 0px; 
+}
+
+.SearchBtn{
+    background-color: dodgerblue;
+    border: none;
+    font-size: 20px;
+    color: white;
+    padding: 9px 20px 9px 20px;
+    border-radius: 10px;
+}
+
+.BurgerBtn{
+    display: block;
+    background-color: dodgerblue;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    transition-duration: 1s;
+}
+.menubar{
+    display: none;
+}
+
+.buttonflex2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+
+.LogoImage{
+    object-fit: contain;
+    aspect-ratio: 16/9;
+    width: 8rem;
+}
+
+.Titlebar-sticky{
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.Time{
+    display: none;
+}
+
+}

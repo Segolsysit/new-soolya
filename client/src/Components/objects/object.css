@@ -1,0 +1,440 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(242, 246, 250);
+    align-items: center;
+    width:10rem;
+    gap:10px;
+    border-radius: 3px;
+    padding: 20px;
+    transition-duration: 0.5s;
+}
+
+.cardouter a{
+    text-decoration: none;
+}
+
+
+
+.card:hover main{
+    color: white;
+}
+
+.icons{
+    aspect-ratio: 1/1;
+    width: 80px;
+    padding: 0px;
+    background-color: white;
+    border-radius: 50%;
+    object-fit:scale-down;
+    margin-bottom: 30px;
+}
+
+.cardouter{
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+    justify-content: space-around;
+    position: sticky;
+    top: 0px;
+    margin: 10px 40px 10px 40px;
+}
+.main{
+    margin: 0px;
+    color: rgb(7, 6, 6);
+    font-size: 15px;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+.card:hover {
+    background-color: dodgerblue;
+    color: white;
+    text-decoration: none;
+}
+
+
+.card:hover .main{
+    color: white;
+    text-decoration: none;
+}
+
+.card:hover .extras{
+    color: white;
+    text-decoration: none;
+}
+
+.extras{
+    margin: 0px;
+    color: grey;
+}
+
+.Carosel-block{
+    
+    width:140rem;
+    display: flex;
+    margin-bottom: 10rem;
+    gap:20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Caroselcard-block{
+    display: flex;
+    gap:20px;
+    width: 150rem;
+    overflow: hidden;
+    margin-left: 50px;
+    margin-right: 50px;
+    transform: translateX(0px);
+    transition-duration: 1s;
+}
+
+.Carosel-card{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(231, 240, 247);
+    border-radius: 5px;
+    justify-content: space-between;
+    transition-duration: 1s;
+    overflow: hidden;
+}
+
+.Carosel-card:hover{
+    box-shadow: 10px 10px 40px rgb(202, 226, 246);
+}
+
+.Carosel-card:hover>.Carosel-img{
+    transform: scale(1.1,1.1) rotate(1deg);
+}
+
+
+.Carosel-sec{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Carosel-desc{
+    text-align: left;
+    font-size:25px;
+    color: black;
+    font-weight: bold;
+}
+.Category-carosel{
+    padding: 3px 15px 3px 15px;
+    border-radius: 2px;
+    background-color: rgb(182, 221, 243);
+    justify-content: center;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+.Carosel-img{
+    object-fit: cover;
+    aspect-ratio: 16/9;
+    width: 100%;
+    border-radius: 5px 5px 0px 0px;
+    transition-duration: 1s;
+}
+.Card-body{
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Carosel-btn{
+    padding:10px;
+    font-weight:bold;
+    background-color: dodgerblue;
+    border: none;
+    border-radius: 3px;
+    color: white;
+}
+
+.Carosel-btn:hover{
+    background-color: rgb(22, 115, 208);
+    cursor: pointer;
+}
+
+.Carosel-price{
+    color: dodgerblue;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+.Profile{
+    display: flex;
+    gap:10px;
+    align-items: center;
+}
+
+.profile-img{
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    width: 60px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.Arrow-Left{
+    padding: 10px;
+    border-radius: 50%;
+    height: fit-content;
+    position: absolute;
+    left: 10px;
+    background-color: rgb(217, 234, 246);
+    border: none;
+    z-index: 2;
+}
+
+.Arrow-Right{
+    padding: 10px;
+    border-radius: 50%;
+    height: fit-content;
+    background-color: rgb(217, 234, 246);
+    border: none;
+    z-index: 2;
+    position: absolute;
+    right: 10px;
+}
+
+
+
+
+.Arrow-Left:hover{
+    background-color: dodgerblue;
+    color: white;
+}
+
+.Arrow-Right:hover{
+    background-color: dodgerblue;
+    color: white;
+}
+
+.Popular-block{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-evenly;
+}
+
+.JoinBlock{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: dodgerblue;
+    padding: 8rem;
+}
+
+.Joinbtn{
+    background-color: white;
+    color: black;
+    width: fit-content;
+    border: none;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.Joinbtn:hover{
+    background-color: rgb(219, 217, 217);
+    cursor: pointer;
+
+}
+
+.joindesc{
+    color: white;
+
+}
+
+
+
+.Store-Block{
+    display: flex;
+    padding: 3rem;
+    justify-content: space-between;
+    align-items: center;
+    height: 40rem;
+}
+
+.Store-desc{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 40%;
+    padding: 30px;
+}
+
+.Store-img{
+    aspect-ratio: 1/1;
+    width: 40rem;
+    margin: 0px;
+}
+
+.Store-download{
+    color: dodgerblue;
+}
+
+.Store-h1{
+    font-size: 3rem;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+.Store-btn{
+    display: flex;
+    gap:20px;
+}
+
+.Platform-logo{
+    aspect-ratio: 1/1;
+    width: 30px;
+}
+
+.Store-button{
+    display: flex;
+    align-items: center;
+    background-color: dodgerblue;
+    border: none;
+    padding: 10px 30px 10px 30px;
+    border-radius: 10px;
+    color: white;
+    transition-duration: 0.5s;
+    gap: 30px;
+}
+
+.Store-button:hover{
+    cursor: pointer;
+    background-color: rgb(30, 125, 220);
+}
+
+.Btn-inside{
+    display: flex;
+    flex-direction: column;
+}
+.h4btn{
+    margin: 0px;
+    font-size: 15px;
+}
+.h2btn{
+    margin:0px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .Carosel-card  {
+        width: 17.5rem;
+
+    }
+    .Caroselcard-block{
+        gap: 40px;
+    }
+
+.Store-h1{
+    font-size: 1rem;
+}
+.Store-img{
+    aspect-ratio: 1/1;
+    width: 18rem;
+    margin: 0px;
+}
+
+.h4btn{
+    margin: 0px;
+    font-size: 10px;
+}
+.h2btn{
+    margin:0px;
+    font-size: 20px;
+
+}
+.Platform-logo{
+    aspect-ratio: 1/1;
+    width: 20px;
+}
+
+.Store-button{
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+.Store-desc{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 100%;
+    padding: 0px;
+}
+.Store-Block{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    height: 40rem;
+}
+
+.Store-btn{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    gap:20px;
+}
+
+
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgb(242, 246, 250);
+    align-items: center;
+    width:fit-content;
+    gap:10px;
+    border-radius: 3px;
+    transition-duration: 0.5s;
+    height: 14rem;
+    width: 9rem;
+}
+.cardouter{
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+    justify-content: space-around;
+    margin: 10px 40px 10px 40px;
+    overflow-x: scroll;
+    
+
+}
+
+.cardouter::-webkit-scrollbar{
+    visibility: hidden;
+}
+
+.JoinBlock{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: dodgerblue;
+    padding: 4rem;
+}
+
+.Joinbtn{
+    background-color: white;
+    color: black;
+    width: fit-content;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+.joindesc{
+    font-size: 1rem;
+}
+
+
+
+
+}

@@ -1,0 +1,183 @@
+.Footer-outer{
+    display: flex;
+    padding: 3rem 1rem 3rem 1rem;
+    background-color: black;
+    gap: 2rem;
+
+}
+
+.Footer-sec1{
+    display: flex;
+    flex-direction: column;
+    align-items:start;
+    width:25%;
+    justify-content: space-between;
+}
+
+.Social-footer{
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.Social-icon{
+    color: dodgerblue;
+    margin: 0px;
+}
+
+.Footer-desc{
+    color: white;
+    text-align: left;
+}
+
+.Footer-Image{
+    aspect-ratio: 16/9;
+    width: 100px;
+    margin: 0px;
+}
+
+
+.Footer-sec2{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 25%;
+    color: white;
+    text-align: left;
+}
+
+.Footer-sec2>ul>li>i{
+    color: grey;
+}
+
+.Sec2-ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0px;
+}
+
+.Sec2-head{
+    margin: 0px;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.fa-location-dot{
+    color: dodgerblue;
+}
+
+.End-card{
+    display: flex;
+    padding: 10px 100px 10px 100px;
+    background-color: dodgerblue;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+}
+.EndP{
+    margin: 0px;
+}
+
+.End-ul{
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    margin: 0px;
+}
+
+.End-icon{
+    aspect-ratio: 16/9;
+    width: 60px;
+    margin: 0px;
+    border-radius: 3px;
+}
+
+.Responsive-menu{
+    display: none;
+    padding: 10px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.ResItem{
+    color: black;
+}
+
+@media only screen and (max-width: 600px) {
+    .Footer-outer{
+        display: flex;
+        flex-direction: column;
+    
+    }
+
+    .Footer-sec1{
+        
+        align-items:start;
+        width:100%;
+        
+    }
+
+    .Footer-sec2{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        width: 100%;
+        color: white;
+        text-align: left;
+        padding: 0px;
+    }
+.Sec2-ul{
+    padding: 0px;
+}
+
+
+.End-ul{
+    padding: 0px;
+}
+.End-card{
+    flex-direction: column;
+    padding: 10px;
+}
+
+.EndP{
+    text-align: justify;
+    font-size: 20px;
+    margin: 0px;
+}
+.Responsive-menu{
+    display: block;
+    padding: 10px;
+    position: sticky;
+    align-items: center;
+    justify-content: space-between;
+    top: 6rem;
+    background-color: white;
+    filter: opacity(80%);
+    backdrop-filter: blur(20px);
+    z-index: 3;
+    width: 100%;
+    height: 20rem;
+}
+.Res{
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+
+
+}
+
+
+
+

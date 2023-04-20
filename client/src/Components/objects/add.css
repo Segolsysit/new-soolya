@@ -1,0 +1,363 @@
+
+.Adblock{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10rem;
+    background-image: url(https://corlettexpress.com/wp-content/uploads/2020/03/AdobeStock_246515233-1574x787.jpeg);
+    background-color: #5b5a5a;
+    background-blend-mode: multiply;
+}
+
+.inner-ad{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    filter: brightness(100%);
+}
+
+.Ad-img{
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.Ad-count{
+    color: white;
+    margin: 0px;
+    font-size: 40px;
+    font-weight: bold;
+}
+.Ad-desc{
+    color: white;
+    margin: 0px;
+
+}
+
+
+.Testi-block{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 60px 10px 40px 10px;
+    background-color: rgb(245, 253, 253);
+    align-items: center;
+}
+
+.Testi-h1{
+    margin: 0px;
+    color: black;
+    font-weight: bold;
+}
+
+.Testi-p{
+    margin: 0px;
+}
+
+.Tesi-card{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    margin: 10px;
+    gap: 10px;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.Testi-profile{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.Testi-Outer{
+    display: flex;
+    width: 175rem;
+    align-items: center;
+    justify-content: space-between;
+    transform: translateX(20rem);
+    transition-duration: 1s;
+}
+.ResTesti-Outer{
+    display: none;
+    width: 175rem;
+    align-items: center;
+    justify-content: space-between;
+    transform: translateX(20rem);
+    transition-duration: 1s;
+}
+
+.Profile-img{
+    aspect-ratio: 1/1;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+
+}
+
+.Ul-Btns{
+    display: flex;
+    gap: 30px;
+    list-style:circle;
+}
+
+.Profile-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.Testi-name{
+    margin: 0px;
+    font-size: 20px;
+    font-weight: bolder;
+    color: black;
+}
+.Testi-work{
+    margin: 0px;
+}
+.Testi-Review{
+    margin: 0px;
+}
+.Testi-reviewbox{
+    background-color: dodgerblue;
+    width: 90%;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+.li-Btns{
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    border: none;
+    background-color: rgb(171, 207, 239);
+}
+.active{
+    list-style: disc;
+}
+
+.News-card3{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #252525;
+}
+.News-card2{
+    display: flex;
+    justify-content: space-between;
+}
+
+.News-block{
+    display: flex;
+    flex-direction: column;
+    margin: 5rem 1rem 5rem 1rem ;
+    justify-content: center;
+    align-items: center;
+}
+
+.NewsCard{
+    display: flex;
+    flex-direction: column;
+    width: 25rem;
+    margin: 30px;
+    text-align: left;
+    background-color: white;
+    box-shadow: 10px 10px 20px rgb(212, 215, 236);
+}
+
+.Newscard-body{
+    padding: 15px;
+}
+
+.News-news{
+    text-align: left;
+    color: black;
+    font-weight: 700;
+}
+.News-inner{
+    display: flex;
+    align-items: center;
+}
+
+.Horizontal{
+    border-right: 23rem solid #96ebf3;
+}
+
+
+.Subscribe-block{
+    display: flex;
+    margin: 0px;
+    padding: 40px;
+    padding-bottom: 0px;
+    background-color: dodgerblue;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Subscribe-desc{
+    display: flex;
+    flex-direction: column;
+    width:40%;
+    text-align: left;
+    gap: 10px;
+    color: white;
+}
+
+.Subscribe-h1{
+    margin: 0px;
+    font-weight: bolder;
+}
+.Subscribe-h3{
+    margin: 0px 0px 30px 0px;
+    font-size: 20px;
+}
+
+.Subscribe-Input{
+    border-radius: 30px;
+    padding: 15px;
+    border: none;
+    width: 100%;
+}
+
+.Input-subscribe{
+    display: flex;
+    gap: 0px;
+    background-color: white;
+    justify-content: space-between;
+    border-radius: 30px;
+    padding: 3px;
+}
+
+.Subscribe-button{
+    background-color: dodgerblue;
+    padding: 10px 30px 10px 30px;
+    border-radius:30px ;
+    border:none;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition-duration: 1000ms;
+}
+
+.Subscribe-button:hover{
+    background-color: rgb(22, 109, 195);
+}
+
+.Subscribe-img{
+
+aspect-ratio: 3/4;
+width: 15rem;
+margin-bottom: 0px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .Adblock{
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .inner-ad{
+        gap: 5px;
+        width: 10rem;
+    }
+    .Ad-img{
+        object-fit: cover;
+        aspect-ratio: 1/1;
+        width: 40px;
+        border-radius: 50%;
+    }
+    
+    .Ad-count{
+        color: white;
+        margin: 0px;
+        font-size: 20px;
+    }
+    .Ad-desc{
+        color: white;
+        margin: 0px;
+    
+    }
+
+    .Subscribe-photo{
+        display: none;
+    }
+
+    .Subscribe-block{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .Subscribe-desc{
+        display: flex;
+        flex-direction: column;
+        width:100%;
+        padding: 2rem 20px 2rem 20px;
+        margin-bottom: 2rem;
+    
+    }
+
+    .Testi-Outer{
+        display: none;
+        justify-content: center;
+        width: 70rem;
+        align-items: center;
+        position: relative;
+        left: 0px;
+    }
+
+    .ResTesti-Outer{
+        display: flex;
+        justify-content: center;
+        width: 82rem;
+        align-items: center;
+        position: relative;
+        left: 0px;
+    }
+
+    .Testi-reviewbox{
+        display: flex;
+        background-color: dodgerblue;
+        width: 90%;
+        height: 60px;
+        color: white;
+        border-radius: 5px;
+        padding: 10px;
+        align-items: center;
+    }
+
+    .Tesi-card{
+        display: flex;
+        flex-direction: column;
+        text-align: start;
+        margin: 10px;
+        gap: 50px;
+        width: 100%;
+        flex-wrap: nowrap;
+    }
+    .News-inner{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0px;
+    }
+
+    .News-block{
+        display: flex;
+        flex-direction: column;
+        margin: 5rem 1rem 5rem 1rem ;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .NewsCard{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 30px;
+        text-align: left;
+        background-color: white;
+    }
+}

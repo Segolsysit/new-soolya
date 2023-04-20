@@ -1,0 +1,80 @@
+/* .a1{
+    width: 50% aria-valuenow="50" aria-valuemin="0"
+}
+
+.a2{
+    width: 20% aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+}
+
+.a3{
+    width: 25rem;
+}
+
+.a4{
+    width: 40% aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+}
+
+.a5{
+    width: 60% aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+}
+
+.a6{
+    width: 80% aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+}
+
+.a7{
+    width: 100% aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+} */
+
+.toggled {
+    overflow: visible;
+    width: 6.5rem!important;
+}
+
+.toggled1{
+    width: 0!important;
+    overflow: hidden;
+}
+
+.category_list{
+    display: flex;
+}
+
+/* .container-fluid{
+    margin-top: 50px;
+    margin-left: 10%;
+} */
+
+.category_list_container{
+    margin-left: 15%;
+}
+
+.table-cat{
+    /* background-color:rgb(0, 81, 255); */
+    margin-left: 20px;
+    margin-top: 80px;
+    
+    width: fit-content;
+}
+.category_form_div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.category_form{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.ak{
+    width: 300px;
+}
+
+.subcategory_form{
+   transform: translateX(40%);
+}
+.subcategory_list{
+    padding-top: 50px;
+}

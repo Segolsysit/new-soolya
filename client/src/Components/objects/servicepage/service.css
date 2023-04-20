@@ -1,0 +1,65 @@
+.Service-image{
+    display: flex;
+    width: 100%;
+    height: 18rem;
+    overflow: hidden;
+    margin: 0px;
+   background-image: url("https://cdn.pixabay.com/photo/2018/01/19/06/26/handymen-3091826_1280.jpg");
+   background-position: 0% 30%;
+   background-color: rgb(100, 97, 97);
+   background-blend-mode: multiply;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.Service-heading{
+    position: relative;
+    color: white;
+    font-size: 40px;
+    align-items: center;
+    font-weight: bold;
+}
+
+.Service-sec2{
+    display: flex;
+    justify-content: space-around;
+    margin: 40px 10px 40px 10px;
+}
+
+
+.Service-selection{
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    width: 20%;
+    text-align: left;
+}
+
+.Service-tit{
+    color: white;
+    background-color: dodgerblue;
+    padding: 10px;
+    border-radius: 5px 5px 0px 0px;
+    margin-bottom: 0px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.Service-select{
+    background-color: rgb(235, 241, 247);
+    border: none;
+    padding: 10px;
+    border-radius: 0px 0px 5px 5px;
+}
+
+@media only screen and (max-width: 600px) {
+    .Service-sec2{
+        flex-direction: column;
+        gap: 10px;
+    }
+    .Service-selection{
+        width: 100%;
+    }
+
+}
