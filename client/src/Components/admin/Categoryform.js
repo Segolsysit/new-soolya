@@ -39,25 +39,25 @@ const CategoryForm=({FormNumber,setNumber})=>{
         }
     }
 
-    const [orderdetails, setorderdetails] = useState([])
+    // const [orderdetails, setorderdetails] = useState([])
 
 
-    const getdata2 = () => {
-        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
-            setorderdetails(res.data)
-        })}
+    // const getdata2 = () => {
+    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+    //         setorderdetails(res.data)
+    //     })}
 
     useEffect(() => {
-        getdata2()
+        // getdata2()
         categorydata()
         verify()
     }, [])
 
-    const adminlogout = ()=>{
-        localStorage.removeItem("adminemail")
-        localStorage.removeItem("adminpassword")
-        nav("/admin")
-    }
+    // const adminlogout = ()=>{
+    //     localStorage.removeItem("adminemail")
+    //     localStorage.removeItem("adminpassword")
+    //     nav("/admin")
+    // }
 
     const categorydata = () => {
         axios.get("http://localhost:3001/api/fetch_items").then((res) => {
@@ -180,29 +180,30 @@ const CategoryForm=({FormNumber,setNumber})=>{
 
     const localpath = "http://localhost:3001/"
 
-    const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    // const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
 
-    const changeStyle = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
-        }
-        else {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-        }
-    }
+    // const changeStyle = () => {
+    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
+    //     }
+    //     else {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    //     }
+    // }
 
-    const changeStyle1 = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
-        }
-        else {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-        }
-    }
+    // const changeStyle1 = () => {
+    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
+    //     }
+    //     else {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    //     }
+    // }
 
     const EditFun = (id) => {
         axios.get(`http://localhost:3001/api/fetch_items_id/${id}`).then((res) => {
             setgetbyid(res.data)
+            console.log(res.data)
         })
         handleOpen()
         console.log(getbyid);
@@ -230,13 +231,13 @@ const CategoryForm=({FormNumber,setNumber})=>{
         <div className="Category-Screen">
             <h1>Service Category</h1>
             <div className="Category-Outer">
-                <form className="Category-left">
+                <form className="Category-left" onSubmit={AddService}>
                     <label className="Category-Label">Category</label>
-                    <input type="text" className="Category-input"/>
+                    <input type="text" value={categorySetup} className="Category-input" onChange={(e) => setCatagorySetup(e.target.value)} />
                     
                     <label className="Category-Label">Image</label>
                     <div className="Categoryfile-div">
-                    <input type="file" className="Category-input"/>
+                    <input type="file" className="Category-input" onChange={handleImgChange}/>
                     </div>
                     <button type="Submit" className="Category-button">Add</button>
                 </form>
@@ -275,6 +276,49 @@ const CategoryForm=({FormNumber,setNumber})=>{
                                         }
                                     </TableBody>
                                 </Table>
+                            </div>
+                            <div>
+                                {/* <Button onClick={handleOpen}>Open modal</Button> */}
+                                {/* <Modal
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
+                                >
+                                    <Box sx={modelstyle}>
+                                        <form className="category_form" id="category_form" onSubmit={saveChange}>
+                                            <TextField type="text" placeholder={getbyid.catagorySetup} onChange={(e) => setEditservice(e.target.value)} label="Service" /><br></br>
+                                            <TextField type="file" onChange={(e) => setEditImage(e.target.files[0])} /><br></br>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" onClick={() => handleClose()}>Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+
+                                        </form>
+                                    </Box>
+                                </Modal> */}
+                                 <div class="modal fade" id="EditCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form className="category_form" id="category_form" onSubmit={()=>saveChange(getbyid._id)}>
+                                                <TextField type="text" placeholder={getbyid.catagorySetup} onChange={(e) =>setEditservice(e.target.value) } label="Service"/><br></br>
+                                                <TextField type="file" onChange={(e) =>setEditImage(e.target.files[0]) }  /><br></br>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                             </div>
             </div>
         )
