@@ -225,7 +225,7 @@ const CategoryForm=({FormNumber,setNumber})=>{
 
 
     
-    if(FormNumber==1) {
+    if(FormNumber===1) {
         return(
         <div className="Category-Screen">
             <h1>Service Category</h1>
@@ -386,7 +386,7 @@ const Rejected_list = ({formNumber}) => {
          console.log(response.data);
         })
     }
-if(formNumber==4){
+if(formNumber===4){
     return(
         <div className="container-fluid">
                                 <h1>Rejected List</h1>
@@ -487,7 +487,7 @@ const Orders = ({formNumber}) => {
     //     setNotificationCount("")
     // }
 
-if(formNumber==5){
+if(formNumber===5){
     return(
         <div className="container-fluid">
                                 <h1>Order Deatails</h1>
