@@ -276,6 +276,34 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+
+.Form-forget{
+    display: flex;
+    justify-content: space-around;
+    /* align-items: center; */
+    flex-direction: column;
+    text-align: left;
+    gap: 50px;
+    padding: 30px;
+    width: 23rem;
+    box-shadow: 10px 10px 40px rgb(202, 226, 246);
+    border-radius: 10px 0px 0px 10px;
+}
+
+.Forgrt-Label{
+    margin-bottom: -60px;
+    margin-left: 10px;
+    z-index: 2;
+    background-color: white;
+    width: fit-content;
+}
+
+.forget-card{
+    display: flex;
+    margin: 150px;
+    justify-content: center;
+}
+
 @media only screen and (max-width: 600px) {
 
     .Image-div{

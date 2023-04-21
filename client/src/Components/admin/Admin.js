@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Admin.css"
-import CategoryForm from './Categoryform';
+import {CategoryForm,Rejected_list,Orders} from './Categoryform';
 import DashBoard from './Dashboard';
 
 export const Admin = () => {
@@ -109,8 +109,8 @@ const[Formnum,setFormnum]=useState(0)
                             </div>
     
                             {/* <!-- Nav Item - Pages Collapse Menu --> */}
-                            <li className="nav-item">
-                                <a className="nav-link" href="/orders" onClick={()=> setorderdetails("")}>
+                            <li className="nav-item" onClick={()=>setFormnum(5)}>
+                                <a className="nav-link"  onClick={()=> setorderdetails("")}>
                                 <i class="fa-regular fa-link-horizontal"></i>
                                     <span>Orders
                                     <span className="badge badge-danger badge-counter">{orderdetails.length}</span>
@@ -171,17 +171,18 @@ const[Formnum,setFormnum]=useState(0)
                                         {/* <h6 className="collapse-header">Login Screens:</h6> */}
                                         <a className="collapse-item" onClick={()=>{
                             setFormnum(2)}}>Service Man List</a>
-                                        <a className="collapse-item" href="/rejectedlist">Rejected List</a>
+                                        <a className="collapse-item" onClick={()=>{
+                            setFormnum(4)}}>Rejected List</a>
                                     </div>
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapsePages"
+                                <a className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapsePages"
                                     aria-expanded="true" aria-controls="collapsePages">
                                     <i className="fas fa-fw fa-folder"></i>
                                     <span>Pages</span>
                                 </a>
-                                <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                                <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-bs-parent="#accordionSidebar">
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         <h6 className="collapse-header">Login Screens:</h6>
                                         <a className="collapse-item" href="/login.js">Login</a>
@@ -426,7 +427,7 @@ const[Formnum,setFormnum]=useState(0)
                                                     Activity Log
                                                 </a>
                                                 <div className="dropdown-divider"></div>
-                                                <a className="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal">
+                                                <a className="dropdown-item" href="/" data-bs-toggle="modal" data-bs-target="#logoutModal">
                                                     <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                                     Logout
                                                 </a>
@@ -440,6 +441,8 @@ const[Formnum,setFormnum]=useState(0)
 
                                 <CategoryForm open={state} close={setState} FormNumber={Formnum} setNumber={setFormnum} />
                                 <DashBoard open={state} close={setState} formNumber={Formnum}/>
+                                <Rejected_list formNumber={Formnum}/>
+                                <Orders formNumber={Formnum}/>
     
                             </div>
                             {/* <!-- End of Main Content --> */}

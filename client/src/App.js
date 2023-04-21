@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './Components/Home';
 import Service from './Components/objects/servicepage/service';
 import { useEffect } from "react";
-import {Login,Signup,Provider, AdminLogin} from './Components/Login Components/Login';
+import {Login,Signup,Provider, AdminLogin,ForgetPassword} from './Components/Login Components/Login';
 import Admin from './Components/admin/Admin';
 import { ServiceDetails } from './Components/objects/servicepage/ServiceCard';
 import BookingPage from './Components/booking/booking';
@@ -38,6 +38,7 @@ function App() {
         <Route path='/booking' element={<BookingPage/>}/>
         <Route path='/Myorder' element={<Myorder/>}/>
         <Route path='/Mydashboard' element={<UserDashboard/>}/>
+        <Route path='/ForgetPassword' element={<ForgetPassword/>}/>
       </Routes>
       </BrowserRouter>
      

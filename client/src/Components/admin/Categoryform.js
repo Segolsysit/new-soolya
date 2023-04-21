@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
+import Switch from '@mui/material/Switch';
+
 
 import { Toast } from "bootstrap";
 
@@ -279,37 +281,40 @@ const CategoryForm=({FormNumber,setNumber})=>{
     }
 if(FormNumber===2){
     return(
-        <div className="Category-Screen">
-                    <h1>Service Man</h1>
-                    <div className="Table-div">
-                        <table>
-                            <tr className="Table-row">
-                                <th>SN</th>
-                                <th>Name</th>
-                                <th>Contact info</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Kumar</td>
-                                <td>123456</td>
-                                <td>active</td>
-                                <td>None</td>
-                                
-                                <td>
-                                <div className="icons-category">
-                                <button className="categoryicon-btns"><i class="fa-solid fa-pencil"></i></button>
-                                <button className="categoryicon-btns"><i class="fa-solid fa-eye"></i></button>
-                                <button className="categoryicon-btns"><i class="fa-solid fa-trash"></i></button>
-                                </div>
-                                </td>
-                            </tr>
-                            
-                        </table>
-                    </div>
-                </div>
+        <div >
+                <h1> Service Man List</h1>
+                <Table className='table-cat'>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>SN</TableCell>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Contact info</TableCell>
+                      <TableCell>Status</TableCell>
+                      <TableCell>Action</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+
+                    {/* {getServiceManData.map((data) => */}
+                    <TableRow >
+                      <TableCell></TableCell>
+                      <TableCell></TableCell>
+                      <TableCell>
+                        <p></p>
+                        <p></p>
+                      </TableCell>
+                      <TableCell>
+                        <Switch color="primary" /></TableCell>
+                      <TableCell>
+                        <Button><i class="fa-solid fa-pencil"></i></Button>
+                        <Button><i class="fa-solid fa-eye"></i></Button>
+                        <Button><i class="fa-solid fa-trash"></i></Button>
+                      </TableCell>
+                    </TableRow>
+                    {/* )} */}
+                  </TableBody>
+                </Table>
+              </div>
     )
 }
     
@@ -317,4 +322,222 @@ if(FormNumber===2){
 }
 
 
-export default CategoryForm
+const Rejected_list = ({formNumber}) => {
+
+    let serialNumber = 1;
+
+    const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    const [rejected,setregected] = useState([])
+    const [viewdata,setviewdata] = useState([]);
+
+    const aemail = localStorage.getItem("adminemail")
+    const apassword = localStorage.getItem("adminpassword")
+    const nav = useNavigate()
+
+
+    const verify = ()=>{
+        if(aemail === null && apassword === null){
+            nav("/admin")
+        }
+    }
+
+
+    const changeStyle = () => {
+        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
+        }
+        else{
+            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+        }
+    }
+
+    const changeStyle1 = () => {
+        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
+        }
+        else{
+            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+        }
+    }
+
+    const getrejected_list = ()=>{
+        axios.get("http://localhost:3001/reject_api/rejected_data").then((res)=>{
+            setregected(res.data)
+        })
+    }
+
+    const [orderdetails, setorderdetails] = useState([])
+
+
+    const getdata2 = () => {
+        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+            setorderdetails(res.data)
+        })}
+
+    useEffect(()=>{
+        getdata2()
+        getrejected_list()
+        verify()
+    })
+
+    const viewdeatils = (id) => {
+        axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
+         setviewdata(response.data);
+         console.log(response.data);
+        })
+    }
+if(formNumber==4){
+    return(
+        <div className="container-fluid">
+                                <h1>Rejected List</h1>
+                                <Table className='table-cat'>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>SN</TableCell>
+                                        <TableCell>Name</TableCell>
+                                        <TableCell>Contact info</TableCell>
+                                        <TableCell>Status</TableCell>
+                                        <TableCell>Action</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+
+                                    {rejected.map((data) =>
+                                        <TableRow >
+                                            <TableCell>{serialNumber++}</TableCell>
+                                            <TableCell>{data.FirstName} {data.LastName}</TableCell>
+                                            <TableCell>
+                                                <p>{data.Email}</p>
+                                                <p>{data.MobilePhoneNumber}</p>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Switch color="primary" /></TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    type="button"  data-toggle="modal" data-target="#exampleModalCenter"
+                                                    onClick={()=> viewdeatils(data._id)}
+                                                ><i class="fa-solid fa-eye"></i></Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
+
+
+
+                                </TableBody>
+                            </Table>
+
+                            </div>
+    )
+}
+
+}
+
+
+const Orders = ({formNumber}) => {
+
+    const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    const [orderdetails,setorderdetails] = useState([])
+    const aemail = localStorage.getItem("adminemail")
+    const apassword = localStorage.getItem("adminpassword");
+    const [notificationCount, setNotificationCount] = useState(0);
+    const nav = useNavigate()
+
+
+    const verify = ()=>{
+        if(aemail === null || apassword === null){
+            nav("/admin")
+        }
+    }
+
+    const changeStyle = () => {
+        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
+        }
+        else {
+            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+        }
+    }
+
+    const changeStyle1 = () => {
+        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
+        }
+        else {
+            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+        }
+    }
+
+    const getdata = () => {
+        axios.get("http://localhost:3001/booking_api/booking_data").then((res)=>{
+                setorderdetails(res.data)
+                setNotificationCount(orderdetails.length)
+            })
+    }
+    let a = 1;
+
+
+    useEffect(()=>{
+        getdata()
+        verify()
+
+      
+    })
+
+    // function resetNoti() {
+    //     setNotificationCount("")
+    // }
+
+if(formNumber==5){
+    return(
+        <div className="container-fluid">
+                                <h1>Order Deatails</h1>
+                                <Table className='table-cat'>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>SN</TableCell>
+                                            <TableCell>Service</TableCell>
+                                            <TableCell>Category</TableCell>
+                                            <TableCell>Price</TableCell>
+                                            <TableCell>Address</TableCell>
+                                            <TableCell>Number</TableCell>
+                                            <TableCell>paymentMethod</TableCell>
+
+
+
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {
+                                            orderdetails.map((data, index) => (
+
+
+                                                <TableRow key={index}>
+                                                    <TableCell>{a++}</TableCell>
+
+                                                    <TableCell><p>{data.Service}</p></TableCell>
+                                                    <TableCell><p>{data.Category}</p> </TableCell>
+                                                    <TableCell><p>{data.price}</p></TableCell>
+                                                    <TableCell><p>{data.address}</p></TableCell>
+                                                    <TableCell><p>{data.number}</p></TableCell>
+                                                    <TableCell><p>{data.paymentMethod}</p></TableCell>
+                                                </TableRow>
+
+
+                                            ))
+                                         }
+                                    </TableBody>
+                                </Table>
+
+                            </div>
+
+
+                        
+    )
+}
+
+}
+
+ 
+
+
+export {CategoryForm,Rejected_list,Orders} 

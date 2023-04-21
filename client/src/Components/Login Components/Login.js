@@ -92,7 +92,7 @@ const Login = () => {
                                 <input type="checkbox"/>
                                 <p className="Remember-ptag">Remember Me</p>
                             </div>
-                            <p className="Forget">Forget Password</p>
+                            <Link to='/ForgetPassword'><p className="Forget">Forget Password</p></Link>
                         </div>
                         <button className="Button-Signup">Login</button>
                         <div className="Already">
@@ -409,5 +409,40 @@ const AdminLogin = () => {
     )
 }
 
+const ForgetPassword=()=>{
 
-export {Login,Signup,Provider,AdminLogin} 
+const ForgetPwd=()=>{
+    //your fun
+}
+
+    return(
+        <div>
+            <Header />
+            <MenuBar />
+            
+            <div className="forget-card">
+                <div className="Form-div">
+                    <form className="Form-forget" onSubmit={ForgetPwd}>
+                    <div className="Signup-title">
+                            <h1 className="Signup-heading">Forget Password</h1>
+                        </div>
+                        
+                        <label className="Forgrt-Label">Enter your Email_id</label>
+                        <input className="Signup-Input" type='email'/>
+                        
+                        <button className="Button-Signup" type="submit">Change Password</button> 
+
+                    </form>
+                </div>
+                <div className="Image-div">
+
+                </div>
+            </div>
+            <Footer/>
+            <End/>
+        </div>
+    )
+}
+
+
+export {Login,Signup,Provider,AdminLogin,ForgetPassword} 
