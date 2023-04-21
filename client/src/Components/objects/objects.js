@@ -44,6 +44,19 @@ const MenuBar = () => {
     const [Open, setOpen] = useState(false)
     const [icon, setIcon] = useState(<i class="fa-solid fa-bars"></i>)
     var status = localStorage.getItem("Status")
+
+    const[state,setState]=useState(false)
+
+    const ProfileOpen=()=>{
+        if(!state){
+            setState(true)
+        }
+        else{
+            setState(false)
+        }
+        
+    }
+
     const OpenMenu = (e) => {
         e.preventDefault()
         if (!Open) {
@@ -61,10 +74,14 @@ const MenuBar = () => {
         window.location.href = "/login"
     }
     return (
+        <div className="Menubar-outer">
         <div className="Titlebar-sticky">
             <div className="Logo">
                 <img className="LogoImage" src="https://cdn.logojoy.com/wp-content/uploads/2018/08/23155513/18927550-1024x776.png" />
+                <div className="Profile-block">
+                <img onClick={ProfileOpen} src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" className={status === "Loggedin" ? "Profileimg-res" : "Profileimgres-hide"}></img>
                 <button className="BurgerBtn" onClick={OpenMenu}>{icon}</button>
+                </div>
             </div>
             <div className="menubar">
                 <ul className="menulist">
@@ -84,10 +101,12 @@ const MenuBar = () => {
                 <Link to="/Provider"><button className="hireButton">Provider Joining</button></Link>
                 <button className="hireButton">Hire Now</button>
                 <Link to="/Login"><button className={status === "Loggedin" ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
-                <button onClick={Logout} className={status === "Loggedin" ? "LogoutBtn" : "LogoutBtn-hide"}><i class="fa-solid fa-right-from-bracket"></i></button>
+                <img onClick={ProfileOpen} src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" className={status === "Loggedin" ? "Profileimg" : "Profileimg-hide"}></img>
             </div>
             <MenuList Open={Open} close={setOpen} />
-
+            
+        </div>
+        <Profile open={state} close={setState}/>
         </div>
     )
 }
@@ -748,4 +767,31 @@ const MenuList = ({ Open, Close }) => {
 
 }
 
-export { Category, Carosel, Ad, Popular, Join, Store, Testimonials, LatestNews, Subscribe, Footer, End, MenuList, Header, MenuBar }
+const Profile=({open,close})=>{
+    const Logout=()=>{
+        localStorage.clear()
+        window.location.href='/login'
+    }
+    if(!open) return null
+    else{
+        return(
+            <div className="Profile-menu">
+                <ul className="Profile-ul">
+                    <Link to='/Mydashboard'><li className="Profile-li">My Dashboard</li></Link>
+                    <li className="Profile-li2" onClick={Logout}><>Logout</><i class="fa-solid fa-right-from-bracket"></i></li>
+                </ul>
+            </div>
+        )
+    }
+    
+}
+
+const UserDashboard=()=>{
+    return(
+        <h1>User dashboard</h1>
+    )
+}
+
+
+
+export { Category, Carosel, Ad, Popular, Join, Store, Testimonials, LatestNews, Subscribe, Footer, End, MenuList, Header, MenuBar,UserDashboard }

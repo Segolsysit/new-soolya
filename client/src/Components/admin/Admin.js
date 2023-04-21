@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Admin.css"
+import {CategoryForm,Rejected_list,Orders} from './Categoryform';
+import DashBoard from './Dashboard';
 
 export const Admin = () => {
     const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
@@ -10,6 +12,12 @@ export const Admin = () => {
     const apassword = localStorage.getItem("adminpassword")
     const [orderdetails, setorderdetails] = useState([])
 // const [ss ,setSs] = useState(orderdetails.length);
+
+
+
+const [state,setState]=useState(false)
+const[Formnum,setFormnum]=useState(0)
+
 
     const getdata2 = () => {
         axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
@@ -79,8 +87,9 @@ export const Admin = () => {
                             <hr className="sidebar-divider my-0" />
     
                             {/* <!-- Nav Item - Dashboard --> */}
-                            <li className="nav-item active">
-                                <a className="nav-link" href="/admin">
+                            <li className="nav-item active" onClick={()=>{{setState(true)
+                            setFormnum(3)}}}>
+                                <a className="nav-link">
                                     <i className="fas fa-fw fa-tachometer-alt"></i>
                                     <span>Dashboard</span></a>
                             </li>
@@ -100,23 +109,24 @@ export const Admin = () => {
                             </div>
     
                             {/* <!-- Nav Item - Pages Collapse Menu --> */}
-                            <li className="nav-item">
-                                <a className="nav-link" href="/orders" onClick={()=> setorderdetails("")}>
+                            <li className="nav-item" onClick={()=>setFormnum(5)}>
+                                <a className="nav-link"  onClick={()=> setorderdetails("")}>
                                 <i class="fa-regular fa-link-horizontal"></i>
                                     <span>Orders
                                     <span className="badge badge-danger badge-counter">{orderdetails.length}</span>
                                         </span></a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapseTwo"
+                            <li className="nav-item" >
+                                <a className="nav-link collapsed"  data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                                     aria-expanded="true" aria-controls="collapseTwo">
                                     <i class="fa-solid fa-shapes"></i>
-                                    <span>Service Categories</span>
+                                    <span >Service Categories</span>
                                 </a>
-                                <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                                <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         {/* <h6 className="collapse-header">Custom Components:</h6> */}
-                                        <a className="collapse-item" href="/categorysetup">Category Setup</a>
+                                        <a className="collapse-item" onClick={()=>{setState(true)
+                            setFormnum(1)}}>Category Setup</a>
                                         <a className="collapse-item" href="/subcategorysetup">Sub Category Setup</a>
                                     </div>
                                 </div>
@@ -150,27 +160,29 @@ export const Admin = () => {
                             </div>
     
                             {/* <!-- Nav Item - Pages Collapse Menu --> */}
-                            <li className="nav-item">
-                                <a className="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapsePages1"
+                            <li className="nav-item" >
+                                <a className="nav-link collapsed"   data-bs-toggle="collapse" data-bs-target="#collapsePages1"
                                     aria-expanded="true" aria-controls="collapsePages1">
                                     <i className="fas fa-fw fa-user"></i>
                                     <span>SERVICE MAN</span>
                                 </a>
-                                <div id="collapsePages1" className="collapse" aria-labelledby="headingPages1" data-parent="#accordionSidebar">
+                                <div id="collapsePages1" className="collapse" aria-labelledby="headingPages1" data-bs-parent="#accordionSidebar">
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         {/* <h6 className="collapse-header">Login Screens:</h6> */}
-                                        <a className="collapse-item" href="/servicemanlist">Service Man List</a>
-                                        <a className="collapse-item" href="/rejectedlist">Rejected List</a>
+                                        <a className="collapse-item" onClick={()=>{
+                            setFormnum(2)}}>Service Man List</a>
+                                        <a className="collapse-item" onClick={()=>{
+                            setFormnum(4)}}>Rejected List</a>
                                     </div>
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapsePages"
+                                <a className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapsePages"
                                     aria-expanded="true" aria-controls="collapsePages">
                                     <i className="fas fa-fw fa-folder"></i>
                                     <span>Pages</span>
                                 </a>
-                                <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                                <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-bs-parent="#accordionSidebar">
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         <h6 className="collapse-header">Login Screens:</h6>
                                         <a className="collapse-item" href="/login.js">Login</a>
@@ -392,8 +404,8 @@ export const Admin = () => {
     
                                         {/* <!-- Nav Item - User Information --> */}
                                         <li className="nav-item dropdown no-arrow">
-                                            <a className="nav-link dropdown-toggle" href="/" id="userDropdown" role="button"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <a className="nav-link dropdown-toggle"  id="userDropdown" role="button"
+                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span className="mr-2 d-none d-lg-inline text-gray-600 small">Soolya Admin</span>
                                                 <img className="img-profile rounded-circle"
                                                     src="img/undraw_profile.svg"
@@ -415,7 +427,7 @@ export const Admin = () => {
                                                     Activity Log
                                                 </a>
                                                 <div className="dropdown-divider"></div>
-                                                <a className="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal">
+                                                <a className="dropdown-item" href="/" data-bs-toggle="modal" data-bs-target="#logoutModal">
                                                     <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                                     Logout
                                                 </a>
@@ -426,7 +438,11 @@ export const Admin = () => {
     
                                 </nav>
                                 {/* <!-- End of Topbar --> */}
-    
+
+                                <CategoryForm open={state} close={setState} FormNumber={Formnum} setNumber={setFormnum} />
+                                <DashBoard open={state} close={setState} formNumber={Formnum}/>
+                                <Rejected_list formNumber={Formnum}/>
+                                <Orders formNumber={Formnum}/>
     
                             </div>
                             {/* <!-- End of Main Content --> */}

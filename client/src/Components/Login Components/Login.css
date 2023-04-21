@@ -268,9 +268,58 @@ background: url("https://cdn.pixabay.com/photo/2017/10/11/11/43/multitasking-284
 
 }
 
-.Form-Provider{
 
+
+.input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
+
+
+.Form-forget{
+    display: flex;
+    justify-content: space-around;
+    /* align-items: center; */
+    flex-direction: column;
+    text-align: left;
+    gap: 50px;
+    padding: 30px;
+    width: 23rem;
+    
+    border-radius: 10px 0px 0px 10px;
+}
+
+.Forgrt-Label{
+    margin-bottom: -60px;
+    margin-left: 10px;
+    z-index: 2;
+    background-color: white;
+    width: fit-content;
+}
+
+.Forget-screen{
+    display: flex;
+    justify-content: center;
+}
+
+.forget-card{
+    display: flex;
+    margin: 150px;
+    justify-content: center;
+    box-shadow: 10px 10px 40px rgb(202, 226, 246);
+    width: fit-content;
+}
+
+.Image-forget{
+    background: url("https://img.freepik.com/free-vector/access-control-system-abstract-concept_335657-3180.jpg?w=1380&t=st=1682060673~exp=1682061273~hmac=544e27ea4f0e09b99e63a94a9f4b468f564e98e0ce1a5cb806e08a83207ea286") no-repeat center;
+    background-size: cover; 
+    padding: 20px;
+    border-radius: 0px 10px 10px 0px;
+    width: 23rem;
+    background-color: white;
+ 
+ }
 
 @media only screen and (max-width: 600px) {
 

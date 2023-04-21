@@ -105,7 +105,7 @@ const Login = () => {
                                 <input type="checkbox"/>
                                 <p className="Remember-ptag">Remember Me</p>
                             </div>
-                            <p className="Forget">Forget Password</p>
+                            <Link to='/ForgetPassword'><p className="Forget">Forget Password</p></Link>
                         </div>
                         <button className="Button-Signup">Login</button>
                         <div className="Already">
@@ -138,13 +138,20 @@ const Signup=()=>{
          const[Email,setEmail]=useState("")
          const[Password,setPassword]=useState("")
 
+
          const[errF,setF]=useState("")
          const[errL,setL]=useState("")
          const[errP,seterrP]=useState("")
          const[errEmail,setEE]=useState("")
          const[errPwd,setPwd]=useState("")
 
+<<<<<<< HEAD
 const Register= async(e)=>{
+=======
+
+
+const Register=(e)=>{
+>>>>>>> 3fb4f3a3a4a16d7e7406ada3391511851f3ebd57
     e.preventDefault()
     setF("")
     setL("")
@@ -231,7 +238,7 @@ const Register= async(e)=>{
                         <input className="Signup-Input" onChange={(e)=>setLame(e.target.value)}/>
                         <p className="Error-signup">{errL}</p>
                         <label className="Signup-Label">Phone Number</label>
-                        <input className="Signup-Input" onChange={(e)=>setP(e.target.value)}/>
+                        <input type="number" className="Signup-Input" onChange={(e)=>setP(e.target.value)}/>
                         <p className="Error-signup">{errP}</p>
                         <label className="Signup-Label">Email</label>
                         <input type="email" className="Signup-Input" onChange={(e)=>setEmail(e.target.value)}/>
@@ -456,5 +463,41 @@ const AdminLogin = () => {
     )
 }
 
+const ForgetPassword=()=>{
 
-export {Login,Signup,Provider,AdminLogin} 
+const ForgetPwd=()=>{
+    //your fun
+}
+
+    return(
+        <div>
+            <Header />
+            <MenuBar />
+            <div className="Forget-screen">
+            <div className="forget-card">
+                <div className="Form-div">
+                    <form className="Form-forget" onSubmit={ForgetPwd}>
+                    <div className="Signup-title">
+                            <h1 className="Signup-heading">Forget Password</h1>
+                        </div>
+                        
+                        <label className="Forgrt-Label">Enter your Email_id</label>
+                        <input className="Signup-Input" type='email'/>
+                        
+                        <button className="Button-Signup" type="submit">Change Password</button> 
+
+                    </form>
+                </div>
+                <div className="Image-forget">
+
+                </div>
+            </div>
+            </div>
+            <Footer/>
+            <End/>
+        </div>
+    )
+}
+
+
+export {Login,Signup,Provider,AdminLogin,ForgetPassword} 
