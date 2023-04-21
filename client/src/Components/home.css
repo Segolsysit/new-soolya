@@ -166,22 +166,23 @@ a{
     display: none;
 }
 
-.LogoutBtn{
-    background-color: white;
-    border-color: rgb(14, 150, 235) ;
-    border-style:solid;
-    border-radius: 5px;
-    border-width: 1.5px;
-    padding: 8px;
+.Profileimg{
+    aspect-ratio: 1/1;
+    width: 40px;
+    border-radius: 50%;
 }
 
-.LogoutBtn:hover{
+.Profileimg:hover{
     background-color:rgb(14, 150, 235) ;
     color: white;
     cursor:pointer;
 }
 
-.LogoutBtn-hide{
+.Profileimg-hide{
+    display: none;
+}
+
+.Profileimg-res{
     display: none;
 }
 
@@ -435,6 +436,72 @@ a{
     display: none;
 }
 
+.Menubar-outer{
+    position: sticky;
+    top: 0px;
+    z-index: 3;
+}
+
+.Profile-menu{
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 1rem;
+    left: 100%;
+    padding: 0px;
+    width: fit-content;
+    text-align: left;
+    margin-right: 10px;
+    background-color: rgb(245, 247, 248);
+    margin-bottom: -7.35%;
+    border-radius: 10px;
+    box-shadow: 0 0 30px;
+    z-index: 3;
+}
+
+.Profileimgres-hide{
+    display: none;
+}
+
+.Profile-ul{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+.Profile-ul>a{
+    text-decoration: none;
+}
+
+.Profile-li{
+    padding: 10px;
+    font-weight: 450;
+    font-size: 22px;
+    color: black;
+}
+
+.Profile-li2{
+    display: flex;
+    padding: 10px;
+    font-weight: 500;
+    font-size: 22px;
+    color: black;
+    align-items: center;
+    justify-content: space-between;
+}
+.Profile-li:hover{
+    background-color: dodgerblue;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px 10px 0px 0px;
+}
+.Profile-li2:hover{
+    background-color: dodgerblue;
+    color: white;
+    cursor: pointer;
+    border-radius: 0px 0px 10px 10px;
+}
+
+
 
 @media only screen and (max-width: 600px) {
 
@@ -587,6 +654,35 @@ a{
 
 .Time{
     display: none;
+}
+
+.Profileimg-res{
+    display: block;
+    aspect-ratio: 1/1;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.Profile-block{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.Profile-menu{
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 1rem;
+    left: 100%;
+    padding: 0px;
+    width: fit-content;
+    text-align: left;
+    margin-right: 10px;
+    background-color: rgb(245, 247, 248);
+    margin-bottom: -27%;
+    border-radius: 10px;
+    box-shadow: 0 0 30px;
+    z-index: 3;
 }
 
 }

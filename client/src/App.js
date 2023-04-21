@@ -15,6 +15,8 @@ import { ServiceDetails } from './Components/objects/servicepage/ServiceCard';
 import BookingPage from './Components/booking/booking';
 import Myorder from './Components/booking/myOrder';
 import Orders from './Components/admin/Orders';
+import Servicemanlist from './Components/admin/Servicemanlist';
+import { UserDashboard } from './Components/objects/objects';
 
 
 
@@ -35,7 +37,7 @@ function App() {
         <Route path='/AdminLogin' element={<AdminLogin/>}/>
         <Route path='/booking' element={<BookingPage/>}/>
         <Route path='/Myorder' element={<Myorder/>}/>
-        <Route path='/orders' element={<Orders/>}/>
+        <Route path='/Mydashboard' element={<UserDashboard/>}/>
       </Routes>
       </BrowserRouter>
      
