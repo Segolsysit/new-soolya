@@ -77,9 +77,9 @@ const MenuBar = () => {
         <div className="Menubar-outer">
         <div className="Titlebar-sticky">
             <div className="Logo">
-                <img className="LogoImage" src="https://cdn.logojoy.com/wp-content/uploads/2018/08/23155513/18927550-1024x776.png" />
+                <img className="LogoImage" alt="" src="https://cdn.logojoy.com/wp-content/uploads/2018/08/23155513/18927550-1024x776.png" />
                 <div className="Profile-block">
-                <img onClick={ProfileOpen} src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" className={status === "Loggedin" ? "Profileimg-res" : "Profileimgres-hide"}></img>
+                <img onClick={ProfileOpen} alt="" src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" className={status === "Loggedin" ? "Profileimg-res" : "Profileimgres-hide"}></img>
                 <button className="BurgerBtn" onClick={OpenMenu}>{icon}</button>
                 </div>
             </div>
@@ -101,7 +101,7 @@ const MenuBar = () => {
                 <Link to="/Provider"><button className="hireButton">Provider Joining</button></Link>
                 <button className="hireButton">Hire Now</button>
                 <Link to="/Login"><button className={status === "Loggedin" ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
-                <img onClick={ProfileOpen} src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" className={status === "Loggedin" ? "Profileimg" : "Profileimg-hide"}></img>
+                <img onClick={ProfileOpen} src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" className={status === "Loggedin" ? "Profileimg" : "Profileimg-hide"}></img>
             </div>
             <MenuList Open={Open} close={setOpen} />
             
@@ -150,7 +150,7 @@ const Category = () => {
             {data.map(item => {
                 return (
                     <Link to="/service"><div className="card">
-                        <img className="icons" src={item.src} />
+                        <img className="icons" src={item.src} alt="" />
                         <h3 className="main">{item.Name}</h3>
                         <p className="extras">{item.Extras}</p>
                     </div></Link>
@@ -224,7 +224,7 @@ const Carosel = () => {
         localStorage.removeItem("Category")
         localStorage.setItem("Category", Name)
         console.log(Name);
-        if (localStorage.getItem("Category") != "" && localStorage.getItem("Category") != "undefined") {
+        if (localStorage.getItem("Category") !=="" && localStorage.getItem("Category") !== "undefined") {
             window.location.href = "/ServiceDetails"
         }
     }, [Name])
@@ -281,7 +281,7 @@ const Carosel = () => {
                 {data.map(item => {
                     return (
                         <div className="Carosel-card" onClick={(e) => { setName(item.desc) }}>
-                            <img className="Carosel-img" src={item.mainImage} />
+                            <img className="Carosel-img" src={item.mainImage} alt=""/>
                             <div className="Card-body">
                                 <div className="Carosel-sec">
                                     <p className="Category-carosel">{item.Category}</p>
@@ -290,7 +290,7 @@ const Carosel = () => {
                                 <h1 className="Carosel-desc">{item.desc}</h1>
                                 <div className="Carosel-third">
                                     <div className="Profile">
-                                        <img className="profile-img" src={item.dp} />
+                                        <img className="profile-img" src={item.dp} alt=""/>
                                         <p className="Profile-Name">{item.Name}</p>
                                     </div>
                                 </div>
@@ -352,7 +352,7 @@ const Ad = () => {
         {data.map(item => {
             return (
                 <div className="inner-ad">
-                    <img className="Ad-img" src={item.image} />
+                    <img className="Ad-img" src={item.image} alt=""/>
                     <h2 className="Ad-count">{item.count}+</h2>
                     <h3 className="Ad-desc">{item.desc}</h3>
                 </div>
@@ -426,7 +426,7 @@ const Popular = () => {
             {data.map(item => {
                 return (
                     <div className="Carosel-card">
-                        <img className="Carosel-img" src={item.mainImage} />
+                        <img className="Carosel-img" src={item.mainImage} alt=""/>
                         <div className="Card-body">
                             <div className="Carosel-sec">
                                 <p className="Category-carosel">{item.Category}</p>
@@ -435,7 +435,7 @@ const Popular = () => {
                             <h1 className="Carosel-desc">{item.desc}</h1>
                             <div className="Carosel-third">
                                 <div className="Profile">
-                                    <img className="profile-img" src={item.dp} />
+                                    <img className="profile-img" src={item.dp} alt=""/>
                                     <p className="Profile-Name">{item.Name}</p>
                                 </div>
                             </div>
@@ -467,12 +467,12 @@ const Store = () => {
             <h1 className="Store-h1">App is available for free on Playstore & Appstore </h1>
             <p className="Store-p">Get the latest resources for downloading and enjoy your life</p>
             <div className="Store-btn">
-                <button className="Store-button"><img src="https://www.freepnglogos.com/uploads/google-play-png-logo/google-play-arrow-png-logo-8.png" className="Platform-logo" /><div className="Btn-inside"><h4 className="h4btn">Available on</h4><h2 className="h2btn">Google Play</h2></div></button>
-                <button className="Store-button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/App_Store_%28iOS%29.svg/1024px-App_Store_%28iOS%29.svg.png" className="Platform-logo" /><div className="Btn-inside"><h4 className="h4btn">Available on</h4><h2 className="h2btn">App Store</h2></div></button>
+                <button className="Store-button"><img src="https://www.freepnglogos.com/uploads/google-play-png-logo/google-play-arrow-png-logo-8.png" className="Platform-logo" alt=""/><div className="Btn-inside"><h4 className="h4btn">Available on</h4><h2 className="h2btn">Google Play</h2></div></button>
+                <button className="Store-button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/App_Store_%28iOS%29.svg/1024px-App_Store_%28iOS%29.svg.png" alt="" className="Platform-logo" /><div className="Btn-inside"><h4 className="h4btn">Available on</h4><h2 className="h2btn">App Store</h2></div></button>
             </div>
         </div>
         <div className="Store-img">
-            <img className="Store-img" src="https://static.vecteezy.com/system/resources/previews/008/850/474/original/3d-render-mobile-phone-png.png" />
+            <img className="Store-img" src="https://static.vecteezy.com/system/resources/previews/008/850/474/original/3d-render-mobile-phone-png.png" alt=""/>
         </div>
     </div>)
 }
@@ -564,7 +564,7 @@ const Testimonials = () => {
                                 <p className="Testi-Review">{item.Review}</p>
                             </div>
                             <div className="Testi-profile">
-                                <img src={item.img} className="Profile-img" />
+                                <img src={item.img} className="Profile-img" alt=""/>
                                 <div className="Profile-info">
                                     <h3 className="Testi-name">{item.Name}</h3>
                                     <p className="Testi-work">{item.Work}</p>
@@ -583,7 +583,7 @@ const Testimonials = () => {
                                 <p className="Testi-Review">{item.Review}</p>
                             </div>
                             <div className="Testi-profile">
-                                <img src={item.img} className="Profile-img" />
+                                <img src={item.img} className="Profile-img" alt=""/>
                                 <div className="Profile-info">
                                     <h3 className="Testi-name">{item.Name}</h3>
                                     <p className="Testi-work">{item.Work}</p>
@@ -632,7 +632,7 @@ const LatestNews = () => {
                     data.map(item => {
                         return (
                             <div className="NewsCard">
-                                <img src={item.img} className="Carosel-img" />
+                                <img src={item.img} className="Carosel-img" alt=""/>
                                 <div className="Newscard-body">
                                     <div className="News-card2">
                                         <p><i class="fa-light fa-user"> {item.User}</i></p>

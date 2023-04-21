@@ -327,7 +327,9 @@ input::-webkit-inner-spin-button {
         display: none;
     }
     
-
+    .Image-forget{
+        display: none;
+    }
     
     .Login-content{
         display: flex;

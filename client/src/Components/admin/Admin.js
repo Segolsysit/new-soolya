@@ -134,7 +134,7 @@ const[Formnum,setFormnum]=useState(0)
     
                             {/* <!-- Nav Item - Utilities Collapse Menu --> */}
                             <li className="nav-item">
-                                <a className="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapseUtilities"
+                                <a className="nav-link collapsed"  data-bs-toggle="collapse" data-bs-target="#collapseUtilities"
                                     aria-expanded="true" aria-controls="collapseUtilities">
                                     <i className="fas fa-fw fa-wrench"></i>
                                     <span>Services</span>

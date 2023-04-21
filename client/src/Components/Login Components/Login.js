@@ -458,9 +458,24 @@ const AdminLogin = () => {
 }
 
 const ForgetPassword=()=>{
+const[Email,setEmail]=useState("")
+const[err,setErr]=useState("")
 
-const ForgetPwd=()=>{
-    //your fun
+const ForgetPwd=(e)=>{
+    
+    e.preventDefault()
+    setErr("")
+
+    var atposition=Email.indexOf("@")
+    var dotposition=Email.lastIndexOf("."); 
+    if(Email===""||Email===null){
+        setErr("Enter your Mail_id")
+    }
+    if (atposition<1 || dotposition<atposition+2 || dotposition+2>=Email.length){  
+        setErr("Please enter a valid e-mail address");  
+        return false;  
+        }  
+      
 }
 
     return(
@@ -476,8 +491,8 @@ const ForgetPwd=()=>{
                         </div>
                         
                         <label className="Forgrt-Label">Enter your Email_id</label>
-                        <input className="Signup-Input" type='email'/>
-                        
+                        <input className="Signup-Input" type='email' onChange={(e)=>{setEmail(e.target.value)}}/>
+                        <p style={{color:"red",margin:'0px',padding:'0px'}}>{err}</p>
                         <button className="Button-Signup" type="submit">Change Password</button> 
 
                     </form>
