@@ -461,9 +461,12 @@ const ForgetPassword=()=>{
 const[Email,setEmail]=useState("")
 const[err,setErr]=useState("")
 
-const ForgetPwd=(e)=>{
+const [ForgetEmail,setForgetEmail] = useState("")
+
     
-    e.preventDefault()
+    
+const ForgetPwd=(event)=>{
+    event.preventDefault();
     setErr("")
 
     var atposition=Email.indexOf("@")
@@ -471,15 +474,12 @@ const ForgetPwd=(e)=>{
     if(Email===""||Email===null){
         setErr("Enter your Mail_id")
     }
-    if (atposition<1 || dotposition<atposition+2 || dotposition+2>=Email.length){  
+     else if (atposition<1 || dotposition<atposition+2 || dotposition+2>=Email.length){  
         setErr("Please enter a valid e-mail address");  
         return false;  
         }  
       
-    const [ForgetEmail,setForgetEmail] = useState("")
 
-const ForgetPwd=(event)=>{
-    event.preventDefault();
     axios.post("http://localhost:3001/authUser/forgot_password",{
         email: ForgetEmail
      },{
@@ -510,7 +510,6 @@ const ForgetPwd=(event)=>{
                         <label className="Forgrt-Label">Enter your Email_id</label>
                         <input className="Signup-Input" type='email' onChange={(e)=>{setEmail(e.target.value)}}/>
                         <p style={{color:"red",margin:'0px',padding:'0px'}}>{err}</p>
-                        <input className="Signup-Input" type='email' onChange={(e)=>setForgetEmail(e.target.value)}/>
                         
                         <button className="Button-Signup" type="submit">Change Password</button> 
 
@@ -527,5 +526,5 @@ const ForgetPwd=(event)=>{
     )
 }
 
-}
+
 export {Login,Signup,Provider,AdminLogin,ForgetPassword} 
