@@ -145,13 +145,7 @@ const Signup=()=>{
          const[errEmail,setEE]=useState("")
          const[errPwd,setPwd]=useState("")
 
-<<<<<<< HEAD
 const Register= async(e)=>{
-=======
-
-
-const Register=(e)=>{
->>>>>>> 3fb4f3a3a4a16d7e7406ada3391511851f3ebd57
     e.preventDefault()
     setF("")
     setL("")
