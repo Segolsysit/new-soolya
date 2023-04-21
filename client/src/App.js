@@ -15,14 +15,11 @@ import { ServiceDetails } from './Components/objects/servicepage/ServiceCard';
 import BookingPage from './Components/booking/booking';
 import Myorder from './Components/booking/myOrder';
 import Orders from './Components/admin/Orders';
-<<<<<<< HEAD
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
-=======
-import Servicemanlist from './Components/admin/Servicemanlist';
+// import Servicemanlist from './Components/admin/Servicemanlist';
 import { UserDashboard } from './Components/objects/objects';
 
->>>>>>> 3fb4f3a3a4a16d7e7406ada3391511851f3ebd57
 
 
 
