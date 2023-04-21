@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 const Home=()=>{
     const[count0,setCount0]=useState(0)
     useEffect(()=>{
-        if(count0<43434){
+        if(count0<1000){
         setCount0(count0+2)}
         else{
             setCount0(count0+0)
