@@ -141,7 +141,7 @@ const [serviceName,setServiceName]=useState("")
 
 useEffect(()=>{
     localStorage.setItem("Category",serviceName)
-    if(localStorage.getItem("Category")!=""){
+    if(localStorage.getItem("Category")!==""){
         window.location.href="/ServiceDetails"
     }
 },[serviceName])
@@ -158,7 +158,7 @@ useEffect(()=>{
                     if(service==="Select"||service===""){
                         return(
                             <div onClick={()=>{setServiceName(item.desc)} } className="Carosel-card">
-                                    <img className="Carosel-img" src={item.mainImage}/>
+                                    <img className="Carosel-img" src={item.mainImage} alt=""/>
                                     <div className="Card-body">
                                         <div className="Carosel-sec">
                                             <p className="Category-carosel">{item.Category}</p>
@@ -181,7 +181,7 @@ useEffect(()=>{
                         if(item.Category===service){
                             return(
                                 <div onClick={()=>{setServiceName(item.desc)} } className="Carosel-card">
-                                        <img className="Carosel-img" src={item.mainImage}/>
+                                        <img className="Carosel-img" src={item.mainImage} alt=""/>
                                         <div className="Card-body">
                                             <div className="Carosel-sec">
                                                 <p className="Category-carosel">{item.Category}</p>
@@ -190,7 +190,7 @@ useEffect(()=>{
                                             <h1 className="Carosel-desc">{item.desc}</h1>
                                             <div className="Carosel-third">
                                                 <div className="Profile">
-                                                    <img className="profile-img" src={item.dp}/>
+                                                    <img className="profile-img" src={item.dp} alt=""/>
                                                     <p className="Profile-Name">{item.Name}</p>
                                                 </div>
                                             </div>
@@ -350,7 +350,7 @@ const Booking=()=>{
             
         {data.map(item=>{
             if(item.Name===FetchName){
-                 if(Num==1){
+                 if(Num===1){
                     for(var i=1;i<=item.Rating;i++){
                         console.log(item.Rating);
                         rating.push(<i class="fa-solid fa-star"/>)
@@ -363,16 +363,16 @@ const Booking=()=>{
                 return(
             <div className="Main-panel">
             <div className="left-panel">
-                <img className="Ser-Image" src={item.Image}/>
+                <img className="Ser-Image" src={item.Image} alt=""/>
                 <div className="Content-div">
                     <h1 className="Heading">{item.Name}</h1>
                     <div className="Button-flex">
-                        <p className={index==0 ? "active":"Details-button" } onClick={()=>setIndex(0)}>Description</p>
-                        <p className={index==1 ? "active":"Details-button" } onClick={()=>setIndex(1)}>Availability</p>
-                        <p className={index==2 ? "active":"Details-button" } onClick={()=>setIndex(2)}>Client review</p>
+                        <p className={index===0 ? "active":"Details-button" } onClick={()=>setIndex(0)}>Description</p>
+                        <p className={index===1 ? "active":"Details-button" } onClick={()=>setIndex(1)}>Availability</p>
+                        <p className={index===2 ? "active":"Details-button" } onClick={()=>setIndex(2)}>Client review</p>
                     </div>
                     {/* section 1 */}
-                    <div hidden={index!=0} >
+                    <div hidden={index!==0} >
                         <div className="Section1">
                     <p className="subHeading">{item.Desc}</p>
                     <h3 className="Side-heading">What you will get</h3>
@@ -394,7 +394,7 @@ const Booking=()=>{
                     </div>
                     </div>
                     {/* section 2 */}
-                    <div hidden={index!=1}>
+                    <div hidden={index!==1}>
                         <h2 className="Side-heading">Service Availability</h2>
                         <div className="Availability">
                         <ul className="Section2-days">
@@ -419,7 +419,7 @@ const Booking=()=>{
 
                             {/* section 3 */}
 
-                    <div hidden={index!=2}>
+                    <div hidden={index!==2}>
                             <div className="Review-section">
                                 <h2 className="Side-heading">Write your Review</h2>
                                 <p>Review</p>
@@ -445,7 +445,7 @@ const Booking=()=>{
                         <button className="Book-btn" onClick={Booking}>Book Now</button>
                 </div>
                 <div className="Vendor-detail">
-                    <img className="vendorimage" src={item.vendorimg}/>
+                    <img className="vendorimage" src={item.vendorimg} alt=""/>
                     <h2 className="Vendor-name">{item.vendorName}</h2>
                     <p className="vendor-date">Member since {item.Joiningyear}</p>
                     <div className="Contacts-div">

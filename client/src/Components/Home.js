@@ -13,7 +13,7 @@ const Home=()=>{
         else{
             setCount0(count0+0)
         }
-    })
+    },[count0])
     const { pathname } = useLocation();
         useEffect(() => {
         window.scrollTo(0, 0);
@@ -60,9 +60,9 @@ const Home=()=>{
 
             </div>
             <div className="CoverPhoto">
-                <img src="https://images.pexels.com/photos/3806288/pexels-photo-3806288.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" className="coverimage1"/>
-                <img src="https://images.pexels.com/photos/8005397/pexels-photo-8005397.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" className="coverimage2"/>
-                <img src="https://images.pexels.com/photos/3438708/pexels-photo-3438708.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" className="coverimage3"/>
+                <img src="https://images.pexels.com/photos/3806288/pexels-photo-3806288.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" className="coverimage1"/>
+                <img src="https://images.pexels.com/photos/8005397/pexels-photo-8005397.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" className="coverimage2"/>
+                <img src="https://images.pexels.com/photos/3438708/pexels-photo-3438708.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" className="coverimage3"/>
                 <div className="secondarycontent">
                     <h2 className="secondary">{count0}</h2>
                     <h4 className="teriary">Service Sold</h4>

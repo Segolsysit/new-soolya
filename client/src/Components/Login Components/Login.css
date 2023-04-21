@@ -46,13 +46,22 @@ a{
 
 
 .Image-div{
-   background: url("https://cdn.pixabay.com/photo/2014/11/02/10/41/plane-513641_1280.jpg") no-repeat center;
+   background: url("https://img.freepik.com/free-vector/phishing-account-with-laptop_23-2148555135.jpg?w=2000&t=st=1682065382~exp=1682065982~hmac=5920fcd0b91a76d50cbfedd298ecb6e0967a4447be0ee952c34c498297b3f45c") no-repeat center;
    background-size: cover; 
    padding: 20px;
    border-radius: 0px 10px 10px 0px;
    width: 23rem;
 
 }
+
+.Image-signup{
+    background: url("https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-83.jpg?w=1380&t=st=1682065556~exp=1682066156~hmac=8244e34635e42c2b71876954eaabae1c7ab8a488a4907f27dc1d795a8041dc4e") no-repeat center;
+    background-size: cover; 
+    padding: 20px;
+    border-radius: 0px 10px 10px 0px;
+    width: 23rem;
+ 
+ }
 
 .Image-divAdmin{
 background: url("https://cdn.pixabay.com/photo/2017/10/11/11/43/multitasking-2840792_1280.jpg") no-repeat center;

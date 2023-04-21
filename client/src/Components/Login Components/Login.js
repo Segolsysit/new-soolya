@@ -248,7 +248,7 @@ const Register= async(e)=>{
 
                     </form>
                 </div>
-                <div className="Image-div">
+                <div className="Image-signup">
 
                 </div>
             </div>
