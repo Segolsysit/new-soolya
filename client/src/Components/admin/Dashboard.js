@@ -72,7 +72,7 @@ function DashBoard({open,close,formNumber}){
       updateCount();
     });
 if(!open) return null
-    else if(open&&formNumber==3)
+    else if(open&&formNumber===3)
     {
         return(
             <div>

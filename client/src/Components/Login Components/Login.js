@@ -5,11 +5,11 @@ import './Login.css'
 import { useLocation,useNavigate } from "react-router-dom";
 import { useEffect, } from "react";
 import iou from "./dummy.jpg"
-
+import axios from "axios"
+import { toast } from "react-toastify";
 
 const Login = () => {
-    var UserId="kumar@gmail.com"
-    var Pwd="Kumar@123"
+   
     const Navigate=useNavigate();
     const { pathname } = useLocation();
         useEffect(() => {
@@ -35,9 +35,13 @@ const Login = () => {
     const [errLogin,setErrlogin]=useState("")
     const [errPwd,seterrPwd]=useState("")
 
-    
+    const generateError = (error) =>
+    toast.error(error, {
+      position: "bottom-right",
+    });
 
-    function LoginFun(e){
+
+   async function LoginFun(e){
         e.preventDefault()
         setErrlogin("")
         seterrPwd("")
@@ -45,21 +49,30 @@ const Login = () => {
             setErrlogin("Please enter your LoginId")
         }
 
-        if(Password===""||Password===null){
+        else if(Password===""||Password===null){
             seterrPwd("Please enter your Password")
         }
-
-        if(LoginId===UserId&&Password===Pwd){
-            localStorage.setItem("Status","Loggedin")
-            localStorage.setItem("UserId",LoginId)
-            return Navigate(-1)
-        }
-
-        if(LoginId!==UserId&&LoginId!==""){
-            setErrlogin("No user found")
-        }
-        if(Password!==Pwd&&Password!==""){
-            seterrPwd("Incorrect Password")
+        else{
+            const { data } = await axios.post(
+                "http://localhost:3001/authUser/login",
+                {
+                 email:LoginId,
+                 password:Password
+                },
+                { withCredentials: true }
+              );
+              if (data) {
+                if (data.errors) {
+                  const { email, password } = data.errors;
+                  if (email) generateError(email);
+                  else if (password) generateError(password);
+                } else {
+                    toast.info("successfully loggedin", {
+                        position: "top-center",
+                      });
+                      Navigate("/");
+                }
+              }
         }
     }
 
@@ -92,7 +105,7 @@ const Login = () => {
                                 <input type="checkbox"/>
                                 <p className="Remember-ptag">Remember Me</p>
                             </div>
-                            <p className="Forget">Forget Password</p>
+                            <Link to='/ForgetPassword'><p className="Forget">Forget Password</p></Link>
                         </div>
                         <button className="Button-Signup">Login</button>
                         <div className="Already">
@@ -113,6 +126,7 @@ const Login = () => {
 }
 
 const Signup=()=>{
+     const Navigate=useNavigate();
     const { pathname } = useLocation();
         useEffect(() => {
         window.scrollTo(0, 0);
@@ -131,9 +145,7 @@ const Signup=()=>{
          const[errEmail,setEE]=useState("")
          const[errPwd,setPwd]=useState("")
 
-
-
-const Register=(e)=>{
+const Register= async(e)=>{
     e.preventDefault()
     setF("")
     setL("")
@@ -145,20 +157,56 @@ const Register=(e)=>{
     if(First===""||First===null){
         setF("Enter your First Name")
     }
-    if(Last===""||Last===null){
+    else if(Last===""||Last===null){
         setL("Enter your Last Name")
     }
-    if(Phone===""||Phone===null){
+    else if(Phone===""||Phone===null){
         seterrP("Enter your phone number")
     }
     else if(Phone.length<10||Phone.length>10){
         seterrP("Enter your correct phone number")
     }
-    if(Email===""||Email===null){
+    else if(Email===""||Email===null){
         setEE("Enter your Email")
     }
-    if(Password===""||Password===null){
+   else if(Password===""||Password===null){
         setPwd("Enter your password")
+    }
+    else{
+
+        const { data } = await axios.post(
+            "http://localhost:3001/authUser/register",
+            {
+              firstName:First,
+              lastName:Last,
+              PhoneNumber:Phone,
+              email:Email,
+              password:Password
+  
+            },
+            { withCredentials: true }
+          )
+          if (data) {
+            if (data.errors) {
+              const { email, password } = data.errors;
+              if (email){
+                  toast.error(email, {
+                      position: "bottom-right",
+                    });
+                 }
+              else if (password) {
+                  toast.error(password, {
+                      position: "bottom-right",
+                    });
+              }
+                  
+            } else {
+              toast.info("successfully registerd", {
+                  position: "top-center",
+                });
+                // Navigate("/sign_in");
+            }
+          }
     }
 }
 
@@ -200,7 +248,7 @@ const Register=(e)=>{
 
                     </form>
                 </div>
-                <div className="Image-div">
+                <div className="Image-signup">
 
                 </div>
             </div>
@@ -409,5 +457,74 @@ const AdminLogin = () => {
     )
 }
 
+const ForgetPassword=()=>{
+const[Email,setEmail]=useState("")
+const[err,setErr]=useState("")
 
-export {Login,Signup,Provider,AdminLogin} 
+const [ForgetEmail,setForgetEmail] = useState("")
+
+    
+    
+const ForgetPwd=(event)=>{
+    event.preventDefault();
+    setErr("")
+
+    var atposition=Email.indexOf("@")
+    var dotposition=Email.lastIndexOf("."); 
+    if(Email===""||Email===null){
+        setErr("Enter your Mail_id")
+    }
+     else if (atposition<1 || dotposition<atposition+2 || dotposition+2>=Email.length){  
+        setErr("Please enter a valid e-mail address");  
+        return false;  
+        }  
+      
+
+    axios.post("http://localhost:3001/authUser/forgot_password",{
+        email: ForgetEmail
+     },{
+         method:"POST",
+         crossDomain:true,
+         withCredentials : true  
+           })
+           .then((res) =>
+           { 
+             console.log(res ,"userRegister")
+           alert(res.data.status)
+         }
+           )
+}
+
+    return(
+        <div>
+            <Header />
+            <MenuBar />
+            <div className="Forget-screen">
+            <div className="forget-card">
+                <div className="Form-div">
+                    <form className="Form-forget" onSubmit={ForgetPwd}>
+                    <div className="Signup-title">
+                            <h1 className="Signup-heading">Forget Password</h1>
+                        </div>
+                        
+                        <label className="Forgrt-Label">Enter your Email_id</label>
+                        <input className="Signup-Input" type='email' onChange={(e)=>{setEmail(e.target.value)}}/>
+                        <p style={{color:"red",margin:'0px',padding:'0px'}}>{err}</p>
+                        
+                        <button className="Button-Signup" type="submit">Change Password</button> 
+
+                    </form>
+                </div>
+                <div className="Image-forget">
+
+                </div>
+            </div>
+            </div>
+            <Footer/>
+            <End/>
+        </div>
+    )
+}
+
+
+export {Login,Signup,Provider,AdminLogin,ForgetPassword} 

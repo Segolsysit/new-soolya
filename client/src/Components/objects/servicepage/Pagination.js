@@ -20,7 +20,7 @@ const Pagination=({TotalPost,postPer,Navigate,Color,currentPage})=>{
             {PageNumber.map((item,index)=>{
                 return(
                     
-                        <button className={item==currentPage ?'active':'' } key={index}  onClick={()=>Navigate(item)}>{item}</button>
+                        <button className={item===currentPage ?'active':'' } key={index}  onClick={()=>Navigate(item)}>{item}</button>
                 )
             })}
         </div>

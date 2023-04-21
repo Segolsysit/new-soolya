@@ -1,33 +1,37 @@
 
-// hello world
-
-//My commit
-
+import React, { lazy, Suspense } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from './Components/Home';
-import Service from './Components/objects/servicepage/service';
+// import Service from './Components/objects/servicepage/service';
 import { useEffect } from "react";
-import {Login,Signup,Provider, AdminLogin} from './Components/Login Components/Login';
+import {Login,Signup,Provider, AdminLogin,ForgetPassword} from './Components/Login Components/Login';
 import Admin from './Components/admin/Admin';
 import { ServiceDetails } from './Components/objects/servicepage/ServiceCard';
 import BookingPage from './Components/booking/booking';
 import Myorder from './Components/booking/myOrder';
 import Orders from './Components/admin/Orders';
-import Servicemanlist from './Components/admin/Servicemanlist';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"
+// import Servicemanlist from './Components/admin/Servicemanlist';
 import { UserDashboard } from './Components/objects/objects';
-
-
+const Home = lazy(() => import('./Components/Home'));
+const Service = lazy(() => import('./Components/objects/servicepage/service'));
 
 
 function App() {
   
   return (
     <div className="App">
+       <ToastContainer/>
+      <Suspense fallback={<h1>Loading...</h1>}>
+
       <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home/>}/>
+      <Route path='/' element={<Home/>}/>
+        {/* <Component2 /> */}
+    
+        
         <Route path='/service' element={<Service/>}/>
         <Route path='/Login' element={<Login/>}/>
         <Route path='/Signup' element={<Signup/>}/>
@@ -38,8 +42,10 @@ function App() {
         <Route path='/booking' element={<BookingPage/>}/>
         <Route path='/Myorder' element={<Myorder/>}/>
         <Route path='/Mydashboard' element={<UserDashboard/>}/>
+        <Route path='/ForgetPassword' element={<ForgetPassword/>}/>
       </Routes>
       </BrowserRouter>
+      </Suspense>
      
       
     </div>
