@@ -161,7 +161,7 @@ const[Formnum,setFormnum]=useState(0)
     
                             {/* <!-- Nav Item - Pages Collapse Menu --> */}
                             <li className="nav-item" >
-                                <a className="nav-link collapsed"   data-bs-toggle="collapse" data-target="#collapsePages1"
+                                <a className="nav-link collapsed"   data-bs-toggle="collapse" data-bs-target="#collapsePages1"
                                     aria-expanded="true" aria-controls="collapsePages1">
                                     <i className="fas fa-fw fa-user"></i>
                                     <span>SERVICE MAN</span>
@@ -169,7 +169,7 @@ const[Formnum,setFormnum]=useState(0)
                                 <div id="collapsePages1" className="collapse" aria-labelledby="headingPages1" data-bs-parent="#accordionSidebar">
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         {/* <h6 className="collapse-header">Login Screens:</h6> */}
-                                        <a className="collapse-item" onClick={()=>{setState(true)
+                                        <a className="collapse-item" onClick={()=>{
                             setFormnum(2)}}>Service Man List</a>
                                         <a className="collapse-item" href="/rejectedlist">Rejected List</a>
                                     </div>
