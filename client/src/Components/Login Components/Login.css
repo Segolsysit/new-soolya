@@ -286,7 +286,7 @@ input::-webkit-inner-spin-button {
     gap: 50px;
     padding: 30px;
     width: 23rem;
-    box-shadow: 10px 10px 40px rgb(202, 226, 246);
+    
     border-radius: 10px 0px 0px 10px;
 }
 
@@ -298,11 +298,28 @@ input::-webkit-inner-spin-button {
     width: fit-content;
 }
 
+.Forget-screen{
+    display: flex;
+    justify-content: center;
+}
+
 .forget-card{
     display: flex;
     margin: 150px;
     justify-content: center;
+    box-shadow: 10px 10px 40px rgb(202, 226, 246);
+    width: fit-content;
 }
+
+.Image-forget{
+    background: url("https://img.freepik.com/free-vector/access-control-system-abstract-concept_335657-3180.jpg?w=1380&t=st=1682060673~exp=1682061273~hmac=544e27ea4f0e09b99e63a94a9f4b468f564e98e0ce1a5cb806e08a83207ea286") no-repeat center;
+    background-size: cover; 
+    padding: 20px;
+    border-radius: 0px 10px 10px 0px;
+    width: 23rem;
+    background-color: white;
+ 
+ }
 
 @media only screen and (max-width: 600px) {
 

@@ -419,7 +419,7 @@ const ForgetPwd=()=>{
         <div>
             <Header />
             <MenuBar />
-            
+            <div className="Forget-screen">
             <div className="forget-card">
                 <div className="Form-div">
                     <form className="Form-forget" onSubmit={ForgetPwd}>
@@ -434,9 +434,10 @@ const ForgetPwd=()=>{
 
                     </form>
                 </div>
-                <div className="Image-div">
+                <div className="Image-forget">
 
                 </div>
+            </div>
             </div>
             <Footer/>
             <End/>
