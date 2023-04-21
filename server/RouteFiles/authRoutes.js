@@ -125,7 +125,7 @@ auth_router.post("/", (req, res, next) => {
       const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
         expiresIn: "5m",
       });
-      const link = `http://localhost:3001/auth_router/reset-password/${oldUser._id}/${token}`;
+      const link = `http://localhost:3001/authUser/reset-password/${oldUser._id}/${token}`;
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         host:  "smtp.ethereal.email",

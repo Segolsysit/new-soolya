@@ -5,11 +5,11 @@ import './Login.css'
 import { useLocation,useNavigate } from "react-router-dom";
 import { useEffect, } from "react";
 import iou from "./dummy.jpg"
-
+import axios from "axios"
+import { toast } from "react-toastify";
 
 const Login = () => {
-    var UserId="kumar@gmail.com"
-    var Pwd="Kumar@123"
+   
     const Navigate=useNavigate();
     const { pathname } = useLocation();
         useEffect(() => {
@@ -35,9 +35,13 @@ const Login = () => {
     const [errLogin,setErrlogin]=useState("")
     const [errPwd,seterrPwd]=useState("")
 
-    
+    const generateError = (error) =>
+    toast.error(error, {
+      position: "bottom-right",
+    });
 
-    function LoginFun(e){
+
+   async function LoginFun(e){
         e.preventDefault()
         setErrlogin("")
         seterrPwd("")
@@ -45,21 +49,30 @@ const Login = () => {
             setErrlogin("Please enter your LoginId")
         }
 
-        if(Password===""||Password===null){
+        else if(Password===""||Password===null){
             seterrPwd("Please enter your Password")
         }
-
-        if(LoginId===UserId&&Password===Pwd){
-            localStorage.setItem("Status","Loggedin")
-            localStorage.setItem("UserId",LoginId)
-            return Navigate(-1)
-        }
-
-        if(LoginId!==UserId&&LoginId!==""){
-            setErrlogin("No user found")
-        }
-        if(Password!==Pwd&&Password!==""){
-            seterrPwd("Incorrect Password")
+        else{
+            const { data } = await axios.post(
+                "http://localhost:3001/authUser/login",
+                {
+                 email:LoginId,
+                 password:Password
+                },
+                { withCredentials: true }
+              );
+              if (data) {
+                if (data.errors) {
+                  const { email, password } = data.errors;
+                  if (email) generateError(email);
+                  else if (password) generateError(password);
+                } else {
+                    // toast.info("successfully loggedin", {
+                    //     position: "top-center",
+                    //   });
+                //   navigate("/");
+                }
+              }
         }
     }
 
@@ -113,6 +126,7 @@ const Login = () => {
 }
 
 const Signup=()=>{
+     const Navigate=useNavigate();
     const { pathname } = useLocation();
         useEffect(() => {
         window.scrollTo(0, 0);
@@ -130,7 +144,7 @@ const Signup=()=>{
          const[errEmail,setEE]=useState("")
          const[errPwd,setPwd]=useState("")
 
-const Register=(e)=>{
+const Register= async(e)=>{
     e.preventDefault()
     setF("")
     setL("")
@@ -142,20 +156,56 @@ const Register=(e)=>{
     if(First===""||First===null){
         setF("Enter your First Name")
     }
-    if(Last===""||Last===null){
+    else if(Last===""||Last===null){
         setL("Enter your Last Name")
     }
-    if(Phone===""||Phone===null){
+    else if(Phone===""||Phone===null){
         seterrP("Enter your phone number")
     }
     else if(Phone.length<10||Phone.length>10){
         seterrP("Enter your correct phone number")
     }
-    if(Email===""||Email===null){
+    else if(Email===""||Email===null){
         setEE("Enter your Email")
     }
-    if(Password===""||Password===null){
+   else if(Password===""||Password===null){
         setPwd("Enter your password")
+    }
+    else{
+
+        const { data } = await axios.post(
+            "http://localhost:3001/authUser/register",
+            {
+              firstName:First,
+              lastName:Last,
+              PhoneNumber:Phone,
+              email:Email,
+              password:Password
+  
+            },
+            { withCredentials: true }
+          )
+          if (data) {
+            if (data.errors) {
+              const { email, password } = data.errors;
+              if (email){
+                  toast.error(email, {
+                      position: "bottom-right",
+                    });
+                 }
+              else if (password) {
+                  toast.error(password, {
+                      position: "bottom-right",
+                    });
+              }
+                  
+            } else {
+              toast.info("successfully registerd", {
+                  position: "top-center",
+                });
+                // Navigate("/sign_in");
+            }
+          }
     }
 }
 

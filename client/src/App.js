@@ -10,7 +10,8 @@ import { ServiceDetails } from './Components/objects/servicepage/ServiceCard';
 import BookingPage from './Components/booking/booking';
 import Myorder from './Components/booking/myOrder';
 import Orders from './Components/admin/Orders';
-
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"
 
 
 
@@ -18,6 +19,7 @@ function App() {
   
   return (
     <div className="App">
+       <ToastContainer/>
       <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home/>}/>
