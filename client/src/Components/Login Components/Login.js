@@ -461,6 +461,7 @@ const ForgetPassword=()=>{
 const[Email,setEmail]=useState("")
 const[err,setErr]=useState("")
 
+<<<<<<< HEAD
 const ForgetPwd=(e)=>{
     
     e.preventDefault()
@@ -476,6 +477,25 @@ const ForgetPwd=(e)=>{
         return false;  
         }  
       
+=======
+    const [ForgetEmail,setForgetEmail] = useState("")
+
+const ForgetPwd=(event)=>{
+    event.preventDefault();
+    axios.post("http://localhost:3001/authUser/forgot_password",{
+        email: ForgetEmail
+     },{
+         method:"POST",
+         crossDomain:true,
+         withCredentials : true  
+           })
+           .then((res) =>
+           { 
+             console.log(res ,"userRegister")
+           alert(res.data.status)
+         }
+           )
+>>>>>>> ea15c6682dbcf53a80143c669762442c8b2289a4
 }
 
     return(
@@ -491,8 +511,13 @@ const ForgetPwd=(e)=>{
                         </div>
                         
                         <label className="Forgrt-Label">Enter your Email_id</label>
+<<<<<<< HEAD
                         <input className="Signup-Input" type='email' onChange={(e)=>{setEmail(e.target.value)}}/>
                         <p style={{color:"red",margin:'0px',padding:'0px'}}>{err}</p>
+=======
+                        <input className="Signup-Input" type='email' onChange={(e)=>setForgetEmail(e.target.value)}/>
+                        
+>>>>>>> ea15c6682dbcf53a80143c669762442c8b2289a4
                         <button className="Button-Signup" type="submit">Change Password</button> 
 
                     </form>
