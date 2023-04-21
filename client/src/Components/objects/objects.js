@@ -788,7 +788,14 @@ const Profile=({open,close})=>{
 
 const UserDashboard=()=>{
     return(
-        <h1>User dashboard</h1>
+        <div>
+            <MenuBar/>
+            <div className="Login-image">
+                <h1 className="Login-heading">My Dashboard</h1>
+            </div>
+            <Footer/>
+            <End/>
+        </div>
     )
 }
 
