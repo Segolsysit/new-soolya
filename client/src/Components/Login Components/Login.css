@@ -85,6 +85,27 @@ background: url("https://cdn.pixabay.com/photo/2017/10/11/11/43/multitasking-284
    width: 23rem;
 }
 
+.Toggle-btns{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.Button-Toggle{
+    background-color: dodgerblue;
+    font-weight: bold;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    transition-duration: 1s;
+    width: 100px;
+}
+
+.Button-Toggle:hover{
+    background-color: rgb(45, 100, 154);
+}
+
 .Signup-card{
     display: flex;
     margin: 30px;

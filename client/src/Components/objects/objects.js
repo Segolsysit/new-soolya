@@ -4,10 +4,12 @@ import './add.css'
 import './footer.css'
 import '../home.css'
 import { Link } from "react-router-dom";
-
+import {useCookies} from 'react-cookie'
 
 
 const Header = () => {
+
+    
 
     return (
         <div className="Header">
@@ -41,6 +43,9 @@ const Header = () => {
 
 const MenuBar = () => {
 
+    const [cookies,removeCookie] = useCookies()
+    const Token=cookies.jwt2
+
     const [Open, setOpen] = useState(false)
     const [icon, setIcon] = useState(<i class="fa-solid fa-bars"></i>)
     var status = localStorage.getItem("Status")
@@ -70,8 +75,8 @@ const MenuBar = () => {
     }
 
     const Logout = () => {
-        localStorage.clear()
-        window.location.href = "/login"
+        cookies.removeCookie("jwt2")
+        window.location.href = "/"
     }
     return (
         <div className="Menubar-outer">
@@ -100,8 +105,8 @@ const MenuBar = () => {
                 </div>
                 <Link to="/Provider"><button className="hireButton">Provider Joining</button></Link>
                 <button className="hireButton">Hire Now</button>
-                <Link to="/Login"><button className={status === "Loggedin" ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
-                <img onClick={ProfileOpen} src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" className={status === "Loggedin" ? "Profileimg" : "Profileimg-hide"}></img>
+                <Link to="/Login"><button className={Token  ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
+                <img onClick={ProfileOpen} src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" className={Token ? "Profileimg" : "Profileimg-hide"}></img>
             </div>
             <MenuList Open={Open} close={setOpen} />
             
@@ -768,9 +773,10 @@ const MenuList = ({ Open, Close }) => {
 }
 
 const Profile=({open,close})=>{
+    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
     const Logout=()=>{
-        localStorage.clear()
-        window.location.href='/login'
+        removeCookie("jwt2")
+        window.location.href='/'
     }
     if(!open) return null
     else{

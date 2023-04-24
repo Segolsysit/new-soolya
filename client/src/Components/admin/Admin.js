@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import "./Admin.css"
 import {CategoryForm,Rejected_list,Orders} from './Categoryform';
 import DashBoard from './Dashboard';
+import  { Add_new_service,ServiceList } from './Servicelist';
 
 export const Admin = () => {
     const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
@@ -143,8 +144,8 @@ const[Formnum,setFormnum]=useState(0)
                                     data-parent="#accordionSidebar">
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         {/* <h6 className="collapse-header">Custom Utilities:</h6> */}
-                                        <a className="collapse-item" href="/Servicelist">Service List</a>
-                                        <a className="collapse-item" href="/Add_new_service">Add New Service</a>
+                                        <a className="collapse-item" onClick={()=>{setFormnum(6)}}>Service List</a>
+                                        <a className="collapse-item" onClick={()=>{setFormnum(7)}}>Add New Service</a>
                                         {/* <a className="collapse-item" href="utilities-animation.js">Animations</a>
                                         <a className="collapse-item" href="utilities-other.js">Other</a> */}
                                     </div>
@@ -443,6 +444,8 @@ const[Formnum,setFormnum]=useState(0)
                                 <DashBoard open={state} close={setState} formNumber={Formnum}/>
                                 <Rejected_list formNumber={Formnum}/>
                                 <Orders formNumber={Formnum}/>
+                                <ServiceList formNumber={Formnum}/>
+                                <Add_new_service formNumber={Formnum}/>
     
                             </div>
                             {/* <!-- End of Main Content --> */}

@@ -15,6 +15,7 @@ const cookieParser = require("cookie-parser")
 // const serviceman_route = require("./Router/serviceman_route");
 const category_setup_Router =require("./RouteFiles/category_setup_Router");
 const auth_router = require("./RouteFiles/authRoutes");
+const Application_Router=require('./RouteFiles/Application_router')
 // const cart_router = require("./Router/cart_router");
 // const bookingdetails_router = require("./Router/bookingdetails_router");
 // const RejectedList_router = require("./Router/RejectedList_router");
@@ -39,6 +40,7 @@ app.use("/api", category_setup_Router)
 // app.use("/service_api", service_router )
 // app.use("/serviceman",serviceman_route);
 app.use("/authUser",auth_router);
+app.use('/Applications', Application_Router)
 // app.use("/cart_api",cart_router);
 // app.use("/booking_api",bookingdetails_router);
 // app.use("/reject_api",RejectedList_router);
