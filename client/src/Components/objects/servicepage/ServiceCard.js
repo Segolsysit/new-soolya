@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../object.css"
 import Pagination from "./Pagination";
 import "./Servicecard.css"
@@ -15,119 +15,6 @@ import { useCookies } from "react-cookie";
 
 const ServiceCard=({service})=>{
 
-
-    const Post=[
-        
-            {
-                "mainImage":"https://images.pexels.com/photos/4099471/pexels-photo-4099471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Category":"Cleaning",
-                "Price":"$10",
-                "desc":"Home Cleaning Service",
-                "dp":"https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Name":"Gilbert"
-        
-            },
-            {
-                "mainImage":"https://images.pexels.com/photos/8486972/pexels-photo-8486972.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Category":"Plumbing",
-                "Price":"$12",
-                "desc":"Plumbing Service",
-                "dp":"https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Name":"Gilbert"
-        
-            },
-            {
-                "mainImage":"https://images.pexels.com/photos/3356170/pexels-photo-3356170.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Category":"AC Repair",
-                "Price":"$8",
-                "desc":"Hair cutting Service at reasonable price",
-                "dp":"https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Name":"Gilbert"
-        
-            },
-            {
-                "mainImage":"https://images.pexels.com/photos/5798978/pexels-photo-5798978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Category":"Painting",
-                "Price":"$12",
-                "desc":"Painting Service at low price",
-                "dp":"https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Name":"Gilbert"
-        
-            },
-            {
-                "mainImage":"https://clareservices.com/wp-content/uploads/2021/05/technician-service-removing-air-filter-air-conditioner-cleaning_35076-3617-640x426.jpg",
-                "Category":"AC Repair",
-                "Price":"$20",
-                "desc":"Winter AC master cleaning and service",
-                "dp":"https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Name":"Gilbert"
-        
-            },
-            {
-                "mainImage":"https://images.pexels.com/photos/4099471/pexels-photo-4099471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Category":"Cleaning",
-                "Price":"$10",
-                "desc":"Home Cleaning Service",
-                "dp":"https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Name":"Gilbert"
-        
-            },
-            {
-                "mainImage":"https://images.pexels.com/photos/8486972/pexels-photo-8486972.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Category":"Plumbing",
-                "Price":"$12",
-                "desc":"Plumbing Service",
-                "dp":"https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Name":"Gilbert"
-        
-            },
-            {
-                "mainImage":"https://images.pexels.com/photos/3356170/pexels-photo-3356170.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Category":"Saloon",
-                "Price":"$8",
-                "desc":"Hair cutting Service at reasonable price",
-                "dp":"https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Name":"Gilbert"
-        
-            },
-            {
-                "mainImage":"https://images.pexels.com/photos/5798978/pexels-photo-5798978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Category":"Painting",
-                "Price":"$12",
-                "desc":"Painting service",
-                "dp":"https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Name":"Gilbert"
-        
-            },
-            {
-                "mainImage":"https://clareservices.com/wp-content/uploads/2021/05/technician-service-removing-air-filter-air-conditioner-cleaning_35076-3617-640x426.jpg",
-                "Category":"AC Repair",
-                "Price":"$20",
-                "desc":"Winter AC master cleaning and service",
-                "dp":"https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Name":"Gilbert"
-        
-            },
-            {
-                "mainImage":"https://images.pexels.com/photos/5798978/pexels-photo-5798978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Category":"Painting",
-                "Price":"$12",
-                "desc":"Painting Service",
-                "dp":"https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Name":"Gilbert"
-        
-            },
-            {
-                "mainImage":"https://clareservices.com/wp-content/uploads/2021/05/technician-service-removing-air-filter-air-conditioner-cleaning_35076-3617-640x426.jpg",
-                "Category":"AC Repair",
-                "Price":"$20",
-                "desc":"Winter AC master cleaning and service",
-                "dp":"https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                "Name":"Gilbert"
-        
-            },
-        
-    ]
     const[Data,setData]=useState([])
 
 useEffect(()=>{
@@ -145,9 +32,20 @@ console.log(Data);
 const[currentPage,setCurrent]=useState(1)
 const[postPer,setpostPer]=useState(6)
 const[Color,setColor]=useState("")
+const [cookies, setCookie] = useCookies(['cookie-name']);
 
 const Lastpost=currentPage*postPer
 const Firstpost=Lastpost-postPer
+
+const Booking=(_id)=>{
+    localStorage.setItem("order_id",_id)
+    if(cookies.jwt2){
+        window.location.href="/booking"
+    }
+    else{
+        window.location.href="/Login"
+    }
+}
 
 const Navigate=(Number)=>{
     setCurrent(Number)
@@ -160,12 +58,17 @@ const [serviceName,setServiceName]=useState("")
 useEffect(()=>{
     localStorage.setItem("Category",serviceName)
     if(localStorage.getItem("Category")!==""){
-        window.location.href="/ServiceDetails"
+        // window.location.href="/ServiceDetails"
     }
 },[serviceName])
 
 
+    
+
+
 const localpath = "http://localhost:3001/";
+
+
 
 
 
@@ -176,7 +79,7 @@ const localpath = "http://localhost:3001/";
                 {CurerntPost.map(item=>{
                     if(service==="Select"||service===""){
                         return(
-                            <div onClick={()=>{setServiceName("Cleaning in low cost")} } className="Carosel-card">
+                            <div className="Carosel-card">
                                     <img className="Carosel-img" src={localpath + item.filename} alt=""/>
                                     <div className="Card-body">
                                         <div className="Carosel-sec">
@@ -185,7 +88,7 @@ const localpath = "http://localhost:3001/";
                                         </div>
                                         <h1 className="Carosel-desc">{item.Desc}</h1>
                                 
-                                    <button className="Carosel-btn">Book Now</button>
+                                    <button onClick={()=>Booking(item._id)} className="Carosel-btn">Book Now</button>
                                 </div>
                     </div>
     
@@ -194,7 +97,7 @@ const localpath = "http://localhost:3001/";
                     else{
                         if(item.catagorySetup===service){
                             return(
-                                <div onClick={()=>{setServiceName(item.catagorySetup)} } className="Carosel-card">
+                                <div onClick={()=>localStorage.setItem("order_id",item._id)} className="Carosel-card">
                                         <img className="Carosel-img" src={localpath + item.filename} alt=""/>
                                         <div className="Card-body">
                                             <div className="Carosel-sec">
@@ -218,7 +121,9 @@ const localpath = "http://localhost:3001/";
                                 </div>
                                 
             </div>
-            <Pagination TotalPost={Post.length} postPer={postPer} Navigate={Navigate} Color={Color} currentPage={currentPage}/>
+            <Pagination 
+            // TotalPost={Post.length}
+             postPer={postPer} Navigate={Navigate} Color={Color} currentPage={currentPage}/>
             </div>
         )
     
@@ -329,7 +234,6 @@ var [Num,setNum]=useState(1)
 
 
 const Booking=()=>{
-    var status=localStorage.getItem("Status")
     if(cookies.jwt2){
         window.location.href="/booking"
     }

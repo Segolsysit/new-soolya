@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {Page1,Page2,Page3,Page4} from "./page1";
+import axios from "axios";
 
 
 const BookingPage=()=>{
@@ -9,6 +10,7 @@ const BookingPage=()=>{
     const[Location,setLocation]=useState("")
     const [state,setState]=useState(true)
     const[Time,settime]=useState(0)
+    const [booking_service,setbooking_service] = useState({})
 
     const nextPage=()=>{
         setPage(Page+1)
@@ -20,24 +22,36 @@ const BookingPage=()=>{
 
     const ConfirmBooking=()=>{
     setState(false)
-    localStorage.removeItem("Name")
-    localStorage.removeItem("Phone")
-    localStorage.removeItem("Address")
-    localStorage.removeItem("Post")
-    localStorage.removeItem("Street")
-    localStorage.removeItem("City")
-    console.log(Time);
-    // axios.post("http://localhost:3001/booking_api/new_booking", {
-    //         address,
-    //         street,
-    //         city,
-    //         zip,
-    //         person,
-    //         number,
-    //         Service:bookingdata.Service,
-    //         Category:bookingdata.Category,
-    //         price:bookingdata.price
-    //     })
+    const id = localStorage.getItem("order_id")
+    const person =localStorage.getItem("Name")
+    const number =localStorage.getItem("Phone")
+    const address =localStorage.getItem("Address")
+    const zip =localStorage.getItem("Post")
+    const street =localStorage.getItem("Street")
+    const city =localStorage.getItem("City")
+    axios.get(`http://localhost:3001/booking_api/booking_data/${id}`).then(
+        (data)=>{setbooking_service(data)
+            console.log(booking_service);
+        }
+    )
+    // localStorage.removeItem("Name")
+    // localStorage.removeItem("Phone")
+    // localStorage.removeItem("Address")
+    // localStorage.removeItem("Post")
+    // localStorage.removeItem("Street")
+    // localStorage.removeItem("City")
+    // console.log(Time);
+    axios.post("http://localhost:3001/booking_api/new_booking", {
+            address,
+            street,
+            city,
+            zip,
+            person,
+            number,
+            Service:booking_service.Service,
+            // Category:bookingdata.Category,
+            // price:bookingdata.price
+        })
     
     setTimeout(()=>window.location.href="/Myorder",3000)        
     
