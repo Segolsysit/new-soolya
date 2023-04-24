@@ -136,7 +136,7 @@ useEffect(()=>{
         setData(data.data)
 
     })
-},[])
+},[service])
     
    
 
@@ -181,9 +181,9 @@ const localpath = "http://localhost:3001/";
                                     <div className="Card-body">
                                         <div className="Carosel-sec">
                                             <p className="Category-carosel">{item.catagorySetup}</p>
-                                            <h2 className="Carosel-price">$10</h2>
+                                            <h2 className="Carosel-price">${item.Price}</h2>
                                         </div>
-                                        <h1 className="Carosel-desc">Cleaning in low cost</h1>
+                                        <h1 className="Carosel-desc">{item.Desc}</h1>
                                 
                                     <button className="Carosel-btn">Book Now</button>
                                 </div>
@@ -192,10 +192,10 @@ const localpath = "http://localhost:3001/";
                         )
                     }
                     else{
-                        if(item.Category===service){
+                        if(item.catagorySetup===service){
                             return(
                                 <div onClick={()=>{setServiceName(item.catagorySetup)} } className="Carosel-card">
-                                        <img className="Carosel-img" src={item.mainImage} alt=""/>
+                                        <img className="Carosel-img" src={localpath + item.filename} alt=""/>
                                         <div className="Card-body">
                                             <div className="Carosel-sec">
                                                 <p className="Category-carosel">{item.catagorySetup}</p>
@@ -211,6 +211,7 @@ const localpath = "http://localhost:3001/";
         
                             )
                         }
+                       
                     }
                     
                 })}

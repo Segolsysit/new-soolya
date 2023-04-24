@@ -40,7 +40,9 @@ category_setup_Router.post("/new_catagory",upload.single("file"),async(req,res) 
         mimetype: req.file.mimetype,
         filename: req.file.filename,
         path: req.file.path,
-        size: req.file.size
+        size: req.file.size,
+        Desc:req.body.Desc,
+        Price:req.body.Price
        })
        await items.save();
        res.status(200).json({message:"Uploaded Successfully",items})
@@ -71,7 +73,8 @@ category_setup_Router.patch("/update_items/:id",upload.single('file'),async(req,
     }));
     const update_items = await schema.findByIdAndUpdate(req.params.id)
     update_items.catagorySetup=req.body.catagorySetup;
-
+    update_items.Desc=req.body.Desc;
+    update_items.Price=req.body.Price;
     update_items.originalname=req.file.originalname;
     update_items.mimetype=req.file.mimetype;
     update_items.filename=req.file.filename;

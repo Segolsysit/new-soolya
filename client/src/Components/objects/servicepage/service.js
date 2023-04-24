@@ -34,7 +34,7 @@ const Service=()=>{
                         <option>Select</option>
                         <option>AC Repair</option>
                         <option>Car Service</option>
-                        <option>Cleaning</option>
+                        <option>cleaning</option>
                         <option>Painting</option>
                         <option>Pest Control</option>
                         <option>Plumbing</option>
