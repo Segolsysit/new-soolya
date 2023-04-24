@@ -210,7 +210,7 @@ const CategoryForm=({FormNumber,setNumber})=>{
     }
 
     const saveChange = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         const formdata = new FormData();
         formdata.append("catagorySetup", Editservice);
         formdata.append("file", EditImage)
