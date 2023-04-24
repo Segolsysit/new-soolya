@@ -450,9 +450,8 @@ const Form1=(e)=>{
         setError(true)
     }
     
-    
-         
     else if(!Error){
+        
         setPno(Pno+1)
     }
 
@@ -580,7 +579,9 @@ if(Pno===2){
                         <textarea  className="Signup-Input" defaultValue={Address} onChange={(e)=>{setAddress(e.target.value)}}/>
                         <p style={{color:"red"}}>{ErrA}</p>
                         <div className="Toggle-btns">
-                        <button  className="Button-Toggle"onClick={()=>{setPno(Pno-1); console.log(FirstName);}}>Previous</button>
+                        <button  className="Button-Toggle"onClick={()=>{setPno(Pno-1)
+                            
+                            console.log(FirstName);}}>Previous</button>
                         <button className="Button-Toggle">Next</button>
                         </div>
                         <div className="Already">
@@ -615,12 +616,12 @@ const Form3=(e)=>{
         formdata.append("LastName",LName)
         formdata.append("Email",Email)
         formdata.append("Phone",Phone)
-        formdata.append("File",File)
+        formdata.append("file",File)
         formdata.append("Location",Location)
         formdata.append("Address",Address)
         formdata.append("Category",Category)
-        axios.post("http://localhost:3001/Applications",formdata)
-        .then((response)=>{console.log(response);})
+        axios.post("http://localhost:3001/vendor_Applications/Applications",formdata)
+        .then((response)=>{console.log(response.data);})
     }
 }
 
@@ -641,7 +642,7 @@ if(Pno===3){
                             <p className="Signup-ptag">Welcome! Register with valid data</p>
                         </div>
                         <label className="Join-Label">Photo</label>
-                        <input type='file' className="Signup-Input" onChange={(e)=>{setFile(e.target.value)}}/>
+                        <input type='file' className="Signup-Input" onChange={(e)=>{setFile(e.target.files[0])}}/>
                         <p style={{color:"red"}}>{FileErr}</p>
                         <div className="Toggle-btns">
                         <button  className="Button-Toggle"onClick={()=>{setPno(Pno-1); console.log(FirstName);}}>Previous</button>

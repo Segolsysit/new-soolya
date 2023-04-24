@@ -42,7 +42,7 @@ app.use("/api", category_setup_Router)
 // app.use("/serviceman",serviceman_route);
 app.use("/booking_api",bookingdetails_router);
 app.use("/authUser",auth_router);
-app.use('/Applications', Application_Router)
+app.use('/vendor_Applications', Application_Router)
 // app.use("/cart_api",cart_router);
 // app.use("/booking_api",bookingdetails_router);
 // app.use("/reject_api",RejectedList_router);

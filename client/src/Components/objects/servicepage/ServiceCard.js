@@ -114,6 +114,7 @@ const localpath = "http://localhost:3001/";
         
                             )
                         }
+                        
                        
                     }
                     
@@ -121,9 +122,7 @@ const localpath = "http://localhost:3001/";
                                 </div>
                                 
             </div>
-            <Pagination 
-            // TotalPost={Post.length}
-             postPer={postPer} Navigate={Navigate} Color={Color} currentPage={currentPage}/>
+            <Pagination TotalPost={Post.length} postPer={postPer} Navigate={Navigate} Color={Color} currentPage={currentPage}/>
             </div>
         )
     

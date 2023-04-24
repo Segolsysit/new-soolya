@@ -26,20 +26,20 @@ const[Formnum,setFormnum]=useState(0)
         })}
 
     const changeStyle = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+        if (style === "Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
             setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
         }
         else{
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+            setstyle("Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
         }
     }
 
     const changeStyle1 = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
+        if (style === "Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+            setstyle("Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
         }
         else{
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+            setstyle("Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
         }
     }
     // const isPasswordCorrect = bcrypt.compareSync(apassword, hashedPassword);
