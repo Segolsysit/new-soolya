@@ -131,6 +131,129 @@ const Login = () => {
     
 }
 
+const VendorLogin = () => {
+    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+    const Navigate=useNavigate();
+    const { pathname } = useLocation();
+        useEffect(() => {
+        window.scrollTo(0, 0);
+         }, [pathname]);
+
+    const [show,setShow]=useState("password")
+    const [icon,setIcon]=useState(<i class="fa-solid fa-eye"></i>)
+    const PaswordState=()=>{
+        if(show==="password"){
+            setShow("text")
+            setIcon(<i class="fa-sharp fa-solid fa-eye-slash"></i>)
+        }
+        else{
+            setShow("password")
+            setIcon(<i class="fa-solid fa-eye"></i>)
+        }
+    }
+
+    const[LoginId,setLoginId]=useState("")
+    const[Password,setPassword]=useState("")
+
+    const [errLogin,setErrlogin]=useState("")
+    const [errPwd,seterrPwd]=useState("")
+
+    const generateError = (error) =>
+    toast.error(error, {
+      position: "bottom-right",
+    });
+
+
+   async function LoginFun(e){
+        e.preventDefault()
+        setErrlogin("")
+        seterrPwd("")
+        if(LoginId===""||LoginId===null){
+            setErrlogin("Please enter your LoginId")
+        }
+
+        else if(Password===""||Password===null){
+            seterrPwd("Please enter your Password")
+        }
+        else{
+            const { data } = await axios.post(
+                "http://localhost:3001/authUser/login",
+                {
+                 email:LoginId,
+                 password:Password
+                },
+                { withCredentials: true }
+              );
+              if (data) {
+                if (data.errors) {
+                  const { email, password } = data.errors;
+                  if (email) generateError(email);
+                  else if (password) generateError(password);
+                } else {
+                    toast.info("successfully loggedin", {
+                        position: "top-center",
+                      });
+                      Navigate("/");
+                }
+              }
+        }
+    }
+    if(cookies.jwt2){
+        alert("already loggedin")
+        window.location.href='/'
+    }
+
+    else{
+        return (
+            <div>
+                <Header />
+                <MenuBar />
+               <div className="Login-image">
+                    <h1 className="Login-heading">SignIn</h1>
+                </div>
+                <div className="Signup-card">
+                    <div className="Form-div">
+                        <form className="Form" onSubmit={LoginFun}>
+                            <div className="Signup-title">
+                                <h1 className="Signup-heading">LogIn to ABC</h1>
+                                <p className="Signup-ptag">Welcome! Login using data given while register</p>
+                            </div>
+                            <label className="Signup-Label">Email</label>
+                            <input className="Signup-Input" onChange={(e)=>setLoginId(e.target.value)}/>
+                            <p className="Error-signup">{errLogin}</p>
+                            <label className="Signup-Label">Password</label>
+                            <div className="Signup-Pwdbox">
+                            <input type={show} className="Signup-InputPwd" onChange={(e)=>setPassword(e.target.value)}/>
+                            <div onClick={PaswordState}>{icon}</div>
+                            </div>
+                            <p className="Error-signup">{errPwd}</p>
+                            <div className="Login-sec2">
+                                <div className="Remember">
+                                    <input type="checkbox"/>
+                                    <p className="Remember-ptag">Remember Me</p>
+                                </div>
+                                <Link to='/ForgetPassword'><p className="Forget">Forget Password</p></Link>
+                            </div>
+                            <button className="Button-Signup">Login</button>
+                            <div className="Already">
+                                <p className="Primary-Signup">Don't have account</p>
+                                <Link to="/Signup"><p className="Secondary-Signup">Signup</p></Link>
+                            </div>
+    
+                        </form>
+                    </div>
+                    <div className="Image-div">
+    
+                    </div>
+                </div>
+                <Footer/>
+                <End/>
+            </div>
+        )
+    }
+    
+}
+
 const Signup=()=>{
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
      const Navigate=useNavigate();
@@ -380,7 +503,7 @@ if(Pno===1){
                     </>
                     <div className="Already">
                         <p className="Primary-Signup">Already have an account</p>
-                        <Link to="/Login"><p className="Secondary-Signup">Login</p></Link>
+                        <Link to="/VendorLogin"><p className="Secondary-Signup">Login</p></Link>
                     </div>
 
                 </form>
@@ -740,4 +863,4 @@ else{
 }
 
 
-export {Login,Signup,Provider,AdminLogin,ForgetPassword} 
+export {Login,Signup,Provider,AdminLogin,ForgetPassword,VendorLogin} 
