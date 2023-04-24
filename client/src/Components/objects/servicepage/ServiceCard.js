@@ -13,7 +13,7 @@ import { useCookies } from "react-cookie";
 
 
 
-const ServiceCard=({service})=>{
+const ServiceCard=({service,Range})=>{
 
     const[Data,setData]=useState([])
 
@@ -77,7 +77,7 @@ const localpath = "http://localhost:3001/";
             <div className="CaroselCard-block">
                 <div className="CaroselService-block">
                 {CurerntPost.map(item=>{
-                    if(service==="Select"||service===""){
+                    if((service==="Select"||service==="")&&(Range===""||Range==="Select")){
                         return(
                             <div className="Carosel-card">
                                     <img className="Carosel-img" src={localpath + item.filename} alt=""/>
@@ -102,7 +102,7 @@ const localpath = "http://localhost:3001/";
                                         <div className="Card-body">
                                             <div className="Carosel-sec">
                                                 <p className="Category-carosel">{item.catagorySetup}</p>
-                                                <h2 className="Carosel-price">{item.Price}</h2>
+                                                <h2 className="Carosel-price">${item.Price}</h2>
                                             </div>
                                             <h1 className="Carosel-desc">{item.desc}</h1>
                                             <div className="Carosel-third">
@@ -114,7 +114,46 @@ const localpath = "http://localhost:3001/";
         
                             )
                         }
-                        
+                        if(Range!==""||Range!==null){
+                            if(Range==="High Price"){
+                                if(item.Price>10){
+                                    return(
+                                        <div onClick={()=>{setServiceName(item.catagorySetup)} } className="Carosel-card">
+                                        <img className="Carosel-img" src={localpath + item.filename} alt=""/>
+                                        <div className="Card-body">
+                                            <div className="Carosel-sec">
+                                                <p className="Category-carosel">{item.catagorySetup}</p>
+                                                <h2 className="Carosel-price">${item.Price}</h2>
+                                            </div>
+                                            <h1 className="Carosel-desc">{item.Desc}</h1>
+                                            <div className="Carosel-third">
+                                                
+                                            </div>
+                                        <button className="Carosel-btn">Book Now</button>
+                                    </div>
+                        </div>
+                                    )
+                                }
+                            }
+                            else if(Range==="Low Price") {
+                                if(item.Price<10){return(
+                                    <div onClick={()=>{setServiceName(item.catagorySetup)} } className="Carosel-card">
+                                        <img className="Carosel-img" src={localpath + item.filename} alt=""/>
+                                        <div className="Card-body">
+                                            <div className="Carosel-sec">
+                                                <p className="Category-carosel">{item.catagorySetup}</p>
+                                                <h2 className="Carosel-price">${item.Price}</h2>
+                                            </div>
+                                            <h1 className="Carosel-desc">{item.Desc}</h1>
+                                            <div className="Carosel-third">
+                                                
+                                            </div>
+                                        <button className="Carosel-btn">Book Now</button>
+                                    </div>
+                                    </div>
+                                )}
+                            }
+                        }
                        
                     }
                     
