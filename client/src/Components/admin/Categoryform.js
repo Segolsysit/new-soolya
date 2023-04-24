@@ -18,11 +18,16 @@ const CategoryForm=({FormNumber,setNumber})=>{
 
     const [categorySetup, setCatagorySetup] = useState("");
     const [img, setImg] = useState("");
+    const[Desc,setDesc]=useState("")
+    const[Price,setPrice]=useState("")
     const [getData, setgetData] = useState([]);
     const [getbyid, setgetbyid] = useState('');
     const nav = useNavigate()
 
     const [Editservice, setEditservice] = useState('');
+    const [EditDesc, setEditDesc] = useState('');
+    const [EditPrice, setEditPrice] = useState('');
+
     const [EditImage, setEditImage] = useState('');
 
     const [open, setOpen] = useState(false);
@@ -110,10 +115,24 @@ const CategoryForm=({FormNumber,setNumber})=>{
             })
         }
 
+        else if(Desc===""){
+            toast.error("Enter Description", {
+                position: "top-center"
+            })
+        }
+
+        else if(Price===""){
+            toast.error("Enter Price", {
+                position: "top-center"
+            })
+        }
+
         else {
             const formdata = new FormData()
             formdata.append("catagorySetup", categorySetup);
             formdata.append("file", img)
+            formdata.append("Desc",Desc)
+            formdata.append("Price",Price)
             axios.post("http://localhost:3001/api/new_catagory/", formdata).then((res) => {
 
                 toast.success(' uploaded Successed!', {
@@ -130,6 +149,10 @@ const CategoryForm=({FormNumber,setNumber})=>{
 
                 setCatagorySetup("")
                 categorydata()
+                setCatagorySetup("")
+                setImg("")
+                setDesc("")
+                setPrice("")
 
 
             })
@@ -210,10 +233,11 @@ const CategoryForm=({FormNumber,setNumber})=>{
     }
 
     const saveChange = (e) => {
-        // e.preventDefault()
         const formdata = new FormData();
         formdata.append("catagorySetup", Editservice);
         formdata.append("file", EditImage)
+        formdata.append("Desc",EditDesc)
+        formdata.append("Price",EditPrice)
         axios.patch(`http://localhost:3001/api//update_items/${getbyid._id}`, formdata).then(() => {
             // alert("updated")
             categorydata();
@@ -235,6 +259,10 @@ const CategoryForm=({FormNumber,setNumber})=>{
                     <label className="Category-Label">Category</label>
                     <input type="text" value={categorySetup} className="Category-input" onChange={(e) => setCatagorySetup(e.target.value)} />
                     
+                    <label className="Category-Label">Description</label>
+                    <textarea className="Categorydesc-input" value={Desc} onChange={(e) => setDesc(e.target.value)}/>
+                    <label className="Category-Label">Price</label>
+                    <input value={Price} className="Category-input" onChange={(e) => setPrice(e.target.value)} />
                     <label className="Category-Label">Image</label>
                     <div className="Categoryfile-div">
                     <input type="file" className="Category-input" onChange={handleImgChange}/>
@@ -250,6 +278,8 @@ const CategoryForm=({FormNumber,setNumber})=>{
                                             <TableCell>SN</TableCell>
                                             <TableCell>Category</TableCell>
                                             <TableCell>Image</TableCell>
+                                            <TableCell>Desc</TableCell>
+                                            <TableCell>Price</TableCell>
                                             <TableCell>Edit</TableCell>
                                             <TableCell>Delete</TableCell>
 
@@ -267,6 +297,9 @@ const CategoryForm=({FormNumber,setNumber})=>{
 
                                                     <TableCell><p>{data.catagorySetup}</p></TableCell>
                                                     <TableCell><img src={localpath + data.filename} style={{ width: "5em", height: "5em" }} alt=".........."></img> </TableCell>
+                                                    
+                                                    <TableCell><p>{data.Desc}</p></TableCell>
+                                                    <TableCell><p>{data.Price}</p></TableCell>
                                                     <TableCell><Button data-bs-toggle="modal" onClick={() => EditFun(data._id)} data-bs-target="#EditCategory"><i class="fa-solid fa-pencil"></i></Button></TableCell>
                                                     <TableCell><Button onClick={() => delete_item(data._id)}><i class="fa-regular fa-trash-can"></i></Button></TableCell>
                                                 </TableRow>
@@ -307,6 +340,8 @@ const CategoryForm=({FormNumber,setNumber})=>{
                                         <div class="modal-body">
                                             <form className="category_form" id="category_form" onSubmit={()=>saveChange(getbyid._id)}>
                                                 <TextField type="text" placeholder={getbyid.catagorySetup} onChange={(e) =>setEditservice(e.target.value) } label="Service"/><br></br>
+                                                <TextField type="text" placeholder={getbyid.Desc} onChange={(e) =>setEditDesc(e.target.value) } label="Description"/><br></br>
+                                                <TextField type="text" placeholder={getbyid.Price} onChange={(e) =>setEditPrice(e.target.value) } label="Price"/><br></br>
                                                 <TextField type="file" onChange={(e) =>setEditImage(e.target.files[0]) }  /><br></br>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
