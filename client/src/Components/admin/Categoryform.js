@@ -210,7 +210,7 @@ const CategoryForm=({FormNumber,setNumber})=>{
     }
 
     const saveChange = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         const formdata = new FormData();
         formdata.append("catagorySetup", Editservice);
         formdata.append("file", EditImage)
@@ -479,7 +479,7 @@ if(formNumber===4){
 
 const Orders = ({formNumber}) => {
 
-    const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    // const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
     const [orderdetails,setorderdetails] = useState([])
     const aemail = localStorage.getItem("adminemail")
     const apassword = localStorage.getItem("adminpassword");
@@ -493,23 +493,23 @@ const Orders = ({formNumber}) => {
         }
     }
 
-    const changeStyle = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
-        }
-        else {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-        }
-    }
+    // const changeStyle = () => {
+    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
+    //     }
+    //     else {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    //     }
+    // }
 
-    const changeStyle1 = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
-        }
-        else {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-        }
-    }
+    // const changeStyle1 = () => {
+    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
+    //     }
+    //     else {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    //     }
+    // }
 
     const getdata = () => {
         axios.get("http://localhost:3001/booking_api/booking_data").then((res)=>{
