@@ -96,9 +96,9 @@
     flex-direction: column;
     background-color: rgb(231, 240, 247);
     border-radius: 5px;
-    justify-content: space-between;
     transition-duration: 1s;
     overflow: hidden;
+    justify-content: space-between;
 }
 
 .Carosel-card:hover{
@@ -152,6 +152,7 @@
     border: none;
     border-radius: 3px;
     color: white;
+    
 }
 
 .Carosel-btn:hover{

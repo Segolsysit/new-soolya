@@ -4,6 +4,7 @@ import "../object.css"
 import Pagination from "./Pagination";
 import "./Servicecard.css"
 import { End, Footer, Header, MenuBar } from "../objects";
+import axios from "axios";
 
 
 
@@ -123,6 +124,19 @@ const ServiceCard=({service})=>{
             },
         
     ]
+    const[Data,setData]=useState([])
+
+useEffect(()=>{
+    axios.get("http://localhost:3001/api/fetch_items")
+    .then((data)=>{
+        setData(data.data)
+
+    })
+},[])
+    
+   
+
+console.log(Data);
 
 const[currentPage,setCurrent]=useState(1)
 const[postPer,setpostPer]=useState(6)
@@ -135,7 +149,7 @@ const Navigate=(Number)=>{
     setCurrent(Number)
     setColor(Number)
 }
-const CurerntPost=Post.slice(Firstpost,Lastpost)
+const CurerntPost=Data.slice(Firstpost,Lastpost)
 
 const [serviceName,setServiceName]=useState("")
 
@@ -147,6 +161,7 @@ useEffect(()=>{
 },[serviceName])
 
 
+const localpath = "http://localhost:3001/";
 
 
 
@@ -158,19 +173,14 @@ useEffect(()=>{
                     if(service==="Select"||service===""){
                         return(
                             <div onClick={()=>{setServiceName(item.desc)} } className="Carosel-card">
-                                    <img className="Carosel-img" src={item.mainImage} alt=""/>
+                                    <img className="Carosel-img" src={localpath + item.filename} alt=""/>
                                     <div className="Card-body">
                                         <div className="Carosel-sec">
-                                            <p className="Category-carosel">{item.Category}</p>
-                                            <h2 className="Carosel-price">{item.Price}</h2>
+                                            <p className="Category-carosel">{item.catagorySetup}</p>
+                                            <h2 className="Carosel-price">$10</h2>
                                         </div>
-                                        <h1 className="Carosel-desc">{item.desc}</h1>
-                                        <div className="Carosel-third">
-                                            <div className="Profile">
-                                                <img className="profile-img" src={item.dp}/>
-                                                <p className="Profile-Name">{item.Name}</p>
-                                            </div>
-                                        </div>
+                                        <h1 className="Carosel-desc">Cleaning in low cost</h1>
+                                
                                     <button className="Carosel-btn">Book Now</button>
                                 </div>
                     </div>
@@ -189,10 +199,7 @@ useEffect(()=>{
                                             </div>
                                             <h1 className="Carosel-desc">{item.desc}</h1>
                                             <div className="Carosel-third">
-                                                <div className="Profile">
-                                                    <img className="profile-img" src={item.dp} alt=""/>
-                                                    <p className="Profile-Name">{item.Name}</p>
-                                                </div>
+                                                
                                             </div>
                                         <button className="Carosel-btn">Book Now</button>
                                     </div>
