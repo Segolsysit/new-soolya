@@ -27,6 +27,17 @@ const BookingPage=()=>{
     localStorage.removeItem("Street")
     localStorage.removeItem("City")
     console.log(Time);
+    axios.post("http://localhost:3001/booking_api/new_booking", {
+            address,
+            street,
+            city,
+            zip,
+            person,
+            number,
+            Service:bookingdata.Service,
+            Category:bookingdata.Category,
+            price:bookingdata.price
+        })
     
     setTimeout(()=>window.location.href="/Myorder",3000)        
     
