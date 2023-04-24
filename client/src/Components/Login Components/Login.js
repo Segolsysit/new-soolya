@@ -7,9 +7,9 @@ import { useEffect, } from "react";
 import iou from "./dummy.jpg"
 import axios from "axios"
 import { toast } from "react-toastify";
-
+import { useCookies } from "react-cookie";
 const Login = () => {
-   
+    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
     const Navigate=useNavigate();
     const { pathname } = useLocation();
         useEffect(() => {
@@ -75,57 +75,64 @@ const Login = () => {
               }
         }
     }
+    if(cookies.jwt2){
+        alert("already loggedin")
+        window.location.href='/'
+    }
 
-
-    return (
-        <div>
-            <Header />
-            <MenuBar />
-           <div className="Login-image">
-                <h1 className="Login-heading">SignIn</h1>
-            </div>
-            <div className="Signup-card">
-                <div className="Form-div">
-                    <form className="Form" onSubmit={LoginFun}>
-                        <div className="Signup-title">
-                            <h1 className="Signup-heading">LogIn to ABC</h1>
-                            <p className="Signup-ptag">Welcome! Login using data given while register</p>
-                        </div>
-                        <label className="Signup-Label">Email</label>
-                        <input className="Signup-Input" onChange={(e)=>setLoginId(e.target.value)}/>
-                        <p className="Error-signup">{errLogin}</p>
-                        <label className="Signup-Label">Password</label>
-                        <div className="Signup-Pwdbox">
-                        <input type={show} className="Signup-InputPwd" onChange={(e)=>setPassword(e.target.value)}/>
-                        <div onClick={PaswordState}>{icon}</div>
-                        </div>
-                        <p className="Error-signup">{errPwd}</p>
-                        <div className="Login-sec2">
-                            <div className="Remember">
-                                <input type="checkbox"/>
-                                <p className="Remember-ptag">Remember Me</p>
+    else{
+        return (
+            <div>
+                <Header />
+                <MenuBar />
+               <div className="Login-image">
+                    <h1 className="Login-heading">SignIn</h1>
+                </div>
+                <div className="Signup-card">
+                    <div className="Form-div">
+                        <form className="Form" onSubmit={LoginFun}>
+                            <div className="Signup-title">
+                                <h1 className="Signup-heading">LogIn to ABC</h1>
+                                <p className="Signup-ptag">Welcome! Login using data given while register</p>
                             </div>
-                            <Link to='/ForgetPassword'><p className="Forget">Forget Password</p></Link>
-                        </div>
-                        <button className="Button-Signup">Login</button>
-                        <div className="Already">
-                            <p className="Primary-Signup">Don't have account</p>
-                            <Link to="/Signup"><p className="Secondary-Signup">Signup</p></Link>
-                        </div>
-
-                    </form>
+                            <label className="Signup-Label">Email</label>
+                            <input className="Signup-Input" onChange={(e)=>setLoginId(e.target.value)}/>
+                            <p className="Error-signup">{errLogin}</p>
+                            <label className="Signup-Label">Password</label>
+                            <div className="Signup-Pwdbox">
+                            <input type={show} className="Signup-InputPwd" onChange={(e)=>setPassword(e.target.value)}/>
+                            <div onClick={PaswordState}>{icon}</div>
+                            </div>
+                            <p className="Error-signup">{errPwd}</p>
+                            <div className="Login-sec2">
+                                <div className="Remember">
+                                    <input type="checkbox"/>
+                                    <p className="Remember-ptag">Remember Me</p>
+                                </div>
+                                <Link to='/ForgetPassword'><p className="Forget">Forget Password</p></Link>
+                            </div>
+                            <button className="Button-Signup">Login</button>
+                            <div className="Already">
+                                <p className="Primary-Signup">Don't have account</p>
+                                <Link to="/Signup"><p className="Secondary-Signup">Signup</p></Link>
+                            </div>
+    
+                        </form>
+                    </div>
+                    <div className="Image-div">
+    
+                    </div>
                 </div>
-                <div className="Image-div">
-
-                </div>
+                <Footer/>
+                <End/>
             </div>
-            <Footer/>
-            <End/>
-        </div>
-    )
+        )
+    }
+    
 }
 
 const Signup=()=>{
+    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
      const Navigate=useNavigate();
     const { pathname } = useLocation();
         useEffect(() => {
@@ -209,8 +216,11 @@ const Register= async(e)=>{
           }
     }
 }
-
-
+if(cookies.jwt2){
+    alert("already loggedin")
+    window.location.href='/'
+}
+else{
     return(
         <div>
             <Header />
@@ -257,42 +267,80 @@ const Register= async(e)=>{
         </div>
     )
 }
+    
+}
 
 
 const Provider=()=>{
 
-const[Name,setName]=useState("")
+const[FirstName,setFName]=useState("")
+const[LName,setLName]=useState("")
+const[Location,setLocation]=useState("")
 const[Email,setEmail]=useState("")
-const[Password,setPassword]=useState("")
+const[Phone,setPhone]=useState("")
+const[Address,setAddress]=useState("")
 const[Category,setCategory]=useState("")
+const[File,setFile]=useState("")
 
-const[ErrN,setErrN]=useState("")
+const[Pno,setPno]=useState(1)//page number
+
+const[ErrFN,setErrFN]=useState("")
+const[ErrLN,setErrLN]=useState("")
+const[ErrC,setErrC]=useState("")
+const[ErrL,setErrL]=useState("")
+const [Error,setError]=useState(false)
 const[ErrE,setErrE]=useState("")
 const[ErrP,setErrP]=useState("")
-const[ErrC,setErrC]=useState("")
+const[ErrA,setErrA]=useState("")
+const[FileErr,setFileErr]=useState("")
 
-const ProviderSubmit=(e)=>{
 
+const Form1=(e)=>{
     e.preventDefault()
-    setErrN("")
-    setErrE("")
-    setErrP("")
+    var atposition=Email.indexOf("@")
+    var dotposition=Email.indexOf("."); 
+    // console.log(dotposition);
+    setErrFN("")
+    setErrLN("")
+    
     setErrC("")
+    setErrL("")
+    setError(false)
 
-    if(Name===""||Name===null){
-        setErrN("Enter your name")
+    
+
+    if(FirstName===""||FirstName===null){
+        setErrFN("Enter your First name")
+        setError(true)
     }
-    if(Email===""||Email===null){
-        setErrE("Enter your Email")
+    else if(LName===""||LName===null){
+        setErrLN("Enter your Last name")
+        setError(true)
     }
-    if(Password===""||Password===null){
-        setErrP("Enter your Password")
+    else if(Location===""||Location===null){
+        setErrL("Enter your Location")
+        setError(true)
     }
-    if(Category==="Name of service"||Category===null||Category===""){
+
+    else if(Category==="Name of service"||Category===""||Category===null){
         setErrC("Enter your service category")
+        setError(true)
     }
+    
+    
+         
+    else if(!Error){
+        setPno(Pno+1)
+    }
+
+
+
+    
+   
 }
 
+
+if(Pno===1){
     return(
         <div>
         <Header />
@@ -302,21 +350,22 @@ const ProviderSubmit=(e)=>{
         </div>
         <div className="Signup-card">
             <div className="Form-div">
-                <form className="Form-Provider" onSubmit={ProviderSubmit}>
+                <form className="Form-Provider" >
                     <div className="Signup-title">
                         <h1 className="Signup-heading">Register as provider in ABC</h1>
                         <p className="Signup-ptag">Welcome! Register with valid data</p>
                     </div>
-                    <label className="Join-Label">Name</label>
-                    <input className="Signup-Input" onChange={(e)=>{setName(e.target.value)}}/>
-                    <p className="Error-signup">{ErrN}</p>
-                    <label className="Join-Label">Email</label>
-                    <input type="email" className="Signup-Input" onChange={(e)=>{setEmail(e.target.value)}}/>
-                    <p className="Error-signup">{ErrE}</p>
-                    <label className="Join-Label">Password</label>
-                    <input type="password" className="Signup-Input" onChange={(e)=>{setPassword(e.target.value)}}/>
-                    <p className="Error-signup">{ErrP}</p>
-                    <select className="Service-type" placeholder="" onChange={(e)=>{setCategory(e.target.value)}}>
+                    <>
+                    <label className="Join-Label">First Name</label>
+                    <input className="Signup-Input" defaultValue={FirstName} onChange={(e)=>{setFName(e.target.value)}}/>
+                    <p className="Error-signup">{ErrFN}</p>
+                    <label className="Join-Label">Last Name</label>
+                    <input className="Signup-Input" defaultValue={LName} onChange={(e)=>{setLName(e.target.value)}}/>
+                    <p className="Error-signup">{ErrLN}</p>
+                    <label className="Join-Label">Location</label>
+                    <input  className="Signup-Input" defaultValue={Location} onChange={(e)=>{setLocation(e.target.value)}}/>
+                    <p className="Error-signup">{ErrL}</p>
+                    <select className="Service-type" defaultValue={Category} onChange={(e)=>{setCategory(e.target.value)}} >
                         <option>Name of service</option>
                         <option>Car wash</option>
                         <option>Car Service</option>
@@ -327,7 +376,8 @@ const ProviderSubmit=(e)=>{
                         <option>Plumbing</option>
                     </select>
                     <p className="Error-signup">{ErrC}</p>
-                    <button className="Button-Signup">Submit</button>
+                    <button type="button" className="Button-Signup" onClick={Form1}>Next</button>
+                    </>
                     <div className="Already">
                         <p className="Primary-Signup">Already have an account</p>
                         <Link to="/Login"><p className="Secondary-Signup">Login</p></Link>
@@ -343,6 +393,155 @@ const ProviderSubmit=(e)=>{
         <End/>
     </div>
     )
+}
+
+
+
+
+var atposition=Email.indexOf("@")
+var dotposition=Email.indexOf(".")
+
+const Form2=(e)=>{
+    e.preventDefault()
+    setError(false)
+    setErrP("")
+    setErrE("")
+    setErrA("")
+
+    if(Phone===""||Phone===null){
+        setErrP("Enter your phone number")
+        setError(true)
+    }
+    else if(Phone.length<10||Phone.length>10){
+        setErrP("Enter your 10 digit phone number")
+        setError(true)
+    }
+    else if(atposition<1||dotposition<atposition){
+        setErrE("Enter proper emailid")
+        setError(true)
+    }
+    else if(Address===""||Address===null){
+        setErrA("Enter your address")
+        setError(true)
+    }
+
+    else if(!Error){
+        setPno(3)
+    }
+
+}
+
+if(Pno===2){
+    return(
+        
+            <div>
+            <Header />
+            <MenuBar />
+            <div className="Login-image">
+                <h1 className="Login-heading">Register as Provider</h1>
+            </div>
+            <div className="Signup-card">
+                <div className="Form-div">
+                    <form className="Form-Provider" onSubmit={Form2}>
+                        <div className="Signup-title">
+                            <h1 className="Signup-heading">Register as provider in ABC</h1>
+                            <p className="Signup-ptag">Welcome! Register with valid data</p>
+                        </div>
+                        <label className="Join-Label">Phone Number</label>
+                        <input type='number' defaultValue={Phone} className="Signup-Input" onChange={(e)=>{setPhone(e.target.value)}}/>
+                        <p style={{color:"red"}}>{ErrP}</p>
+                        <label className="Join-Label">Email</label>
+                        <input  className="Signup-Input" type='email' defaultValue={Email} onChange={(e)=>{setEmail(e.target.value)}}/>
+                        <p style={{color:"red"}}>{ErrE}</p>
+                        <label className="Join-Label">Residential Address</label>
+                        <textarea  className="Signup-Input" defaultValue={Address} onChange={(e)=>{setAddress(e.target.value)}}/>
+                        <p style={{color:"red"}}>{ErrA}</p>
+                        <div className="Toggle-btns">
+                        <button  className="Button-Toggle"onClick={()=>{setPno(Pno-1); console.log(FirstName);}}>Previous</button>
+                        <button className="Button-Toggle">Next</button>
+                        </div>
+                        <div className="Already">
+                            <p className="Primary-Signup">Already have an account</p>
+                            <Link to="/Login"><p className="Secondary-Signup">Login</p></Link>
+                        </div>
+    
+                    </form>
+                </div>
+                <div className="Image-divProvider">
+    
+                </div>
+            </div>
+            <Footer/>
+            <End/>
+        </div>
+        )
+    
+}
+
+const Form3=(e)=>{
+    e.preventDefault()
+    setFileErr("")
+    setError(false)
+    if(File===""||File===null||File==="No file"){
+        setFileErr("Upload your photo")
+        setError(true)
+    }
+    else if(!Error){
+        const formdata=new FormData()
+        formdata.append("FirstName",FirstName)
+        formdata.append("LastName",LName)
+        formdata.append("Email",Email)
+        formdata.append("Phone",Phone)
+        formdata.append("File",File)
+        formdata.append("Location",Location)
+        formdata.append("Address",Address)
+        formdata.append("Category",Category)
+        axios.post("http://localhost:3001/Applications",formdata)
+        .then((response)=>{console.log(response);})
+    }
+}
+
+if(Pno===3){
+    return(
+        
+            <div>
+            <Header />
+            <MenuBar />
+            <div className="Login-image">
+                <h1 className="Login-heading">Register as Provider</h1>
+            </div>
+            <div className="Signup-card">
+                <div className="Form-div">
+                    <form className="Form-Provider" onSubmit={Form3}>
+                        <div className="Signup-title">
+                            <h1 className="Signup-heading">Register as provider in ABC</h1>
+                            <p className="Signup-ptag">Welcome! Register with valid data</p>
+                        </div>
+                        <label className="Join-Label">Photo</label>
+                        <input type='file' className="Signup-Input" onChange={(e)=>{setFile(e.target.value)}}/>
+                        <p style={{color:"red"}}>{FileErr}</p>
+                        <div className="Toggle-btns">
+                        <button  className="Button-Toggle"onClick={()=>{setPno(Pno-1); console.log(FirstName);}}>Previous</button>
+                        <button className="Button-Toggle">Submit</button>
+                        </div>
+                        <div className="Already">
+                            <p className="Primary-Signup">Already have an account</p>
+                            <Link to="/Login"><p className="Secondary-Signup">Login</p></Link>
+                        </div>
+    
+                    </form>
+                </div>
+                <div className="Image-divProvider">
+    
+                </div>
+            </div>
+            <Footer/>
+            <End/>
+        </div>
+        )
+    
+}
+    
 }
 
 
@@ -460,6 +659,7 @@ const AdminLogin = () => {
 const ForgetPassword=()=>{
 const[Email,setEmail]=useState("")
 const[err,setErr]=useState("")
+const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
 
 const [ForgetEmail,setForgetEmail] = useState("")
 
@@ -495,6 +695,17 @@ const ForgetPwd=(event)=>{
            )
 }
 
+useEffect(() =>{
+    if(cookies.jwt2){
+        window.location.href="/"
+    }
+},[cookies])
+
+if(cookies.jwt2){
+    alert("already loggedin")
+    window.location.href='/'
+}
+else{
     return(
         <div>
             <Header />
@@ -524,6 +735,8 @@ const ForgetPwd=(event)=>{
             <End/>
         </div>
     )
+}
+    
 }
 
 
