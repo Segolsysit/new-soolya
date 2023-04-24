@@ -1,5 +1,5 @@
 const Application_Router = require("express").Router();
-const Applicationschema = require("../Schema/ApplicationSchema");
+const Applicationschema = require("../models/applicationModel");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");

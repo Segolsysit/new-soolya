@@ -1,5 +1,5 @@
 const category_setup_Router = require("express").Router();
-const schema = require("../Schema/schema");
+const schema = require("../models/categoryModel");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
