@@ -40,7 +40,8 @@ const Applicationschema = mongoose.Schema({
     },
     Phone:{
         type:Number,
-    }
+    },
+   
 
 
 });

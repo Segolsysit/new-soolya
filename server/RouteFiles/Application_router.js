@@ -37,19 +37,28 @@ Application_Router.post("/Applications",upload.single("file"),async(req,res) => 
     const objects = new Applicationschema({
         FirstName:req.body.FirstName,
         LastName:req.body.LName,
-        Email:req.body.Email,
-        Phone:req.body.Phone,
-        Location:req.body.Location,
-        Address:req.body.Address,
-        Category:req.body.Category,
         originalname: req.file.originalname,
         mimetype: req.file.mimetype,
         filename: req.file.filename,
         path: req.file.path,
-        size: req.file.size
+        size: req.file.size,
+        Email:req.body.Email,
+        Location:req.body.Location,
+        Address:req.body.Address,
+        Category:req.body.Category,
+        Phone:req.body.Phone
        })
        await objects.save();
        res.status(200).json({message:"Uploaded Successfully",objects})
 })
 
+Application_Router.get("/vendor_application",async(req,res) => {
+    const vendorData = await Applicationschema.find();
+     res.json(vendorData)
+ })
+ 
+ Application_Router.get("/fetchVendor_id/:id",async(req,res) => {
+    const vendorData = await Applicationschema.findById(req.params.id);
+     res.json(vendorData)
+ })
 module.exports=Application_Router;
