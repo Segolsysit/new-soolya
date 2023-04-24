@@ -25,6 +25,14 @@ const schema = mongoose.Schema({
     size: {
         type: Number,
 
+    },
+    Desc: {
+        type: String,
+
+    },
+    Price: {
+        type: Number,
+
     }
 
 });

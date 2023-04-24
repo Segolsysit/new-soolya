@@ -7,8 +7,7 @@
 
 .CaroselCard-block{
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: center;
 }
 
 
@@ -50,6 +49,7 @@
     background-color: dodgerblue;
     text-decoration: none;
     color: rgb(248, 245, 245);
+    border-radius: 0px;
 }
 
 
