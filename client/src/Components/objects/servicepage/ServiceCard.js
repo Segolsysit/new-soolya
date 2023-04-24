@@ -5,6 +5,10 @@ import Pagination from "./Pagination";
 import "./Servicecard.css"
 import { End, Footer, Header, MenuBar } from "../objects";
 import axios from "axios";
+import { useCookies } from "react-cookie";
+
+
+
 
 
 
@@ -172,7 +176,7 @@ const localpath = "http://localhost:3001/";
                 {CurerntPost.map(item=>{
                     if(service==="Select"||service===""){
                         return(
-                            <div onClick={()=>{setServiceName(item.desc)} } className="Carosel-card">
+                            <div onClick={()=>{setServiceName("Cleaning in low cost")} } className="Carosel-card">
                                     <img className="Carosel-img" src={localpath + item.filename} alt=""/>
                                     <div className="Card-body">
                                         <div className="Carosel-sec">
@@ -190,11 +194,11 @@ const localpath = "http://localhost:3001/";
                     else{
                         if(item.Category===service){
                             return(
-                                <div onClick={()=>{setServiceName(item.desc)} } className="Carosel-card">
+                                <div onClick={()=>{setServiceName(item.catagorySetup)} } className="Carosel-card">
                                         <img className="Carosel-img" src={item.mainImage} alt=""/>
                                         <div className="Card-body">
                                             <div className="Carosel-sec">
-                                                <p className="Category-carosel">{item.Category}</p>
+                                                <p className="Category-carosel">{item.catagorySetup}</p>
                                                 <h2 className="Carosel-price">{item.Price}</h2>
                                             </div>
                                             <h1 className="Carosel-desc">{item.desc}</h1>
@@ -221,6 +225,7 @@ const localpath = "http://localhost:3001/";
 
 
 const ServiceDetails=()=>{
+    const [cookies, setCookie] = useCookies(['cookie-name']);
     var FetchName=localStorage.getItem("Category")
     const[err,setErr]=useState(0)
     const data=[
@@ -298,7 +303,7 @@ const ServiceDetails=()=>{
         },
         {
             "Image":"https://images.pexels.com/photos/3768910/pexels-photo-3768910.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-            "Name":"Clean your households from our experts",
+            "Name":"Cleaning in low cost",
             "Desc":"Clean your home at low cost",
             "Get":["Room Cleaning","Toilet Cleaning","Gardening"],
             "Benifits":["Service Gurantee","Quality service","Timely work"],
@@ -324,7 +329,7 @@ var [Num,setNum]=useState(1)
 
 const Booking=()=>{
     var status=localStorage.getItem("Status")
-    if(status==="Loggedin"){
+    if(cookies.jwt2){
         window.location.href="/booking"
     }
     else{
