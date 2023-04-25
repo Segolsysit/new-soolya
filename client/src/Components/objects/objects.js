@@ -796,27 +796,36 @@ const Profile=({open,close})=>{
 
 const UserDashboard=()=>{
     const[state,setState]=useState(1)
-    return(
-        <div>
-            <MenuBar/>
-            
-            <div className="Dashboard-body">
-                <div className="Sidebar">
-                    <ul className="Sidebar-ul">
-                        <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}>My Profile</li>
-                        <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}>My Orders</li>
-                    </ul>
-                </div>
-                <div className="Dashboard-right">
-                    <UserProfile State={state}/>
-                    <UserOrders State={state}/>
-                </div>
+    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
 
+    if(cookies.jwt2){
+        return(
+            <div>
+                <MenuBar/>
+                
+                <div className="Dashboard-body">
+                    <div className="Sidebar">
+                        <ul className="Sidebar-ul">
+                            <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}>My Profile</li>
+                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}>My Orders</li>
+                        </ul>
+                    </div>
+                    <div className="Dashboard-right">
+                        <UserProfile State={state}/>
+                        <UserOrders State={state}/>
+                    </div>
+    
+                </div>
+                <Footer/>
+                <End/>
             </div>
-            <Footer/>
-            <End/>
-        </div>
-    )
+        )
+        
+    }
+    else{
+        window.location.href='/Login'
+    }
+    
 }
 
 

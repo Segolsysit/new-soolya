@@ -232,12 +232,12 @@ const VendorLogin = () => {
                                     <input type="checkbox"/>
                                     <p className="Remember-ptag">Remember Me</p>
                                 </div>
-                                <Link to='/ForgetPassword'><p className="Forget">Forget Password</p></Link>
+                                <Link to='/vendorForgetPassword'><p className="Forget">Forget Password</p></Link>
                             </div>
                             <button className="Button-Signup">Login</button>
                             <div className="Already">
-                                <p className="Primary-Signup">Don't have account</p>
-                                <Link to="/Signup"><p className="Secondary-Signup">Signup</p></Link>
+                                <p className="Primary-Signup">Not a vendor</p>
+                                <Link to="/Provider"><p className="Secondary-Signup">Join us</p></Link>
                             </div>
     
                         </form>
@@ -860,5 +860,89 @@ else{
     
 }
 
+const ForgetPasswordVendor=()=>{
+    const[Email,setEmail]=useState("")
+    const[err,setErr]=useState("")
+    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+    
+    const [ForgetEmail,setForgetEmail] = useState("")
+    
+        
+        
+    const ForgetPwd=(event)=>{
+        event.preventDefault();
+        setErr("")
+    
+        var atposition=Email.indexOf("@")
+        var dotposition=Email.lastIndexOf("."); 
+        if(Email===""||Email===null){
+            setErr("Enter your Mail_id")
+        }
+         else if (atposition<1 || dotposition<atposition+2 || dotposition+2>=Email.length){  
+            setErr("Please enter a valid e-mail address");  
+            return false;  
+            }  
+          
+    
+        axios.post("http://localhost:3001/authUser/forgot_password",{
+            email: ForgetEmail
+         },{
+             method:"POST",
+             crossDomain:true,
+             withCredentials : true  
+               })
+               .then((res) =>
+               { 
+                 console.log(res ,"userRegister")
+               alert(res.data.status)
+             }
+               )
+    }
+    
+    useEffect(() =>{
+        if(cookies.jwt2){
+            window.location.href="/"
+        }
+    },[cookies])
+    
+    if(cookies.jwt2){
+        alert("already loggedin")
+        window.location.href='/'
+    }
+    else{
+        return(
+            <div>
+                <Header />
+                <MenuBar />
+                <div className="Forget-screen">
+                <div className="forget-card">
+                    <div className="Form-div">
+                        <form className="Form-forget" onSubmit={ForgetPwd}>
+                        <div className="Signup-title">
+                                <h1 className="Signup-heading">Forget Password</h1>
+                            </div>
+                            
+                            <label className="Forgrt-Label">Enter your Email_id</label>
+                            <input className="Signup-Input" type='email' onChange={(e)=>{setEmail(e.target.value)}}/>
+                            <p style={{color:"red",margin:'0px',padding:'0px'}}>{err}</p>
+                            
+                            <button className="Button-Signup" type="submit">Change Password</button> 
+    
+                        </form>
+                    </div>
+                    <div className="Image-forget">
+    
+                    </div>
+                </div>
+                </div>
+                <Footer/>
+                <End/>
+            </div>
+        )
+    }
+        
+    }
 
-export {Login,Signup,Provider,AdminLogin,ForgetPassword,VendorLogin} 
+
+
+export {Login,Signup,Provider,AdminLogin,ForgetPassword,VendorLogin,ForgetPasswordVendor} 
