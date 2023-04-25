@@ -187,24 +187,16 @@ const Page1 = ({ Page, setPage }) => {
 const Page2 = () => {
     const [Data,setData]=useState([])
     const id=localStorage.getItem("order_id")
-
-    function get(){
-        axios.get(`http://localhost:3001/api/fetch_items_id/${id}`)
-        .then((data)=>setData(data.data))
-    }
-    useEffect(()=>{
-         get()
-        // console.log(Data);
-    // console.log(da;
-    },[])
-    
-    const Name = localStorage.getItem("Name")
+     const Name = localStorage.getItem("Name")
     const Number = localStorage.getItem("Phone")
     const Address = localStorage.getItem("Address")
-    
 
-    
-    // console.log(Data.Desc);
+    useEffect(()=>{
+        axios.get(`http://localhost:3001/api/fetch_items_id/${id}`)
+        .then((data)=>setData(data.data))
+    },[])
+         
+        console.log(Data);
         return (
             <div className="Form-outerdiv">
                 <div className="Form1">
@@ -224,25 +216,35 @@ const Page2 = () => {
                 </div>
             </div>
         )
-    }
+    
+    
+    
+   
+    
 
     
+    // console.log(Data.Desc);
+        
+    
+
+        }
 
 
 
 const Page3 = ({ Page, setPage }) => {
+    const[Payment,setPayment]=useState("")
     return (
         <div className="Form-outerdiv">
             <div className="Form1">
                 <h2 className="Form2-heading">Payment Option</h2>
                 <div className="Form2-contactdiv">
                     <ul className="Form2-ul">
-                        <li className="Form2-li"><input type='radio' name="pay" />
+                        <li className="Form2-li"><input type='radio' name="pay" onChange={()=>setPayment("Cash on delivery")} />
                             <label className="form3-label">Cash on delivery</label></li>
-                        <li className="Form2-li"><input type='radio' name="pay" />
+                        <li className="Form2-li"><input type='radio' name="pay" onChange={()=>setPayment("Online Payment")}/>
                             <label className="form3-label">Online Payment</label></li>
                     </ul>
-                    <button className="Form3-btn" onClick={() => setPage(4)}>Continue</button>
+                    <button className={Payment===""?"Form3-btndisabled":"Form3-btn"} disabled={Payment===""?true:false} onClick={() => setPage(4)}>Continue</button>
                 </div>
             </div>
         </div>
