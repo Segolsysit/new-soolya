@@ -15,6 +15,7 @@ const BookingPage=()=>{
     const [booking_service,setbooking_service] = useState({})
     const [myorders,setMyorders] = useState([])
     const [cookies, setCookie, removeCookie] = useCookies([]);
+    const id = localStorage.getItem("order_id")
 
     const token = cookies.jwt2;
     const decodedToken = jwt_decode(token);
@@ -23,16 +24,22 @@ const BookingPage=()=>{
 
     useEffect(()=>{
         orders()
-    })
+        get()
+    },[])
 
     const orders = () => {
-        axios.get(`http://localhost:3001/auth_router/fetch_email/${userId}`)
+        console.log(userId);
+        axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
         .then((res) => {
             console.log(res.data);
             setMyorders(res.data)
         })
-    
       }
+
+      function get() {
+        axios.get(`http://localhost:3001/api/fetch_items_id/${id}`)
+            .then((res) => setbooking_service(res.data))
+    }
 
     const nextPage=()=>{
         setPage(Page+1)
@@ -51,11 +58,7 @@ const BookingPage=()=>{
     const zip =localStorage.getItem("Post")
     const street =localStorage.getItem("Street")
     const city =localStorage.getItem("City")
-    axios.get(`http://localhost:3001/booking_api/booking_data/${id}`).then(
-        (data)=>{setbooking_service(data)
-            console.log(booking_service);
-        }
-    )
+    
     // localStorage.removeItem("Name")
     // localStorage.removeItem("Phone")
     // localStorage.removeItem("Address")
@@ -71,9 +74,9 @@ const BookingPage=()=>{
             zip,
             person,
             number,
-            Service:booking_service.Service,
-            // Category:bookingdata.Category,
-            price:booking_service.price,
+            // Service:booking_service.Service,
+            Category:booking_service.catagorySetup,
+            price:booking_service.Price,
             paymentMethod:localStorage.getItem("paymentType")
         })
     
