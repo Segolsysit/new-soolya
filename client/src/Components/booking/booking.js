@@ -73,7 +73,8 @@ const BookingPage=()=>{
             number,
             Service:booking_service.Service,
             // Category:bookingdata.Category,
-            // price:bookingdata.price
+            price:booking_service.price,
+            paymentMethod:localStorage.getItem("paymentType")
         })
     
     setTimeout(()=>window.location.href="/Myorder",3000)        
