@@ -186,48 +186,48 @@ const Page1 = ({ Page, setPage }) => {
 
 
 const Page2 = () => {
-    const [Data, setData] = useState([])
-    const id = localStorage.getItem("order_id")
+    const [Data,setData]=useState([])
+    const id=localStorage.getItem("order_id")
 
-    function get() {
+    function get(){
         axios.get(`http://localhost:3001/api/fetch_items_id/${id}`)
-            .then((data) => setData(data.data))
+        .then((data)=>setData(data.data))
     }
-    useEffect(() => {
-        get()
+    useEffect(()=>{
+         get()
         // console.log(Data);
-        // console.log(da;
-    }, [])
-
+    // console.log(da;
+    },[])
+    
     const Name = localStorage.getItem("Name")
     const Number = localStorage.getItem("Phone")
     const Address = localStorage.getItem("Address")
+    
 
-
-
+    
     // console.log(Data.Desc);
-    return (
-        <div className="Form-outerdiv">
-            <div className="Form1">
-
-                <h2 className="Form2-heading">Billing Summary</h2>
-                <div className="Form2-contactdiv">
-                    <p className="Bill-data">Item:{Data.Desc}</p>
-                    <p className="Bill-data">Price:${Data.Price}</p>
-
-
-                    <ul className="Form2-ul">
-                        <li className="Form2-li"><i class="fa-solid fa-user"></i>{Name}</li>
-                        <li className="Form2-li"><i class="fa-solid fa-phone"></i>{Number}</li>
-                        <li className="Form2-li"><i class="fa-solid fa-location-dot"></i>{Address}</li>
-                    </ul>
+        return (
+            <div className="Form-outerdiv">
+                <div className="Form1">
+                    
+                    <h2 className="Form2-heading">Billing Summary</h2>
+                    <div className="Form2-contactdiv">
+                                <p className="Bill-data">Item:{Data.Desc}</p>
+                                <p className="Bill-data">Price:${Data.Price}</p>
+                    
+                    
+                        <ul className="Form2-ul">
+                            <li className="Form2-li"><i class="fa-solid fa-user"></i>{Name}</li>
+                            <li className="Form2-li"><i class="fa-solid fa-phone"></i>{Number}</li>
+                            <li className="Form2-li"><i class="fa-solid fa-location-dot"></i>{Address}</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
-}
+        )
+    }
 
-
+    
 
 
 
