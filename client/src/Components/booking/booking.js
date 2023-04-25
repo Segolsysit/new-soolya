@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {Page1,Page2,Page3,Page4} from "./page1";
 import axios from "axios";
+import { useCookies } from "react-cookie";
+import jwt_decode from 'jwt-decode';
 
 
 const BookingPage=()=>{
@@ -11,6 +13,26 @@ const BookingPage=()=>{
     const [state,setState]=useState(true)
     const[Time,settime]=useState(0)
     const [booking_service,setbooking_service] = useState({})
+    const [myorders,setMyorders] = useState([])
+    const [cookies, setCookie, removeCookie] = useCookies([]);
+
+    const token = cookies.jwt2;
+    const decodedToken = jwt_decode(token);
+    const userId = decodedToken.id;
+
+
+    useEffect(()=>{
+        orders()
+    })
+
+    const orders = () => {
+        axios.get(`http://localhost:3001/auth_router/fetch_email/${userId}`)
+        .then((res) => {
+            console.log(res.data);
+            setMyorders(res.data)
+        })
+    
+      }
 
     const nextPage=()=>{
         setPage(Page+1)
@@ -42,6 +64,7 @@ const BookingPage=()=>{
     // localStorage.removeItem("City")
     // console.log(Time);
     axios.post("http://localhost:3001/booking_api/new_booking", {
+        user_email: myorders.email,
             address,
             street,
             city,
