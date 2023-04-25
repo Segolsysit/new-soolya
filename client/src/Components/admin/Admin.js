@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import "./Admin.css"
 import {CategoryForm,Rejected_list,Orders} from './Categoryform';
 import DashBoard from './Dashboard';
+import RecivedApplication from './RecivedApplications';
 import  { Add_new_service,ServiceList } from './Servicelist';
 
 export const Admin = () => {
@@ -88,15 +89,15 @@ const[Formnum,setFormnum]=useState(0)
                             <hr className="sidebar-divider my-0" />
     
                             {/* <!-- Nav Item - Dashboard --> */}
-                            <li className="nav-item active" onClick={()=>{{setState(true)
+                            <li className="nav-item active  " onClick={()=>{{setState(true)
                             setFormnum(3)}}}>
                                 <a className="nav-link">
                                     <i className="fas fa-fw fa-tachometer-alt"></i>
                                     <span>Dashboard</span></a>
                             </li>
     
-                            <li className="nav-item active">
-                                <a className="nav-link" href="/application">
+                            <li className="nav-item active" onClick={()=>setFormnum(10)}>
+                                <a className="nav-link"  >
                                     <i className="fas fa-fw fa-tachometer-alt"></i>
                                     <span>Application</span></a>
                             </li>
@@ -446,6 +447,7 @@ const[Formnum,setFormnum]=useState(0)
                                 <Orders formNumber={Formnum}/>
                                 <ServiceList formNumber={Formnum}/>
                                 <Add_new_service formNumber={Formnum}/>
+                                <RecivedApplication formNumber={Formnum}/>
     
                             </div>
                             {/* <!-- End of Main Content --> */}
