@@ -440,9 +440,11 @@ const Rejected_list = ({formNumber}) => {
     }
 
     const getrejected_list = ()=>{
-        axios.get("http://localhost:3001/reject_api/rejected_data").then((res)=>{
+            axios.get("http://localhost:3001/reject_api/rejected_data").then((res)=>{
             setregected(res.data)
         })
+        
+        
     }
 
     const [orderdetails, setorderdetails] = useState([])

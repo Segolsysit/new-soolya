@@ -3,8 +3,10 @@ import './object.css'
 import './add.css'
 import './footer.css'
 import '../home.css'
+import'./dashboard.css'
 import { Link } from "react-router-dom";
 import {useCookies} from 'react-cookie'
+import {UserProfile,UserOrders} from "./Userdashboardcomps/Dashboard components";
 
 
 const Header = () => {
@@ -793,11 +795,23 @@ const Profile=({open,close})=>{
 }
 
 const UserDashboard=()=>{
+    const[state,setState]=useState(1)
     return(
         <div>
             <MenuBar/>
-            <div className="Login-image">
-                <h1 className="Login-heading">My Dashboard</h1>
+            
+            <div className="Dashboard-body">
+                <div className="Sidebar">
+                    <ul className="Sidebar-ul">
+                        <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}>My Profile</li>
+                        <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}>My Orders</li>
+                    </ul>
+                </div>
+                <div className="Dashboard-right">
+                    <UserProfile State={state}/>
+                    <UserOrders State={state}/>
+                </div>
+
             </div>
             <Footer/>
             <End/>
