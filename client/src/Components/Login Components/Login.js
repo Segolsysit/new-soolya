@@ -725,7 +725,6 @@ const AdminLogin = () => {
 
         if(Email===adminEmail&&Password===adminpassword&&Status!=="Loggedin"){
             localStorage.setItem("adminemail",Email)
-            localStorage.setItem("adminpassword",Password)
             window.location.href='/Admin'
         }
         else{
