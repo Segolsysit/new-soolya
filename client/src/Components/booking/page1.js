@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './booking.css'
 import { useState } from "react";
+import axios from "axios";
 // import ReCAPTCHA from "react-google-recaptcha";
 
 
@@ -38,6 +39,8 @@ const Page1 = ({ Page, setPage }) => {
     const [err5, setErr5] = useState(true)
     const [err6, setErr6] = useState(true)
 
+
+
     const SubmitForm = (e) => {
         e.preventDefault()
         setErrName("")
@@ -53,7 +56,6 @@ const Page1 = ({ Page, setPage }) => {
         setErr5(true)
         setErr6(true)
         var error = false
-
 
 
 
@@ -183,24 +185,49 @@ const Page1 = ({ Page, setPage }) => {
 
 
 const Page2 = () => {
+    const [Data,setData]=useState([])
+    const id=localStorage.getItem("order_id")
+
+    function get(){
+        axios.get(`http://localhost:3001/api/fetch_items_id/${id}`)
+        .then((data)=>setData(data.data))
+    }
+    useEffect(()=>{
+         get()
+        // console.log(Data);
+    // console.log(da;
+    },[])
+    
     const Name = localStorage.getItem("Name")
     const Number = localStorage.getItem("Phone")
     const Address = localStorage.getItem("Address")
-    return (
-        <div className="Form-outerdiv">
-            <div className="Form1">
-                <h2 className="Form2-heading">Billing Summary</h2>
-                <div className="Form2-contactdiv">
-                    <ul className="Form2-ul">
-                        <li className="Form2-li"><i class="fa-solid fa-user"></i>{Name}</li>
-                        <li className="Form2-li"><i class="fa-solid fa-phone"></i>{Number}</li>
-                        <li className="Form2-li"><i class="fa-solid fa-location-dot"></i>{Address}</li>
-                    </ul>
+    
+
+    
+    // console.log(Data.Desc);
+        return (
+            <div className="Form-outerdiv">
+                <div className="Form1">
+                    
+                    <h2 className="Form2-heading">Billing Summary</h2>
+                    <div className="Form2-contactdiv">
+                                <p className="Bill-data">Item:{Data.Desc}</p>
+                                <p className="Bill-data">Price:${Data.Price}</p>
+                    
+                    
+                        <ul className="Form2-ul">
+                            <li className="Form2-li"><i class="fa-solid fa-user"></i>{Name}</li>
+                            <li className="Form2-li"><i class="fa-solid fa-phone"></i>{Number}</li>
+                            <li className="Form2-li"><i class="fa-solid fa-location-dot"></i>{Address}</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
-}
+        )
+    }
+
+    
+
 
 
 const Page3 = ({ Page, setPage }) => {

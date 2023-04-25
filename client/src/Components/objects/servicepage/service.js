@@ -12,6 +12,7 @@ const Service=()=>{
          }, [pathname]);
 
          const[Service,setService]=useState("")
+         const[PriceRange,setPricerange]=useState("")
     return(
         <div>
             <Header/>
@@ -40,7 +41,7 @@ const Service=()=>{
                         <option>Plumbing</option>
                     </select>
                 </div>
-                <div className="Service-selection">
+                <div className="Service-selection" onChange={(e)=>setPricerange(e.target.value)}>
                     <h3 className="Service-tit">Price Range</h3>
                     <select className="Service-select">
                         <option>Select</option>
@@ -58,7 +59,7 @@ const Service=()=>{
                 </div>
 
             </div>
-            <ServiceCard service={Service}/>
+            <ServiceCard service={Service} Range={PriceRange}/>
              <Footer/>
              <End/>
         </div>

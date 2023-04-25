@@ -78,3 +78,8 @@
 .subcategory_list{
     padding-top: 50px;
 }
+
+.nav-item {
+    cursor: pointer;
+}
+
