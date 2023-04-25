@@ -39,6 +39,8 @@ const Page1 = ({ Page, setPage }) => {
     const [err5, setErr5] = useState(true)
     const [err6, setErr6] = useState(true)
 
+
+
     const SubmitForm = (e) => {
         e.preventDefault()
         setErrName("")
@@ -54,7 +56,6 @@ const Page1 = ({ Page, setPage }) => {
         setErr5(true)
         setErr6(true)
         var error = false
-
 
 
 
@@ -210,10 +211,8 @@ const Page2 = () => {
                     
                     <h2 className="Form2-heading">Billing Summary</h2>
                     <div className="Form2-contactdiv">
-                        
-                                <p>item:{Data.Desc}</p>
-                                <p>Price:${Data.Price}</p>
-                        
+                                <p className="Bill-data">Item:{Data.Desc}</p>
+                                <p className="Bill-data">Price:${Data.Price}</p>
                     
                     
                         <ul className="Form2-ul">
