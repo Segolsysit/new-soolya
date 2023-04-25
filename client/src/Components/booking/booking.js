@@ -49,7 +49,8 @@ const BookingPage=()=>{
     }
     console.log(Name);
 
-    const ConfirmBooking=()=>{
+    const ConfirmBooking=(e)=>{
+        e.preventDefault()
     setState(false)
     const id = localStorage.getItem("order_id")
     const person =localStorage.getItem("Name")
@@ -59,12 +60,12 @@ const BookingPage=()=>{
     const street =localStorage.getItem("Street")
     const city =localStorage.getItem("City")
     
-    // localStorage.removeItem("Name")
-    // localStorage.removeItem("Phone")
-    // localStorage.removeItem("Address")
-    // localStorage.removeItem("Post")
-    // localStorage.removeItem("Street")
-    // localStorage.removeItem("City")
+    localStorage.removeItem("Name")
+    localStorage.removeItem("Phone")
+    localStorage.removeItem("Address")
+    localStorage.removeItem("Post")
+    localStorage.removeItem("Street")
+    localStorage.removeItem("City")
     // console.log(Time);
     axios.post("http://localhost:3001/booking_api/new_booking", {
         user_email: myorders.email,
@@ -80,7 +81,7 @@ const BookingPage=()=>{
             paymentMethod:localStorage.getItem("paymentType")
         })
     
-    setTimeout(()=>window.location.href="/Myorder",3000)        
+    setTimeout(()=>window.location.href="/Mydashboard",3000)        
     
     }
 

@@ -763,10 +763,7 @@ const AdminLogin = () => {
                             <p className="Forget">Forget Password</p>
                         </div>
                         <button className="Button-Signup" type="submit">Login</button>
-                        <div className="Already">
-                            <p className="Primary-Signup">Don't have account</p>
-                            <Link to="/Signup"><p className="Secondary-Signup">Signup</p></Link>
-                        </div>
+                        
 
                     </form>
                 </div>
