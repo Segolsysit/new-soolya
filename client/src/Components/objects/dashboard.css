@@ -67,3 +67,26 @@
     flex-direction: column;
     
 }
+
+@media only screen and (max-width:600px) {
+
+    .Sidebar-ul{
+        display: flex;
+       flex-direction: column;
+       gap: 5px;
+       list-style: none;
+       font-size: 15px;
+       font-weight: bolder;
+       padding: 0px;
+       margin-left: 0px;
+       margin-bottom: 0px;
+   }
+
+   .Dashboard-right{
+    display: flex;
+    flex-direction: column;
+    overflow-x: scroll;
+    
+}
+
+}

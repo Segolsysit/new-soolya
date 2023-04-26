@@ -748,6 +748,18 @@ const End = () => {
 
 
 const MenuList = ({ Open, Close }) => {
+    const [cookies,removeCookie] = useCookies()
+    const Token=cookies.jwt2
+    const[state,setState]=useState(false)
+    const ProfileOpen=()=>{
+        if(!state){
+            setState(true)
+        }
+        else{
+            setState(false)
+        }
+        
+    }
     if (!Open) return null
     else {
         return (
@@ -766,8 +778,11 @@ const MenuList = ({ Open, Close }) => {
                         <button className="Searchbutton"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div >
                     <button className="hireButton">Hire Now</button>
-                    <Link to="/Login"><button className="userButton"><i class="fa-solid fa-user"></i></button></Link>
+                    <Link to="/Login"><button className={Token  ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
+                    <img onClick={ProfileOpen} src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" className={Token ? "Profileimg" : "Profileimg-hide"}></img>
                 </div>
+                <Profile open={state} close={setState}/>
+
             </div>
         )
     }
@@ -796,27 +811,36 @@ const Profile=({open,close})=>{
 
 const UserDashboard=()=>{
     const[state,setState]=useState(1)
-    return(
-        <div>
-            <MenuBar/>
-            
-            <div className="Dashboard-body">
-                <div className="Sidebar">
-                    <ul className="Sidebar-ul">
-                        <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}>My Profile</li>
-                        <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}>My Orders</li>
-                    </ul>
-                </div>
-                <div className="Dashboard-right">
-                    <UserProfile State={state}/>
-                    <UserOrders State={state}/>
-                </div>
+    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
 
+    if(cookies.jwt2){
+        return(
+            <div>
+                <MenuBar/>
+                
+                <div className="Dashboard-body">
+                    <div className="Sidebar">
+                        <ul className="Sidebar-ul">
+                            <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}>My Profile</li>
+                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}>My Orders</li>
+                        </ul>
+                    </div>
+                    <div className="Dashboard-right">
+                        <UserProfile State={state}/>
+                        <UserOrders State={state}/>
+                    </div>
+    
+                </div>
+                <Footer/>
+                <End/>
             </div>
-            <Footer/>
-            <End/>
-        </div>
-    )
+        )
+        
+    }
+    else{
+        window.location.href='/Login'
+    }
+    
 }
 
 

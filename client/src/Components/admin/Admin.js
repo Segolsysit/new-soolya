@@ -11,7 +11,6 @@ export const Admin = () => {
     const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
     const nav = useNavigate()
     const aemail = localStorage.getItem("adminemail")
-    const apassword = localStorage.getItem("adminpassword")
     const [orderdetails, setorderdetails] = useState([])
 // const [ss ,setSs] = useState(orderdetails.length);
 
@@ -46,15 +45,14 @@ const[Formnum,setFormnum]=useState(0)
     // const isPasswordCorrect = bcrypt.compareSync(apassword, hashedPassword);
 
     const verify = ()=>{
-        if(aemail === null || apassword === null){
+        if(aemail === null){
             nav("/admin")
         }
     }
 
     const adminlogout = ()=>{
         localStorage.removeItem("adminemail")
-        localStorage.removeItem("adminpassword")
-        nav("/admin")
+        nav("/AdminLogin")
     }
 
     useEffect(() => {
@@ -62,7 +60,7 @@ const[Formnum,setFormnum]=useState(0)
         verify()
     }, [])
 
-    if(aemail==="admin@abc.com"&&apassword==="Admin@123"){
+    if(aemail==="admin@abc.com"){
         return (
             <div>
                 <body id="page-top">
@@ -429,7 +427,7 @@ const[Formnum,setFormnum]=useState(0)
                                                 Activity Log
                                             </a>
                                             <div className="dropdown-divider"></div>
-                                            <a className="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal">
+                                            <a className="dropdown-item" href="/" data-bs-toggle="modal" data-bs-target="#logoutModal">
                                                 <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                                 Logout
                                             </a>

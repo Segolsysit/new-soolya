@@ -6,8 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { useState,useEffect } from "react";
 import { useCookies } from "react-cookie";
 import jwt_decode from 'jwt-decode';
+import { useLocation } from "react-router-dom";
 
 const UserProfile=({State})=>{
+    const Navigate=useNavigate();
+    const { pathname } = useLocation();
+        useEffect(() => {
+        window.scrollTo(0, 0);
+         }, [pathname]);
     if(State===1){
         return(
             <div className="User-Screen">

@@ -104,7 +104,7 @@ const localpath = "http://localhost:3001/";
                                                 <p className="Category-carosel">{item.catagorySetup}</p>
                                                 <h2 className="Carosel-price">${item.Price}</h2>
                                             </div>
-                                            <h1 className="Carosel-desc">{item.desc}</h1>
+                                            <h1 className="Carosel-desc">{item.Desc}</h1>
                                             <div className="Carosel-third">
                                                 
                                             </div>
