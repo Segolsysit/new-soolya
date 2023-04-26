@@ -19,7 +19,7 @@
     flex-direction: column;
     gap: 5px;
     list-style: none;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bolder;
     padding: 0px;
     margin-left: 0px;
@@ -77,6 +77,7 @@
 .Dashboard-right{
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
     
 }
 
@@ -99,6 +100,16 @@
     flex-direction: column;
     overflow-x: scroll;
     
+}
+
+.Sidebar-li{
+    flex-direction: column;
+    text-align: center;
+}
+.Sidebar-liactive{
+    flex-direction: column;
+    text-align: center;
+
 }
 
 }
