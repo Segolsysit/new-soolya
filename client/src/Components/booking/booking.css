@@ -166,8 +166,7 @@
 
 .Form2-contactdiv{
     display: flex;
-    flex-direction: column;
-    justify-content: left;
+    justify-content: center;
     text-align: left;
     gap: 20px;
 }

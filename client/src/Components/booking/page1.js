@@ -212,10 +212,10 @@ const Page2 = () => {
                     
                     <h2 className="Form2-heading">Billing Summary</h2>
                     <div className="Form2-contactdiv">
+                        <div>
                                 <p className="Bill-data">Item:{Data.Desc}</p>
                                 <p className="Bill-data">Price:${Data.Price}</p>
-                    
-                    
+                                </div>
                         <ul className="Form2-ul">
                             <li className="Form2-li"><i class="fa-solid fa-user"></i>{Name}</li>
                             <li className="Form2-li"><i class="fa-solid fa-phone"></i>{Number}</li>
