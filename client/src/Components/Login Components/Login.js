@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import './Login.css'
 import { useLocation,useNavigate } from "react-router-dom";
 import { useEffect, } from "react";
-import iou from "./dummy.jpg"
 import axios from "axios"
 import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
@@ -274,6 +273,7 @@ const Signup=()=>{
          const[errP,seterrP]=useState("")
          const[errEmail,setEE]=useState("")
          const[errPwd,setPwd]=useState("")
+         
 
 const Register= async(e)=>{
     e.preventDefault()
@@ -282,6 +282,11 @@ const Register= async(e)=>{
     seterrP("")
     setEE("")
     setPwd("")
+    
+const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+
+    
+
 
 
     if(First===""||First===null){
@@ -302,6 +307,15 @@ const Register= async(e)=>{
    else if(Password===""||Password===null){
         setPwd("Enter your password")
     }
+    
+    else if(Password.length<8){
+        setPwd("Your password should have at least 8 characters")
+    }
+    else if(!passwordPattern.test(Password)){
+        setPwd("Your password must have atleast one lowercase letter, one uppercase letter, one number, and one special character (!@#$%^&*).")
+    }
+    
+
     else{
 
         const { data } = await axios.post(
@@ -420,8 +434,7 @@ const[FileErr,setFileErr]=useState("")
 
 const Form1=(e)=>{
     e.preventDefault()
-    var atposition=Email.indexOf("@")
-    var dotposition=Email.indexOf("."); 
+     
     // console.log(dotposition);
     setErrFN("")
     setErrLN("")

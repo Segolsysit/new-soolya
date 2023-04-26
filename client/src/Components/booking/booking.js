@@ -7,11 +7,8 @@ import jwt_decode from 'jwt-decode';
 
 const BookingPage=()=>{
     const [Page,setPage]=useState(1)
-    const[Name,setName]=useState("")
-    const[Phone,setPhone]=useState("")
-    const[Location,setLocation]=useState("")
+    
     const [state,setState]=useState(true)
-    const[Time,settime]=useState(0)
     const [booking_service,setbooking_service] = useState({})
     const [myorders,setMyorders] = useState([])
     const [cookies, setCookie, removeCookie] = useCookies([]);
@@ -47,7 +44,6 @@ const BookingPage=()=>{
     const PreviousPage=()=>{
         setPage(Page-1)
     }
-    console.log(Name);
 
     const ConfirmBooking=(e)=>{
         e.preventDefault()
