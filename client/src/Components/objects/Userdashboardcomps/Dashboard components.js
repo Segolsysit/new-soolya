@@ -69,11 +69,6 @@ const UserOrders=({State})=>{
             console.log(res.data);
             setMyorders(res.data)
         })
-        axios.get(`http://localhost:3001/booking_data/${useremail}`)
-        .then((res) => {
-            console.log(res.data);
-            setorderdetails(res.data)
-        })
       }
 
     const orders1 = ()=>{
