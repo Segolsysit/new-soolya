@@ -117,25 +117,24 @@ const UserOrders=({State})=>{
         axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
         .then((res) => {
             console.log(res.data);
-            setMyorders(res.data)
+            setMyorders(res.data);
+            orders1()
         })
+        // axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
+        // .then((res) => {
+        //     console.log(res.data);
+        //     setorderdetails(res.data)
+        // })
+      }
+
+    const orders1 = ()=>{
         axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
         .then((res) => {
             console.log(res.data);
             setorderdetails(res.data)
 
         })
-      }
-
-    //  console.log(orderdetails);
-
-    // const orders1 = ()=>{
-    //     axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
-    //     .then((res) => {
-    //         console.log(res.data);
-    //         setorderdetails(res.data)
-    //     })
-    // }
+    }
 
     
     // const verify = ()=>{
