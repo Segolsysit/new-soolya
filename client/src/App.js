@@ -1,16 +1,13 @@
 
 import React, { lazy, Suspense } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import Service from './Components/objects/servicepage/service';
-import { useEffect } from "react";
 import {Login,Signup,Provider, AdminLogin,ForgetPassword, VendorLogin,ForgetPasswordVendor} from './Components/Login Components/Login';
 import Admin from './Components/admin/Admin';
 import { ServiceDetails } from './Components/objects/servicepage/ServiceCard';
 import BookingPage from './Components/booking/booking';
 import Myorder from './Components/booking/myOrder';
-import Orders from './Components/admin/Orders';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
 // import Servicemanlist from './Components/admin/Servicemanlist';

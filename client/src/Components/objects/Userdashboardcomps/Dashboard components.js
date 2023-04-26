@@ -1,6 +1,6 @@
 import React from "react";
 import './Usercomponents.css'
-import { Button, Table, TableBody, TableCell, TableRow, TableHead } from '@mui/material';
+import { Table, TableBody, TableCell, TableRow, TableHead } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState,useEffect } from "react";
@@ -9,7 +9,6 @@ import jwt_decode from 'jwt-decode';
 import { useLocation } from "react-router-dom";
 
 const UserProfile=({State})=>{
-    const Navigate=useNavigate();
     const { pathname } = useLocation();
         useEffect(() => {
         window.scrollTo(0, 0);
@@ -41,12 +40,7 @@ const UserProfile=({State})=>{
 }
 
 const UserOrders=({State})=>{
-    const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
     const [orderdetails,setorderdetails] = useState([])
-    const aemail = localStorage.getItem("adminemail")
-    const apassword = localStorage.getItem("adminpassword");
-    const [notificationCount, setNotificationCount] = useState(0);
-    const nav = useNavigate()
     const [cookies, setCookie, removeCookie] = useCookies([]);
     const [myorders,setMyorders] = useState([])
 
@@ -83,6 +77,7 @@ const UserOrders=({State})=>{
         .then((res) => {
             console.log(res.data);
             setorderdetails(res.data)
+
         })
     }
 

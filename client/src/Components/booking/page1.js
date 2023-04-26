@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import './booking.css'
 import { useState } from "react";
 import axios from "axios";
-import { Card, Form, Button } from "react-bootstrap";
+import { Card, Form } from "react-bootstrap";
 // import ReCAPTCHA from "react-google-recaptcha";
 
 
@@ -331,9 +331,9 @@ const Page3 = ({ Page, setPage }) => {
 }
 
 const Page4 = ({ Page, setPage }) => {
-    const onChange = (value) => {
-        localStorage.setItem("captcha", value)
-    }
+    // const onChange = (value) => {
+    //     localStorage.setItem("captcha", value)
+    // }
     return (
         <div className="Form-outerdiv">
             <div className="Form1">
