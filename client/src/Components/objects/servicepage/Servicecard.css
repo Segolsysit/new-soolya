@@ -15,7 +15,7 @@
     display: flex;
     gap: 10px;
     align-items: left;
-    justify-content: start;
+    justify-content: flex-start;
     margin: 20px 20px 20px 60px;
 }
 

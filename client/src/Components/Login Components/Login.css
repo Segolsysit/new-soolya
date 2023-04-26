@@ -38,7 +38,7 @@ a{
     flex-direction: column;
     position: relative;
     color: white;
-    align-items: start;
+    align-items: flex-start;
     gap: 10px;
     font-weight: bolder;
 
