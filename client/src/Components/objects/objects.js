@@ -821,8 +821,8 @@ const UserDashboard=()=>{
                 <div className="Dashboard-body">
                     <div className="Sidebar">
                         <ul className="Sidebar-ul">
-                            <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}>My Profile</li>
-                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}>My Orders</li>
+                            <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}><i class="fa-solid fa-user"/><p className="Sidebar-lable">My Profile</p></li>
+                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">My Orders</p></li>
                         </ul>
                     </div>
                     <div className="Dashboard-right">

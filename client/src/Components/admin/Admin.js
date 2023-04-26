@@ -89,9 +89,9 @@ const[Formnum,setFormnum]=useState(0)
                             {/* <!-- Nav Item - Dashboard --> */}
                             <li className="nav-item active  " onClick={()=>{{setState(true)
                             setFormnum(3)}}}>
-                                <a className="nav-link">
+                                <div className="nav-link">
                                     <i className="fas fa-fw fa-tachometer-alt"></i>
-                                    <span>Dashboard</span></a>
+                                    <span>Dashboard</span></div>
                             </li>
     
                             <li className="nav-item active" onClick={()=>setFormnum(10)}>
