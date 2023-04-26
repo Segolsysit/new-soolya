@@ -213,8 +213,8 @@ const Page2 = () => {
                     <h2 className="Form2-heading">Billing Summary</h2>
                     <div className="Form2-contactdiv">
                             <div className="Purchase-data">
-                                <p className="Bill-data">Item:{Data.Desc}</p>
-                                <p className="Bill-data">Price:${Data.Price}</p>
+                                <p className="Bill-data">Item:<p style={{color:"grey",fontWeight:"400",margin:"0px"}}>{Data.Desc}</p></p>
+                                <p className="Bill-data">Price:<p style={{color:"grey",fontWeight:"400",margin:"0px"}}>${Data.Price}</p></p>
                                 </div>
                         <ul className="Form2-ul">
                             <li className="Form2-li"><i class="fa-solid fa-user"></i><p>{Name}</p></li>
