@@ -218,7 +218,24 @@
         color: grey;
 
 }
+.fa-circle-check{
+    font-size: 70px;
+    animation: rotate ease-in-out 2s;
+    color: rgb(10, 208, 10);
 
+}
+
+@keyframes rotate {
+    
+    0%{
+        transform: rotateY(0deg);
+        color: white;
+    }
+    100%{
+        transform: rotateY(1080deg);
+        color: rgb(10, 208, 10);
+    }
+}
 
 
 .Card-form3{
@@ -289,6 +306,7 @@
     position: absolute;
     top: 40%;
     padding: 20px;
+    width: 25rem;
     box-shadow: 0 0 10px;
     background-color: rgb(203, 215, 239);
 }
@@ -343,5 +361,9 @@
     gap: 10px;
     border-radius: 10px;
     
+}
+
+.Confirm-popup{
+    width: 15rem;
 }
 }

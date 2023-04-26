@@ -18,7 +18,6 @@ const BookingPage=()=>{
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
 
-        const captcha=localStorage.getItem("captcha")
 
 
     useEffect(()=>{
