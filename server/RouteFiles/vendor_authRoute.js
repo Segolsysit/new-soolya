@@ -20,6 +20,7 @@ const handleErrors = (err) => {
     console.log(err);
 
     // if (err.email === " Email is Required"){
+        
     //   errors.email = "Email is Required";
     // }
 
