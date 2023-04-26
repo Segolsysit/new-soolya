@@ -21,10 +21,10 @@ const [state,setState]=useState(false)
 const[Formnum,setFormnum]=useState(0)
 
 
-    const getdata2 = () => {
-        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
-            setorderdetails(res.data)
-        })}
+    // const getdata2 = () => {
+    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+    //         setorderdetails(res.data)
+    //     })}
 
     const changeStyle = () => {
         if (style === "Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
@@ -57,10 +57,10 @@ const[Formnum,setFormnum]=useState(0)
         nav("/admin")
     }
 
-    useEffect(() => {
-        getdata2()
-        verify()
-    }, [])
+    // useEffect(() => {
+    //     getdata2()
+    //     verify()
+    // }, [])
 
     if(aemail==="admin@abc.com"&&apassword==="Admin@123"){
         return (

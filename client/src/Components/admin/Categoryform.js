@@ -453,11 +453,11 @@ const Rejected_list = ({formNumber}) => {
             setorderdetails(res.data)
         })}
 
-    useEffect(()=>{
-        getdata2()
-        getrejected_list()
-        verify()
-    })
+    // useEffect(()=>{
+    //     getdata2()
+    //     getrejected_list()
+    //     verify()
+    // })
 
     const viewdeatils = (id) => {
         axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {

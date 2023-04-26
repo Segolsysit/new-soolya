@@ -24,15 +24,15 @@ function Servicemanlist() {
     const [orderdetails, setorderdetails] = useState([])
 
 
-    const getdata2 = () => {
-        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
-            setorderdetails(res.data)
-        })}
+    // const getdata2 = () => {
+    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+    //         setorderdetails(res.data)
+    //     })}
 
-    useEffect(()=>{
-      getdata2()
-      verify()
-    })
+    // useEffect(()=>{
+    //   getdata2()
+    //   verify()
+    // })
 
   const changeStyle = () => {
     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
