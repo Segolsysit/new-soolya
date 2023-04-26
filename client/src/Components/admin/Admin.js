@@ -11,7 +11,6 @@ export const Admin = () => {
     const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
     const nav = useNavigate()
     const aemail = localStorage.getItem("adminemail")
-    const apassword = localStorage.getItem("adminpassword")
     const [orderdetails, setorderdetails] = useState([])
 // const [ss ,setSs] = useState(orderdetails.length);
 
@@ -46,15 +45,14 @@ const[Formnum,setFormnum]=useState(0)
     // const isPasswordCorrect = bcrypt.compareSync(apassword, hashedPassword);
 
     const verify = ()=>{
-        if(aemail === null || apassword === null){
+        if(aemail === null){
             nav("/admin")
         }
     }
 
     const adminlogout = ()=>{
         localStorage.removeItem("adminemail")
-        localStorage.removeItem("adminpassword")
-        nav("/admin")
+        nav("/AdminLogin")
     }
 
     // useEffect(() => {
@@ -62,7 +60,7 @@ const[Formnum,setFormnum]=useState(0)
     //     verify()
     // }, [])
 
-    if(aemail==="admin@abc.com"&&apassword==="Admin@123"){
+    if(aemail==="admin@abc.com"){
         return (
             <div>
                 <body id="page-top">
@@ -91,15 +89,15 @@ const[Formnum,setFormnum]=useState(0)
                             {/* <!-- Nav Item - Dashboard --> */}
                             <li className="nav-item active  " onClick={()=>{{setState(true)
                             setFormnum(3)}}}>
-                                <a className="nav-link">
+                                <div className="nav-link">
                                     <i className="fas fa-fw fa-tachometer-alt"></i>
-                                    <span>Dashboard</span></a>
+                                    <span>Dashboard</span></div>
                             </li>
     
                             <li className="nav-item active" onClick={()=>setFormnum(10)}>
-                                <a className="nav-link"  >
+                                <div className="nav-link"  >
                                     <i className="fas fa-fw fa-tachometer-alt"></i>
-                                    <span>Application</span></a>
+                                    <span>Application</span></div>
                             </li>
     
                             {/* <!-- Divider --> */}
@@ -112,23 +110,23 @@ const[Formnum,setFormnum]=useState(0)
     
                             {/* <!-- Nav Item - Pages Collapse Menu --> */}
                             <li className="nav-item" onClick={()=>setFormnum(5)}>
-                                <a className="nav-link"  onClick={()=> setorderdetails("")}>
+                                <div className="nav-link"  onClick={()=> setorderdetails("")}>
                                 <i class="fa-regular fa-link-horizontal"></i>
                                     <span>Orders
                                     <span className="badge badge-danger badge-counter">{orderdetails.length}</span>
-                                        </span></a>
+                                        </span></div>
                             </li>
                             <li className="nav-item" >
-                                <a className="nav-link collapsed"  data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                <div className="nav-link collapsed"  data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                                     aria-expanded="true" aria-controls="collapseTwo">
                                     <i class="fa-solid fa-shapes"></i>
                                     <span >Service Categories</span>
-                                </a>
+                                </div>
                                 <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         {/* <h6 className="collapse-header">Custom Components:</h6> */}
-                                        <a className="collapse-item" onClick={()=>{setState(true)
-                            setFormnum(1)}}>Category Setup</a>
+                                        <div className="collapse-item" onClick={()=>{setState(true)
+                            setFormnum(1)}}>Category Setup</div>
                                         <a className="collapse-item" href="/subcategorysetup">Sub Category Setup</a>
                                     </div>
                                 </div>
@@ -136,17 +134,17 @@ const[Formnum,setFormnum]=useState(0)
     
                             {/* <!-- Nav Item - Utilities Collapse Menu --> */}
                             <li className="nav-item">
-                                <a className="nav-link collapsed"  data-bs-toggle="collapse" data-bs-target="#collapseUtilities"
+                                <div className="nav-link collapsed"  data-bs-toggle="collapse" data-bs-target="#collapseUtilities"
                                     aria-expanded="true" aria-controls="collapseUtilities">
                                     <i className="fas fa-fw fa-wrench"></i>
                                     <span>Services</span>
-                                </a>
+                                </div>
                                 <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities"
                                     data-parent="#accordionSidebar">
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         {/* <h6 className="collapse-header">Custom Utilities:</h6> */}
-                                        <a className="collapse-item" onClick={()=>{setFormnum(6)}}>Service List</a>
-                                        <a className="collapse-item" onClick={()=>{setFormnum(7)}}>Add New Service</a>
+                                        <div className="collapse-item" onClick={()=>{setFormnum(6)}}>Service List</div>
+                                        <div className="collapse-item" onClick={()=>{setFormnum(7)}}>Add New Service</div>
                                         {/* <a className="collapse-item" href="utilities-animation.js">Animations</a>
                                         <a className="collapse-item" href="utilities-other.js">Other</a> */}
                                     </div>
@@ -163,27 +161,27 @@ const[Formnum,setFormnum]=useState(0)
     
                             {/* <!-- Nav Item - Pages Collapse Menu --> */}
                             <li className="nav-item" >
-                                <a className="nav-link collapsed"   data-bs-toggle="collapse" data-bs-target="#collapsePages1"
+                                <div className="nav-link collapsed"   data-bs-toggle="collapse" data-bs-target="#collapsePages1"
                                     aria-expanded="true" aria-controls="collapsePages1">
                                     <i className="fas fa-fw fa-user"></i>
                                     <span>SERVICE MAN</span>
-                                </a>
+                                </div>
                                 <div id="collapsePages1" className="collapse" aria-labelledby="headingPages1" data-bs-parent="#accordionSidebar">
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         {/* <h6 className="collapse-header">Login Screens:</h6> */}
-                                        <a className="collapse-item" onClick={()=>{
-                            setFormnum(2)}}>Service Man List</a>
-                                        <a className="collapse-item" onClick={()=>{
-                            setFormnum(4)}}>Rejected List</a>
+                                        <div className="collapse-item" onClick={()=>{
+                            setFormnum(2)}}>Service Man List</div>
+                                        <div className="collapse-item" onClick={()=>{
+                            setFormnum(4)}}>Rejected List</div>
                                     </div>
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapsePages"
+                                <div className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapsePages"
                                     aria-expanded="true" aria-controls="collapsePages">
                                     <i className="fas fa-fw fa-folder"></i>
                                     <span>Pages</span>
-                                </a>
+                                </div>
                                 <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-bs-parent="#accordionSidebar">
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         <h6 className="collapse-header">Login Screens:</h6>
@@ -406,13 +404,13 @@ const[Formnum,setFormnum]=useState(0)
     
                                         {/* <!-- Nav Item - User Information --> */}
                                         <li className="nav-item dropdown no-arrow">
-                                        <a className="nav-link dropdown-toggle"  id="userDropdown" role="button"
+                                        <div className="nav-link dropdown-toggle"  id="userDropdown" role="button"
                                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span className="mr-2 d-none d-lg-inline text-gray-600 small">Soolya Admin</span>
                                             <img className="img-profile rounded-circle"
                                                 src="img/undraw_profile.svg"
                                                 alt='...' />
-                                        </a>
+                                        </div>
                                         {/* <!-- Dropdown - User Information --> */}
                                         <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                             aria-labelledby="userDropdown">
@@ -429,7 +427,7 @@ const[Formnum,setFormnum]=useState(0)
                                                 Activity Log
                                             </a>
                                             <div className="dropdown-divider"></div>
-                                            <a className="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal">
+                                            <a className="dropdown-item" href="/" data-bs-toggle="modal" data-bs-target="#logoutModal">
                                                 <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                                 Logout
                                             </a>

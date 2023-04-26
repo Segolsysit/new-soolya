@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import './Login.css'
 import { useLocation,useNavigate } from "react-router-dom";
 import { useEffect, } from "react";
-import iou from "./dummy.jpg"
 import axios from "axios"
 import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
@@ -232,12 +231,12 @@ const VendorLogin = () => {
                                     <input type="checkbox"/>
                                     <p className="Remember-ptag">Remember Me</p>
                                 </div>
-                                <Link to='/ForgetPassword'><p className="Forget">Forget Password</p></Link>
+                                <Link to='/vendorForgetPassword'><p className="Forget">Forget Password</p></Link>
                             </div>
                             <button className="Button-Signup">Login</button>
                             <div className="Already">
-                                <p className="Primary-Signup">Don't have account</p>
-                                <Link to="/Signup"><p className="Secondary-Signup">Signup</p></Link>
+                                <p className="Primary-Signup">Not a vendor</p>
+                                <Link to="/Provider"><p className="Secondary-Signup">Join us</p></Link>
                             </div>
     
                         </form>
@@ -274,6 +273,7 @@ const Signup=()=>{
          const[errP,seterrP]=useState("")
          const[errEmail,setEE]=useState("")
          const[errPwd,setPwd]=useState("")
+         
 
 const Register= async(e)=>{
     e.preventDefault()
@@ -282,6 +282,11 @@ const Register= async(e)=>{
     seterrP("")
     setEE("")
     setPwd("")
+    
+const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+
+    
+
 
 
     if(First===""||First===null){
@@ -302,6 +307,15 @@ const Register= async(e)=>{
    else if(Password===""||Password===null){
         setPwd("Enter your password")
     }
+    
+    else if(Password.length<8){
+        setPwd("Your password should have at least 8 characters")
+    }
+    else if(!passwordPattern.test(Password)){
+        setPwd("Your password must have atleast one lowercase letter, one uppercase letter, one number, and one special character (!@#$%^&*).")
+    }
+    
+
     else{
 
         const { data } = await axios.post(
@@ -420,8 +434,7 @@ const[FileErr,setFileErr]=useState("")
 
 const Form1=(e)=>{
     e.preventDefault()
-    var atposition=Email.indexOf("@")
-    var dotposition=Email.indexOf("."); 
+     
     // console.log(dotposition);
     setErrFN("")
     setErrLN("")
@@ -725,7 +738,6 @@ const AdminLogin = () => {
 
         if(Email===adminEmail&&Password===adminpassword&&Status!=="Loggedin"){
             localStorage.setItem("adminemail",Email)
-            localStorage.setItem("adminpassword",Password)
             window.location.href='/Admin'
         }
         else{
@@ -763,10 +775,7 @@ const AdminLogin = () => {
                             <p className="Forget">Forget Password</p>
                         </div>
                         <button className="Button-Signup" type="submit">Login</button>
-                        <div className="Already">
-                            <p className="Primary-Signup">Don't have account</p>
-                            <Link to="/Signup"><p className="Secondary-Signup">Signup</p></Link>
-                        </div>
+                        
 
                     </form>
                 </div>
@@ -863,5 +872,89 @@ else{
     
 }
 
+const ForgetPasswordVendor=()=>{
+    const[Email,setEmail]=useState("")
+    const[err,setErr]=useState("")
+    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+    
+    const [ForgetEmail,setForgetEmail] = useState("")
+    
+        
+        
+    const ForgetPwd=(event)=>{
+        event.preventDefault();
+        setErr("")
+    
+        var atposition=Email.indexOf("@")
+        var dotposition=Email.lastIndexOf("."); 
+        if(Email===""||Email===null){
+            setErr("Enter your Mail_id")
+        }
+         else if (atposition<1 || dotposition<atposition+2 || dotposition+2>=Email.length){  
+            setErr("Please enter a valid e-mail address");  
+            return false;  
+            }  
+          
+    
+        axios.post("http://localhost:3001/authUser/forgot_password",{
+            email: ForgetEmail
+         },{
+             method:"POST",
+             crossDomain:true,
+             withCredentials : true  
+               })
+               .then((res) =>
+               { 
+                 console.log(res ,"userRegister")
+               alert(res.data.status)
+             }
+               )
+    }
+    
+    useEffect(() =>{
+        if(cookies.jwt2){
+            window.location.href="/"
+        }
+    },[cookies])
+    
+    if(cookies.jwt2){
+        alert("already loggedin")
+        window.location.href='/'
+    }
+    else{
+        return(
+            <div>
+                <Header />
+                <MenuBar />
+                <div className="Forget-screen">
+                <div className="forget-card">
+                    <div className="Form-div">
+                        <form className="Form-forget" onSubmit={ForgetPwd}>
+                        <div className="Signup-title">
+                                <h1 className="Signup-heading">Forget Password</h1>
+                            </div>
+                            
+                            <label className="Forgrt-Label">Enter your Email_id</label>
+                            <input className="Signup-Input" type='email' onChange={(e)=>{setEmail(e.target.value)}}/>
+                            <p style={{color:"red",margin:'0px',padding:'0px'}}>{err}</p>
+                            
+                            <button className="Button-Signup" type="submit">Change Password</button> 
+    
+                        </form>
+                    </div>
+                    <div className="Image-forget">
+    
+                    </div>
+                </div>
+                </div>
+                <Footer/>
+                <End/>
+            </div>
+        )
+    }
+        
+    }
 
-export {Login,Signup,Provider,AdminLogin,ForgetPassword,VendorLogin} 
+
+
+export {Login,Signup,Provider,AdminLogin,ForgetPassword,VendorLogin,ForgetPasswordVendor} 

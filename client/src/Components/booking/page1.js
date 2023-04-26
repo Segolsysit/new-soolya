@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import './booking.css'
 import { useState } from "react";
 import axios from "axios";
+import { Card, Form } from "react-bootstrap";
 // import ReCAPTCHA from "react-google-recaptcha";
 
 
@@ -231,28 +232,108 @@ const Page2 = () => {
 
 
 const Page3 = ({ Page, setPage }) => {
+    const [selectedOption, setSelectedOption] = useState("");
+  const [bookingdata, setbookingdata] = useState({})
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+
+
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if(selectedOption === "cashOnDelivery"){
+      localStorage.setItem("paymentType",selectedOption)
+    }
+    else{
+      localStorage.setItem("paymentType",selectedOption);
+      
+      var options = {
+        key:"rzp_test_1SnQnLm783h5Op",
+        key_secret:"W3x1XiUXiyqIKQJrSBqaXGmE",
+        amount:bookingdata.price *100,
+        currency:"INR",
+        name:"SOOLYA",
+        description:"Payment here",
+        handler:function(res){
+            console.log(res);
+            alert(res.razorpay_payment_id);
+        },
+        prefill:{
+            name:'vignesh',
+            email:"vigneshvignesh4727@gmail.com",
+            contact:"9791823953"
+        },
+        notes:{
+            address:"Segolsys software solutions"
+        },
+        theme:{
+            color:"#3399cc"
+        }
+    };
+
+    var pay = new window.Razorpay(options);
+
+    pay.open();
+    }
+    console.log(selectedOption);
+    // handle payment based on selected option
+    return setPage((currentpage) => currentpage + 1)
+  };
+  const id = localStorage.getItem("service_id")
     return (
-        <div className="Form-outerdiv">
-            <div className="Form1">
-                <h2 className="Form2-heading">Payment Option</h2>
-                <div className="Form2-contactdiv">
-                    <ul className="Form2-ul">
-                        <li className="Form2-li"><input type='radio' name="pay" />
-                            <label className="form3-label">Cash on delivery</label></li>
-                        <li className="Form2-li"><input type='radio' name="pay" />
-                            <label className="form3-label">Online Payment</label></li>
-                    </ul>
-                    <button className="Form3-btn" onClick={() => setPage(4)}>Continue</button>
-                </div>
-            </div>
-        </div>
+        <Card>
+        <Card.Header>
+          <h4>Payment Options</h4>
+        </Card.Header>
+        <Card.Body>
+        ₹ {bookingdata.price}
+          <Form onSubmit={handleSubmit}>
+            <Form.Check
+              type="radio"
+              id="cashOnDelivery"
+              label="Cash on Delivery"
+              value="cashOnDelivery"
+              checked={selectedOption === "cashOnDelivery"}
+              onChange={handleOptionChange}
+            />
+            <Form.Check
+              type="radio"
+              id="onlinePayment"
+              label="Online Payment"
+              value="onlinePayment"
+              checked={selectedOption === "onlinePayment"}
+              onChange={handleOptionChange}
+            />
+            {selectedOption === "onlinePayment" && (
+              <div>
+                 <input type="button" name="next" onClick={handleSubmit}
+          class="next action-button" value="Continue Booking" />
+              </div>
+            )
+            }
+             {selectedOption === "cashOnDelivery" && (
+              <div>
+                <input type="button" name="next" onClick={handleSubmit}
+          class="next action-button" value="Continue Booking" />
+              </div>
+            )
+            }
+           
+           
+          </Form>
+        </Card.Body>
+      </Card>
     )
 }
 
 const Page4 = ({ Page, setPage }) => {
-    const onChange = (value) => {
-        localStorage.setItem("captcha", value)
-    }
+    // const onChange = (value) => {
+    //     localStorage.setItem("captcha", value)
+    // }
     return (
         <div className="Form-outerdiv">
             <div className="Form1">

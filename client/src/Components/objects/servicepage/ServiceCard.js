@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import "../object.css"
 import Pagination from "./Pagination";
 import "./Servicecard.css"
@@ -104,7 +103,7 @@ const localpath = "http://localhost:3001/";
                                                 <p className="Category-carosel">{item.catagorySetup}</p>
                                                 <h2 className="Carosel-price">${item.Price}</h2>
                                             </div>
-                                            <h1 className="Carosel-desc">{item.desc}</h1>
+                                            <h1 className="Carosel-desc">{item.Desc}</h1>
                                             <div className="Carosel-third">
                                                 
                                             </div>
@@ -173,7 +172,6 @@ const localpath = "http://localhost:3001/";
 const ServiceDetails=()=>{
     const [cookies, setCookie] = useCookies(['cookie-name']);
     var FetchName=localStorage.getItem("Category")
-    const[err,setErr]=useState(0)
     const data=[
         {
             "Image":"https://images.pexels.com/photos/3768910/pexels-photo-3768910.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",

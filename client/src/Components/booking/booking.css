@@ -202,6 +202,14 @@
     font-weight: bolder;
 }
 
+.Form3-btndisabled{
+    background-color: rgb(180, 208, 237);
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-weight: bolder;
+}
+
 .Form3-btn:hover{
     background-color: rgb(24, 67, 109);
 }

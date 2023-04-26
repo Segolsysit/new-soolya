@@ -102,6 +102,7 @@
     display: flex;
     gap: 30px;
     list-style:circle;
+    z-index: 3;
 }
 
 .Profile-info{
