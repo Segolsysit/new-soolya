@@ -2,17 +2,64 @@ import React from "react";
 import './Usercomponents.css'
 import { Table, TableBody, TableCell, TableRow, TableHead } from '@mui/material';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useState,useEffect } from "react";
 import { useCookies } from "react-cookie";
 import jwt_decode from 'jwt-decode';
 import { useLocation } from "react-router-dom";
 
 const UserProfile=({State})=>{
+    const [orderdetails,setorderdetails] = useState([])
+    const [cookies, setCookie, removeCookie] = useCookies([]);
+    const [myorders,setMyorders] = useState([])
+
+    const token = cookies.jwt2;
+    const decodedToken = jwt_decode(token);
+    const userId = decodedToken.id;
+
+
+    const useremail = myorders.email
+    const [count,setCount]=useState(1)
     const { pathname } = useLocation();
         useEffect(() => {
         window.scrollTo(0, 0);
          }, [pathname]);
+
+        
+
+        useEffect(()=>{
+            if(count<orderdetails.length)
+            setCount(count+1)
+        },[orderdetails])
+        
+        useEffect(()=>{
+            orders()
+            // orders1()
+            
+        },[])
+    
+        const orders = () => {
+            console.log(userId);
+            axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
+            .then((res) => {
+                console.log(res.data);
+                setMyorders(res.data)
+            })
+            axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
+            .then((res) => {
+                console.log(res.data);
+                setorderdetails(res.data)
+            
+            })
+          }
+
+          console.log(orderdetails.length);
+
+          
+              
+    
+    
+
     if(State===1){
         return(
             <div className="User-Screen">
@@ -20,9 +67,9 @@ const UserProfile=({State})=>{
                     <img className="User-img" src="https://images.pexels.com/photos/1586996/pexels-photo-1586996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt=""/>
                     <div className="User-sec1Data">
                         <div>
-                    <h2 className="User-data">Name:</h2>
-                    <h2 className="User-data">Phone:</h2>
-                    <h2 className="User-data">Mail_id:</h2>
+                    <h2 className="User-data"><i class="fa-solid fa-user"></i></h2>
+                    <h2 className="User-data"><i class="fa-solid fa-phone"></i></h2>
+                    <h2 className="User-data"><i class="fa-solid fa-envelope"></i></h2>
                     </div>
                     <div>
                     <h2 className="User-data">Human</h2>
@@ -30,6 +77,11 @@ const UserProfile=({State})=>{
                     <h2 className="User-data">human@gmail.com</h2>
                     </div>
                     </div>
+                </div>
+
+                <div className="User-sec1">
+                    <h1>{count}</h1>
+                    <h2>Orders made</h2>
                 </div>
 
             </div>
@@ -49,8 +101,6 @@ const UserOrders=({State})=>{
     const userId = decodedToken.id;
 
     const useremail = myorders.email
-    console.log(useremail)
-
     
     useEffect(()=>{
         orders()
