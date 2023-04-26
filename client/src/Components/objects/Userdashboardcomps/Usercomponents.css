@@ -1,8 +1,6 @@
 .User-Screen{
     display:flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 .User-sec1Data{
@@ -31,11 +29,11 @@
 .User-sec1{
     display: flex;
     margin: 20px;
-    justify-content: center;
     align-items: center;
     border-radius: 10px;
     box-shadow: 0 0 20px;
     padding: 20px;
+    width: fit-content;
 }
 
 @media only screen and (max-width:600px) {

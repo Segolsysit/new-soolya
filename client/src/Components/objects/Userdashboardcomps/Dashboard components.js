@@ -54,7 +54,7 @@ const UserOrders=({State})=>{
     useEffect(()=>{
         orders()
         // orders1()
-    },[])
+    },[State])
 
     const orders = () => {
         console.log(userId);
