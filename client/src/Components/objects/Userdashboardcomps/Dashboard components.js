@@ -59,7 +59,7 @@ const UserOrders=({State})=>{
     
     useEffect(()=>{
         orders()
-        orders1()
+        // orders1()
     },[])
 
     const orders = () => {
@@ -69,15 +69,20 @@ const UserOrders=({State})=>{
             console.log(res.data);
             setMyorders(res.data)
         })
-      }
-
-    const orders1 = ()=>{
         axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
         .then((res) => {
             console.log(res.data);
             setorderdetails(res.data)
         })
-    }
+      }
+
+    // const orders1 = ()=>{
+    //     axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
+    //     .then((res) => {
+    //         console.log(res.data);
+    //         setorderdetails(res.data)
+    //     })
+    // }
 
     
     // const verify = ()=>{
