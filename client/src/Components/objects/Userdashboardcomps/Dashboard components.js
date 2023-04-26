@@ -4,6 +4,8 @@ import { Button, Table, TableBody, TableCell, TableRow, TableHead } from '@mui/m
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState,useEffect } from "react";
+import { useCookies } from "react-cookie";
+import jwt_decode from 'jwt-decode';
 
 const UserProfile=({State})=>{
     if(State===1){
@@ -39,31 +41,67 @@ const UserOrders=({State})=>{
     const apassword = localStorage.getItem("adminpassword");
     const [notificationCount, setNotificationCount] = useState(0);
     const nav = useNavigate()
+    const [cookies, setCookie, removeCookie] = useCookies([]);
+    const [myorders,setMyorders] = useState([])
 
+    const token = cookies.jwt2;
+    const decodedToken = jwt_decode(token);
+    const userId = decodedToken.id;
 
-    const verify = ()=>{
-        if(aemail === null || apassword === null){
-            nav("/admin")
-        }
+    const useremail = myorders.email
+
+    
+    useEffect(()=>{
+        orders()
+        orders1()
+    },[])
+
+    const orders = () => {
+        console.log(userId);
+        axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
+        .then((res) => {
+            console.log(res.data);
+            setMyorders(res.data)
+        })
+        axios.get(`http://localhost:3001/booking_data/${useremail}`)
+        .then((res) => {
+            console.log(res.data);
+            setorderdetails(res.data)
+        })
+      }
+
+    const orders1 = ()=>{
+        axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
+        .then((res) => {
+            console.log(res.data);
+            setorderdetails(res.data)
+        })
     }
 
-    const changeStyle = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
-        }
-        else {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-        }
-    }
+    
+    // const verify = ()=>{
+    //     if(aemail === null || apassword === null){
+    //         nav("/admin")
+    //     }
+    // }
 
-    const changeStyle1 = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
-        }
-        else {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-        }
-    }
+    // const changeStyle = () => {
+    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
+    //     }
+    //     else {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    //     }
+    // }
+
+    // const changeStyle1 = () => {
+    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
+    //     }
+    //     else {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    //     }
+    // }
 
     // const getdata = () => {
     //     axios.get("http://localhost:3001/booking_api/booking_data").then((res)=>{
@@ -91,7 +129,7 @@ if(State===2){
                                     <TableHead>
                                         <TableRow>
                                             <TableCell>SN</TableCell>
-                                            <TableCell>Service</TableCell>
+                                            {/* <TableCell>Service</TableCell> */}
                                             <TableCell>Category</TableCell>
                                             <TableCell>Price</TableCell>
                                             <TableCell>Address</TableCell>
@@ -110,7 +148,7 @@ if(State===2){
                                                 <TableRow key={index}>
                                                     <TableCell>{a++}</TableCell>
 
-                                                    <TableCell><p>{data.Service}</p></TableCell>
+                                                    {/* <TableCell><p>{data.Service}</p></TableCell> */}
                                                     <TableCell><p>{data.Category}</p> </TableCell>
                                                     <TableCell><p>{data.price}</p></TableCell>
                                                     <TableCell><p>{data.address}</p></TableCell>
