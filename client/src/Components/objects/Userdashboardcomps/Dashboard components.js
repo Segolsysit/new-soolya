@@ -55,34 +55,36 @@ const UserOrders=({State})=>{
     const userId = decodedToken.id;
 
     const useremail = myorders.email
+    console.log(useremail)
 
     
     useEffect(()=>{
         orders()
         // orders1()
-    },[])
+    },[State])
 
     const orders = () => {
         console.log(userId);
         axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
         .then((res) => {
             console.log(res.data);
-            setMyorders(res.data)
+            setMyorders(res.data);
+            orders1()
         })
+        // axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
+        // .then((res) => {
+        //     console.log(res.data);
+        //     setorderdetails(res.data)
+        // })
+      }
+
+    const orders1 = ()=>{
         axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
         .then((res) => {
             console.log(res.data);
             setorderdetails(res.data)
         })
-      }
-
-    // const orders1 = ()=>{
-    //     axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
-    //     .then((res) => {
-    //         console.log(res.data);
-    //         setorderdetails(res.data)
-    //     })
-    // }
+    }
 
     
     // const verify = ()=>{
