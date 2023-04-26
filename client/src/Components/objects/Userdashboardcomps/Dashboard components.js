@@ -12,34 +12,27 @@ const UserProfile=({State})=>{
     const [orderdetails,setorderdetails] = useState([])
     const [cookies, setCookie, removeCookie] = useCookies([]);
     const [myorders,setMyorders] = useState([])
-
     const token = cookies.jwt2;
+    const[state,setState]=useState(State)
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
-
-
+    const[count,setCount]=useState(0)
+    const[dummy,setDummy]=useState(0)
     const useremail = myorders.email
-    const [count,setCount]=useState(1)
     const { pathname } = useLocation();
         useEffect(() => {
         window.scrollTo(0, 0);
-         }, [pathname]);
+        
+         }, [{pathname}]);
 
         
+        setTimeout(()=>{
+            setState(2)
 
-        useEffect(()=>{
-            if(count<orderdetails.length)
-            setCount(count+1)
-        },[orderdetails])
+        },1000)
+        
         
         useEffect(()=>{
-            orders()
-            // orders1()
-            
-        },[])
-    
-        const orders = () => {
-            console.log(userId);
             axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
             .then((res) => {
                 console.log(res.data);
@@ -50,12 +43,24 @@ const UserProfile=({State})=>{
                 console.log(res.data);
                 setorderdetails(res.data)
             
-            })
+            })            // orders1()
+            
+        },[state])
+       
+
+        useEffect(()=>{
+            if(count<orderdetails.length){
+                setCount(count+1)
+
+            }
+        })
+    
+        const orders = () => {
+            console.log(userId);
+           
           }
 
-          console.log(orderdetails.length);
 
-          
               
     
     
@@ -79,9 +84,9 @@ const UserProfile=({State})=>{
                     </div>
                 </div>
 
-                <div className="User-sec1">
-                    <h1>{count}</h1>
-                    <h2>Orders made</h2>
+                <div className="User-sec2" onClick={()=>setState(2)}>
+                    <h1 className="Count">{count}</h1>
+                    <h2 className="Orders">Orders Made</h2>
                 </div>
 
             </div>

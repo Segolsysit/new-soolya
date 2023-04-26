@@ -3,7 +3,7 @@ import './booking.css'
 import { useState } from "react";
 import axios from "axios";
 import { Card, Form } from "react-bootstrap";
-// import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from "react-google-recaptcha";
 
 
 const Page1 = ({ Page, setPage }) => {
@@ -208,18 +208,18 @@ const Page2 = () => {
     // console.log(Data.Desc);
         return (
             <div className="Form-outerdiv">
-                <div className="Form1">
+                <div className="Form2">
                     
                     <h2 className="Form2-heading">Billing Summary</h2>
                     <div className="Form2-contactdiv">
+                            <div className="Purchase-data">
                                 <p className="Bill-data">Item:{Data.Desc}</p>
                                 <p className="Bill-data">Price:${Data.Price}</p>
-                    
-                    
+                                </div>
                         <ul className="Form2-ul">
-                            <li className="Form2-li"><i class="fa-solid fa-user"></i>{Name}</li>
-                            <li className="Form2-li"><i class="fa-solid fa-phone"></i>{Number}</li>
-                            <li className="Form2-li"><i class="fa-solid fa-location-dot"></i>{Address}</li>
+                            <li className="Form2-li"><i class="fa-solid fa-user"></i><p>{Name}</p></li>
+                            <li className="Form2-li"><i class="fa-solid fa-phone"></i><p>{Number}</p></li>
+                            <li className="Form2-li"><i class="fa-solid fa-location-dot"></i><p>{Address}</p></li>
                         </ul>
                     </div>
                 </div>
@@ -239,7 +239,22 @@ const Page3 = ({ Page, setPage }) => {
     setSelectedOption(event.target.value);
   };
 
+  const [Data,setData]=useState([])
+  const Orderid=localStorage.getItem("order_id")
 
+  function get(){
+      axios.get(`http://localhost:3001/api/fetch_items_id/${Orderid}`)
+      .then((data)=>setData(data.data))
+  }
+  useEffect(()=>{
+       get()
+      // console.log(Data);
+  // console.log(da;
+  },[])
+  
+  const Name = localStorage.getItem("Name")
+  const Number = localStorage.getItem("Phone")
+  const Address = localStorage.getItem("Address")
 
   
   const handleSubmit = (event) => {
@@ -254,7 +269,7 @@ const Page3 = ({ Page, setPage }) => {
       var options = {
         key:"rzp_test_1SnQnLm783h5Op",
         key_secret:"W3x1XiUXiyqIKQJrSBqaXGmE",
-        amount:bookingdata.price *100,
+        amount:Data.Price *100,
         currency:"INR",
         name:"SOOLYA",
         description:"Payment here",
@@ -285,13 +300,13 @@ const Page3 = ({ Page, setPage }) => {
   };
   const id = localStorage.getItem("service_id")
     return (
-        <Card>
-        <Card.Header>
+        <Card className="Card-form3">
+        <Card.Header className=".Form3-heading">
           <h4>Payment Options</h4>
         </Card.Header>
-        <Card.Body>
-        ₹ {bookingdata.price}
-          <Form onSubmit={handleSubmit}>
+        <Card.Body className="Form3-outerbody">
+       <p>Amount Payable: ₹ {Data.Price}</p>
+          <Form onSubmit={handleSubmit} className="Form3-body">
             <Form.Check
               type="radio"
               id="cashOnDelivery"
@@ -311,14 +326,14 @@ const Page3 = ({ Page, setPage }) => {
             {selectedOption === "onlinePayment" && (
               <div>
                  <input type="button" name="next" onClick={handleSubmit}
-          class="next action-button" value="Continue Booking" />
+           value="Continue Booking" className="Form3-btn"/>
               </div>
             )
             }
              {selectedOption === "cashOnDelivery" && (
               <div>
                 <input type="button" name="next" onClick={handleSubmit}
-          class="next action-button" value="Continue Booking" />
+          class="next action-button" value="Continue Booking"className="Form3-btn" />
               </div>
             )
             }
@@ -330,18 +345,25 @@ const Page3 = ({ Page, setPage }) => {
     )
 }
 
-const Page4 = ({ Page, setPage }) => {
-    // const onChange = (value) => {
-    //     localStorage.setItem("captcha", value)
-    // }
+const Page4 = ({ Page, setPage ,Bookstate,setBookState}) => {
+    const[state,setState]=useState(false)
+    const onChange = (value) => {
+        localStorage.setItem("captcha", value)
+        if(value!==null){
+            setBookState(true)
+        }
+        else{
+            setBookState(false)
+        }
+    }
     return (
         <div className="Form-outerdiv">
             <div className="Form1">
                 <h2 className="Form2-heading">Confirm here</h2>
-                {/* <ReCAPTCHA
+                <ReCAPTCHA
                                     sitekey="6LdyhYIkAAAAAJj04Umnf4rQ427h49pItJtiBJ_l"
                                     onChange={onChange}
-                                /> */}
+                                />
             </div>
         </div>
     )

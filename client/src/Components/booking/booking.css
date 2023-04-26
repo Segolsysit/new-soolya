@@ -106,6 +106,19 @@
     border-radius: 10px;
     
 }
+
+.Form2{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    width: 25rem;
+    justify-content: space-between;
+    box-shadow: 0 0 10px;
+    gap: 10px;
+    border-radius: 10px;
+    
+}
 .Form1-textdiv{
     display: flex;
     flex-direction: column;
@@ -122,7 +135,6 @@
 }
 
 .Bill-data{
-    color: black;
     font-size: 20px;
     font-weight: 600;
     margin: 0px;
@@ -160,14 +172,26 @@
 
 /* form 2 */
 
+
+.Purchase-data{
+    display: flex;
+    justify-content: space-between;
+    color: dodgerblue;
+}
+
 .Form2-ul{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
     list-style: none;
+    margin: 0px;
+    padding: 0px;
 }
 
 .Form2-contactdiv{
     display: flex;
     flex-direction: column;
-    justify-content: left;
+    justify-content: center;
     text-align: left;
     gap: 20px;
 }
@@ -175,30 +199,69 @@
 .Form2-li{
     display: flex;
     gap: 20px;
-    align-items: center;
+    align-items: baseline;
     font-size: 15px;
+    margin: 0px;
+}
+
+.Form2-li p{
+    padding: 0px;
     margin: 0px;
 }
 
 .fa-phone{
     color: grey;
     margin: 0px;
+    object-fit: cover;
 }
 .fa-location-dot{
         color: grey;
 
 }
 
+
+
+.Card-form3{
+    width: 100%;
+}
+
+.Card-form3:hover h4{
+    color: black;
+}
+
+.Card-form3:hover .Form3-btn{
+    background-color: white;
+    color: dodgerblue;
+}
+
 .Form2-heading{
     font-size: 20px;
     font-weight: bolder;
+
+}
+
+.Form3-outerbody{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.Form3-heading{
+    color: rgb(218, 52, 52);
+}
+
+.Form3-body{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
 }
 
 .Form3-btn{
-    background-color: dodgerblue;
+    background-color: rgb(58, 136, 215);
     border: none;
     border-radius: 3px;
-    color: white;
+    color:rgb(245, 247, 249);
     font-weight: bolder;
 }
 
