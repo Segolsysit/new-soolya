@@ -822,7 +822,7 @@ const UserDashboard=()=>{
 
     const notification = localStorage.getItem("ordercount")
     
-    useEffect(()=>{
+    useEffect(()=>{ 
         orderss()
         notificationfun()
     },[])
