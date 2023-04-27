@@ -4,108 +4,171 @@ const nodemailer = require('nodemailer');
 const bcrypt = require("bcrypt");
 const vjwt = require("jsonwebtoken");
 const maxAge = 3 * 24 * 60 * 60;
-const createToken = (id) => {
-    return vjwt.sign({ id }, "soolya vendor super secret key",);
-};
 
-const createToken2 = (id) => {
-    return vjwt.sign({ id }, "soolya vendor super secret key", {
-        expiresIn: maxAge,
-    });
-};
+// const createToken = (id) => {
+//     return vjwt.sign({ id }, "soolya vendor super secret key",);
+// };
 
-const handleErrors = (err) => {
-    let errors = { Username: "", Email: "", Password: "" };
+// const createToken2 = (id) => {
+//     return vjwt.sign({ id }, "soolya vendor super secret key", {
+//         expiresIn: maxAge,
+//     });
+// };
 
-    console.log(err);
+// const handleErrors = (err) => {
+//     let errors = { Username: "", Email: "", Password: "" };
 
-    // if (err.email === " Email is Required"){
+//     console.log(err);
+
+//     // if (err.email === " Email is Required"){
         
-    //   errors.email = "Email is Required";
-    // }
+//     //   errors.email = "Email is Required";
+//     // }
 
-    if (err.message === "incorrect email") {
-        errors.Email = "email is not exist";
-    }
+//     if (err.message === "incorrect email") {
+//         errors.Email = "email is not exist";
+//     }
 
-    if (err.message === "incorrect password") {
-        errors.Password = "Invalid Password";
-    }
+//     if (err.message === "incorrect password") {
+//         errors.Password = "Invalid Password";
+//     }
 
-    if (err.code === 11000) {
-        errors.Email = "Email is already exist";
-        return errors;
-    }
+//     if (err.code === 11000) {
+//         errors.Email = "Email is already exist";
+//         return errors;
+//     }
 
-    if (err.message.includes("Users validation failed")) {
-        Object.values(err.errors).forEach(({ properties }) => {
-            errors[properties.path] = properties.message;
-        });
-    }
+//     if (err.message.includes("Users validation failed")) {
+//         Object.values(err.errors).forEach(({ properties }) => {
+//             errors[properties.path] = properties.message;
+//         });
+//     }
 
-    return errors;
-};
-
-VendorAuthRoute.post("/", (req, res, next) => {
-    const token = req.cookies.vjwt2;
-    if (token) {
-        vjwt.verify(
-            token,
-            "soolya vendor super secret key",
-            async (err, decodedToken) => {
-                if (err) {
-                    res.json({ status: false });
-                    next();
-                } else {
-                    const Vendor_register_schema1 = await VendorAuth.findById(decodedToken.id);
-                    if (Vendor_register_schema1) res.json({ status: true, Vendor: Vendor_register_schema1.Username });
-                    else res.json({ status: false });
-                    next();
-                }
-            }
-        );
-    } else {
+//     return errors;
+// };
+const auth = (req, res, next) => {
+  const token = req.cookies.venjwt;
+  if (!token) {
+    return res.status(401).json({ msg: 'No token, authorization denied' });
+  }
+  else{
+    vjwt.verify(token, "soolya vendor super secret key",
+    async(err,decodedToken) => {
+      if (err) {
         res.json({ status: false });
-      next();
+        next();
+      }
+      else{
+        const user = await VendorAuth.findById(decodedToken.id);
+        if (user) res.json({ status: true, users: user.Username });
+        else res.json({ status: false });
+        next();
+      }
     }
-})
+    );
+  }
+
+   
+  } 
+
+// Protected route that can only be accessed by authenticated users
+VendorAuthRoute.get('/', auth, (req, res) => {
+  res.json(`Welcome ${req.users}!`);
+});
 
 VendorAuthRoute.post("/register", async (req, res, next) => {
 
-    try {
-    const {Username , Email, Password } = req.body;
+  try {
+  const {Username , Email, Password } = req.body;
 
-      const Vendor_register_Schema = await VendorAuth.create({Username, Email, Password })
-      const token = createToken(Vendor_register_Schema._id);
+  const hashedPassword = await bcrypt.hash(Password, 10);
+  const isEmail = await VendorAuth.findOne({Email});
+  if (isEmail) {
+    console.log("Email is already registered");
+    res.json({ status: "error", message: "Email is already registered" });
+  } else {
+    const user = await VendorAuth.create({
+      Username,
+      Email,
+      Password: hashedPassword
+    })
+    user.save()
+    res.json({ status: "success", message: "signup successfull" });
+  }
+
+    
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ status:'error', message: "Something went wrong"  });
+  }
+});
+
+
+// VendorAuthRoute.post("/register", async (req, res, next) => {
+
+//     try {
+//     const {Username , Email, Password } = req.body;
+
+//       const Vendor_register_Schema = await VendorAuth.create({Username, Email, Password })
+//       const token = createToken(Vendor_register_Schema._id);
   
-      res.cookie("vjwt", token, {
-        withCredentials: true,
-        httpOnly: false
+//       res.cookie("vjwt", token, {
+//         withCredentials: true,
+//         httpOnly: false
        
-      });
+//       });
   
-      res.status(201).json({ Vendor: Vendor_register_Schema, created: true });
-    } catch (err) {
-      console.log(err);
-      const errors = handleErrors(err);
-      res.json({ errors, created: false });
-    }
-  });
+//       res.status(201).json({ Vendor: Vendor_register_Schema, created: true });
+//     } catch (err) {
+//       console.log(err);
+//       const errors = handleErrors(err);
+//       res.json({ errors, created: false });
+//     }
+//   });
+
+VendorAuthRoute.post("/login", async (req, res) => {
+  const { Email, Password } = req.body;
+try{
+
+  const user = await VendorAuth.findOne({ Email });
+
+  if (!user) {
+    return res.json({status:"error", message: "Email Not Exist" });
+  }
+
+  const isPasswordValid = await bcrypt.compare(Password, user.Password);
+
+  if (isPasswordValid) {
+    const token = vjwt.sign({ id: user._id }, "soolya vendor super secret key");
+    res.cookie("venjwt", token, { httpOnly: false, maxAge: maxAge * 1000 });
+  }
+  else{
+   
+    return res.json({status:"error", message: "Invalid password" });
+
+  }
+ res.status(200).json({ user: user._id, status: true });
+
+}catch (err){
+  console.log(err);
+  res.json({ err, status: false });
+}
+  
+});
 
 
-
-  VendorAuthRoute.post("/login",  async (req, res) => {
-    const { Email, Password } = req.body;
-    try {
-      const user = await VendorAuth.login(Email, Password)
-      const token = createToken2(user._id);
-      res.cookie("vjwt2", token, { httpOnly: false, maxAge: maxAge * 1000 });
-      res.status(200).json({ user: user._id, status: true });
-    } catch (err) {
-      const errors = handleErrors(err);
-      res.json({ errors, status: false });
-    }
-  });
+  // VendorAuthRoute.post("/login",  async (req, res) => {
+  //   const { Email, Password } = req.body;
+  //   try {
+  //     const user = await VendorAuth.login(Email, Password)
+  //     const token = createToken2(user._id);
+  //     res.cookie("vjwt2", token, { httpOnly: false, maxAge: maxAge * 1000 });
+  //     res.status(200).json({ user: user._id, status: true });
+  //   } catch (err) {
+  //     const errors = handleErrors(err);
+  //     res.json({ errors, status: false });
+  //   }
+  // });
 
   // Vendor_register_router.get("/fetch",async(req,res) => {
   //   const getdata= await User.find()

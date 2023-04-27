@@ -10,7 +10,7 @@ import BookingPage from './Components/booking/booking';
 import Myorder from './Components/booking/myOrder';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
-// import Servicemanlist from './Components/admin/Servicemanlist';
+import Protected from './Components/admin/Orders';
 import { UserDashboard } from './Components/objects/objects';
 const Home = lazy(() => import('./Components/Home'));
 const Service = lazy(() => import('./Components/objects/servicepage/service'));
@@ -42,6 +42,7 @@ function App() {
         <Route path='/ForgetPassword' element={<ForgetPassword/>}/>
         <Route path='/vendorForgetPassword' element={<ForgetPasswordVendor/>}/>
         <Route path='/VendorLogin' element={<VendorLogin/>}></Route>
+        <Route path='/protected' element={<Protected/>}></Route>
       </Routes>
       </BrowserRouter>
       </Suspense>

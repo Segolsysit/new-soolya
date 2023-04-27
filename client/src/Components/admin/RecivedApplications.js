@@ -1,4 +1,4 @@
-import { Button, Table, TableBody, TableCell, TableRow, TableHead,Switch,TextField  } from '@mui/material';
+import { Button, Table, TableBody, TableCell, TableRow, TableHead,Switch,TextField,FormHelperText  } from '@mui/material';
 import axios from 'axios';
 import React,{ useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
@@ -24,9 +24,17 @@ const RecivedApplication = ({formNumber}) => {
     const [vendorName, setVendorName] = useState('');
     const [vendorEmail, setVendorEmail] = useState('');
     const [vendorPwd, setVendorPwd] = useState('');
-
+    const [nameErr, setNameErr] = useState(false);
+    const [Emailerror, setEmailerror] = useState(false);
+    const [pwderror, setpwderror] = useState(false);
+    const[nameerr,setnameErr] = useState('');
+    const[emailerr,setemailerr] = useState('');
+    const[success,setSuccess] = useState('');
+    const[pwderr,setpwderr] = useState('');
     const [open, setOpen1] = useState(false);
     const [openModel2, setOpenModel2] = useState(false);
+    
+ 
     const handleOpen = (id) => {
 
         axios.get(`http://localhost:3001/vendor_Applications/fetchVendor_id/${id}`).then((response) => {
@@ -44,36 +52,51 @@ const RecivedApplication = ({formNumber}) => {
       setOpenModel2(false)
     };
 
-    const handleVendorAuth = (e) => {
+    const handleVendorAuth =async (e) => {
       e.preventDefault()
-      const { data } = axios.post("http://localhost:3001/vendor_Auth/register",{
-        UserName:vendorName,
-        Email:vendorEmail,
-        Password:vendorPwd
-      },{ withCredentials: true }).then(()=>{
-
-      })
-      if (data) {
-        if (data.errors) {
-            const { Email, Password } = data.errors;
-            if (Email) {
-                toast.error(Email, {
-                    position: "bottom-right",
-                });
-            }
-            else if (Password) {
-                toast.error(Password, {
-                    position: "bottom-right",
-                });
-            }
-        } else {
-            // nav("/")
+    
+        if(vendorName ===""){
+            setNameErr(true)
+            setnameErr("Name is required")
         }
-    }
+        if(vendorEmail === ''){
+            setEmailerror(true)
+            setemailerr("Email is required")
+        }
+        if(vendorPwd === '') {
+            setpwderror(true)
+            setpwderr("password is required")
+        }
+        else {
+            const response = await axios.post("http://localhost:3001/vendor_Auth/register", {
+                Username: vendorName,
+                Email: vendorEmail,
+                Password: vendorPwd,
+              },{withCredentials:true});
+      
+             
+                if(response.data.status === 'error'){
+                    console.log(response.data.message);
+                    setEmailerror(true)
+                    setemailerr(response.data.message);
+                }else{
+                    setSuccess(response.data.message)
+                   
+                }
 
+                setTimeout(() => {
+                    setVendorName("")
+                    setVendorEmail("")
+                    setVendorPwd("")
+                    setSuccess("")
+                  }, 2000);
+              
+          
+              }
+           
     }
-
-const [application,setApplication] = useState()
+   
+const [application,setApplication] = useState([])
     useEffect(() => {
         axios.get("http://localhost:3001/vendor_Applications/vendor_application").then((res) => {
             console.log(res.data);
@@ -101,8 +124,8 @@ const [application,setApplication] = useState()
                                     </TableHead>
                                     <TableBody>
 
-                                        {application.map((data) =>
-                                            <TableRow >
+                                        {application.map((data,index) =>
+                                            <TableRow  key={index}>
                                                 <TableCell>{serialNumber++}</TableCell>
                                                 <TableCell>{data.FirstName} {data.LastName}</TableCell>
                                                 <TableCell>
@@ -156,28 +179,55 @@ const [application,setApplication] = useState()
           <Box sx={{ ...style, width: 400 }}>
 
                       <form onSubmit={handleVendorAuth}>
+                        <p color='green'>{success}</p>
                       <TextField
                       type='text'
                       id="outlined-basic"
                       label="username"
                       variant="outlined"
-                      onChange={(e) => setVendorName(e.target.value)}
+                      value={vendorName}
+                      error={nameErr}
+                      helperText={nameErr ? nameerr : ''}
+                      onChange={
+                        (e) => {
+                            setVendorName(e.target.value) 
+                            setNameErr(false)
+                        }
+                      
+                        
+                    }
                       /><br/><br/>
-
+                       
                       <TextField 
+                      
                       type='email' 
                       id="outlined-basic" 
                       label="Email" 
                       variant="outlined"
-                      onChange={(e) => setVendorEmail(e.target.value)}
+                      value={vendorEmail}
+                      error={Emailerror}
+                      helperText={Emailerror ? emailerr :"" }
+                      onChange={(e) =>{
+                        setVendorEmail(e.target.value)
+                        setEmailerror(false)
+                    }
+                        
+                      } 
                       /><br/><br/>
-
+                    
                       <TextField 
                       type='password' 
                       id="outlined-basic" 
                       label="password" 
                       variant="outlined" 
-                      onChange={(e) => setVendorPwd(e.target.value)}
+                      value={vendorPwd}
+                      error={pwderror}
+                      helperText={pwderror ? pwderr : ''}
+                      onChange={(e) =>{
+                        setVendorPwd(e.target.value)
+                        setpwderror(false)
+                    }
+                      } 
                       /><br/><br/>
 
                       <Button type="submit">submit</Button>
