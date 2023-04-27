@@ -7,6 +7,8 @@ import'./dashboard.css'
 import { Link } from "react-router-dom";
 import {useCookies} from 'react-cookie'
 import {UserProfile,UserOrders} from "./Userdashboardcomps/Dashboard components";
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 
 const Header = () => {
@@ -812,7 +814,51 @@ const Profile=({open,close})=>{
 const UserDashboard=()=>{
     const[state,setState]=useState(1)
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+    const [not,setnot] = useState(0)
+    const [myorders1,setMyorders1] = useState([])
+    const [orderdetails1,setorderdetails1] = useState([])
 
+    const token = cookies.jwt2;
+    const decodedToken = jwt_decode(token);
+    const userId = decodedToken.id;
+
+    const useremail = myorders1.email
+
+    const notification = localStorage.getItem("ordercount")
+    
+    useEffect(()=>{
+        orderss()
+        notificationfun()
+    })
+
+    const orderss = () => {
+        console.log(userId);
+        axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
+        .then((res) => {
+            console.log(res.data);
+            setMyorders1(res.data);
+            orderss1()
+        })
+      }
+
+    const orderss1 = ()=>{
+        axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
+        .then((res) => {
+            console.log(res.data);
+            setorderdetails1(res.data)
+
+        })
+    }
+
+    const notificationfun =()=>{
+        if(notification < orderdetails1.length){
+            setnot (orderdetails1.length - notification)
+            console.log(not);
+        }
+        if(notification === orderdetails1.length){
+            setnot(0)
+        }
+    }
     if(cookies.jwt2){
         return(
             <div>
@@ -822,12 +868,12 @@ const UserDashboard=()=>{
                     <div className="Sidebar">
                         <ul className="Sidebar-ul">
                             <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}><i class="fa-solid fa-user"/><p className="Sidebar-lable">My Profile</p></li>
-                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">My Orders</p></li>
+                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>{setState(2);localStorage.setItem("ordercount", orderdetails1.length);setnot(0)}}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">My Orders</p>{not === 0 ? <span/> :<span className="badge badge-danger badge-counter">{not}</span> }</li>
                         </ul>
                     </div>
                     <div className="Dashboard-right">
                         <UserProfile State={state}/>
-                        <UserOrders State={state}/>
+                        <UserOrders State={state}/> 
                     </div>
     
                 </div>

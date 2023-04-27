@@ -606,11 +606,11 @@ const Orders = ({ formNumber }) => {
         }
     }
 
+   
 
     const getdata = () => {
         axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
-            setNotificationCount(orderdetails.length)
         })
     }
     let a = 1;
