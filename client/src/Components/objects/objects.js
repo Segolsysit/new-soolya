@@ -6,9 +6,7 @@ import '../home.css'
 import'./dashboard.css'
 import { Link } from "react-router-dom";
 import {useCookies} from 'react-cookie'
-import {UserProfile,UserOrders, VendorProfile} from "./Userdashboardcomps/Dashboard components";
-import { useLocation } from "react-router-dom";
-
+import {UserProfile,UserOrders} from "./Userdashboardcomps/Dashboard components";
 
 
 const Header = () => {
@@ -815,11 +813,7 @@ const UserDashboard=()=>{
     const { pathname } = useLocation();
     const[state,setState]=useState(1)
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
-    useEffect(()=>{
-        if(pathname!=="/service"){
-            localStorage.removeItem("SearchCategory")
-        }
-    },[pathname])
+
     if(cookies.jwt2){
         return(
             <div>
@@ -829,12 +823,12 @@ const UserDashboard=()=>{
                     <div className="Sidebar">
                         <ul className="Sidebar-ul">
                             <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}><i class="fa-solid fa-user"/><p className="Sidebar-lable">My Profile</p></li>
-                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">My Orders</p></li>
+                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>{setState(2);localStorage.setItem("ordercount", orderdetails1.length);setnot(0)}}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">My Orders</p>{not === 0 ? <span/> :<span className="badge badge-danger badge-counter">{not}</span> }</li>
                         </ul>
                     </div>
                     <div className="Dashboard-right">
                         <UserProfile State={state}/>
-                        <UserOrders State={state}/>
+                        <UserOrders State={state}/> 
                     </div>
     
                 </div>
