@@ -814,7 +814,7 @@ const UserDashboard=()=>{
     const { pathname } = useLocation();
     const[state,setState]=useState(1)
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
-    const[not,setnot]=useState(0)
+
     if(cookies.jwt2){
         return(
             <div>
@@ -824,7 +824,7 @@ const UserDashboard=()=>{
                     <div className="Sidebar">
                         <ul className="Sidebar-ul">
                             <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}><i class="fa-solid fa-user"/><p className="Sidebar-lable">My Profile</p></li>
-                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>{setState(2);localStorage.setItem("ordercount", orderdetails1.length);setnot(0)}}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">My Orders</p>{not === 0 ? <span/> :<span className="badge badge-danger badge-counter">{not}</span> }</li>
+                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>{setState(2);localStorage.setItem("ordercount", orderdetails1.length);setnot(0);window.scrollTo(0, document.body.scrollHeight)}}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">My Orders</p>{not === 0 ? <span/> :<span className="badge badge-danger badge-counter">{not}</span> }</li>
                         </ul>
                     </div>
                     <div className="Dashboard-right">
