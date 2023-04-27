@@ -7,8 +7,6 @@ import'./dashboard.css'
 import { Link } from "react-router-dom";
 import {useCookies} from 'react-cookie'
 import {UserProfile,UserOrders} from "./Userdashboardcomps/Dashboard components";
-import axios from 'axios';
-import jwt_decode from 'jwt-decode';
 
 
 const Header = () => {
@@ -121,7 +119,7 @@ const MenuBar = () => {
 }
 
 const Category = () => {
-
+//hello
     const data = [{
         "Name": "Ac Repair",
         "Extras": "5+service",
@@ -156,9 +154,9 @@ const Category = () => {
     ]
     return (
         <div className="cardouter">
-            {data.map(item => {
+            {data.map((item,index)=> {
                 return (
-                    <Link to="/service"><div className="card">
+                    <Link to="/service" key={index}><div className="card" >
                         <img className="icons" src={item.src} alt="" />
                         <h3 className="main">{item.Name}</h3>
                         <p className="extras">{item.Extras}</p>
@@ -287,9 +285,9 @@ const Carosel = () => {
         <div className="Carosel-block">
             <button className="Arrow-Left" onClick={CaroselLeft} >&larr;</button>
             <div className="Caroselcard-block" style={{ transform: `translateX(${pos}rem)` }} >
-                {data.map(item => {
+                {data.map((item,index)=> {
                     return (
-                        <div className="Carosel-card" onClick={(e) => { setName(item.desc) }}>
+                        <div className="Carosel-card" onClick={(e) => { setName(item.desc) }} key={index}>
                             <img className="Carosel-img" src={item.mainImage} alt=""/>
                             <div className="Card-body">
                                 <div className="Carosel-sec">
@@ -358,9 +356,9 @@ const Ad = () => {
     },]
 
     return (<div className="Adblock">
-        {data.map(item => {
+        {data.map((item,index)=> {
             return (
-                <div className="inner-ad">
+                <div className="inner-ad" key={index}>
                     <img className="Ad-img" src={item.image} alt=""/>
                     <h2 className="Ad-count">{item.count}+</h2>
                     <h3 className="Ad-desc">{item.desc}</h3>
@@ -432,9 +430,9 @@ const Popular = () => {
 
     return (
         <div className="Popular-block">
-            {data.map(item => {
+            {data.map((item,index)=> {
                 return (
-                    <div className="Carosel-card">
+                    <div className="Carosel-card" key={index}>
                         <img className="Carosel-img" src={item.mainImage} alt=""/>
                         <div className="Card-body">
                             <div className="Carosel-sec">
@@ -566,9 +564,9 @@ const Testimonials = () => {
             <h1 className="Testi-h1">Testimonial</h1>
             <p className="Testi-p">There are many variations of Lorem Imposem Available</p>
             <div className="Testi-Outer" style={{ transform: `translateX(${Pos}rem)` }}>
-                {data.map(item => {
+                {data.map((item,index)=> {
                     return (
-                        <div className="Tesi-card">
+                        <div className="Tesi-card" key={index}>
                             <div className="Testi-reviewbox">
                                 <p className="Testi-Review">{item.Review}</p>
                             </div>
@@ -585,9 +583,9 @@ const Testimonials = () => {
 
             </div>
             <div className="ResTesti-Outer" style={{ transform: `translateX(${Res}rem)` }}>
-                {data.map(item => {
+                {data.map((item,index)=> {
                     return (
-                        <div className="Tesi-card">
+                        <div className="Tesi-card" key={index}>
                             <div className="Testi-reviewbox">
                                 <p className="Testi-Review">{item.Review}</p>
                             </div>
@@ -638,9 +636,9 @@ const LatestNews = () => {
             <p>There are many variations of lorem</p>
             <div className="News-inner">
                 {
-                    data.map(item => {
+                    data.map((item,index)=> {
                         return (
-                            <div className="NewsCard">
+                            <div className="NewsCard" key={index}>
                                 <img src={item.img} className="Carosel-img" alt=""/>
                                 <div className="Newscard-body">
                                     <div className="News-card2">
@@ -711,11 +709,11 @@ const Footer = () => {
             <div className="Footer-sec2">
                 <ul className="Sec2-ul">
                     <li><h1 className="Sec2-head">Quick Links</h1></li>
-                    <li>Our Service</li>
+                    <Link to="/Service"><li>Our Service</li></Link>
                     <li>Why Choose Us</li>
-                    <li>My Profile</li>
+                    <Link to="/Mydashboard"><li>My Profile</li></Link>
                     <li>About Us</li>
-                    <li>Join as a provider</li>
+                    <Link to="/Provider"><li>Join as a provider</li></Link>
                 </ul>
             </div>
 
@@ -779,7 +777,7 @@ const MenuList = ({ Open, Close }) => {
                         <input placeholder="Search" className="Search-box2" />
                         <button className="Searchbutton"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div >
-                    <button className="hireButton">Hire Now</button>
+                    <Link to="/Provider"><button className="hireButton">Provider Joining</button></Link>
                     <Link to="/Login"><button className={Token  ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
                     <img onClick={ProfileOpen} src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" className={Token ? "Profileimg" : "Profileimg-hide"}></img>
                 </div>
@@ -812,11 +810,9 @@ const Profile=({open,close})=>{
 }
 
 const UserDashboard=()=>{
+    const { pathname } = useLocation();
     const[state,setState]=useState(1)
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
-    const [not,setnot] = useState(0)
-    const [myorders1,setMyorders1] = useState([])
-    const [orderdetails1,setorderdetails1] = useState([])
 
     const token = cookies.jwt2;
     const decodedToken = jwt_decode(token);
@@ -889,6 +885,45 @@ const UserDashboard=()=>{
     
 }
 
+const VendorDashboard=()=>{
+    const { pathname } = useLocation();
+    const[state,setState]=useState(1)
+    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+    useEffect(()=>{
+        if(pathname!=="/service"){
+            localStorage.removeItem("SearchCategory")
+        }
+    },[pathname])
+    if(cookies.jwt2){
+        return(
+            <div>
+                <MenuBar/>
+                
+                <div className="Dashboard-body">
+                    <div className="Sidebar">
+                        <ul className="Sidebar-ul">
+                            <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}><i class="fa-solid fa-user"/><p className="Sidebar-lable">My Profile</p></li>
+                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">My Orders</p></li>
+                        </ul>
+                    </div>
+                    <div className="Dashboard-right">
+                        <VendorProfile State={state}/>
+                        <UserOrders State={state}/>
+                    </div>
+    
+                </div>
+                <Footer/>
+                <End/>
+            </div>
+        )
+        
+    }
+    else{
+        window.location.href='/VendorLogin'
+    }
+    
+}
 
 
-export { Category, Carosel, Ad, Popular, Join, Store, Testimonials, LatestNews, Subscribe, Footer, End, MenuList, Header, MenuBar,UserDashboard }
+
+export { Category, Carosel, Ad, Popular, Join, Store, Testimonials, LatestNews, Subscribe, Footer, End, MenuList, Header, MenuBar,UserDashboard,VendorDashboard }

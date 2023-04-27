@@ -11,8 +11,14 @@ const Service=()=>{
         window.scrollTo(0, 0);
          }, [pathname]);
 
-         const[Service,setService]=useState("")
-         const[PriceRange,setPricerange]=useState("")
+         
+
+var SearchCategory=localStorage.getItem("SearchCategory")
+var searchLocation=localStorage.getItem("Location")
+
+const[Service,setService]=useState("")
+const[PriceRange,setPricerange]=useState("")
+
     return(
         <div>
             <Header/>
@@ -23,7 +29,7 @@ const Service=()=>{
             <div className="Service-sec2">
                 <div className="Service-selection">
                     <h3 className="Service-tit">Location</h3>
-                    <select className="Service-select">
+                    <select className="Service-select" defaultValue={searchLocation!=="Select"?searchLocation:"Select"}>
                         <option>Select</option>
                         <option>Erode</option>
                         <option>Coimbatore</option>
@@ -31,7 +37,7 @@ const Service=()=>{
                 </div>
                 <div className="Service-selection">
                     <h3 className="Service-tit">Category</h3>
-                    <select className="Service-select" onChange={(e)=>setService(e.target.value)}>
+                    <select className="Service-select" onChange={(e)=>setService(e.target.value)} defaultValue={SearchCategory!=="Select"?SearchCategory:"Select"}>
                         <option>Select</option>
                         <option>AC Repair</option>
                         <option>Car Service</option>
@@ -39,6 +45,7 @@ const Service=()=>{
                         <option>Painting</option>
                         <option>Pest Control</option>
                         <option>Plumbing</option>
+                        <option>Car wash</option>
                     </select>
                 </div>
                 <div className="Service-selection" onChange={(e)=>setPricerange(e.target.value)}>

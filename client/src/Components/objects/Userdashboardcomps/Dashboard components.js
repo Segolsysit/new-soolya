@@ -187,7 +187,7 @@ if(State===2){
         <div className="container-fluid">
                                 <Table className='table-cat' style={{margin:"40px 0px 0px 0px"}}>
                                     <TableHead>
-                                        <TableRow>
+                                        <TableRow style={{border:"2px solid black"}}>
                                             <TableCell>SN</TableCell>
                                             {/* <TableCell>Service</TableCell> */}
                                             <TableCell>Category</TableCell>
@@ -232,4 +232,102 @@ else return null
     
 }
 
-export  {UserProfile,UserOrders}
+
+//vendor
+
+const VendorProfile=({State})=>{
+    const [orderdetails,setorderdetails] = useState([])
+    const [cookies, setCookie, removeCookie] = useCookies([]);
+    const [myorders,setMyorders] = useState([])
+    const token = cookies.jwt2;
+    const[state,setState]=useState(State)
+    const decodedToken = jwt_decode(token);
+    const userId = decodedToken.id;
+    const[count,setCount]=useState(0)
+    const[dummy,setDummy]=useState(0)
+    const useremail = myorders.email
+    const { pathname } = useLocation();
+        useEffect(() => {
+        window.scrollTo(0, 0);
+        
+         }, [{pathname}]);
+
+        
+        setTimeout(()=>{
+            setState(2)
+
+        },1000)
+        
+        
+        useEffect(()=>{
+            axios.get(`http://localhost:3001/vendorauths/fetch_vendor/${userId}`)
+            .then((res) => {
+                console.log(res.data);
+                setMyorders(res.data)
+            })
+            axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
+            .then((res) => {
+                console.log(res.data);
+                setorderdetails(res.data)
+            
+            })            // orders1()
+            
+        },[state])
+       
+
+        useEffect(()=>{
+            if(count<orderdetails.length){
+                setCount(count+1)
+
+            }
+        })
+    
+        const orders = () => {
+            console.log(userId);
+           
+          }
+
+
+              console.log(myorders);
+    
+    
+
+    if(State===1){
+        return(
+            <div className="User-Screen">
+                <div className="User-sec1">
+                    <>
+                    <img className="User-img" src="https://img.freepik.com/free-vector/digital-tools-concept-illustration_114360-7118.jpg?w=1380&t=st=1682572354~exp=1682572954~hmac=b5050378427867b9b7e204e07e4b4aa64be5c7e31bcdea1890729d172906f92a" alt=""/>
+                    </>
+                    <div className="User-sec1Data">
+                        <div>
+                    <h2 className="User-data"><i class="fa-solid fa-user"></i></h2>
+                    <h2 className="User-data"><i class="fa-solid fa-phone"></i></h2>
+                    <h2 className="User-data"><i class="fa-solid fa-envelope"></i></h2>
+                    </div>
+                    <div>
+                    
+                        
+                            <h2 className="User-data">{myorders.firstName}  {myorders.lastName}</h2>
+                            <h2 className="User-data">{myorders.phoneNumber}</h2>
+                            <h2 className="User-data">{myorders.email}</h2>
+                            
+                      
+                    
+                    </div>
+                    </div>
+                </div>
+
+                <div className="User-sec2" onClick={()=>setState(2)}>
+                    <h1 className="Count">{count}</h1>
+                    <h2 className="Orders">Orders Completed</h2>
+                </div>
+
+            </div>
+        )
+    }
+    else return null
+    
+}
+
+export  {UserProfile,UserOrders,VendorProfile}
