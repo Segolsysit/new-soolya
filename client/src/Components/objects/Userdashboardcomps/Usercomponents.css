@@ -41,7 +41,14 @@
     padding: 20px;
     width: fit-content;
     background-color: dodgerblue;
-    width: 20rem;
+    width: 22rem;
+}
+
+.Edit-btn{
+    margin-top: 0;
+    padding: 3px;
+    color: white;
+    cursor: pointer;
 }
 
 .User-sec2{

@@ -61,7 +61,7 @@ const UserProfile=({State})=>{
           }
 
 
-              
+              console.log(myorders);
     
     
 
@@ -69,7 +69,9 @@ const UserProfile=({State})=>{
         return(
             <div className="User-Screen">
                 <div className="User-sec1">
-                    <img className="User-img" src="https://images.pexels.com/photos/1586996/pexels-photo-1586996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt=""/>
+                    <>
+                    <img className="User-img" src="https://img.freepik.com/free-vector/digital-tools-concept-illustration_114360-7118.jpg?w=1380&t=st=1682572354~exp=1682572954~hmac=b5050378427867b9b7e204e07e4b4aa64be5c7e31bcdea1890729d172906f92a" alt=""/>
+                    </>
                     <div className="User-sec1Data">
                         <div>
                     <h2 className="User-data"><i class="fa-solid fa-user"></i></h2>
@@ -77,9 +79,14 @@ const UserProfile=({State})=>{
                     <h2 className="User-data"><i class="fa-solid fa-envelope"></i></h2>
                     </div>
                     <div>
-                    <h2 className="User-data">Human</h2>
-                    <h2 className="User-data">1234567890</h2>
-                    <h2 className="User-data">human@gmail.com</h2>
+                    
+                        
+                            <h2 className="User-data">{myorders.firstName}  {myorders.lastName}</h2>
+                            <h2 className="User-data">{myorders.phoneNumber}</h2>
+                            <h2 className="User-data">{myorders.email}</h2>
+                            
+                      
+                    
                     </div>
                     </div>
                 </div>
@@ -183,7 +190,7 @@ const UserOrders=({State})=>{
 if(State===2){
     return(
         <div className="container-fluid">
-                                <Table className='table-cat'>
+                                <Table className='table-cat' style={{margin:"40px 0px 0px 0px"}}>
                                     <TableHead>
                                         <TableRow>
                                             <TableCell>SN</TableCell>
