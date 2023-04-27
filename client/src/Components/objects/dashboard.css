@@ -74,6 +74,11 @@
     color: black;
 }
 
+.Dashboard-right ::-webkit-scrollbar{
+    display: none;
+}
+
+
 .Dashboard-right{
     display: flex;
     /* flex-direction: column; */
