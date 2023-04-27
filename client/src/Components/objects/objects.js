@@ -7,7 +7,8 @@ import'./dashboard.css'
 import { Link } from "react-router-dom";
 import {useCookies} from 'react-cookie'
 import {UserProfile,UserOrders} from "./Userdashboardcomps/Dashboard components";
-
+import { useLocation } from "react-router-dom";
+import { VendorProfile } from "./Userdashboardcomps/Dashboard components";
 
 const Header = () => {
 
