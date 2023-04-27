@@ -2,34 +2,52 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Admin.css"
-import {CategoryForm,Rejected_list,Orders} from './Categoryform';
+import { CategoryForm, Rejected_list, Orders } from './Categoryform';
 import DashBoard from './Dashboard';
 import RecivedApplication from './RecivedApplications';
-import  { Add_new_service,ServiceList } from './Servicelist';
+import { Add_new_service, ServiceList } from './Servicelist';
 
 export const Admin = () => {
     const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
     const nav = useNavigate()
     const aemail = localStorage.getItem("adminemail")
     const [orderdetails, setorderdetails] = useState([])
-// const [ss ,setSs] = useState(orderdetails.length);
+    // const [ss ,setSs] = useState(orderdetails.length);
 
 
 
-const [state,setState]=useState(false)
-const[Formnum,setFormnum]=useState(0)
+    const [state, setState] = useState(false)
+    const [Formnum, setFormnum] = useState(0)
+    const [not,setnot] = useState(0)
+
+    const notification = localStorage.getItem("ordercount")
+    useEffect(() => {
+        getdata2()
+        notificationfun()
+    })
+    
+    const notificationfun =()=>{
+        if(notification < orderdetails.length){
+            setnot (orderdetails.length - notification)
+            console.log(not);
+        }
+        if(notification === orderdetails.length){
+            setnot(0)
+        }
+    }
 
 
-    // const getdata2 = () => {
-    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
-    //         setorderdetails(res.data)
-    //     })}
+    const getdata2 = () => {
+        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+            setorderdetails(res.data)
+        })
+    }
 
     const changeStyle = () => {
         if (style === "Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
             setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
         }
-        else{
+        else {
             setstyle("Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
         }
     }
@@ -38,19 +56,19 @@ const[Formnum,setFormnum]=useState(0)
         if (style === "Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
             setstyle("Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
         }
-        else{
+        else {
             setstyle("Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
         }
     }
     // const isPasswordCorrect = bcrypt.compareSync(apassword, hashedPassword);
 
-    const verify = ()=>{
-        if(aemail === null){
+    const verify = () => {
+        if (aemail === null) {
             nav("/admin")
         }
     }
 
-    const adminlogout = ()=>{
+    const adminlogout = () => {
         localStorage.removeItem("adminemail")
         nav("/AdminLogin")
     }
@@ -60,64 +78,71 @@ const[Formnum,setFormnum]=useState(0)
     //     verify()
     // }, [])
 
-    if(aemail==="admin@abc.com"){
+    if (aemail === "admin@abc.com") {
         return (
             <div>
                 <body id="page-top">
-    
+
                     {/* <!-- Page Wrapper --> */}
                     <div id="wrapper">
-    
+
                         {/* <!-- Sidebar --> */}
                         <ul className={style} id="accordionSidebar">
-    
+
                             {/* <!-- Sidebar - Brand --> */}
                             <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                                 <div className="sidebar-brand-icon rotate-n-15">
                                     <i className="fas fa-laugh-wink"></i>
                                 </div>
                                 <div className="sidebar-brand-text mx-3">Soolya</div>
-                            </a>    
-                                <div className="text-center d-none d-md-inline">
+                            </a>
+                            <div className="text-center d-none d-md-inline">
                                 <button className="rounded-circle border-0" id="sidebarToggle" onClick={changeStyle}></button>
                             </div>
-                            
-    
+
+
                             {/* <!-- Divider --> */}
                             <hr className="sidebar-divider my-0" />
-    
+
                             {/* <!-- Nav Item - Dashboard --> */}
-                            <li className="nav-item active  " onClick={()=>{{setState(true)
-                            setFormnum(3)}}}>
+                            <li className="nav-item active  " onClick={() => {
+                                {
+                                    setState(true)
+                                    setFormnum(3)
+                                }
+                            }}>
                                 <div className="nav-link">
                                     <i className="fas fa-fw fa-tachometer-alt"></i>
                                     <span>Dashboard</span></div>
                             </li>
-    
-                            <li className="nav-item active" onClick={()=>setFormnum(10)}>
+
+                            <li className="nav-item active" onClick={() => setFormnum(10)}>
                                 <div className="nav-link"  >
                                     <i className="fas fa-fw fa-tachometer-alt"></i>
                                     <span>Application</span></div>
                             </li>
-    
+
                             {/* <!-- Divider --> */}
                             <hr className="sidebar-divider" />
-    
+
                             {/* <!-- Heading --> */}
                             <div className="sidebar-heading">
-                            SERVICE MANAGEMENT
+                                SERVICE MANAGEMENT
                             </div>
-    
+
                             {/* <!-- Nav Item - Pages Collapse Menu --> */}
-                            <li className="nav-item" onClick={()=>setFormnum(5)}>
-                                <div className="nav-link"  onClick={()=> setorderdetails("")}>
-                                <i class="fa-regular fa-link-horizontal"></i>
-                                    <span>Orders
-                                    <span className="badge badge-danger badge-counter">{orderdetails.length}</span>
-                                        </span></div>
+                            <li className="nav-item" onClick={() => setFormnum(5)}>
+                                <div className="nav-link" onClick={() => {localStorage.setItem("ordercount", orderdetails.length);setnot(0)}
+                                    //  setorderdetails("0")
+                                }>
+                                    <i class="fa-regular fa-link-horizontal"></i>
+                                    <span>Orders{not === 0 ? <span/> :<span className="badge badge-danger badge-counter">{not}</span> }
+                                        
+                                    </span>
+                                </div>
                             </li>
                             <li className="nav-item" >
-                                <div className="nav-link collapsed"  data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                <div className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                                     aria-expanded="true" aria-controls="collapseTwo">
                                     <i class="fa-solid fa-shapes"></i>
                                     <span >Service Categories</span>
@@ -125,16 +150,18 @@ const[Formnum,setFormnum]=useState(0)
                                 <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         {/* <h6 className="collapse-header">Custom Components:</h6> */}
-                                        <div className="collapse-item" onClick={()=>{setState(true)
-                            setFormnum(1)}}>Category Setup</div>
+                                        <div className="collapse-item" onClick={() => {
+                                            setState(true)
+                                            setFormnum(1)
+                                        }}>Category Setup</div>
                                         <a className="collapse-item" href="/subcategorysetup">Sub Category Setup</a>
                                     </div>
                                 </div>
                             </li>
-    
+
                             {/* <!-- Nav Item - Utilities Collapse Menu --> */}
                             <li className="nav-item">
-                                <div className="nav-link collapsed"  data-bs-toggle="collapse" data-bs-target="#collapseUtilities"
+                                <div className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseUtilities"
                                     aria-expanded="true" aria-controls="collapseUtilities">
                                     <i className="fas fa-fw fa-wrench"></i>
                                     <span>Services</span>
@@ -143,25 +170,25 @@ const[Formnum,setFormnum]=useState(0)
                                     data-parent="#accordionSidebar">
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         {/* <h6 className="collapse-header">Custom Utilities:</h6> */}
-                                        <div className="collapse-item" onClick={()=>{setFormnum(6)}}>Service List</div>
-                                        <div className="collapse-item" onClick={()=>{setFormnum(7)}}>Add New Service</div>
+                                        <div className="collapse-item" onClick={() => { setFormnum(6) }}>Service List</div>
+                                        <div className="collapse-item" onClick={() => { setFormnum(7) }}>Add New Service</div>
                                         {/* <a className="collapse-item" href="utilities-animation.js">Animations</a>
                                         <a className="collapse-item" href="utilities-other.js">Other</a> */}
                                     </div>
                                 </div>
                             </li>
-    
+
                             {/* <!-- Divider --> */}
                             <hr className="sidebar-divider" />
-    
+
                             {/* <!-- Heading --> */}
                             <div className="sidebar-heading">
-                            SERVICE MAN MANAGEMENT
+                                SERVICE MAN MANAGEMENT
                             </div>
-    
+
                             {/* <!-- Nav Item - Pages Collapse Menu --> */}
                             <li className="nav-item" >
-                                <div className="nav-link collapsed"   data-bs-toggle="collapse" data-bs-target="#collapsePages1"
+                                <div className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapsePages1"
                                     aria-expanded="true" aria-controls="collapsePages1">
                                     <i className="fas fa-fw fa-user"></i>
                                     <span>SERVICE MAN</span>
@@ -169,10 +196,12 @@ const[Formnum,setFormnum]=useState(0)
                                 <div id="collapsePages1" className="collapse" aria-labelledby="headingPages1" data-bs-parent="#accordionSidebar">
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         {/* <h6 className="collapse-header">Login Screens:</h6> */}
-                                        <div className="collapse-item" onClick={()=>{
-                            setFormnum(2)}}>Service Man List</div>
-                                        <div className="collapse-item" onClick={()=>{
-                            setFormnum(4)}}>Rejected List</div>
+                                        <div className="collapse-item" onClick={() => {
+                                            setFormnum(2)
+                                        }}>Service Man List</div>
+                                        <div className="collapse-item" onClick={() => {
+                                            setFormnum(4)
+                                        }}>Rejected List</div>
                                     </div>
                                 </div>
                             </li>
@@ -195,53 +224,53 @@ const[Formnum,setFormnum]=useState(0)
                                     </div>
                                 </div>
                             </li>
-    
+
                             {/* <!-- Nav Item - Charts --> */}
                             <li className="nav-item">
                                 <a className="nav-link" href="/feedbacks">
                                     <i className="fas fa-fw fa-chart-area"></i>
                                     <span>FeedBacks</span></a>
                             </li>
-    
+
                             {/* <!-- Nav Item - Tables --> */}
                             <li className="nav-item">
                                 <a className="nav-link" href="tables.html">
                                     <i className="fas fa-fw fa-table"></i>
                                     <span>Tables</span></a>
                             </li>
-    
+
                             {/* <!-- Divider --> */}
                             <hr className="sidebar-divider d-none d-md-block" />
-    
+
                             {/* <!-- Sidebar Toggler (Sidebar) --> */}
                             {/* <div className="text-center d-none d-md-inline">
                                 <button className="rounded-circle border-0" id="sidebarToggle" onClick={changeStyle}></button>
                             </div> */}
-    
+
                             {/* <!-- Sidebar Message --> */}
                             {/* <div className="sidebar-card d-none d-lg-flex">
                                 <img className="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="..." />
                                 <p className="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
                                 <a className="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
                             </div> */}
-    
+
                         </ul>
                         {/* <!-- End of Sidebar --> */}
-    
+
                         {/* <!-- Content Wrapper --> */}
                         <div id="content-wrapper" className="d-flex flex-column">
-    
+
                             {/* <!-- Main Content --> */}
                             <div id="content">
-    
+
                                 {/* <!-- Topbar --> */}
                                 <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-    
+
                                     {/* <!-- Sidebar Toggle (Topbar) --> */}
                                     <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3" onClick={changeStyle1}>
                                         <i className="fa fa-bars"></i>
                                     </button>
-    
+
                                     {/* <!-- Topbar Search --> */}
                                     <form
                                         className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -255,10 +284,10 @@ const[Formnum,setFormnum]=useState(0)
                                             </div>
                                         </div>
                                     </form>
-    
+
                                     {/* <!-- Topbar Navbar --> */}
                                     <ul className="navbar-nav ml-auto">
-    
+
                                         {/* <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}
                                         <li className="nav-item dropdown no-arrow d-sm-none">
                                             <a className="nav-link dropdown-toggle" href="/" id="searchDropdown" role="button"
@@ -282,7 +311,7 @@ const[Formnum,setFormnum]=useState(0)
                                                 </form>
                                             </div>
                                         </li>
-    
+
                                         {/* <!-- Nav Item - Alerts --> */}
                                         <li className="nav-item dropdown no-arrow mx-1">
                                             <a className="nav-link dropdown-toggle" href="/" id="alertsDropdown" role="button"
@@ -333,7 +362,7 @@ const[Formnum,setFormnum]=useState(0)
                                                 <a className="dropdown-item text-center small text-gray-500" href="/">Show All Alerts</a>
                                             </div>
                                         </li>
-    
+
                                         {/* <!-- Nav Item - Messages --> */}
                                         <li className="nav-item dropdown no-arrow mx-1">
                                             <a className="nav-link dropdown-toggle" href="/" id="messagesDropdown" role="button"
@@ -399,57 +428,57 @@ const[Formnum,setFormnum]=useState(0)
                                                 <a className="dropdown-item text-center small text-gray-500" href="/">Read More Messages</a>
                                             </div>
                                         </li>
-    
+
                                         <div className="topbar-divider d-none d-sm-block"></div>
-    
+
                                         {/* <!-- Nav Item - User Information --> */}
                                         <li className="nav-item dropdown no-arrow">
-                                        <div className="nav-link dropdown-toggle"  id="userDropdown" role="button"
-                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span className="mr-2 d-none d-lg-inline text-gray-600 small">Soolya Admin</span>
-                                            <img className="img-profile rounded-circle"
-                                                src="img/undraw_profile.svg"
-                                                alt='...' />
-                                        </div>
-                                        {/* <!-- Dropdown - User Information --> */}
-                                        <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                            aria-labelledby="userDropdown">
-                                            <a className="dropdown-item" href="/">
-                                                <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                                Profile
-                                            </a>
-                                            <a className="dropdown-item" href="/">
-                                                <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                                Settings
-                                            </a>
-                                            <a className="dropdown-item" href="/">
-                                                <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                                Activity Log
-                                            </a>
-                                            <div className="dropdown-divider"></div>
-                                            <a className="dropdown-item" href="/" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                                                <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                                Logout
-                                            </a>
-                                        </div>
-                                    </li>
-    
+                                            <div className="nav-link dropdown-toggle" id="userDropdown" role="button"
+                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span className="mr-2 d-none d-lg-inline text-gray-600 small">Soolya Admin</span>
+                                                <img className="img-profile rounded-circle"
+                                                    src="img/undraw_profile.svg"
+                                                    alt='...' />
+                                            </div>
+                                            {/* <!-- Dropdown - User Information --> */}
+                                            <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                                aria-labelledby="userDropdown">
+                                                <a className="dropdown-item" href="/">
+                                                    <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                    Profile
+                                                </a>
+                                                <a className="dropdown-item" href="/">
+                                                    <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                    Settings
+                                                </a>
+                                                <a className="dropdown-item" href="/">
+                                                    <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                    Activity Log
+                                                </a>
+                                                <div className="dropdown-divider"></div>
+                                                <a className="dropdown-item" href="/" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                                    <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                    Logout
+                                                </a>
+                                            </div>
+                                        </li>
+
                                     </ul>
-    
+
                                 </nav>
                                 {/* <!-- End of Topbar --> */}
 
                                 <CategoryForm open={state} close={setState} FormNumber={Formnum} setNumber={setFormnum} />
-                                <DashBoard open={state} close={setState} formNumber={Formnum}/>
-                                <Rejected_list formNumber={Formnum}/>
-                                <Orders formNumber={Formnum}/>
-                                <ServiceList formNumber={Formnum}/>
-                                <Add_new_service formNumber={Formnum}/>
-                                <RecivedApplication formNumber={Formnum}/>
-    
+                                <DashBoard open={state} close={setState} formNumber={Formnum} />
+                                <Rejected_list formNumber={Formnum} />
+                                <Orders formNumber={Formnum} />
+                                <ServiceList formNumber={Formnum} />
+                                <Add_new_service formNumber={Formnum} />
+                                <RecivedApplication formNumber={Formnum} />
+
                             </div>
                             {/* <!-- End of Main Content --> */}
-    
+
                             {/* <!-- Footer --> */}
                             {/* <footer className="sticky-footer bg-white">
                                 <div className="container my-auto">
@@ -459,18 +488,18 @@ const[Formnum,setFormnum]=useState(0)
                                 </div>
                             </footer> */}
                             {/* <!-- End of Footer --> */}
-    
+
                         </div>
                         {/* <!-- End of Content Wrapper --> */}
-    
+
                     </div>
                     {/* <!-- End of Page Wrapper --> */}
-    
+
                     {/* <!-- Scroll to Top Button--> */}
                     <a className="scroll-to-top rounded" href="#page-top">
                         <i className="fas fa-angle-up"></i>
                     </a>
-    
+
                     {/* <!-- Logout Modal--> */}
                     <div className="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -494,10 +523,10 @@ const[Formnum,setFormnum]=useState(0)
             </div>
         )
     }
-else{
-    window.location.href="/AdminLogin"
-}
-    
+    else {
+        window.location.href = "/AdminLogin"
+    }
+
 }
 
 export default Admin;

@@ -1,10 +1,18 @@
 import React from "react";
 import './css/Categoryform.css'
-import  { useRef } from 'react'
+import { useRef } from 'react'
 import "./Admin.css";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Table, TableBody, TableCell, TableRow, TableHead, TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 import { toast } from "react-toastify";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -14,12 +22,12 @@ import Switch from '@mui/material/Switch';
 
 import { Toast } from "bootstrap";
 
-const CategoryForm=({FormNumber,setNumber})=>{
+const CategoryForm = ({ FormNumber, setNumber }) => {
 
     const [categorySetup, setCatagorySetup] = useState("");
     const [img, setImg] = useState("");
-    const[Desc,setDesc]=useState("")
-    const[Price,setPrice]=useState("")
+    const [Desc, setDesc] = useState("")
+    const [Price, setPrice] = useState("")
     const [getData, setgetData] = useState([]);
     const [getbyid, setgetbyid] = useState('');
     const nav = useNavigate()
@@ -38,11 +46,31 @@ const CategoryForm=({FormNumber,setNumber})=>{
     const aemail = localStorage.getItem("adminemail")
     const apassword = localStorage.getItem("adminpassword")
 
-    const verify = ()=>{
-        if(aemail === null && apassword === null){
+    const verify = () => {
+        if (aemail === null && apassword === null) {
             nav("/admin")
         }
     }
+
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+        },
+    }));
+
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+        // hide last border
+        '&:last-child td, &:last-child th': {
+            border: 0,
+        },
+    }));
 
     // const [orderdetails, setorderdetails] = useState([])
 
@@ -115,13 +143,13 @@ const CategoryForm=({FormNumber,setNumber})=>{
             })
         }
 
-        else if(Desc===""){
+        else if (Desc === "") {
             toast.error("Enter Description", {
                 position: "top-center"
             })
         }
 
-        else if(Price===""){
+        else if (Price === "") {
             toast.error("Enter Price", {
                 position: "top-center"
             })
@@ -131,8 +159,8 @@ const CategoryForm=({FormNumber,setNumber})=>{
             const formdata = new FormData()
             formdata.append("catagorySetup", categorySetup);
             formdata.append("file", img)
-            formdata.append("Desc",Desc)
-            formdata.append("Price",Price)
+            formdata.append("Desc", Desc)
+            formdata.append("Price", Price)
             axios.post("http://localhost:3001/api/new_catagory/", formdata).then((res) => {
 
                 toast.success(' uploaded Successed!', {
@@ -198,7 +226,7 @@ const CategoryForm=({FormNumber,setNumber})=>{
             });
             categorydata()
         })
-        
+
     }
 
     const localpath = "http://localhost:3001/"
@@ -236,8 +264,8 @@ const CategoryForm=({FormNumber,setNumber})=>{
         const formdata = new FormData();
         formdata.append("catagorySetup", Editservice);
         formdata.append("file", EditImage)
-        formdata.append("Desc",EditDesc)
-        formdata.append("Price",EditPrice)
+        formdata.append("Desc", EditDesc)
+        formdata.append("Price", EditPrice)
         axios.patch(`http://localhost:3001/api//update_items/${getbyid._id}`, formdata).then(() => {
             // alert("updated")
             categorydata();
@@ -246,73 +274,75 @@ const CategoryForm=({FormNumber,setNumber})=>{
         handleClose();
     }
 
-  
-
-
-    
-    if(FormNumber===1) {
-        return(
-        <div className="Category-Screen">
-            <h1>Service Category</h1>
-            <div className="Category-Outer">
-                <form className="Category-left" onSubmit={AddService}>
-                    <label className="Category-Label">Category</label>
-                    <input type="text" value={categorySetup} className="Category-input" onChange={(e) => setCatagorySetup(e.target.value)} />
-                    
-                    <label className="Category-Label">Description</label>
-                    <textarea className="Categorydesc-input" value={Desc} onChange={(e) => setDesc(e.target.value)}/>
-                    <label className="Category-Label">Price</label>
-                    <input value={Price} className="Category-input" onChange={(e) => setPrice(e.target.value)} />
-                    <label className="Category-Label">Image</label>
-                    <div className="Categoryfile-div">
-                    <input type="file" className="Category-input" onChange={handleImgChange}/>
-                    </div>
-                    <button type="Submit" className="Category-button">Add</button>
-                </form>
-                <img className="Category-Right" src="https://cdn.pixabay.com/photo/2018/07/25/15/52/design-3561661_1280.jpg"/>
-            </div>
-            <div >
-                                <Table className='table-cat'>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell>SN</TableCell>
-                                            <TableCell>Category</TableCell>
-                                            <TableCell>Image</TableCell>
-                                            <TableCell>Desc</TableCell>
-                                            <TableCell>Price</TableCell>
-                                            <TableCell>Edit</TableCell>
-                                            <TableCell>Delete</TableCell>
 
 
 
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {
-                                            getData.map((data, index) => (
+
+    if (FormNumber === 1) {
+        return (
+            <div className="Category-Screen">
+                <h1>Service Category</h1>
+                <div className="Category-Outer">
+                    <form className="Category-left" onSubmit={AddService}>
+                        <label className="Category-Label">Category</label>
+                        <input type="text" value={categorySetup} className="Category-input" onChange={(e) => setCatagorySetup(e.target.value)} />
+
+                        <label className="Category-Label">Description</label>
+                        <textarea className="Categorydesc-input" value={Desc} onChange={(e) => setDesc(e.target.value)} />
+                        <label className="Category-Label">Price</label>
+                        <input value={Price} className="Category-input" onChange={(e) => setPrice(e.target.value)} />
+                        <label className="Category-Label">Image</label>
+                        <div className="Categoryfile-div">
+                            <input type="file" className="Category-input" onChange={handleImgChange} />
+                        </div>
+                        <button type="Submit" className="Category-button">Add</button>
+                    </form>
+                    <img className="Category-Right" src="https://cdn.pixabay.com/photo/2018/07/25/15/52/design-3561661_1280.jpg" />
+                </div>
+                <div >
+                    <TableContainer component={Paper} style={{padding:"20px"}}>
+                        <Table className='table-cat' aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>SN</StyledTableCell>
+                                    <StyledTableCell>Category</StyledTableCell>
+                                    <StyledTableCell>Image</StyledTableCell>
+                                    <StyledTableCell>Desc</StyledTableCell>
+                                    <StyledTableCell>Price</StyledTableCell>
+                                    <StyledTableCell>Edit</StyledTableCell>
+                                    <StyledTableCell>Delete</StyledTableCell>
 
 
-                                                <TableRow key={index}>
-                                                    <TableCell>{a++}</TableCell>
 
-                                                    <TableCell><p>{data.catagorySetup}</p></TableCell>
-                                                    <TableCell><img src={localpath + data.filename} style={{ width: "5em", height: "5em" }} alt=".........."></img> </TableCell>
-                                                    
-                                                    <TableCell><p>{data.Desc}</p></TableCell>
-                                                    <TableCell><p>{data.Price}</p></TableCell>
-                                                    <TableCell><Button data-bs-toggle="modal" onClick={() => EditFun(data._id)} data-bs-target="#EditCategory"><i class="fa-solid fa-pencil"></i></Button></TableCell>
-                                                    <TableCell><Button onClick={() => delete_item(data._id)}><i class="fa-regular fa-trash-can"></i></Button></TableCell>
-                                                </TableRow>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {
+                                    getData.map((data, index) => (
 
 
-                                            ))
-                                        }
-                                    </TableBody>
-                                </Table>
-                            </div>
-                            <div>
-                                {/* <Button onClick={handleOpen}>Open modal</Button> */}
-                                {/* <Modal
+                                        <StyledTableRow key={index}>
+                                            <StyledTableCell>{a++}</StyledTableCell>
+
+                                            <StyledTableCell><p>{data.catagorySetup}</p></StyledTableCell>
+                                            <StyledTableCell><img src={localpath + data.filename} style={{ width: "5em", height: "5em" }} alt=".........."></img> </StyledTableCell>
+
+                                            <StyledTableCell><p>{data.Desc}</p></StyledTableCell>
+                                            <StyledTableCell><p>{data.Price}</p></StyledTableCell>
+                                            <StyledTableCell><Button data-bs-toggle="modal" onClick={() => EditFun(data._id)} data-bs-target="#EditCategory"><i class="fa-solid fa-pencil"></i></Button></StyledTableCell>
+                                            <StyledTableCell><Button onClick={() => delete_item(data._id)}><i class="fa-regular fa-trash-can"></i></Button></StyledTableCell>
+                                        </StyledTableRow>
+
+
+                                    ))
+                                }
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </div>
+                <div>
+                    {/* <Button onClick={handleOpen}>Open modal</Button> */}
+                    {/* <Modal
                                     open={open}
                                     onClose={handleClose}
                                     aria-labelledby="modal-modal-title"
@@ -330,92 +360,114 @@ const CategoryForm=({FormNumber,setNumber})=>{
                                         </form>
                                     </Box>
                                 </Modal> */}
-                                 <div class="modal fade" id="EditCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form className="category_form" id="category_form" onSubmit={()=>saveChange(getbyid._id)}>
-                                                <TextField type="text" placeholder={getbyid.catagorySetup} onChange={(e) =>setEditservice(e.target.value) } label="Service"/><br></br>
-                                                <TextField type="text" placeholder={getbyid.Desc} onChange={(e) =>setEditDesc(e.target.value) } label="Description"/><br></br>
-                                                <TextField type="text" placeholder={getbyid.Price} onChange={(e) =>setEditPrice(e.target.value) } label="Price"/><br></br>
-                                                <TextField type="file" onChange={(e) =>setEditImage(e.target.files[0]) }  /><br></br>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                                </div>
-
-                                            </form>
-                                        </div>
-
-                                    </div>
+                    <div class="modal fade" id="EditCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
+                                <div class="modal-body">
+                                    <form className="category_form" id="category_form" onSubmit={() => saveChange(getbyid._id)}>
+                                        <TextField type="text" placeholder={getbyid.catagorySetup} onChange={(e) => setEditservice(e.target.value)} label="Service" /><br></br>
+                                        <TextField type="text" placeholder={getbyid.Desc} onChange={(e) => setEditDesc(e.target.value)} label="Description" /><br></br>
+                                        <TextField type="text" placeholder={getbyid.Price} onChange={(e) => setEditPrice(e.target.value)} label="Price" /><br></br>
+                                        <TextField type="file" onChange={(e) => setEditImage(e.target.files[0])} /><br></br>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+
                             </div>
-                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
-if(FormNumber===2){
-    return(
-        <div >
+    if (FormNumber === 2) {
+        return (
+            <div >
                 <h1> Service Man List</h1>
-                <Table className='table-cat'>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>SN</TableCell>
-                      <TableCell>Name</TableCell>
-                      <TableCell>Contact info</TableCell>
-                      <TableCell>Status</TableCell>
-                      <TableCell>Action</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
+                <TableContainer component={Paper} style={{padding:"20px"}}>
+                    <Table className='table-cat'>
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>SN</StyledTableCell>
+                                <StyledTableCell>Name</StyledTableCell>
+                                <StyledTableCell>Contact info</StyledTableCell>
+                                <StyledTableCell>Status</StyledTableCell>
+                                <StyledTableCell>Action</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
 
-                    {/* {getServiceManData.map((data) => */}
-                    <TableRow >
-                      <TableCell></TableCell>
-                      <TableCell></TableCell>
-                      <TableCell>
-                        <p></p>
-                        <p></p>
-                      </TableCell>
-                      <TableCell>
-                        <Switch color="primary" /></TableCell>
-                      <TableCell>
-                        <Button><i class="fa-solid fa-pencil"></i></Button>
-                        <Button><i class="fa-solid fa-eye"></i></Button>
-                        <Button><i class="fa-solid fa-trash"></i></Button>
-                      </TableCell>
-                    </TableRow>
-                    {/* )} */}
-                  </TableBody>
-                </Table>
-              </div>
-    )
+                            {/* {getServiceManData.map((data) => */}
+                            <StyledTableRow>
+                                <StyledTableCell></StyledTableCell>
+                                <StyledTableCell></StyledTableCell>
+                                <StyledTableCell>
+                                    <p></p>
+                                    <p></p>
+                                </StyledTableCell>
+                                <StyledTableCell>
+                                    <Switch color="primary" /></StyledTableCell>
+                                <StyledTableCell>
+                                    <Button><i class="fa-solid fa-pencil"></i></Button>
+                                    <Button><i class="fa-solid fa-eye"></i></Button>
+                                    <Button><i class="fa-solid fa-trash"></i></Button>
+                                </StyledTableCell>
+                            </StyledTableRow >
+                            {/* )} */}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
+        )
+    }
+
+
 }
-    
-    
-}
 
 
-const Rejected_list = ({formNumber}) => {
+const Rejected_list = ({ formNumber }) => {
 
     let serialNumber = 1;
 
     const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-    const [rejected,setregected] = useState([])
-    const [viewdata,setviewdata] = useState([]);
+    const [rejected, setregected] = useState([])
+    const [viewdata, setviewdata] = useState([]);
 
     const aemail = localStorage.getItem("adminemail")
     const apassword = localStorage.getItem("adminpassword")
     const nav = useNavigate()
 
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+        },
+    }));
 
-    const verify = ()=>{
-        if(aemail === null && apassword === null){
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+        // hide last border
+        '&:last-child td, &:last-child th': {
+            border: 0,
+        },
+    }));
+
+
+    const verify = () => {
+        if (aemail === null && apassword === null) {
             nav("/admin")
         }
     }
@@ -425,7 +477,7 @@ const Rejected_list = ({formNumber}) => {
         if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
             setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
         }
-        else{
+        else {
             setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
         }
     }
@@ -434,17 +486,17 @@ const Rejected_list = ({formNumber}) => {
         if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
             setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
         }
-        else{
+        else {
             setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
         }
     }
 
-    const getrejected_list = ()=>{
-            axios.get("http://localhost:3001/reject_api/rejected_data").then((res)=>{
+    const getrejected_list = () => {
+        axios.get("http://localhost:3001/reject_api/rejected_data").then((res) => {
             setregected(res.data)
         })
-        
-        
+
+
     }
 
     const [orderdetails, setorderdetails] = useState([])
@@ -453,7 +505,8 @@ const Rejected_list = ({formNumber}) => {
     const getdata2 = () => {
         axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
-        })}
+        })
+    }
 
     // useEffect(()=>{
     //     getdata2()
@@ -463,162 +516,171 @@ const Rejected_list = ({formNumber}) => {
 
     const viewdeatils = (id) => {
         axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
-         setviewdata(response.data);
-         console.log(response.data);
+            setviewdata(response.data);
+            console.log(response.data);
         })
     }
-if(formNumber===4){
-    return(
-        <div className="container-fluid">
-                                <h1>Rejected List</h1>
-                                <Table className='table-cat'>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>SN</TableCell>
-                                        <TableCell>Name</TableCell>
-                                        <TableCell>Contact info</TableCell>
-                                        <TableCell>Status</TableCell>
-                                        <TableCell>Action</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
+    if (formNumber === 4) {
+        return (
+            <div className="container-fluid">
+                <h1>Rejected List</h1>
+                <TableContainer component={Paper} style={{padding:"20px"}}>
+                    <Table className='table-cat'>
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>SN</StyledTableCell>
+                                <StyledTableCell>Name</StyledTableCell>
+                                <StyledTableCell>Contact info</StyledTableCell>
+                                <StyledTableCell>Status</StyledTableCell>
+                                <StyledTableCell>Action</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
 
-                                    {rejected.map((data) =>
-                                        <TableRow >
-                                            <TableCell>{serialNumber++}</TableCell>
-                                            <TableCell>{data.FirstName} {data.LastName}</TableCell>
-                                            <TableCell>
-                                                <p>{data.Email}</p>
-                                                <p>{data.MobilePhoneNumber}</p>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Switch color="primary" /></TableCell>
-                                            <TableCell>
-                                                <Button
-                                                    type="button"  data-toggle="modal" data-target="#exampleModalCenter"
-                                                    onClick={()=> viewdeatils(data._id)}
-                                                ><i class="fa-solid fa-eye"></i></Button>
-                                            </TableCell>
-                                        </TableRow>
-                                    )}
+                            {rejected.map((data, index) =>
+                                <StyledTableRow key={index}>
+                                    <StyledTableCell>{serialNumber++}</StyledTableCell>
+                                    <StyledTableCell>{data.FirstName} {data.LastName}</StyledTableCell>
+                                    <StyledTableCell>
+                                        <p>{data.Email}</p>
+                                        <p>{data.MobilePhoneNumber}</p>
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        <Switch color="primary" /></StyledTableCell>
+                                    <StyledTableCell>
+                                        <Button
+                                            type="button" data-toggle="modal" data-target="#exampleModalCenter"
+                                            onClick={() => viewdeatils(data._id)}
+                                        ><i class="fa-solid fa-eye"></i></Button>
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                            )}
 
 
 
-                                </TableBody>
-                            </Table>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
 
-                            </div>
-    )
+            </div>
+        )
+    }
+
 }
 
-}
 
-
-const Orders = ({formNumber}) => {
+const Orders = ({ formNumber }) => {
 
     // const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-    const [orderdetails,setorderdetails] = useState([])
+    const [orderdetails, setorderdetails] = useState([])
     const aemail = localStorage.getItem("adminemail")
     const apassword = localStorage.getItem("adminpassword");
     const [notificationCount, setNotificationCount] = useState(0);
     const nav = useNavigate()
 
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+            border: 0,
+        },
+    }));
 
-    const verify = ()=>{
-        if(aemail === null || apassword === null){
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+        // hide last border
+        // '&:last-child td, &:last-child th': {
+        //     border: 0,
+        // },
+    }));
+
+
+    const verify = () => {
+        if (aemail === null || apassword === null) {
             nav("/admin")
         }
     }
 
-    // const changeStyle = () => {
-    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
-    //     }
-    //     else {
-    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-    //     }
-    // }
-
-    // const changeStyle1 = () => {
-    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
-    //     }
-    //     else {
-    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-    //     }
-    // }
+   
 
     const getdata = () => {
-        axios.get("http://localhost:3001/booking_api/booking_data").then((res)=>{
-                setorderdetails(res.data)
-                setNotificationCount(orderdetails.length)
-            })
+        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+            setorderdetails(res.data)
+        })
     }
     let a = 1;
 
 
-    useEffect(()=>{
+    useEffect(() => {
         getdata()
         verify()
-
-      
+        
     })
 
     // function resetNoti() {
     //     setNotificationCount("")
     // }
 
-if(formNumber===5){
-    return(
-        <div className="container-fluid">
-                                <h1>Order Deatails</h1>
-                                <Table className='table-cat'>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell>SN</TableCell>
-                                            <TableCell>Service</TableCell>
-                                            <TableCell>Category</TableCell>
-                                            <TableCell>Price</TableCell>
-                                            <TableCell>Address</TableCell>
-                                            <TableCell>Number</TableCell>
-                                            <TableCell>paymentMethod</TableCell>
+    if (formNumber === 5) {
+        return (
+            <div className="container-fluid">
+                <h1>Order Deatails</h1>
+                <TableContainer component={Paper} style={{padding:"20px",alignItems:"center",justifyContent:"center"}}>
+                    <Table className='table-cat' style={{margin:"0px"}}>
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align="center">SN</StyledTableCell>
+                                <StyledTableCell align="center">Name</StyledTableCell>
+                                <StyledTableCell align="center">Email</StyledTableCell>
+                                <StyledTableCell align="center">Category</StyledTableCell>
+                                <StyledTableCell align="center">Price</StyledTableCell>
+                                <StyledTableCell align="center">Address</StyledTableCell>
+                                <StyledTableCell align="center">Number</StyledTableCell>
+                                <StyledTableCell align="center">paymentMethod</StyledTableCell>
 
 
 
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {
-                                            orderdetails.map((data, index) => (
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                orderdetails.map((data, index) => (
 
 
-                                                <TableRow key={index}>
-                                                    <TableCell>{a++}</TableCell>
+                                    <StyledTableRow key={index}>
+                                        <StyledTableCell>{a++}</StyledTableCell>
 
-                                                    <TableCell><p>{data.Service}</p></TableCell>
-                                                    <TableCell><p>{data.Category}</p> </TableCell>
-                                                    <TableCell><p>{data.price}</p></TableCell>
-                                                    <TableCell><p>{data.address}</p></TableCell>
-                                                    <TableCell><p>{data.number}</p></TableCell>
-                                                    <TableCell><p>{data.paymentMethod}</p></TableCell>
-                                                </TableRow>
-
-
-                                            ))
-                                         }
-                                    </TableBody>
-                                </Table>
-
-                            </div>
+                                        <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                    </StyledTableRow>
 
 
-                        
-    )
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+            </div>
+
+
+
+        )
+    }
+
 }
 
-}
-
- 
 
 
-export {CategoryForm,Rejected_list,Orders} 
+
+export { CategoryForm, Rejected_list, Orders } 

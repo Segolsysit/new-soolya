@@ -38,13 +38,13 @@ app.use(
   );
 app.use("/api", category_setup_Router)
 app.use("/booking_api",bookingdetails_router);
-app.use("/authUser",auth_router);
+app.use("/authUser",auth_router); 
 app.use('/vendor_Applications', Application_Router)
 app.use("/vendor_Auth",VendorAuthRoute);
 // app.use("/sub_api", subcategory_router)
 // app.use("/service_api", service_router )
 // app.use("/serviceman",serviceman_route);
-
+ 
 // app.use("/cart_api",cart_router);
 // app.use("/booking_api",bookingdetails_router);
 // app.use("/reject_api",RejectedList_router);

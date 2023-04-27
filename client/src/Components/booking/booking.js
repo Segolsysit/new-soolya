@@ -7,7 +7,7 @@ import jwt_decode from 'jwt-decode';
 
 const BookingPage=()=>{
     const [Page,setPage]=useState(1)
-    
+    const[Bookstate,setBookState]=useState(false)
     const [state,setState]=useState(true)
     const [booking_service,setbooking_service] = useState({})
     const [myorders,setMyorders] = useState([])
@@ -17,6 +17,7 @@ const BookingPage=()=>{
     const token = cookies.jwt2;
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
+
 
 
     useEffect(()=>{
@@ -62,6 +63,10 @@ const BookingPage=()=>{
     localStorage.removeItem("Post")
     localStorage.removeItem("Street")
     localStorage.removeItem("City")
+    localStorage.removeItem("captcha")
+   
+    
+
     // console.log(Time);
     axios.post("http://localhost:3001/booking_api/new_booking", {
         user_email: myorders.email,
@@ -99,12 +104,12 @@ const BookingPage=()=>{
                 </ul>
             </div>
        {
-       Page===1?<Page1 Page={Page} setPage={setPage}/>:Page===2?<Page2/>:Page===3?<Page3 Page={Page} setPage={setPage}/>:<Page4/>
+       Page===1?<Page1 Page={Page} setPage={setPage}/>:Page===2?<Page2/>:Page===3?<Page3 Page={Page} setPage={setPage}/>:<Page4 Bookstate={Bookstate} setBookState={setBookState}/>
         }
         <div className="Button-divform">
         <button className={Page!==1 ? "PreBookingForm-btn":"BookingForm-btnhide"} onClick={PreviousPage}>Previous</button>   
         <button className={Page===2  ? "BookingForm-btn":"BookingForm-btnhide"} onClick={nextPage}>Next</button>
-        <button className={Page===4  ? "BookingForm-btn":"BookingForm-btnhide"} onClick={ConfirmBooking}>Confirm Booking</button>
+        <button className={Page===4 && Bookstate!==false ? "BookingForm-btn":"BookingForm-btnhide"} onClick={ConfirmBooking}>Confirm Booking</button>
         
         </div>
         </div>

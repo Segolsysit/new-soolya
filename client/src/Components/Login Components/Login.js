@@ -316,7 +316,7 @@ const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
             {
               firstName:First,
               lastName:Last,
-              PhoneNumber:Phone,
+              phoneNumber:Phone,
               email:Email,
               password:Password
   
