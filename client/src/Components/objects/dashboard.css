@@ -74,13 +74,20 @@
     color: black;
 }
 
+.Dashboard-right ::-webkit-scrollbar{
+    display: none;
+}
+
+
 .Dashboard-right{
     display: flex;
-    /* flex-direction: column; */
-    /* overflow-y: scroll; */
+    flex-direction: column;
+    overflow-y: scroll;
     width: 85%;
     
 }
+
+
 
 .table-cat{
     margin: 0px;

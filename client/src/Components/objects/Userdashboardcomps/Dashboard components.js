@@ -119,6 +119,8 @@ const UserOrders=({State})=>{
         // orders1()
     },[State])
 
+    
+
     const orders = () => {
         console.log(userId);
         axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
@@ -247,10 +249,9 @@ const VendorProfile=({State})=>{
     const[dummy,setDummy]=useState(0)
     const useremail = myorders.email
     const { pathname } = useLocation();
-        useEffect(() => {
-        window.scrollTo(0, 0);
         
-         }, [{pathname}]);
+    
+    
 
         
         setTimeout(()=>{

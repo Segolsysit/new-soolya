@@ -9,6 +9,8 @@ import {useCookies} from 'react-cookie'
 import {UserProfile,UserOrders} from "./Userdashboardcomps/Dashboard components";
 import { useLocation } from "react-router-dom";
 import { VendorProfile } from "./Userdashboardcomps/Dashboard components";
+import axios from "axios";
+import jwt_decode from 'jwt-decode'
 
 const Header = () => {
 
@@ -816,7 +818,7 @@ const UserDashboard=()=>{
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
     const [not,setnot] = useState(0)
     const [orderdetails1, setorderdetails1] = useState([])
-    const [myordewrs1,setmyordewrs1] = useState([])
+    const [myorders1,setMyorders1] = useState([])
 
     const token = cookies.jwt2;
     const decodedToken = jwt_decode(token);
