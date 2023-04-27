@@ -1,15 +1,28 @@
 .CaroselService-block{
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    gap: 30px;
+    justify-content:space-between;
+    padding: 20px;
+    margin: 10px 40px 10px 40px;
 }
 
 .CaroselCard-block{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
+.Carosel-cardService{
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(231, 240, 247);
+    border-radius: 5px;
+    transition-duration: 1s;
+    overflow: hidden;
+    justify-content: space-between;
+}
 
 .PaginateDiv{
     display: flex;

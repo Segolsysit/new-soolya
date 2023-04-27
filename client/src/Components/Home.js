@@ -19,7 +19,19 @@ const Home=()=>{
         window.scrollTo(0, 0);
          }, [pathname]);
 
+  useEffect(()=>{
+    if(pathname!=="/service"){
+        localStorage.removeItem("SearchCategory")
+    }
+},[pathname])
 
+         const[Location,setLocation]=useState("Select")
+         const[SelectCategory,setCategory]=useState("Select")
+         const search=()=>{
+            localStorage.setItem("Location",Location)
+            localStorage.setItem("SearchCategory",SelectCategory)
+            window.location.href="/service"
+         }
     
     return(
         <div>
@@ -36,7 +48,7 @@ const Home=()=>{
                     <div className="serchblock">
                         <div className="selection">
                         <p className="ptagforsearchbox">I'm looking to..</p>
-                        <select className="SelectionBox" >
+                        <select className="SelectionBox" onChange={(e)=>setLocation(e.target.value)}>
                             <option>Select Location</option>
                             <option>America</option>
                             <option>India</option>
@@ -46,15 +58,16 @@ const Home=()=>{
                         <hr className="solid"></hr>
                         <div className="selection">
                         <p className="ptagforsearchbox">I'm looking to..</p>
-                        <select className="SelectionBox">
-                            <option>Find Category</option>
-                            <option>Cleaning</option>
-                            <option>AC Repair</option>
+                        <select className="SelectionBox" onChange={(e)=>setCategory(e.target.value)}>
+                            <option value="Find Category">Find Category</option>
+                            <option value="Car wash">Car Wash</option>
+                            <option value="cleaning">cleaning</option>
+                            <option value="Painting">Painting</option>
                         </select>
                         </div>
                         <hr className="solid"/>
                         <div>
-                            <button className="SearchBtn">search</button>
+                            <button className="SearchBtn" onClick={search}>search</button>
                         </div>
                     </div>
 

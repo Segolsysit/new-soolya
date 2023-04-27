@@ -244,6 +244,8 @@
 }
 
 
+
+
 .Card-form3{
     width: 100%;
 }
@@ -330,16 +332,18 @@
     justify-content: center;
     width: 100%;
 }
+
+
 .Main-form{
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 3rem;
     justify-content: center;
     align-items: center;
     box-shadow: 0 0 10px rgb(187, 217, 236);
-    padding: 50px;
-    width: 20rem;
-    margin: 30px;
+    padding: 40px;
+    width: 30rem;
+    margin: 0px;
     border-radius: 20px;
 }
 .Progress-bar{
@@ -367,7 +371,7 @@
     flex-direction: column;
     text-align: center;
     padding: 20px;
-    width: 18rem;
+    width: 20rem;
     justify-content: center;
     box-shadow: 0 0 10px;
     gap: 10px;

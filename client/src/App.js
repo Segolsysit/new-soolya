@@ -11,12 +11,17 @@ import Myorder from './Components/booking/myOrder';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
 // import Servicemanlist from './Components/admin/Servicemanlist';
-import { UserDashboard } from './Components/objects/objects';
+import { UserDashboard,VendorDashboard } from './Components/objects/objects';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+
 const Home = lazy(() => import('./Components/Home'));
 const Service = lazy(() => import('./Components/objects/servicepage/service'));
 
 
 function App() {
+  
   
   return (
     <div className="App">
@@ -42,6 +47,7 @@ function App() {
         <Route path='/ForgetPassword' element={<ForgetPassword/>}/>
         <Route path='/vendorForgetPassword' element={<ForgetPasswordVendor/>}/>
         <Route path='/VendorLogin' element={<VendorLogin/>}></Route>
+        <Route path='/VendorDashboard' element={<VendorDashboard/>}/>
       </Routes>
       </BrowserRouter>
       </Suspense>

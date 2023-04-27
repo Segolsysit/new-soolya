@@ -378,11 +378,15 @@ input::-webkit-inner-spin-button {
     .Form{
         
         
-        width: 20rem;
-        height: 30rem;
+        width: 22rem;
+        height: 33rem;
         box-shadow: 10px 10px 40px rgb(202, 226, 246);
         border-radius: 10px;
     
+    }
+
+    .Image-signup{
+        display: none;
     }
 
     .Form-Admin{

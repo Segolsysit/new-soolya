@@ -300,7 +300,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                     <img className="Category-Right" src="https://cdn.pixabay.com/photo/2018/07/25/15/52/design-3561661_1280.jpg" />
                 </div>
                 <div >
-                    <TableContainer component={Paper}>
+                    <TableContainer component={Paper} style={{padding:"20px"}}>
                         <Table className='table-cat' aria-label="customized table">
                             <TableHead>
                                 <TableRow>
@@ -392,7 +392,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         return (
             <div >
                 <h1> Service Man List</h1>
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} style={{padding:"20px"}}>
                     <Table className='table-cat'>
                         <TableHead>
                             <TableRow>
@@ -524,7 +524,7 @@ const Rejected_list = ({ formNumber }) => {
         return (
             <div className="container-fluid">
                 <h1>Rejected List</h1>
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} style={{padding:"20px"}}>
                     <Table className='table-cat'>
                         <TableHead>
                             <TableRow>
@@ -631,8 +631,8 @@ const Orders = ({ formNumber }) => {
         return (
             <div className="container-fluid">
                 <h1>Order Deatails</h1>
-                <TableContainer component={Paper}>
-                    <Table className='table-cat'>
+                <TableContainer component={Paper} style={{padding:"20px",alignItems:"center",justifyContent:"center"}}>
+                    <Table className='table-cat' style={{margin:"0px"}}>
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell align="center">SN</StyledTableCell>

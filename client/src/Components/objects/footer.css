@@ -61,6 +61,11 @@
     margin: 0px;
 }
 
+.Sec2-ul a{
+    text-decoration: none;
+    color: white;
+}
+
 .Sec2-head{
     margin: 0px;
     font-size: 25px;
