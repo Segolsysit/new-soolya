@@ -814,6 +814,9 @@ const UserDashboard=()=>{
     const { pathname } = useLocation();
     const[state,setState]=useState(1)
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+    const [not,setnot] = useState(0)
+    const [orderdetails1, setorderdetails1] = useState([])
+    const [myordewrs1,setmyordewrs1] = useState([])
 
     const token = cookies.jwt2;
     const decodedToken = jwt_decode(token);
