@@ -10,17 +10,12 @@ import BookingPage from './Components/booking/booking';
 import Myorder from './Components/booking/myOrder';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
-<<<<<<< HEAD
-import Protected from './Components/admin/Orders';
-import { UserDashboard } from './Components/objects/objects';
-=======
 // import Servicemanlist from './Components/admin/Servicemanlist';
 import { UserDashboard,VendorDashboard } from './Components/objects/objects';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 
->>>>>>> 61180b2629e5abf2b613a0a8a82e4008d5e23f5c
 const Home = lazy(() => import('./Components/Home'));
 const Service = lazy(() => import('./Components/objects/servicepage/service'));
 
@@ -52,11 +47,7 @@ function App() {
         <Route path='/ForgetPassword' element={<ForgetPassword/>}/>
         <Route path='/vendorForgetPassword' element={<ForgetPasswordVendor/>}/>
         <Route path='/VendorLogin' element={<VendorLogin/>}></Route>
-<<<<<<< HEAD
-        <Route path='/protected' element={<Protected/>}></Route>
-=======
         <Route path='/VendorDashboard' element={<VendorDashboard/>}/>
->>>>>>> 61180b2629e5abf2b613a0a8a82e4008d5e23f5c
       </Routes>
       </BrowserRouter>
       </Suspense>
