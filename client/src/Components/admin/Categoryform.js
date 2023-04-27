@@ -619,8 +619,7 @@ const Orders = ({ formNumber }) => {
     useEffect(() => {
         getdata()
         verify()
-
-
+        
     })
 
     // function resetNoti() {
