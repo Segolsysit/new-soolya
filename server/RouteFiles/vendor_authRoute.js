@@ -6,7 +6,17 @@ const vjwt = require("jsonwebtoken");
 const maxAge = 3 * 24 * 60 * 60;
 
 
-const auth = (req, res, next) => {
+// const auth = (req, res, next) => {
+  
+//     }
+//     );
+//   }
+
+   
+//   } 
+
+// Protected route that can only be accessed by authenticated users
+VendorAuthRoute.get('/',  (req, res) => {
   const token = req.cookies.venjwt;
   if (!token) {
     return res.status(401).json({ msg: 'No token, authorization denied' });
@@ -22,18 +32,8 @@ const auth = (req, res, next) => {
         const user = await VendorAuth.findById(decodedToken.id);
         if (user) res.json({ status: true, users: user.Username });
         else res.json({ status: false });
-        next();
-      }
-    }
-    );
-  }
-
-   
-  } 
-
-// Protected route that can only be accessed by authenticated users
-VendorAuthRoute.get('/', auth, (req, res) => {
-  res.json(`Welcome ${req.users}!`);
+        
+      }})}
 });
 
 VendorAuthRoute.post("/register", async (req, res, next) => {
