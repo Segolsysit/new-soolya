@@ -934,7 +934,7 @@ const VendorDashboard=()=>{
                     progress: undefined,
                     theme: "colored",
                     });
-              
+            //   safdsggf
                 setTimeout(() => {
                     window.location.href='/VendorLogin'
                 }, 2000);
