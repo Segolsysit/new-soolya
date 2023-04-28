@@ -384,4 +384,22 @@
         border: rgb(208, 208, 246) solid 1px;
         border-radius: 8px;
     }
+    .CaroselService-block{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        padding: 20px;
+        justify-content:space-evenly;
+        margin: 10px 5px 10px 5px;
+    }
+    .Carosel-cardService{
+        width: 20rem;
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(231, 240, 247);
+        border-radius: 5px;
+        transition-duration: 1s;
+        overflow: hidden;
+        justify-content: space-between;
+    }
 }

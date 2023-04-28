@@ -276,6 +276,7 @@
 
 .Store-download{
     color: dodgerblue;
+    font-weight: 600;
 }
 
 .Store-h1{
@@ -355,7 +356,7 @@
 }
 .Platform-logo{
     aspect-ratio: 1/1;
-    width: 20px;
+    width: 30px;
 }
 
 .Store-button{
@@ -420,7 +421,7 @@
     flex-direction: column;
     align-items: center;
     background-color: dodgerblue;
-    padding: 4rem;
+    padding: 1.4rem;
 }
 
 .Joinbtn{
@@ -432,7 +433,7 @@
     border-radius: 5px;
 }
 .joindesc{
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 

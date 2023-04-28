@@ -187,7 +187,11 @@ background: url("https://cdn.pixabay.com/photo/2017/10/11/11/43/multitasking-284
     padding: 10px;
     border: rgb(226, 232, 246) solid;
     border-radius: 3px;
-    
+}
+
+.Signup-Input:focus{
+    outline: 2px solid dodgerblue;
+
 }
 
 .Signup-Pwdbox{
@@ -201,7 +205,7 @@ background: url("https://cdn.pixabay.com/photo/2017/10/11/11/43/multitasking-284
 }
 
 .Signup-Pwdbox:focus-within{
-    border: rgb(20, 106, 191) solid;
+    border: 2px dodgerblue solid;
     border-radius: 3px;
 }
 .Signup-InputPwd{

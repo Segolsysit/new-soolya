@@ -257,13 +257,13 @@ const VendorOrders=({State})=>{
 
      useEffect(()=>{
         if (State === 2){
-            window.scroll(0,10000)
+            window.scroll(0,100000)
         }
     },[State])
  
      if(State===2){
         return (
-            <div className="container-fluid">
+            <div className="container-fluid vendor-container">
                 <h1>Order Deatails</h1>
                 <TableContainer component={Paper} style={{padding:"20px",alignItems:"center",justifyContent:"center"}}>
                     <Table className='table-cat' style={{margin:"0px"}}>
@@ -402,11 +402,11 @@ const UserOrders=({State})=>{
     //     setNotificationCount("")
     // }
 
-    useEffect(()=>{
-        if (State === 2){
-            window.scroll(0,10000)
-        }
-    },[State])
+    // useEffect(()=>{
+    //     if (State === 2){
+    //         window.scroll(0,10000)
+    //     }
+    // },[State])
 
 if(State===2){
     return(
