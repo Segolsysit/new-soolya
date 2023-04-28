@@ -91,7 +91,6 @@ const localpath = "http://localhost:3001/";
                 {CurerntPost.map(item=>{
 
 if(SearchCategory!=="Select"&&(SearchCategory!==null||SearchCategory!==undefined)&&item.catagorySetup===SearchCategory){
-        if(Range==="Select"||Range===undefined||Range===null){
             return(
                 <div onClick={()=>localStorage.setItem("order_id",item._id)} className="Carosel-cardService">
                     <>
@@ -111,48 +110,7 @@ if(SearchCategory!=="Select"&&(SearchCategory!==null||SearchCategory!==undefined
         </div>
         
             )
-        }                    
-        if(Range==="Low Price"){
-            if(item.Price<10){
-                return(
-                    <div onClick={()=>localStorage.setItem("order_id",item._id)} className="Carosel-cardService">
-                        <img className="Ser-Image" src={localpath + item.filename} alt=""/>
-                        <div className="Card-body">
-                            <div className="Carosel-sec">
-                                <p className="Category-carosel">{item.catagorySetup}</p>
-                                <h2 className="Carosel-price">${item.Price}</h2>
-                            </div>
-                            <h1 className="Carosel-desc">{item.Desc}</h1>
-                            <div className="Carosel-third">
-                                
-                            </div>
-                        <button className="Carosel-btn">Book Now</button>
-                    </div>
-        </div>
-                )
-            }
-        }
-        if(Range==="High Price"){
-            if(item.Price<10){
-                return(
-                    <div onClick={()=>localStorage.setItem("order_id",item._id)} className="Carosel-cardService">
-                        <img className="Ser-Image" src={localpath + item.filename} alt=""/>
-                        <div className="Card-body">
-                            <div className="Carosel-sec">
-                                <p className="Category-carosel">{item.catagorySetup}</p>
-                                <h2 className="Carosel-price">${item.Price}</h2>
-                            </div>
-                            <h1 className="Carosel-desc">{item.Desc}</h1>
-                            <div className="Carosel-third">
-                                
-                            </div>
-                        <button className="Carosel-btn">Book Now</button>
-                    </div>
-        </div>
-                )
-            }
-        }
-
+        
     
 }
 

@@ -4,6 +4,7 @@ import './service.css'
 import {ServiceCard} from "./ServiceCard";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import axios from "axios";
 
 const Service=()=>{
     const { pathname } = useLocation();
@@ -12,12 +13,27 @@ const Service=()=>{
          }, [pathname]);
 
          
+const[Data,setData]=useState([])
+
+
+
+
+
+
 
 var SearchCategory=localStorage.getItem("SearchCategory")
 var searchLocation=localStorage.getItem("Location")
 
 const[Service,setService]=useState("")
 const[PriceRange,setPricerange]=useState("")
+
+useEffect(()=>{
+    axios.get("http://localhost:3001/api/fetch_items")
+    .then((data)=>{
+        setData(data.data)
+    })
+    
+},[])
 
     return(
         <div>
@@ -37,15 +53,21 @@ const[PriceRange,setPricerange]=useState("")
                 </div>
                 <div className="Service-selection">
                     <h3 className="Service-tit">Category</h3>
-                    <select className="Service-select" onChange={(e)=>setService(e.target.value)} defaultValue={SearchCategory!=="Select"?SearchCategory:"Select"}>
-                        <option>Select</option>
-                        <option>AC Repair</option>
-                        <option>Car Service</option>
-                        <option>cleaning</option>
-                        <option>Painting</option>
-                        <option>Pest Control</option>
-                        <option>Plumbing</option>
-                        <option>Car wash</option>
+                    <select className="Service-select" defaultValue={SearchCategory!=="Select" ? SearchCategory : "Select"} onChange={(e)=>setService(e.target.value)} >
+                    <option>Select</option>
+
+                        {
+                            Data.map((item,index)=>{
+
+                                return(
+                                    
+                                    <option key={index}>{item.catagorySetup}</option>
+    
+                                )
+
+ 
+                            })
+                        }
                     </select>
                 </div>
                 <div className="Service-selection" onChange={(e)=>setPricerange(e.target.value)}>
