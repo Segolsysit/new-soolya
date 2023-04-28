@@ -86,6 +86,7 @@ const RecivedApplication = ({formNumber}) => {
                         setVendorEmail("")
                         setVendorPwd("")
                         setSuccess("")
+                        handleClose()
                         
                       }, 3000);
                    

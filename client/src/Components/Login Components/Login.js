@@ -95,11 +95,13 @@ const Login = () => {
                                 <p className="Signup-ptag">Welcome! Login using data given while register</p>
                             </div>
                             <label className="Signup-Label">Email</label>
-                            <input className="Signup-Input" onChange={(e)=>setLoginId(e.target.value)}/>
+                            <input className="Signup-Input" onChange={(e)=>{setLoginId(e.target.value)
+                            setErrlogin("")}}/>
                             <p className="Error-signup">{errLogin}</p>
                             <label className="Signup-Label">Password</label>
                             <div className="Signup-Pwdbox">
-                            <input type={show} className="Signup-InputPwd" onChange={(e)=>setPassword(e.target.value)}/>
+                            <input type={show} className="Signup-InputPwd" onChange={(e)=>{setPassword(e.target.value)
+                            seterrPwd("")}}/>
                             <div onClick={PaswordState}>{icon}</div>
                             </div>
                             <p className="Error-signup">{errPwd}</p>
@@ -382,19 +384,24 @@ else{
                             <p className="Signup-ptag">Welcome! Register with valid data</p>
                         </div>
                         <label className="Signup-Label">First Name</label>
-                        <input className="Signup-Input" onChange={(e)=>setFName(e.target.value)}/>
+                        <input className="Signup-Input" onChange={(e)=>{setFName(e.target.value) 
+                            setF("")}}/>
                         <p className="Error-signup">{errF}</p>
                         <label className="Signup-Label">Last Name</label>
-                        <input className="Signup-Input" onChange={(e)=>setLame(e.target.value)}/>
+                        <input className="Signup-Input" onChange={(e)=>{setLame(e.target.value)
+                        setL("")}}/>
                         <p className="Error-signup">{errL}</p>
                         <label className="Signup-Label">Phone Number</label>
-                        <input type="number" className="Signup-Input" onChange={(e)=>setP(e.target.value)}/>
+                        <input type="number" className="Signup-Input" onChange={(e)=>{setP(e.target.value)
+                        seterrP("")}}/>
                         <p className="Error-signup">{errP}</p>
                         <label className="Signup-Label">Email</label>
-                        <input type="email" className="Signup-Input" onChange={(e)=>setEmail(e.target.value)}/>
+                        <input type="email" className="Signup-Input" onChange={(e)=>{setEmail(e.target.value)
+                            setEE("")}}/>
                         <p className="Error-signup">{errEmail}</p>
                         <label className="Signup-Label">Password</label>
-                        <input type="password" className="Signup-Input" onChange={(e)=>setPassword(e.target.value)}/>
+                        <input type="password" className="Signup-Input" onChange={(e)=>{setPassword(e.target.value)
+                        setPwd("")}}/>
                         <p className="Error-signup">{errPwd}</p>
                         <button className="Button-Signup" type="submit">Create Account</button>
                         <div className="Already">
@@ -501,15 +508,19 @@ if(Pno===1){
                     </div>
                     <>
                     <label className="Join-Label">First Name</label>
-                    <input className="Signup-Input" defaultValue={FirstName} onChange={(e)=>{setFName(e.target.value)}}/>
+                    <input className="Signup-Input" defaultValue={FirstName} onChange={(e)=>{setFName(e.target.value)
+                    setErrFN("")}}/>
                     <p className="Error-signup">{ErrFN}</p>
                     <label className="Join-Label">Last Name</label>
-                    <input className="Signup-Input" defaultValue={LName} onChange={(e)=>{setLName(e.target.value)}}/>
+                    <input className="Signup-Input" defaultValue={LName} onChange={(e)=>{setLName(e.target.value)
+                    setErrLN("")}}/>
                     <p className="Error-signup">{ErrLN}</p>
                     <label className="Join-Label">Location</label>
-                    <input  className="Signup-Input" defaultValue={Location} onChange={(e)=>{setLocation(e.target.value)}}/>
+                    <input  className="Signup-Input" defaultValue={Location} onChange={(e)=>{setLocation(e.target.value)
+                    setErrL("")}}/>
                     <p className="Error-signup">{ErrL}</p>
-                    <select className="Service-type" defaultValue={Category} onChange={(e)=>{setCategory(e.target.value)}} >
+                    <select className="Service-type" defaultValue={Category} onChange={(e)=>{setCategory(e.target.value)
+                    setErrC("")}} >
                         <option>Name of service</option>
                         <option>Car wash</option>
                         <option>Car Service</option>
@@ -592,13 +603,16 @@ if(Pno===2){
                             <p className="Signup-ptag">Welcome! Register with valid data</p>
                         </div>
                         <label className="Join-Label">Phone Number</label>
-                        <input type='number' defaultValue={Phone} className="Signup-Input" onChange={(e)=>{setPhone(e.target.value)}}/>
+                        <input type='number' defaultValue={Phone} className="Signup-Input" onChange={(e)=>{setPhone(e.target.value)
+                        setErrP("")}}/>
                         <p style={{color:"red"}}>{ErrP}</p>
                         <label className="Join-Label">Email</label>
-                        <input  className="Signup-Input" type='email' defaultValue={Email} onChange={(e)=>{setEmail(e.target.value)}}/>
+                        <input  className="Signup-Input" type='email' defaultValue={Email} onChange={(e)=>{setEmail(e.target.value)
+                        setErrE("")}}/>
                         <p style={{color:"red"}}>{ErrE}</p>
                         <label className="Join-Label">Residential Address</label>
-                        <textarea  className="Signup-Input" defaultValue={Address} onChange={(e)=>{setAddress(e.target.value)}}/>
+                        <textarea  className="Signup-Input" defaultValue={Address} onChange={(e)=>{setAddress(e.target.value)
+                        setErrA("")}}/>
                         <p style={{color:"red"}}>{ErrA}</p>
                         <div className="Toggle-btns">
                         <button  className="Button-Toggle"onClick={()=>{setPno(Pno-1)
@@ -664,7 +678,8 @@ if(Pno===3){
                             <p className="Signup-ptag">Welcome! Register with valid data</p>
                         </div>
                         <label className="Join-Label">Photo</label>
-                        <input type='file' className="Signup-Input" onChange={(e)=>{setFile(e.target.files[0])}}/>
+                        <input type='file' className="Signup-Input" onChange={(e)=>{setFile(e.target.files[0])
+                        setFileErr("")}}/>
                         <p style={{color:"red"}}>{FileErr}</p>
                         <div className="Toggle-btns">
                         <button  className="Button-Toggle"onClick={()=>{setPno(Pno-1); console.log(FirstName);}}>Previous</button>
@@ -768,10 +783,12 @@ const AdminLogin = () => {
                             <p className="Signup-ptag">Welcome! Login using data given while register</p>
                         </div>
                         <label className="AdminSignup-Label">Email</label>
-                        <input className="Signup-Input" onChange={(e)=>setEmail(e.target.value)}/>
+                        <input className="Signup-Input" onChange={(e)=>{setEmail(e.target.value)
+                        setErrlogin("")}}/>
                         <p style={{color:"red"}}>{errLogin}</p>
                         <label className="AdminSignup-Label">Password</label>
-                        <div className="Signup-Pwdbox" onChange={(e)=>setPassword(e.target.value)}>
+                        <div className="Signup-Pwdbox" onChange={(e)=>{setPassword(e.target.value)
+                        seterrPwd("")}}>
                         <input type={show} className="Signup-InputPwd"/>
                         <div onClick={PaswordState}>{icon}</div>
                         </div>
@@ -861,7 +878,8 @@ else{
                         </div>
                         
                         <label className="Forgrt-Label">Enter your Email_id</label>
-                        <input className="Signup-Input" type='email' onChange={(e)=>{setEmail(e.target.value)}}/>
+                        <input className="Signup-Input" type='email' onChange={(e)=>{setEmail(e.target.value)
+                        setErr("")}}/>
                         <p style={{color:"red",margin:'0px',padding:'0px'}}>{err}</p>
                         
                         <button className="Button-Signup" type="submit">Change Password</button> 
@@ -944,7 +962,8 @@ const ForgetPasswordVendor=()=>{
                             </div>
                             
                             <label className="Forgrt-Label">Enter your Email_id</label>
-                            <input className="Signup-Input" type='email' onChange={(e)=>{setEmail(e.target.value)}}/>
+                            <input className="Signup-Input" type='email' onChange={(e)=>{setEmail(e.target.value)
+                            setErr("")}}/>
                             <p style={{color:"red",margin:'0px',padding:'0px'}}>{err}</p>
                             
                             <button className="Button-Signup" type="submit">Change Password</button> 
