@@ -2,8 +2,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
-    justify-content:space-between;
     padding: 20px;
+    justify-content:space-evenly;
     margin: 10px 40px 10px 40px;
 }
 
@@ -22,6 +22,12 @@
     transition-duration: 1s;
     overflow: hidden;
     justify-content: space-between;
+}
+
+.SERVICECard-body{
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
 }
 
 .PaginateDiv{

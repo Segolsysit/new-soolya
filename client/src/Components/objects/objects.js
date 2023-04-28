@@ -6,7 +6,13 @@ import '../home.css'
 import'./dashboard.css'
 import { Link } from "react-router-dom";
 import {useCookies} from 'react-cookie'
-import {UserProfile,UserOrders} from "./Userdashboardcomps/Dashboard components";
+import {UserProfile,UserOrders, VendorOrders} from "./Userdashboardcomps/Dashboard components";
+import { useLocation } from "react-router-dom";
+import jwt_decode from  "jwt-decode"
+import axios from "axios";
+import { VendorProfile } from "./Userdashboardcomps/Dashboard components";
+
+
 
 const Header = () => {
 
@@ -792,6 +798,7 @@ const Profile=({open,close})=>{
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
     const Logout=()=>{
         removeCookie("jwt2")
+        removeCookie("venjwt")
         window.location.href='/'
     }
     if(!open) return null
@@ -812,6 +819,9 @@ const UserDashboard=()=>{
     const { pathname } = useLocation();
     const[state,setState]=useState(1)
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+    const[myorders1,setMyorders1]=useState([])
+    const[orderdetails1,setorderdetails1]=useState([])
+    const[not,setnot]=useState()
 
     const token = cookies.jwt2;
     const decodedToken = jwt_decode(token);
@@ -872,8 +882,6 @@ const UserDashboard=()=>{
                     </div>
     
                 </div>
-                <Footer/>
-                <End/>
             </div>
         )
         
@@ -893,7 +901,7 @@ const VendorDashboard=()=>{
             localStorage.removeItem("SearchCategory")
         }
     },[pathname])
-    if(cookies.jwt2){
+    if(cookies.venjwt){
         return(
             <div>
                 <MenuBar/>
@@ -902,17 +910,16 @@ const VendorDashboard=()=>{
                     <div className="Sidebar">
                         <ul className="Sidebar-ul">
                             <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}><i class="fa-solid fa-user"/><p className="Sidebar-lable">My Profile</p></li>
-                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">My Orders</p></li>
+                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">Orders</p></li>
                         </ul>
                     </div>
                     <div className="Dashboard-right">
                         <VendorProfile State={state}/>
-                        <UserOrders State={state}/>
+                        <VendorOrders State={state}/>
                     </div>
     
                 </div>
-                <Footer/>
-                <End/>
+                
             </div>
         )
         
