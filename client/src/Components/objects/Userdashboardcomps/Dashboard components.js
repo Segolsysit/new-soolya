@@ -194,7 +194,7 @@ const VendorProfile=({State})=>{
 
                 <div className="vendor-sec2" onClick={()=>setState(2)}>
                     <h1 className="Count">{count}</h1>
-                    <h2 className="Orders">Orders available</h2>
+                    <h2 className="Orders">Orders Available</h2>
                 </div>
 
             </div>
@@ -254,6 +254,12 @@ const VendorOrders=({State})=>{
      // function resetNoti() {
      //     setNotificationCount("")
      // }
+
+     useEffect(()=>{
+        if (State === 2){
+            window.scroll(0,10000)
+        }
+    },[State])
  
      if(State===2){
         return (
@@ -395,6 +401,13 @@ const UserOrders=({State})=>{
     // function resetNoti() {
     //     setNotificationCount("")
     // }
+
+    useEffect(()=>{
+        if (State === 2){
+            window.scroll(0,10000)
+        }
+    },[State])
+
 if(State===2){
     return(
         <div className="container-fluid">

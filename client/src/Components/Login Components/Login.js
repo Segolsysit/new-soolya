@@ -74,9 +74,9 @@ const Login = () => {
               }
         }
     }
-    if(cookies.jwt2){
-        alert("already loggedin")
-        window.location.href='/'
+    if(cookies.jwt2||cookies.venjwt){
+        alert("Already Logged in to user account or vendor account")
+        window.location.href="/"
     }
 
     else{
@@ -195,8 +195,11 @@ const VendorLogin = () => {
         }
     }
    
-
-        return (
+if(cookies.jwt2||cookies.venjwt){
+    alert("Already Logged in to user account or vendor account")
+    window.location.href="/"
+}
+        else{return (
             <div>
                 <Header />
                 <MenuBar />
@@ -241,7 +244,7 @@ const VendorLogin = () => {
                 <Footer/>
                 <End/>
             </div>
-        )
+        )}
     }
     
 
