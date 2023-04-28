@@ -1,6 +1,6 @@
 .Dashboard-body{
     display: flex;
-    height: 80vh;
+    height: 89vh;
 }
 
 .Sidebar{
@@ -11,7 +11,7 @@
     left: 0px;
     background-color:dodgerblue ;  
     text-align: left;
-    
+
 }
 
 .Sidebar-ul{
@@ -82,7 +82,7 @@
 .Dashboard-right{
     display: flex;
     /* flex-direction: row; */
-    /* overflow-y: scroll; */
+    overflow-y: scroll;
     width: 85%;
     justify-content: center;
     
