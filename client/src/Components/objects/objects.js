@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom";
 import jwt_decode from  "jwt-decode"
 import axios from "axios";
 import { VendorProfile } from "./Userdashboardcomps/Dashboard components";
+import { toast } from "react-toastify";
 
 
 
@@ -52,6 +53,7 @@ const MenuBar = () => {
 
     const [cookies,removeCookie] = useCookies()
     const Token=cookies.jwt2
+    const VendorToken=cookies.venjwt
 
     const [Open, setOpen] = useState(false)
     const [icon, setIcon] = useState(<i class="fa-solid fa-bars"></i>)
@@ -112,8 +114,8 @@ const MenuBar = () => {
                 </div>
                 <Link to="/Provider"><button className="hireButton">Provider Joining</button></Link>
                 <button className="hireButton">Hire Now</button>
-                <Link to="/Login"><button className={Token  ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
-                <img onClick={ProfileOpen} src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=1380&t=st=1682572419~exp=1682573019~hmac=ce813aaccc4d2e8202195a8bbb9a53a4d0e5a9b057dda865cfe06a7ee5d93f9b" alt="" className={Token ? "Profileimg" : "Profileimg-hide"}></img>
+                <Link to="/Login"><button className={Token||VendorToken  ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
+                <img onClick={ProfileOpen} src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=1380&t=st=1682572419~exp=1682573019~hmac=ce813aaccc4d2e8202195a8bbb9a53a4d0e5a9b057dda865cfe06a7ee5d93f9b" alt="" className={Token||VendorToken ? "Profileimg" : "Profileimg-hide"}></img>
             </div>
             <MenuList Open={Open} close={setOpen} />
             
@@ -864,7 +866,7 @@ const UserDashboard=()=>{
             setnot(0)
         }
     }
-    if(cookies.jwt2){
+    if(cookies.jwt2 && (cookies.venjwt===null||cookies.venjwt===undefined||cookies.venjwt==="")){
         return(
             <div>
                 <MenuBar/>
@@ -885,6 +887,10 @@ const UserDashboard=()=>{
             </div>
         )
         
+    }
+    else if(cookies.venjwt){
+        alert("Already loggedin as user")
+        window.location.href='/'
     }
     else{
         window.location.href='/Login'
