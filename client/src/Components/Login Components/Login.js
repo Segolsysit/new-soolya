@@ -962,7 +962,8 @@ const ForgetPasswordVendor=()=>{
                             </div>
                             
                             <label className="Forgrt-Label">Enter your Email_id</label>
-                            <input className="Signup-Input" type='email' onChange={(e)=>{setEmail(e.target.value)}}/>
+                            <input className="Signup-Input" type='email' onChange={(e)=>{setEmail(e.target.value)
+                            setErr("")}}/>
                             <p style={{color:"red",margin:'0px',padding:'0px'}}>{err}</p>
                             
                             <button className="Button-Signup" type="submit">Change Password</button> 
