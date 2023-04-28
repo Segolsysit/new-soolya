@@ -3,10 +3,11 @@ import './home.css'
 import {Category,  Carosel,Ad,Popular, Join, Store,Testimonials, LatestNews ,Subscribe,Footer,End,MenuList, Header, MenuBar} from "./objects/objects";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
+import axios from "axios";
 
 const Home=()=>{
     const[count0,setCount0]=useState(0)
+    const[Data,setData]=useState([])
     useEffect(()=>{
         if(count0<1000){
         setCount0(count0+2)}
@@ -25,6 +26,7 @@ const Home=()=>{
     }
 },[pathname])
 
+
          const[Location,setLocation]=useState("Select")
          const[SelectCategory,setCategory]=useState("Select")
          const search=()=>{
@@ -32,6 +34,14 @@ const Home=()=>{
             localStorage.setItem("SearchCategory",SelectCategory)
             window.location.href="/service"
          }
+
+         useEffect(()=>{
+            axios.get("http://localhost:3001/api/fetch_items")
+            .then((data)=>{
+                setData(data.data)
+            })
+            
+        },[])
     
     return(
         <div>
@@ -59,11 +69,21 @@ const Home=()=>{
                         <div className="selection">
                         <p className="ptagforsearchbox">I'm looking to..</p>
                         <select className="SelectionBox" onChange={(e)=>setCategory(e.target.value)}>
-                            <option value="Find Category">Find Category</option>
-                            <option value="Car wash">Car Wash</option>
-                            <option value="cleaning">cleaning</option>
-                            <option value="Painting">Painting</option>
-                        </select>
+                        <option value="Find Category">Find Category</option>
+
+                        {
+                            Data.map((item,index)=>{
+                                return(
+                                    
+                                    <option key={index}>{item.catagorySetup}</option>
+    
+                                )
+
+ 
+                            })
+                        }
+                    </select>
+
                         </div>
                         <hr className="solid"/>
                         <div>

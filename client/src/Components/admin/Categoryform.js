@@ -599,6 +599,12 @@ const Orders = ({ formNumber }) => {
         // },
     }));
 
+    useEffect(()=>{
+        if (formNumber === 5){
+            window.scroll(0,10000)
+        }
+    },[formNumber])
+
 
     const verify = () => {
         if (aemail === null || apassword === null) {

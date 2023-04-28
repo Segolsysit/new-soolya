@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom";
 import jwt_decode from  "jwt-decode"
 import axios from "axios";
 import { VendorProfile } from "./Userdashboardcomps/Dashboard components";
+import { toast } from "react-toastify";
 
 
 
@@ -52,6 +53,7 @@ const MenuBar = () => {
 
     const [cookies,removeCookie] = useCookies()
     const Token=cookies.jwt2
+    const VendorToken=cookies.venjwt
 
     const [Open, setOpen] = useState(false)
     const [icon, setIcon] = useState(<i class="fa-solid fa-bars"></i>)
@@ -111,9 +113,8 @@ const MenuBar = () => {
                     <button className="Searchbutton"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
                 <Link to="/Provider"><button className="hireButton">Provider Joining</button></Link>
-                <button className="hireButton">Hire Now</button>
-                <Link to="/Login"><button className={Token  ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
-                <img onClick={ProfileOpen} src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=1380&t=st=1682572419~exp=1682573019~hmac=ce813aaccc4d2e8202195a8bbb9a53a4d0e5a9b057dda865cfe06a7ee5d93f9b" alt="" className={Token ? "Profileimg" : "Profileimg-hide"}></img>
+                <Link to="/Login"><button className={Token||VendorToken  ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
+                <img onClick={ProfileOpen} src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=1380&t=st=1682572419~exp=1682573019~hmac=ce813aaccc4d2e8202195a8bbb9a53a4d0e5a9b057dda865cfe06a7ee5d93f9b" alt="" className={Token||VendorToken ? "Profileimg" : "Profileimg-hide"}></img>
             </div>
             <MenuList Open={Open} close={setOpen} />
             
@@ -755,6 +756,7 @@ const End = () => {
 const MenuList = ({ Open, Close }) => {
     const [cookies,removeCookie] = useCookies()
     const Token=cookies.jwt2
+    const VendorToken=cookies.venjwt
     const[state,setState]=useState(false)
     const ProfileOpen=()=>{
         if(!state){
@@ -783,8 +785,8 @@ const MenuList = ({ Open, Close }) => {
                         <button className="Searchbutton"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div >
                     <Link to="/Provider"><button className="hireButton">Provider Joining</button></Link>
-                    <Link to="/Login"><button className={Token  ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
-                    <img onClick={ProfileOpen} src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" className={Token ? "Profileimg" : "Profileimg-hide"}></img>
+                    <Link to="/Login"><button className={Token||VendorToken  ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
+                <img onClick={ProfileOpen} src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=1380&t=st=1682572419~exp=1682573019~hmac=ce813aaccc4d2e8202195a8bbb9a53a4d0e5a9b057dda865cfe06a7ee5d93f9b" alt="" className={Token||VendorToken ? "Profileimg" : "Profileimg-hide"}></img>
                 </div>
                 <Profile open={state} close={setState}/>
 
@@ -806,7 +808,7 @@ const Profile=({open,close})=>{
         return(
             <div className="Profile-menu">
                 <ul className="Profile-ul">
-                    <Link to='/Mydashboard'><li className="Profile-li">My Dashboard</li></Link>
+                    <Link to={cookies.jwt2 ? '/Mydashboard' : '/VendorDashboard'}><li className="Profile-li">My Dashboard</li></Link>
                     <li className="Profile-li2" onClick={Logout}><>Logout</><i class="fa-solid fa-right-from-bracket"></i></li>
                 </ul>
             </div>
@@ -865,7 +867,22 @@ const UserDashboard=()=>{
             setnot(0)
         }
     }
-    if(cookies.jwt2){
+   
+
+    const Div=document.querySelector('.Dashboard-right')
+
+    useEffect(()=>{
+
+        if (state === 2){
+            setTimeout(()=>{
+                Div.scroll(0,10000000)
+            },200)
+            
+        }
+    },[state])
+
+
+    if(token){
         return(
             <div>
                 <MenuBar/>
@@ -887,6 +904,7 @@ const UserDashboard=()=>{
         )
         
     }
+   
     else{
         window.location.href='/Login'
     }
@@ -896,15 +914,50 @@ const UserDashboard=()=>{
 const VendorDashboard=()=>{
     const { pathname } = useLocation();
     const[state,setState]=useState(1)
+    const[vendorName,setVendorName]=useState("")
+    const[loading,setLoading]=useState(true)
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+
     useEffect(()=>{
         if(pathname!=="/service"){
             localStorage.removeItem("SearchCategory")
         }
-    },[pathname])
-    if(cookies.venjwt){
+        const fetchData = async() => {
+            if(!cookies.venjwt){
+                toast.error('Authorization denied, Please logIn', {
+                    position: "top-center",
+                    autoClose: false,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+              
+                setTimeout(() => {
+                    window.location.href='/VendorLogin'
+                }, 2000);
+            }else{
+                const response = await axios.get("http://localhost:3001/vendor_Auth",{
+                    withCredentials:true
+                });
+
+                if(!response.status){
+                    removeCookie("venjwt")
+                    window.location.href='/VendorLogin'
+                }else{
+                    setVendorName(response.data.users)
+                    setLoading(false)
+                }
+            }
+        }
+       fetchData()
+    },[pathname,cookies.venjwt,removeCookie])
+    if(!loading){
         return(
             <div>
+                <h1>Welcome, {vendorName}</h1>
                 <MenuBar/>
                 
                 <div className="Dashboard-body">
@@ -914,7 +967,7 @@ const VendorDashboard=()=>{
                             <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">Orders</p></li>
                         </ul>
                     </div>
-                    <div className="Dashboard-right">
+                    <div className="Dashboard-right" >
                         <VendorProfile State={state}/>
                         <VendorOrders State={state}/>
                     </div>
@@ -926,7 +979,9 @@ const VendorDashboard=()=>{
         
     }
     else{
-        window.location.href='/VendorLogin'
+         
+    <h2>Loading...</h2>
+        
     }
     
 }

@@ -5,47 +5,7 @@ const bcrypt = require("bcrypt");
 const vjwt = require("jsonwebtoken");
 const maxAge = 3 * 24 * 60 * 60;
 
-// const createToken = (id) => {
-//     return vjwt.sign({ id }, "soolya vendor super secret key",);
-// };
 
-// const createToken2 = (id) => {
-//     return vjwt.sign({ id }, "soolya vendor super secret key", {
-//         expiresIn: maxAge,
-//     });
-// };
-
-// const handleErrors = (err) => {
-//     let errors = { Username: "", Email: "", Password: "" };
-
-//     console.log(err);
-
-//     // if (err.email === " Email is Required"){
-        
-//     //   errors.email = "Email is Required";
-//     // }
-
-//     if (err.message === "incorrect email") {
-//         errors.Email = "email is not exist";
-//     }
-
-//     if (err.message === "incorrect password") {
-//         errors.Password = "Invalid Password";
-//     }
-
-//     if (err.code === 11000) {
-//         errors.Email = "Email is already exist";
-//         return errors;
-//     }
-
-//     if (err.message.includes("Users validation failed")) {
-//         Object.values(err.errors).forEach(({ properties }) => {
-//             errors[properties.path] = properties.message;
-//         });
-//     }
-
-//     return errors;
-// };
 const auth = (req, res, next) => {
   const token = req.cookies.venjwt;
   if (!token) {
@@ -104,27 +64,6 @@ VendorAuthRoute.post("/register", async (req, res, next) => {
 });
 
 
-// VendorAuthRoute.post("/register", async (req, res, next) => {
-
-//     try {
-//     const {Username , Email, Password } = req.body;
-
-//       const Vendor_register_Schema = await VendorAuth.create({Username, Email, Password })
-//       const token = createToken(Vendor_register_Schema._id);
-  
-//       res.cookie("vjwt", token, {
-//         withCredentials: true,
-//         httpOnly: false
-       
-//       });
-  
-//       res.status(201).json({ Vendor: Vendor_register_Schema, created: true });
-//     } catch (err) {
-//       console.log(err);
-//       const errors = handleErrors(err);
-//       res.json({ errors, created: false });
-//     }
-//   });
 
 VendorAuthRoute.post("/login", async (req, res) => {
   const { Email, Password } = req.body;
@@ -155,29 +94,8 @@ try{
 }
   
 });
-
-
-  // VendorAuthRoute.post("/login",  async (req, res) => {
-  //   const { Email, Password } = req.body;
-  //   try {
-  //     const user = await VendorAuth.login(Email, Password)
-  //     const token = createToken2(user._id);
-  //     res.cookie("vjwt2", token, { httpOnly: false, maxAge: maxAge * 1000 });
-  //     res.status(200).json({ user: user._id, status: true });
-  //   } catch (err) {
-  //     const errors = handleErrors(err);
-  //     res.json({ errors, status: false });
-  //   }
-  // });
-
-  // Vendor_register_router.get("/fetch",async(req,res) => {
-  //   const getdata= await User.find()
-  //  getdata.save()
-  //   res.json(getbyid)
-  // })
     
-
-  VendorAuthRoute.get("/fetch_vendor/:id",async(req,res) => {
+VendorAuthRoute.get("/fetch_vendor/:id",async(req,res) => {
     const getbyid = await VendorAuth.findById(req.params.id)
     res.json(getbyid)
   })

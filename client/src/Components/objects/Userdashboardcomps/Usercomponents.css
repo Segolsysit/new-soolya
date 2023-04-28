@@ -1,14 +1,14 @@
 .User-Screen{
     display:flex;
     height: fit-content;
-   
+    flex-direction: row;
+    justify-content: left;
 }
 
 .User-sec1Data{
     display: flex;
     gap: 10px;
     padding: 30px;
-    background-color: rgb(248, 250, 252);
     border-radius: 10px;
     text-align: left;
     margin: 10px;
@@ -18,7 +18,6 @@
 .Vendor-sec1Data{
     display: flex;
     gap: 10px;
-    background-color: rgb(248, 250, 252);
     border-radius: 10px;
     text-align: left;
     margin: 10px;
@@ -26,13 +25,13 @@
 }
 
 .User-data{
-    color: rgb(9, 7, 7);
+    color: rgb(5, 4, 4);
     font-size: 20px;
-    font-weight: 400;
+    font-weight: 600;
 }
 
 .User-data>i{
-    color: black;
+    color: rgb(10, 7, 7);
 }
 
 .User-img{
@@ -44,14 +43,14 @@
 
 .User-sec1{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin: 20px;
     align-items: center;
     border-radius: 10px;
     box-shadow: 0 0 20px;
     padding: 20px;
-    background-color: dodgerblue;
-    width: 20rem;
+    background-color: rgb(22, 83, 145);
+    height: fit-content;
 }
 
 .Vendor-sec1{
@@ -69,17 +68,15 @@
 
 .User-sec2{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin: 20px;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
     box-shadow: 0 0 20px;
     padding: 20px;
-    background-color: rgb(253, 166, 26);
-    width: 20rem;
-    height: 24rem;
-
+    background-color: rgb(239, 161, 5);
+    gap: 10px;
 }
 
 .vendor-sec2{
@@ -145,7 +142,7 @@
 
     .User-data{
         color: white;
-        font-size: 20px;
+        font-size: 17px;
         font-weight: 600;
     }
     .User-sec1Data{
@@ -191,5 +188,57 @@
 
     .User-data>i{
         color: white;
+    }
+
+    
+
+    .vendor-container{
+        position: relative;
+        top:00px
+    }
+
+    .Vendor-sec1{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        background-color: dodgerblue;
+        border-radius: 10px;
+        text-align: left;
+        margin: 10px;
+        width: 19rem;
+    }
+
+    .Vendor-sec1Data{
+        display: flex;
+        gap: 10px;
+        padding: 0px;
+        background-color: dodgerblue;
+        border-radius: 10px;
+        text-align: left;
+        margin: 0px;
+    }
+
+    .vendor-sec2{
+        display: flex;
+        flex-direction: column;
+        margin: 20px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        box-shadow: 0 0 20px;
+        padding: 20px;
+        width: fit-content;
+        background-color: rgb(253, 166, 26);
+        width: 18rem;
+    }
+    .Vendor-sec1Data{
+        display: flex;
+        gap: 10px;
+        padding: 0px;
+        background-color: dodgerblue;
+        border-radius: 10px;
+        text-align: left;
+        margin: 0px;
     }
 }

@@ -74,9 +74,9 @@ const Login = () => {
               }
         }
     }
-    if(cookies.jwt2){
-        alert("already loggedin")
-        window.location.href='/'
+    if(cookies.jwt2||cookies.venjwt){
+        alert("Already Logged in to user account or vendor account")
+        window.location.href="/"
     }
 
     else{
@@ -165,8 +165,7 @@ const VendorLogin = () => {
 
    async function LoginFun(e){
         e.preventDefault()
-        setErrlogin("")
-        seterrPwd("")
+    
         if(LoginId===""||LoginId===null){
             setErrlogin("Please enter your LoginId")
         }
@@ -184,19 +183,31 @@ const VendorLogin = () => {
                 { withCredentials: true }
               );
               if (response.data.status === 'error') {
-                console.log(response.data.message)
+                toast.error(response.data.message, {
+                    position: "top-center",
+                    autoClose: 1500,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
                
               }
               else{
-                window.location.href = "/protected"; // redirect to dashboard
+                window.location.href = "VendorDashboard"; // redirect to dashboard
               }
              
              
         }
     }
    
-
-        return (
+if(cookies.jwt2||cookies.venjwt){
+    alert("Already Logged in to user account or vendor account")
+    window.location.href="/"
+}
+        else{return (
             <div>
                 <Header />
                 <MenuBar />
@@ -211,11 +222,16 @@ const VendorLogin = () => {
                                 <p className="Signup-ptag">Welcome! Login using data given while register</p>
                             </div>
                             <label className="Signup-Label">Email</label>
-                            <input className="Signup-Input" onChange={(e)=>setLoginId(e.target.value)}/>
+                            <input className="Signup-Input" onChange={(e)=>{setLoginId(e.target.value) 
+                            setErrlogin("")
+                        }}/>
                             <p className="Error-signup">{errLogin}</p>
                             <label className="Signup-Label">Password</label>
                             <div className="Signup-Pwdbox">
-                            <input type={show} className="Signup-InputPwd" onChange={(e)=>setPassword(e.target.value)}/>
+                            <input type={show} className="Signup-InputPwd" onChange={(e)=>{
+                                        setPassword(e.target.value)
+                                        seterrPwd("")
+                             } }/>
                             <div onClick={PaswordState}>{icon}</div>
                             </div>
                             <p className="Error-signup">{errPwd}</p>
@@ -241,7 +257,7 @@ const VendorLogin = () => {
                 <Footer/>
                 <End/>
             </div>
-        )
+        )}
     }
     
 
