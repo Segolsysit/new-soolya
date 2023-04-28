@@ -916,23 +916,50 @@ const UserDashboard=()=>{
 const VendorDashboard=()=>{
     const { pathname } = useLocation();
     const[state,setState]=useState(1)
+    const[vendorName,setVendorName]=useState("")
+    const[loading,setLoading]=useState(true)
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+
     useEffect(()=>{
         if(pathname!=="/service"){
             localStorage.removeItem("SearchCategory")
         }
-    },[pathname])
+        const fetchData = async() => {
+            if(!cookies.venjwt){
+                toast.error('Authorization denied, Please logIn', {
+                    position: "top-center",
+                    autoClose: false,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+              
+                setTimeout(() => {
+                    window.location.href='/VendorLogin'
+                }, 2000);
+            }else{
+                const response = await axios.get("http://localhost:3001/vendor_Auth",{
+                    withCredentials:true
+                });
 
-    const Div=document.querySelector('.Dashboard-right')
-
-   
-
-
-
-
-    if(cookies.venjwt){
+                if(!response.status){
+                    removeCookie("venjwt")
+                    window.location.href='/VendorLogin'
+                }else{
+                    setVendorName(response.data.users)
+                    setLoading(false)
+                }
+            }
+        }
+       fetchData()
+    },[pathname,cookies.venjwt,removeCookie])
+    if(!loading){
         return(
             <div>
+                <h1>Welcome, {vendorName}</h1>
                 <MenuBar/>
                 
                 <div className="Dashboard-body">
@@ -954,7 +981,9 @@ const VendorDashboard=()=>{
         
     }
     else{
-        window.location.href='/VendorLogin'
+         
+    <h2>Loading...</h2>
+        
     }
     
 }
