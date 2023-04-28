@@ -42,12 +42,12 @@ const UserProfile=({State})=>{
         useEffect(()=>{
             axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setMyorders(res.data)
             })
             axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setorderdetails(res.data)
             
             })            // orders1()
@@ -68,7 +68,7 @@ const UserProfile=({State})=>{
           }
 
 
-              console.log(myorders);
+            //   console.log(myorders);
     
     
 
@@ -342,7 +342,7 @@ const UserOrders=({State})=>{
         console.log(userId);
         axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
         .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             setMyorders(res.data);
             orders1()
         })
@@ -351,7 +351,7 @@ const UserOrders=({State})=>{
     const orders1 = ()=>{
         axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
         .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             setorderdetails(res.data)
 
         })

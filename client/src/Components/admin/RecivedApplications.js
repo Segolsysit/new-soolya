@@ -81,15 +81,17 @@ const RecivedApplication = ({formNumber}) => {
                     setemailerr(response.data.message);
                 }else{
                     setSuccess(response.data.message)
+                    setTimeout(() => {
+                        setVendorName("")
+                        setVendorEmail("")
+                        setVendorPwd("")
+                        setSuccess("")
+                        
+                      }, 3000);
                    
                 }
 
-                setTimeout(() => {
-                    setVendorName("")
-                    setVendorEmail("")
-                    setVendorPwd("")
-                    setSuccess("")
-                  }, 2000);
+              
               
           
               }
@@ -179,7 +181,7 @@ const [application,setApplication] = useState([])
           <Box sx={{ ...style, width: 400 }}>
 
                       <form onSubmit={handleVendorAuth}>
-                        <p color='green'>{success}</p>
+                        <p style={{color:"green"}}>{success}</p>
                       <TextField
                       type='text'
                       id="outlined-basic"
