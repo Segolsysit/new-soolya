@@ -360,10 +360,12 @@ const Page4 = ({ Page, setPage ,Bookstate,setBookState}) => {
         <div className="Form-outerdiv">
             <div className="Form1">
                 <h2 className="Form2-heading">Confirm here</h2>
-                <ReCAPTCHA
+                <center>
+                    <ReCAPTCHA
                                     sitekey="6LdyhYIkAAAAAJj04Umnf4rQ427h49pItJtiBJ_l"
                                     onChange={onChange}
                                 />
+                                </center>
             </div>
         </div>
     )

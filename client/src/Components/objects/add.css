@@ -102,7 +102,7 @@
     display: flex;
     gap: 30px;
     list-style:circle;
-    z-index: 3;
+    z-index: 1;
 }
 
 .Profile-info{
@@ -180,6 +180,8 @@
 .News-inner{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: baseline;
 }
 
 .Horizontal{
@@ -222,6 +224,10 @@
     width: 100%;
 }
 
+.Subscribe-Input:focus{
+    outline: none;
+}
+
 .Input-subscribe{
     display: flex;
     gap: 0px;
@@ -258,11 +264,12 @@ margin-bottom: 0px;
     .Adblock{
         flex-direction: column;
         gap: 20px;
+        padding: 5rem;
     }
 
     .inner-ad{
-        gap: 5px;
-        width: 10rem;
+        gap: 10px;
+        width: 15rem;
     }
     .Ad-img{
         object-fit: cover;
@@ -295,7 +302,7 @@ margin-bottom: 0px;
         display: flex;
         flex-direction: column;
         width:100%;
-        padding: 2rem 20px 2rem 20px;
+        padding: 0px;
         margin-bottom: 2rem;
     
     }
@@ -356,9 +363,23 @@ margin-bottom: 0px;
     .NewsCard{
         display: flex;
         flex-direction: column;
-        width: 100%;
-        margin: 30px;
+        margin: 10px;
         text-align: left;
         background-color: white;
+        width: 80%;
+    }
+    .Subscribe-button{
+        background-color: dodgerblue;
+        padding: 10px 20px 10px 20px;
+        border-radius:30px ;
+        border:none;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        transition-duration: 1000ms;
+    }
+    .Input-subscribe{
+       width: 100%;
+        margin: 3px;
     }
 }

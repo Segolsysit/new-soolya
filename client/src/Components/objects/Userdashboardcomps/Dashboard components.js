@@ -42,12 +42,12 @@ const UserProfile=({State})=>{
         useEffect(()=>{
             axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setMyorders(res.data)
             })
             axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setorderdetails(res.data)
             
             })            // orders1()
@@ -68,7 +68,7 @@ const UserProfile=({State})=>{
           }
 
 
-              console.log(myorders);
+            //   console.log(myorders);
     
     
 
@@ -194,7 +194,7 @@ const VendorProfile=({State})=>{
 
                 <div className="vendor-sec2" onClick={()=>setState(2)}>
                     <h1 className="Count">{count}</h1>
-                    <h2 className="Orders">Orders available</h2>
+                    <h2 className="Orders">Orders Available</h2>
                 </div>
 
             </div>
@@ -254,10 +254,16 @@ const VendorOrders=({State})=>{
      // function resetNoti() {
      //     setNotificationCount("")
      // }
+
+     useEffect(()=>{
+        if (State === 2){
+            window.scroll(0,100000)
+        }
+    },[State])
  
      if(State===2){
         return (
-            <div className="container-fluid">
+            <div className="container-fluid vendor-container">
                 <h1>Order Deatails</h1>
                 <TableContainer component={Paper} style={{padding:"20px",alignItems:"center",justifyContent:"center"}}>
                     <Table className='table-cat' style={{margin:"0px"}}>
@@ -336,7 +342,7 @@ const UserOrders=({State})=>{
         console.log(userId);
         axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
         .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             setMyorders(res.data);
             orders1()
         })
@@ -345,7 +351,7 @@ const UserOrders=({State})=>{
     const orders1 = ()=>{
         axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
         .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             setorderdetails(res.data)
 
         })
@@ -395,6 +401,13 @@ const UserOrders=({State})=>{
     // function resetNoti() {
     //     setNotificationCount("")
     // }
+
+    // useEffect(()=>{
+    //     if (State === 2){
+    //         window.scroll(0,10000)
+    //     }
+    // },[State])
+
 if(State===2){
     return(
         <div className="container-fluid">
