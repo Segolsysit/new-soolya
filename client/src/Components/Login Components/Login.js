@@ -156,7 +156,7 @@ const VendorLogin = () => {
 
     const [errLogin,setErrlogin]=useState("")
     const [errPwd,seterrPwd]=useState("")
-
+    const [errorMessage, setErrorMessage] = useState("");
     const generateError = (error) =>
     toast.error(error, {
       position: "bottom-right",
@@ -175,34 +175,27 @@ const VendorLogin = () => {
             seterrPwd("Please enter your Password")
         }
         else{
-            const { data } = await axios.post(
-                "http://localhost:3001/authUser/login",
+            const response = await axios.post(
+                "http://localhost:3001/vendor_Auth/login",
                 {
-                 email:LoginId,
-                 password:Password
+                 Email:LoginId,
+                 Password:Password
                 },
                 { withCredentials: true }
               );
-              if (data) {
-                if (data.errors) {
-                  const { email, password } = data.errors;
-                  if (email) generateError(email);
-                  else if (password) generateError(password);
-                } else {
-                    toast.info("successfully loggedin", {
-                        position: "top-center",
-                      });
-                      Navigate("/");
-                }
+              if (response.data.status === 'error') {
+                console.log(response.data.message)
+               
               }
+              else{
+                window.location.href = "/protected"; // redirect to dashboard
+              }
+             
+             
         }
     }
-    if(cookies.jwt2){
-        alert("already loggedin")
-        window.location.href='/'
-    }
+   
 
-    else{
         return (
             <div>
                 <Header />
@@ -251,7 +244,7 @@ const VendorLogin = () => {
         )
     }
     
-}
+
 
 const Signup=()=>{
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);

@@ -81,14 +81,12 @@
 
 .Dashboard-right{
     display: flex;
-    flex-direction: row;
-    overflow-y: scroll;
+    /* flex-direction: row; */
+    /* overflow-y: scroll; */
     width: 85%;
     justify-content: center;
     
 }
-
-
 
 .table-cat{
     margin: 0px;

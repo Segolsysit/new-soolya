@@ -12,6 +12,7 @@
     text-align: left;
     margin: 10px;
     width: 100%;
+    width: 100%;
 }
 
 .User-data{
@@ -40,15 +41,7 @@
     box-shadow: 0 0 20px;
     padding: 20px;
     background-color: dodgerblue;
-    width: 22rem;
-    height: 24rem;
-}
-
-.Edit-btn{
-    margin-top: 0;
-    padding: 3px;
-    color: white;
-    cursor: pointer;
+    width: 20rem;
 }
 
 .User-sec2{
