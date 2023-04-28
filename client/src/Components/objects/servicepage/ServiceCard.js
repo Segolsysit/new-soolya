@@ -94,8 +94,10 @@ if(SearchCategory!=="Select"&&(SearchCategory!==null||SearchCategory!==undefined
         if(Range==="Select"||Range===undefined||Range===null){
             return(
                 <div onClick={()=>localStorage.setItem("order_id",item._id)} className="Carosel-cardService">
+                    <>
                         <img className="Ser-Image" src={localpath + item.filename} alt=""/>
-                        <div className="Card-body">
+                        </>
+                        <div className="SERVICECard-body">
                             <div className="Carosel-sec">
                                 <p className="Category-carosel">{item.catagorySetup}</p>
                                 <h2 className="Carosel-price">${item.Price}</h2>

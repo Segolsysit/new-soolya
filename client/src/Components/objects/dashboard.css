@@ -81,9 +81,10 @@
 
 .Dashboard-right{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     overflow-y: scroll;
     width: 85%;
+    justify-content: center;
     
 }
 
