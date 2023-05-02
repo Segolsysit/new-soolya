@@ -22,13 +22,22 @@ const ServiceCard=({service,Range})=>{
 
     console.log(pathname);
 useEffect(()=>{
-    axios.get("http://localhost:3001/api/fetch_items")
-    .then((data)=>{
+    if(service==="Select"||service===null||service===undefined){
+        axios.get("http://localhost:3001/api/fetch_items")
+        .then((data)=>{
         setData(data.data)
     })
+    }
+    else{
+        axios.get(`http://localhost:3001/api/fetch_items/${service}`)
+        .then((data)=>{
+        setData(data.data)
+    })
+    }
+    
     setCount(count+1)
     
-},[service,SearchCategory])
+},[service])
     
 useEffect(()=>{
     if(count===1){
@@ -107,6 +116,7 @@ if(SearchCategory!=="Select"&&(SearchCategory!==null||SearchCategory!==undefined
                             </div>
                         <button className="Carosel-btn">Book Now</button>
                     </div>
+                    
         </div>
         
             )
@@ -249,8 +259,8 @@ if(SearchCategory!=="Select"&&(SearchCategory!==null||SearchCategory!==undefined
                                 
             </div>
             <Pagination 
-            // TotalPost={Post.length}
-             postPer={postPer} Navigate={Navigate} Color={Color} currentPage={currentPage}/>
+             TotalPost={Data.length}
+             postPer={postPer} Navigate={Navigate} Color={Color} currentPage={currentPage}/> 
             </div>
         )
 }
