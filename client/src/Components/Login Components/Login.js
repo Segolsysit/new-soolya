@@ -923,8 +923,8 @@ const ForgetPasswordVendor=()=>{
             }  
           
     
-        axios.post("http://localhost:3001/authUser/forgot_password",{
-            email: ForgetEmail
+        axios.post("http://localhost:3001/vendor_Auth/forgot_password",{
+            Email: Email
          },{
              method:"POST",
              crossDomain:true,
