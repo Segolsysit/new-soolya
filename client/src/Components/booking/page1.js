@@ -185,7 +185,7 @@ const Page1 = ({ Page, setPage }) => {
                 </div>
                 <div className="Form1-textdiv">
                     <label className="Form1-subheading">Phone Number</label>
-                    <input className="Form1-textbox" defaultValue={defaultPhone} onChange={(e) => {setPhone(e.target.value)
+                    <input type='number' className="Form1-textbox" defaultValue={defaultPhone} onChange={(e) => {setPhone(e.target.value)
                             setErrPhone("")
                             setErr6(true)
                         }} />
