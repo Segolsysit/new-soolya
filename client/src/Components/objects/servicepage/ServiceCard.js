@@ -168,7 +168,7 @@ if(SearchCategory!=="Select"&&(SearchCategory!==null||SearchCategory!==undefined
                                 )
                             }                    
                             else if(Range==="Low Price"&& item.catagorySetup===service){
-                                if(item.Price<10 && item.catagorySetup===service){
+                                if(item.Price<=10 && item.catagorySetup===service){
                                     return(
                                         <div onClick={()=>localStorage.setItem("order_id",item._id)} className="Carosel-cardService">
                                             <img className="Ser-Image" src={localpath + item.filename} alt=""/>
@@ -188,7 +188,7 @@ if(SearchCategory!=="Select"&&(SearchCategory!==null||SearchCategory!==undefined
                                 }
                             }
                             else if(Range==="High Price"&& item.catagorySetup===service){
-                                if(item.Price<10 && item.catagorySetup===service){
+                                if(item.Price>10 && item.catagorySetup===service){
                                     return(
                                         <div onClick={()=>localStorage.setItem("order_id",item._id)} className="Carosel-cardService">
                                             <img className="Ser-Image" src={localpath + item.filename} alt=""/>

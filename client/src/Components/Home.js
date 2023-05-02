@@ -55,6 +55,7 @@ const Home=()=>{
                 <h4 className="secondaryTitle1">Premium Service 24/7</h4>
                 <h1 className="Primarytitle">We Provide High Quality Professional Services</h1>
                 <h4 className="secondaryTitle2">There are many variations to</h4>
+                <div className="Div-select">
                     <div className="serchblock">
                         <div className="selection">
                         <p className="ptagforsearchbox">I'm looking to..</p>
@@ -89,6 +90,7 @@ const Home=()=>{
                         <div>
                             <button className="SearchBtn" onClick={search}>search</button>
                         </div>
+                    </div>
                     </div>
 
             </div>

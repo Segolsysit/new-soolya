@@ -826,6 +826,8 @@ const UserDashboard=()=>{
     const[orderdetails1,setorderdetails1]=useState([])
     const[not,setnot]=useState()
 
+    const[Loader,setLoader]=useState(false)
+
     const token = cookies.jwt2;
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
@@ -837,27 +839,26 @@ const UserDashboard=()=>{
     useEffect(()=>{ 
         orderss()
         notificationfun()
-    })
+    },[])
 
     const orderss = () => {
-        console.log(userId);
         axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
         .then((res) => {
             // console.log(res.data);
             setMyorders1(res.data);
-            orderss1()
             
         })
       }
 
-    const orderss1 = ()=>{
+    useEffect(()=>{
         axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
         .then((res) => {
             // console.log(res.data);
             setorderdetails1(res.data)
+    })
 
-        })
-    }
+        },[myorders1])
+    
 
     const notificationfun =()=>{
         if(notification < orderdetails1.length){
@@ -877,7 +878,7 @@ const UserDashboard=()=>{
         if (state === 2){
             setTimeout(()=>{
                 Div.scroll(0,10000000)
-            },200)
+            },600)
             
         }
         
@@ -898,7 +899,7 @@ const UserDashboard=()=>{
                     </div>
                     <div className="Dashboard-right">
                         <UserProfile State={state}/>
-                        <UserOrders State={state}/> 
+                        <UserOrders State={state} Loader={Loader} setLoader={setLoader}/> 
                     </div>
     
                 </div>
