@@ -13,6 +13,7 @@
     text-align: left;
     margin: 10px;
     width: 100%;
+    color: white;
 }
 
 .Vendor-sec1Data{
@@ -25,13 +26,13 @@
 }
 
 .User-data{
-    color: rgb(5, 4, 4);
+    color: rgb(252, 249, 249);
     font-size: 20px;
     font-weight: 600;
 }
 
 .User-data>i{
-    color: rgb(10, 7, 7);
+    color: rgb(248, 245, 245);
 }
 
 .User-img{
@@ -49,7 +50,7 @@
     border-radius: 10px;
     box-shadow: 0 0 20px;
     padding: 20px;
-    background-color: rgb(22, 83, 145);
+    background-color: rgb(6, 59, 115);
     height: fit-content;
 }
 
@@ -180,7 +181,7 @@
         justify-content: center;
         border-radius: 10px;
         box-shadow: 0 0 20px;
-        padding: 20px;
+        padding: 40px;
         width: fit-content;
         background-color: rgb(253, 166, 26);
         width: 18rem;
@@ -201,23 +202,15 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-        padding: 20px;
+        padding: 10px;
         background-color: dodgerblue;
         border-radius: 10px;
         text-align: left;
-        margin: 10px;
-        width: 19rem;
+        margin: 20px;
+        width: 20rem;
     }
 
-    .Vendor-sec1Data{
-        display: flex;
-        gap: 10px;
-        padding: 0px;
-        background-color: dodgerblue;
-        border-radius: 10px;
-        text-align: left;
-        margin: 0px;
-    }
+    
 
     .vendor-sec2{
         display: flex;
@@ -228,17 +221,30 @@
         border-radius: 10px;
         box-shadow: 0 0 20px;
         padding: 20px;
-        width: fit-content;
         background-color: rgb(253, 166, 26);
-        width: 18rem;
+        width: 20rem;
     }
     .Vendor-sec1Data{
         display: flex;
         gap: 10px;
-        padding: 0px;
+        padding: 10px;
         background-color: dodgerblue;
-        border-radius: 10px;
         text-align: left;
-        margin: 0px;
+        margin: 3px;
+    }
+    .Count{
+        font-size: 50px;
+        font-weight: 600;
+        color: white;
+        padding: 30px;
+        border: 2px solid rgb(252, 248, 248);
+        border-radius: 50%;
+        aspect-ratio: 1/1;
+    }
+    
+    .Orders{
+        color: white;
+        font-weight: 500;
+        font-size: 30px;
     }
 }

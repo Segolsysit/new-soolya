@@ -172,9 +172,9 @@ const VendorProfile=({State})=>{
         return(
             <div className="User-Screen">
                 <div className="Vendor-sec1">
-                    <>
+                    
                     <img className="User-img" src="https://img.freepik.com/free-vector/digital-tools-concept-illustration_114360-7118.jpg?w=1380&t=st=1682572354~exp=1682572954~hmac=b5050378427867b9b7e204e07e4b4aa64be5c7e31bcdea1890729d172906f92a" alt=""/>
-                    </>
+                    
                     <div className="Vendor-sec1Data">
                         <div>
                     <h2 className="User-data"><i class="fa-solid fa-user"></i></h2>

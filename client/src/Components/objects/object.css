@@ -237,6 +237,9 @@
     border: none;
     padding: 20px;
     border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 20px;
 }
 
 .Joinbtn:hover{
@@ -258,6 +261,7 @@
     justify-content: space-between;
     align-items: center;
     height: 40rem;
+    margin-top: 5rem;
 }
 
 .Store-desc{
@@ -431,6 +435,7 @@
     border: none;
     padding: 10px;
     border-radius: 5px;
+    margin: 5px;
 }
 .joindesc{
     font-size: 1.5rem;
