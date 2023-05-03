@@ -442,6 +442,122 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 }
 
+const SubCategory=({formNumber})=>{
+    const[Data,setData]=useState([])
+
+    const[Category,setCategory]=useState("")
+    const[SubCategory,setSubCategory]=useState("")
+    const[Description,setDescription]=useState("")
+    const[Image,setImage]=useState("")
+
+    const[ErrCat,setErrCat]=useState("")
+    const[ErrSub,setErrSub]=useState("")
+    const[ErrDesc,setErrDesc]=useState("")
+    const[ErrImg,setErrImg]=useState("")
+    useEffect(()=>{
+        axios.get("http://localhost:3001/api/fetch_items")
+        .then((data)=>{
+            setData(data.data)
+        })
+        
+    },[])
+
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+        },
+    }));
+
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+        // hide last border
+        '&:last-child td, &:last-child th': {
+            border: 0,
+        },
+    }));
+
+    const AddSubCategory=()=>{
+        
+    }
+
+    if(formNumber===11){
+        return(
+            <div className="Subcategory-Outer">
+            <form className="SubCategory" onSubmit={AddSubCategory}>
+                <label className="Category-Label">Category</label>
+                <select defaultValue="Select" className="Category-input" onChange={(e)=>setCategory(e.target.value)}>
+                    <option>Select</option>
+                    {Data.map((item,index)=>{
+                        return(
+                            <option key={index}>{item.catagorySetup}</option>
+                        )
+                        
+                    })}
+                    
+                </select>
+                <label className="Category-Label">Sub Category</label>
+                <input className="Category-input" onChange={(e)=>setSubCategory(e.target.value)}/>
+                <label className="Category-Label">Description</label>
+                <textarea className="Category-input" onChange={(e)=>setDescription(e.target.value)}/>
+                <label className="Category-Label">Image</label>
+                <input className="Category-input"type="file" onChange={(e)=>setImage(e.target.value)}/>
+                <button className="Category-button" type="submit">Add</button>
+                
+            </form>
+            <div className="Table-subcat">
+                    <TableContainer component={Paper} style={{padding:"20px"}}>
+                        <Table className='table-cat' aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>SN</StyledTableCell>
+                                    <StyledTableCell>Category</StyledTableCell>
+                                    <StyledTableCell>Image</StyledTableCell>
+                                    <StyledTableCell>Desc</StyledTableCell>
+                                    <StyledTableCell>Price</StyledTableCell>
+                                    <StyledTableCell>Edit</StyledTableCell>
+                                    <StyledTableCell>Delete</StyledTableCell>
+
+
+
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {
+                                    // getData.map((data, index) => (
+
+
+                                        <StyledTableRow>
+                                            <StyledTableCell></StyledTableCell>
+
+                                            <StyledTableCell><p></p></StyledTableCell>
+                                            <StyledTableCell><img src="" style={{ width: "5em", height: "5em" }} alt=".........."></img> </StyledTableCell>
+
+                                            <StyledTableCell><p></p></StyledTableCell>
+                                            <StyledTableCell><p></p></StyledTableCell>
+                                            <StyledTableCell><Button data-bs-toggle="modal"  data-bs-target="#EditCategory"><i class="fa-solid fa-pencil"></i></Button></StyledTableCell>
+                                            <StyledTableCell><Button ><i class="fa-regular fa-trash-can"></i></Button></StyledTableCell>
+                                        </StyledTableRow>
+
+
+                                    // ))
+                                }
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </div>
+            </div>
+        )
+    }
+    else return null
+    
+}
+
 
 const Rejected_list = ({ formNumber }) => {
 
@@ -755,4 +871,4 @@ const Orders = ({ formNumber }) => {
 
 
 
-export { CategoryForm, Rejected_list, Orders } 
+export { CategoryForm, Rejected_list, Orders,SubCategory } 
