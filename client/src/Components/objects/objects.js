@@ -125,7 +125,7 @@ const MenuBar = () => {
     )
 }
 
-const Category = () => {
+const Category = ({Cat,setCat}) => {
 //hello
     const data = [{
         "Name": "Ac Repair",
@@ -133,12 +133,12 @@ const Category = () => {
         "src": "https://cdn-icons-png.flaticon.com/512/2554/2554117.png"
     },
     {
-        "Name": "Car Service",
+        "Name": "Car wash",
         "Extras": "5+service",
         "src": "https://png.pngtree.com/png-clipart/20191120/original/pngtree-car-repair-line-icon-vector-png-image_5079274.jpg"
     },
     {
-        "Name": "Cleaning",
+        "Name": "cleaning",
         "Extras": "3+service",
         "src": "https://cdn-icons-png.flaticon.com/512/995/995053.png"
     },
@@ -159,23 +159,38 @@ const Category = () => {
     },
 
     ]
+
+    const[Selectindex,setIndex]=useState(null)
+
+    const RemoveFilter=()=>{
+        setIndex(null)
+        setCat("Select")
+    }
+    
     return (
+        <div>
         <div className="cardouter">
             {data.map((item,index)=> {
                 return (
-                    <Link to="/service" key={index}><div className="card" >
+                     <div className="card" key={index} onClick={(e)=>{
+                     setCat(item.Name)
+                     setIndex(index)}}>
                         <img className="icons" src={item.src} alt="" />
                         <h3 className="main">{item.Name}</h3>
                         <p className="extras">{item.Extras}</p>
-                    </div></Link>
+                    </div>
 
-
+                        
 
                 )
             })
             }
+            
         </div>
-
+        <div className="Filterbtn-div">
+        <button className="Filter-button" hidden={Selectindex===null?true:false} onClick={RemoveFilter}><i class="fa-sharp fa-solid fa-filter-circle-xmark"></i></button>
+        </div>
+        </div>
 
     )
 }

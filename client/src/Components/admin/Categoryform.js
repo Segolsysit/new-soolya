@@ -298,10 +298,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                         <label className="Category-Label">Category</label>
                         <input type="text" value={categorySetup} className="Category-input" onChange={(e) => setCatagorySetup(e.target.value)} />
 
-                        <label className="Category-Label">Description</label>
-                        <textarea className="Categorydesc-input" value={Desc} onChange={(e) => setDesc(e.target.value)} />
-                        <label className="Category-Label">Price</label>
-                        <input value={Price} className="Category-input" onChange={(e) => setPrice(e.target.value)} />
+                        
                         <label className="Category-Label">Image</label>
                         <div className="Categoryfile-div">
                             <input type="file" className="Category-input" onChange={handleImgChange} />
@@ -484,6 +481,10 @@ const SubCategory=({formNumber})=>{
 
     const AddSubCategory=(e)=>{
         e.preventDefault()
+        setErrCat("")
+        setErrDesc("")
+        setErrSub("")
+        setErrImg("")
         if(Category==="Select" || Category===""){
             setErrCat("Select a category")
         }
@@ -523,6 +524,8 @@ const SubCategory=({formNumber})=>{
                 <textarea className="Category-input" onChange={(e)=>{setDescription(e.target.value)
                 setErrDesc("")}}/>
                 <p style={{color:"red"}}>{ErrDesc}</p>
+                <label className="Category-Label">Price</label>
+                <input className="Category-input" type='number'/>
                 <label className="Category-Label">Image</label>
                 <input className="Category-input"type="file" onChange={(e)=>{setImage(e.target.value)
                 setErrImg("")}}/>
