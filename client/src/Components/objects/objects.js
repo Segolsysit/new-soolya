@@ -12,6 +12,7 @@ import jwt_decode from  "jwt-decode"
 import axios from "axios";
 import { VendorProfile } from "./Userdashboardcomps/Dashboard components";
 import { toast } from "react-toastify";
+import Swal from 'sweetalert2'
 
 
 
@@ -926,20 +927,32 @@ const VendorDashboard=()=>{
         }
         const fetchData = async() => {
             if(!cookies.venjwt){
-                toast.error('Authorization denied, Please logIn', {
-                    position: "top-center",
-                    autoClose: false,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    });
+                // toast.error('Authorization denied, Please logIn', {
+                //     position: "top-center",
+                //     autoClose: false,
+                //     hideProgressBar: true,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "colored",
+                //     });
             //   safdsggf
-                setTimeout(() => {
-                    window.location.href='/VendorLogin'
-                }, 2000);
+            Swal.fire({
+                title: 'Access denied?',
+                text: "Please login!",
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                        window.location.href='/VendorLogin'
+                 
+                }
+              })
+            
             }else{
                 const response = await axios.get("http://localhost:3001/vendor_Auth",{
                     withCredentials:true

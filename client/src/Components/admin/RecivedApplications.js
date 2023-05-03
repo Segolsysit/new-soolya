@@ -39,7 +39,7 @@ const RecivedApplication = ({formNumber}) => {
 
         axios.get(`http://localhost:3001/vendor_Applications/fetchVendor_id/${id}`).then((response) => {
             setviewdata(response.data);
-            // console.log(response.data);
+            console.log(response.data);
         })
       setOpen1(true);
     };
@@ -97,6 +97,35 @@ const RecivedApplication = ({formNumber}) => {
           
               }
            
+    }
+
+    const reject_data = () => {
+        // e.preventDefault()
+        axios.post("http://localhost:3001/reject_api/new_rejection", {
+            Category: viewdata.Category,
+            Location: viewdata.Location,
+            FirstName: viewdata.FirstName,
+            LastName: viewdata.LastName,
+            Phone: viewdata.Phone,
+            Address: viewdata.Address,
+            Email: viewdata.Email,
+            
+        }).then(()=>{
+            axios.delete(`http://localhost:3001/vendor_Applications/delete_item/${viewdata._id}`).then(() => {
+                toast.error('😈 Deleted Successed!', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+    
+                });
+            })
+        })
+       
     }
    
 const [application,setApplication] = useState([])
@@ -166,7 +195,7 @@ const [application,setApplication] = useState([])
                        <p>Location : {viewdata.Location}</p>
                        {/* <ChildModal close={setOpen1}/> */}
                        <Button onClick={handleOpenModel2}>hire</Button>
-                       <Button type="button" >Reject</Button>
+                       <Button onClick={() => reject_data()}>Reject</Button>
 
                         {/* <ChildModal /> */}
                         </Box>
