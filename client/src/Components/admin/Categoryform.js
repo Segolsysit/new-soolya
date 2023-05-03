@@ -488,8 +488,20 @@ const SubCategory=({formNumber})=>{
         },
     }));
 
-    const AddSubCategory=()=>{
-        
+    const AddSubCategory=(e)=>{
+        e.preventDefault()
+        if(Category==="Select" || Category===""){
+            setErrCat("Select a category")
+        }
+        else if(SubCategory===""||SubCategory===null){
+            setErrSub("Enter SubCategory")
+        }
+        else if(Description===""||Description===null){
+            setErrDesc("Enter Description")
+        }
+        else if(Image==="No file chosen"||Image===""||Image===null){
+            setErrImg("Please select a file")
+        }
     }
 
     if(formNumber===11){
@@ -497,7 +509,8 @@ const SubCategory=({formNumber})=>{
             <div className="Subcategory-Outer">
             <form className="SubCategory" onSubmit={AddSubCategory}>
                 <label className="Category-Label">Category</label>
-                <select defaultValue="Select" className="Category-input" onChange={(e)=>setCategory(e.target.value)}>
+                <select defaultValue="Select" className="Category-input" onChange={(e)=>{setCategory(e.target.value)
+                setErrCat("")}}>
                     <option>Select</option>
                     {Data.map((item,index)=>{
                         return(
@@ -507,12 +520,19 @@ const SubCategory=({formNumber})=>{
                     })}
                     
                 </select>
+                <p style={{color:"red"}}>{ErrCat}</p>
                 <label className="Category-Label">Sub Category</label>
-                <input className="Category-input" onChange={(e)=>setSubCategory(e.target.value)}/>
+                <input className="Category-input" onChange={(e)=>{setSubCategory(e.target.value)
+                setErrSub("")}}/>
+                <p style={{color:"red"}}>{ErrSub}</p>
                 <label className="Category-Label">Description</label>
-                <textarea className="Category-input" onChange={(e)=>setDescription(e.target.value)}/>
+                <textarea className="Category-input" onChange={(e)=>{setDescription(e.target.value)
+                setErrDesc("")}}/>
+                <p style={{color:"red"}}>{ErrDesc}</p>
                 <label className="Category-Label">Image</label>
-                <input className="Category-input"type="file" onChange={(e)=>setImage(e.target.value)}/>
+                <input className="Category-input"type="file" onChange={(e)=>{setImage(e.target.value)
+                setErrImg("")}}/>
+                <p style={{color:"red"}}>{ErrImg}</p>
                 <button className="Category-button" type="submit">Add</button>
                 
             </form>
