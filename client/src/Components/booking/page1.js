@@ -149,32 +149,46 @@ const Page1 = ({ Page, setPage }) => {
                 <h1 className="Form1-heading">Billing Address</h1>
                 <div className="Form1-textdiv">
                     <label className="Form1-subheading">Service Address</label>
-                    <input className="Form1-textbox" onChange={(e) => setAddress(e.target.value)} defaultValue={defaultAddress} />
+                    <input className="Form1-textbox" onChange={(e) => {setAddress(e.target.value)
+                            setErrAddress("")
+                            setErr1(true)}} defaultValue={defaultAddress} />
                     <p style={{ color: "red" }}><i class="fa-solid fa-circle-exclamation" hidden={Err1} />{ErrAddress}</p>
                 </div>
                 <div className="Form1-textdiv">
                     <label className="Form1-subheading" >Street</label>
-                    <input className="Form1-textbox" defaultValue={Street} onChange={(e) => setStreet(e.target.value)} />
+                    <input className="Form1-textbox" defaultValue={Street} onChange={(e) => {setStreet(e.target.value)
+                            setErrStreet("")
+                            setErr2(true)
+                        }} />
                     <p style={{ color: "red" }}><i class="fa-solid fa-circle-exclamation" hidden={err2} />{ErrStreet}</p>
                 </div>
                 <div className="Form1-textdiv">
                     <label className="Form1-subheading">City</label>
-                    <input className="Form1-textbox" defaultValue={city} onChange={(e) => setCity(e.target.value)} />
+                    <input className="Form1-textbox" defaultValue={city} onChange={(e) => {setCity(e.target.value)
+                    setErrCity("")
+                    setErr3(true)}} />
                     <p style={{ color: "red" }}><i class="fa-solid fa-circle-exclamation" hidden={err3} />{ErrCity}</p>
                 </div>
                 <div className="Form1-textdiv">
                     <label className="Form1-subheading">Postal Code</label>
-                    <input className="Form1-textbox" defaultValue={Post} onChange={(e) => setPost(e.target.value)} />
+                    <input className="Form1-textbox" type='number' defaultValue={Post} onChange={(e) => {setPost(e.target.value)
+                    setErrPost("")
+                    setErr4(true)}} />
                     <p style={{ color: "red" }}><i class="fa-solid fa-circle-exclamation" hidden={err4} />{ErrPost}</p>
                 </div>
                 <div className="Form1-textdiv">
                     <label className="Form1-subheading">Contact Person</label>
-                    <input className="Form1-textbox " defaultValue={defaultName} onChange={(e) => setName(e.target.value)} />
+                    <input className="Form1-textbox " defaultValue={defaultName} onChange={(e) => {setName(e.target.value)
+                    setErrName("")
+                    setErr5(true)}} />
                     <p style={{ color: "red" }}><i class="fa-solid fa-circle-exclamation" hidden={err5} />{ErrName}</p>
                 </div>
                 <div className="Form1-textdiv">
                     <label className="Form1-subheading">Phone Number</label>
-                    <input className="Form1-textbox" defaultValue={defaultPhone} onChange={(e) => setPhone(e.target.value)} />
+                    <input type='number' className="Form1-textbox" defaultValue={defaultPhone} onChange={(e) => {setPhone(e.target.value)
+                            setErrPhone("")
+                            setErr6(true)
+                        }} />
                     <p style={{ color: "red" }}><i class="fa-solid fa-circle-exclamation" hidden={err6} />{ErrPhone}</p>
                 </div>
 

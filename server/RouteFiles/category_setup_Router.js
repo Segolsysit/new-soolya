@@ -57,6 +57,10 @@ category_setup_Router.get("/fetch_items_id/:id",async(req,res)=>{
     const item_by_id = await schema.findById(req.params.id)
     res.json(item_by_id )
 })
+category_setup_Router.get("/fetch_items/:service",async(req,res)=>{
+    const item_by_service = await schema.find({"catagorySetup":req.params.service})
+    res.json(item_by_service)
+})
 
 
 

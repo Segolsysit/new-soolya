@@ -437,7 +437,7 @@ export const Admin = () => {
                                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span className="mr-2 d-none d-lg-inline text-gray-600 small">Soolya Admin</span>
                                                 <img className="img-profile rounded-circle"
-                                                    src="img/undraw_profile.svg"
+                                                    src="https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?w=1380&t=st=1682739237~exp=1682739837~hmac=f11f99f8519b92a3978e86098ddad8b6f27c888139ea4180a3e0339bec6a147e"
                                                     alt='...' />
                                             </div>
                                             {/* <!-- Dropdown - User Information --> */}

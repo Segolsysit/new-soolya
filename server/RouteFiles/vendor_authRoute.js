@@ -6,7 +6,17 @@ const vjwt = require("jsonwebtoken");
 const maxAge = 3 * 24 * 60 * 60;
 
 
-const auth = (req, res, next) => {
+// const auth = (req, res, next) => {
+  
+//     }
+//     );
+//   }
+
+   
+//   } 
+
+// Protected route that can only be accessed by authenticated users
+VendorAuthRoute.get('/',  (req, res) => {
   const token = req.cookies.venjwt;
   if (!token) {
     return res.status(401).json({ msg: 'No token, authorization denied' });
@@ -22,18 +32,8 @@ const auth = (req, res, next) => {
         const user = await VendorAuth.findById(decodedToken.id);
         if (user) res.json({ status: true, users: user.Username });
         else res.json({ status: false });
-        next();
-      }
-    }
-    );
-  }
-
-   
-  } 
-
-// Protected route that can only be accessed by authenticated users
-VendorAuthRoute.get('/', auth, (req, res) => {
-  res.json(`Welcome ${req.users}!`);
+        
+      }})}
 });
 
 VendorAuthRoute.post("/register", async (req, res, next) => {
@@ -114,7 +114,7 @@ VendorAuthRoute.get("/fetch_vendor/:id",async(req,res) => {
       const token = vjwt.sign({ Email: oldUser.Email, id: oldUser._id }, secret, {
         expiresIn: "5m",
       });
-      const link = `http://localhost:3001/vendor_register/reset-password/${oldUser._id}/${token}`;
+      const link = `http://localhost:3001/vendor_Auth/reset-password/${oldUser._id}/${token}`;
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         host:  "smtp.ethereal.email",
@@ -187,7 +187,7 @@ VendorAuthRoute.get("/fetch_vendor/:id",async(req,res) => {
           const salt = await bcrypt.genSalt(10);
           const  encryptedpassword = await bcrypt.hash(Password, salt);
 
-          await Vendor_register_schema.updateOne(
+          await VendorAuth.updateOne(
           {
             _id:id
           },
