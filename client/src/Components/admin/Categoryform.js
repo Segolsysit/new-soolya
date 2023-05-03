@@ -468,6 +468,31 @@ const SubCategory=({formNumber})=>{
         
     },[])
 
+    const handleImgChange = (e) => {
+        let file = e.target.files[0]
+        if (file.size > 2000000) {
+
+
+            toast.error("file size should be less than 2MB", {
+                position: "top-center",
+                theme: "colored"
+            })
+
+        }
+        else if (file.type !== "image/jpeg" && file.type !== "image/jpg") {
+
+            toast.error("jpeg,jpg,png can upload", {
+                position: "top-center"
+            })
+
+        }
+
+        else {
+            setImage(file)
+            setErrImg("")
+        }
+    }
+
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: theme.palette.common.black,
@@ -502,6 +527,32 @@ const SubCategory=({formNumber})=>{
         else if(Image==="No file chosen"||Image===""||Image===null){
             setErrImg("Please select a file")
         }
+        else{
+            const formData = new FormData();
+        formData.append("Category", Category);
+        formData.append("Subcategory", SubCategory);
+        formData.append("Discription", Description);
+        formData.append("file", Image)
+        // console.log(Image.file.originalname);
+        axios.post("http://localhost:3001/sub_api/new_subcategory", formData).then((res) => {
+            // console.log(category);
+            setCategory("");
+            setSubCategory("");
+            setDisciption("");
+            setImage("");
+            toast.success(' uploaded Successed!', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored"
+
+            })
+        })
+        }
     }
 
     if(formNumber===11){
@@ -530,8 +581,7 @@ const SubCategory=({formNumber})=>{
                 setErrDesc("")}}/>
                 <p style={{color:"red"}}>{ErrDesc}</p>
                 <label className="Category-Label">Image</label>
-                <input className="Category-input"type="file" onChange={(e)=>{setImage(e.target.value)
-                setErrImg("")}}/>
+                <input className="Category-input"type="file" onChange={handleImgChange}/>
                 <p style={{color:"red"}}>{ErrImg}</p>
                 <button className="Category-button" type="submit">Add</button>
                 
@@ -622,7 +672,6 @@ const Rejected_list = ({ formNumber }) => {
     }));
 
     const handleOpen = (id) => {
-console.log("hii")
         axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
             setviewdata(response.data);
             console.log(response.data);
