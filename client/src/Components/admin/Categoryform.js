@@ -451,10 +451,16 @@ const SubCategory=({formNumber})=>{
     const[ErrSub,setErrSub]=useState("")
     const[ErrDesc,setErrDesc]=useState("")
     const[ErrImg,setErrImg]=useState("")
+    const[subcategorydata,setsubcategorydata]=useState([])
     useEffect(()=>{
         axios.get("http://localhost:3001/api/fetch_items")
         .then((data)=>{
             setData(data.data)
+        })
+
+        axios.get("http://localhost:3001/sub_api/new_fetch_items")
+        .then((data)=>{
+            setsubcategorydata(data.data)
         })
         
     },[])
@@ -552,13 +558,13 @@ const SubCategory=({formNumber})=>{
                             </TableHead>
                             <TableBody>
                                 {
-                                    // getData.map((data, index) => (
+                                    subcategorydata.map((data, index) => (
 
 
                                         <StyledTableRow>
-                                            <StyledTableCell></StyledTableCell>
+                                            <StyledTableCell>{}</StyledTableCell>
 
-                                            <StyledTableCell><p></p></StyledTableCell>
+                                            <StyledTableCell>{data.Category}</StyledTableCell>
                                             <StyledTableCell><img src="" style={{ width: "5em", height: "5em" }} alt=".........."></img> </StyledTableCell>
 
                                             <StyledTableCell><p></p></StyledTableCell>
@@ -568,7 +574,7 @@ const SubCategory=({formNumber})=>{
                                         </StyledTableRow>
 
 
-                                    // ))
+                                    ))
                                 }
                             </TableBody>
                         </Table>
@@ -686,11 +692,11 @@ console.log("hii")
     const [orderdetails, setorderdetails] = useState([])
 
 
-    const getdata2 = () => {
-        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
-            setorderdetails(res.data)
-        })
-    }
+    // const getdata2 = () => {
+    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+    //         setorderdetails(res.data)
+    //     })
+    // }
 
     useEffect(()=>{
         // getdata2()
