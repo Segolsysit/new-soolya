@@ -83,9 +83,10 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     //     })}
 
     const servicemandata = () =>{
-        axios.get("http://localhost:3001/vendor_Auth/").then((res)=>{
+        axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res)=>{
             setserviceman(res.data)
             console.log(res.data);
+            console.log(serviceman.Email)
         })
     }
 
@@ -415,13 +416,12 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                         </TableHead>
                         <TableBody>
 
-                            {/* {getServiceManData.map((data) => */}
+                            {serviceman.map((data) =>
                             <StyledTableRow>
-                                <StyledTableCell></StyledTableCell>
-                                <StyledTableCell></StyledTableCell>
+                                <StyledTableCell>{a++}</StyledTableCell>
+                                <StyledTableCell>{data.Username}</StyledTableCell>
                                 <StyledTableCell>
-                                    <p></p>
-                                    <p></p>
+                                    {data.Email}
                                 </StyledTableCell>
                                 <StyledTableCell>
                                     <Switch color="primary" /></StyledTableCell>
@@ -431,7 +431,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                     <Button><i class="fa-solid fa-trash"></i></Button>
                                 </StyledTableCell>
                             </StyledTableRow >
-                            {/* )} */}
+                            )}
                         </TableBody>
                     </Table>
                 </TableContainer>
