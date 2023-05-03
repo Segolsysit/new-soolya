@@ -41,8 +41,7 @@ category_setup_Router.post("/new_catagory",upload.single("file"),async(req,res) 
         filename: req.file.filename,
         path: req.file.path,
         size: req.file.size,
-        Desc:req.body.Desc,
-        Price:req.body.Price
+        
        })
        await items.save();
        res.status(200).json({message:"Uploaded Successfully",items})
