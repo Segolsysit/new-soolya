@@ -10,7 +10,7 @@ const dburl = process.env.DB;
 const url = process.env.PORT || 3002;
 const cookieParser = require("cookie-parser")
 
-// const subcategory_router = require("./Router/subcategory_route");
+const subcategory_router = require("./RouteFiles/subcategory_route");
 // const service_router = require("./Router/service_route");
 // const serviceman_route = require("./Router/serviceman_route");
 const category_setup_Router =require("./RouteFiles/category_setup_Router");
@@ -41,7 +41,7 @@ app.use("/booking_api",bookingdetails_router);
 app.use("/authUser",auth_router); 
 app.use('/vendor_Applications', Application_Router)
 app.use("/vendor_Auth",VendorAuthRoute);
-// app.use("/sub_api", subcategory_router)
+app.use("/sub_api", subcategory_router)
 // app.use("/service_api", service_router )
 // app.use("/serviceman",serviceman_route);
  
