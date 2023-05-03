@@ -23,16 +23,21 @@ const ServiceCard=({service,Range})=>{
     console.log(pathname);
 useEffect(()=>{
     if(service==="Select"||service===null||service===undefined){
-        axios.get("http://localhost:3001/api/fetch_items")
+        axios.get("http://localhost:3001/sub_api/new_fetch_items")
         .then((data)=>{
         setData(data.data)
+        const da = Data.map((df)=>{
+            return df.Discription
+        })
+        console.log(da);
     })
     }
     else{
-        axios.get(`http://localhost:3001/api/fetch_items/${service}`)
+        axios.get(`http://localhost:3001/sub_api/new_fetch_items/${service}`)
         .then((data)=>{
         setData(data.data)
-    })
+    }
+    )
     }
     
     setCount(count+1)
@@ -73,7 +78,7 @@ const Navigate=(Number)=>{
     setColor(Number)
 }
 const CurerntPost=Data.slice(Firstpost,Lastpost)
-
+console.log(CurerntPost);
 const [serviceName,setServiceName]=useState("")
 
 useEffect(()=>{
@@ -99,53 +104,10 @@ const localpath = "http://localhost:3001/";
                 <div className="CaroselService-block">
                 {CurerntPost.map(item=>{
 
-if(SearchCategory!=="Select"&&(SearchCategory!==null||SearchCategory!==undefined)&&item.catagorySetup===SearchCategory){
-            return(
-                <div onClick={()=>localStorage.setItem("order_id",item._id)} className="Carosel-cardService">
-                    <>
-                        <img className="Ser-Image" src={localpath + item.filename} alt=""/>
-                        </>
-                        <div className="SERVICECard-body">
-                            <div className="Carosel-sec">
-                                <p className="Category-carosel">{item.catagorySetup}</p>
-                                <h2 className="Carosel-price">${item.Price}</h2>
-                            </div>
-                            <h1 className="Carosel-desc">{item.Desc}</h1>
-                            <div className="Carosel-third">
-                                
-                            </div>
-                        <button className="Carosel-btn">Book Now</button>
-                    </div>
-                    
-        </div>
-        
-            )
-        
-    
-}
 
-
-
-                    else if((service==="Select"||service==="")&&(Range===""||Range==="Select")&&(SearchCategory==="Select"||SearchCategory===undefined||SearchCategory===null)){
-                        return(
-                            <div className="Carosel-cardService">
-                                    <img className="Ser-Image" src={localpath + item.filename} alt=""/>
-                                    <div className="Card-body">
-                                        <div className="Carosel-sec">
-                                            <p className="Category-carosel">{item.catagorySetup}</p>
-                                            <h2 className="Carosel-price">${item.Price}</h2>
-                                        </div>
-                                        <h1 className="Carosel-desc">{item.Desc}</h1>
-                                
-                                    <button onClick={()=>Booking(item._id)} className="Carosel-btn">Book Now</button>
-                                </div>
-                    </div>
-    
-                        )
-                    }
                
-                    else{
-                        if(item.catagorySetup===service){
+                    
+                        if(item.Category===service){
                             console.log(Range+service);
                             
                             if(Range==="Select"||Range===undefined||Range===null||Range===""){
@@ -154,10 +116,10 @@ if(SearchCategory!=="Select"&&(SearchCategory!==null||SearchCategory!==undefined
                                             <img className="Ser-Image" src={localpath + item.filename} alt=""/>
                                             <div className="Card-body">
                                                 <div className="Carosel-sec">
-                                                    <p className="Category-carosel">{item.catagorySetup}</p>
+                                                    <p className="Category-carosel">{item.Subcategory}</p>
                                                     <h2 className="Carosel-price">${item.Price}</h2>
                                                 </div>
-                                                <h1 className="Carosel-desc">{item.Desc}</h1>
+                                                <h1 className="Carosel-desc">{item.Discription}</h1>
                                                 <div className="Carosel-third">
                                                     
                                                 </div>
@@ -207,48 +169,9 @@ if(SearchCategory!=="Select"&&(SearchCategory!==null||SearchCategory!==undefined
                                     )
                                 }
                             }
-                        }
                         
-                        if(Range!==""||Range!==null){
-                            if(Range==="High Price"){
-                                if(item.Price>10){
-                                    return(
-                                        <div onClick={()=>{setServiceName(item.catagorySetup)} } className="Carosel-cardService">
-                                        <img className="Carosel-img" src={localpath + item.filename} alt=""/>
-                                        <div className="Card-body">
-                                            <div className="Carosel-sec">
-                                                <p className="Category-carosel">{item.catagorySetup}</p>
-                                                <h2 className="Carosel-price">${item.Price}</h2>
-                                            </div>
-                                            <h1 className="Carosel-desc">{item.Desc}</h1>
-                                            <div className="Carosel-third">
-                                                
-                                            </div>
-                                        <button className="Carosel-btn">Book Now</button>
-                                    </div>
-                        </div>
-                                    )
-                                }
-                            }
-                            else if(Range==="Low Price") {
-                                if(item.Price<10){return(
-                                    <div onClick={()=>{setServiceName(item.catagorySetup)} } className="Carosel-cardService">
-                                        <img className="Carosel-img" src={localpath + item.filename} alt=""/>
-                                        <div className="Card-body">
-                                            <div className="Carosel-sec">
-                                                <p className="Category-carosel">{item.catagorySetup}</p>
-                                                <h2 className="Carosel-price">${item.Price}</h2>
-                                            </div>
-                                            <h1 className="Carosel-desc">{item.Desc}</h1>
-                                            <div className="Carosel-third">
-                                                
-                                            </div>
-                                        <button className="Carosel-btn">Book Now</button>
-                                    </div>
-                                    </div>
-                                )}
-                            }
-                        }
+                        
+       
                        
                     }
 

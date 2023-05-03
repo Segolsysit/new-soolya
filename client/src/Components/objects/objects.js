@@ -132,7 +132,7 @@ const[Data,setData]=useState([])
         axios.get(`http://localhost:3001/api/fetch_items`)
         .then((data)=>{
         setData(data.data)
-    })})
+    })},[])
 
     const[Selectindex,setIndex]=useState(null)
 
@@ -148,7 +148,7 @@ const[Data,setData]=useState([])
         <div className="cardouter">
             {Data.map((item,index)=> {
                 return (
-                     <div className={index===Selectindex?"card-active":"card"} key={index} onClick={(e)=>{
+                     <div className={index===Selectindex?"card-active":"Category-card"} key={index} onClick={(e)=>{
                      setCat(item.catagorySetup)
                      setIndex(index)}}>
                         <img className="icons" src={localpath + item.filename} alt="" />

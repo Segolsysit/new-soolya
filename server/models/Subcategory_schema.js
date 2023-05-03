@@ -14,6 +14,9 @@ const Subcategory_schema = mongoose.Schema({
     Discription:{
         type:String
     },
+    Price:{
+        type:Number
+    },
     originalname: {
         type: String,
 
