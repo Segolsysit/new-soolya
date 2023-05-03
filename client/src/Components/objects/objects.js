@@ -144,7 +144,7 @@ const[Data,setData]=useState([])
 
     
     return (
-        <div>
+        <div className="Card-dic">
         <div className="cardouter">
             {Data.map((item,index)=> {
                 return (
