@@ -21,6 +21,10 @@
     font-weight: bold;
 }
 
+.Service-body{
+    margin: 60px 0px 60px 0px;
+}
+
 .Service-sec2{
     display: flex;
     justify-content: space-around;

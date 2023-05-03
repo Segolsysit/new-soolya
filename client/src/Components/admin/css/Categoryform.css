@@ -16,9 +16,31 @@
     border-radius: 10px 0px 0px 10px;
 }
 
+.SubCategory{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: rgb(235, 244, 249);
+    padding: 20px;
+    width: 60%; 
+    box-shadow: 10px 10px 40px rgb(215, 227, 240);
+    margin: 10px;
+    border-radius: 20px;
+}
+
+.Table-subcat{
+    width: 100%;
+}
+
+.Subcategory-Outer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .Category-Right{
     object-fit: cover;
-    aspect-ratio: 3/4;
+    aspect-ratio: 3/2;
     width: 40%;
     border-radius: 0px 10px 10px 0px;
     background-color: #252525;

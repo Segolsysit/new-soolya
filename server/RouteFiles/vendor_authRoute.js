@@ -94,6 +94,11 @@ try{
 }
   
 });
+
+VendorAuthRoute.get("/fetch_vendor",async(req,res) => {
+  const getbyid = await VendorAuth.find()
+  res.json(getbyid)
+})
     
 VendorAuthRoute.get("/fetch_vendor/:id",async(req,res) => {
     const getbyid = await VendorAuth.findById(req.params.id)
