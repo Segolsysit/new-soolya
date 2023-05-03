@@ -61,4 +61,19 @@ Application_Router.get("/vendor_application",async(req,res) => {
     const vendorData = await Applicationschema.findById(req.params.id);
      res.json(vendorData)
  })
+
+ Application_Router.delete("/delete_item/:id",async(req,res)=>{
+    const vendorData = await Applicationschema.findById(req.params.id)
+    await fs.unlink(vendorData.path,((err)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log("removed del file");
+        }
+    }));
+     await Applicationschema.findByIdAndDelete(req.params.id)
+     return res.json('Deleted')
+})
+ 
 module.exports=Application_Router;
