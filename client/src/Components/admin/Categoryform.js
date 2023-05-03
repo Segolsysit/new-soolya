@@ -445,6 +445,8 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 const SubCategory=({formNumber})=>{
     const[Data,setData]=useState([])
 
+    let a = 1
+
     const[Category,setCategory]=useState("")
     const[SubCategory,setSubCategory]=useState("")
     const[Description,setDescription]=useState("")
@@ -538,7 +540,7 @@ const SubCategory=({formNumber})=>{
             // console.log(category);
             setCategory("");
             setSubCategory("");
-            setDisciption("");
+            setDescription("");
             setImage("");
             toast.success(' uploaded Successed!', {
                 position: "top-right",
@@ -609,12 +611,12 @@ const SubCategory=({formNumber})=>{
 
 
                                         <StyledTableRow>
-                                            <StyledTableCell>{}</StyledTableCell>
+                                            <StyledTableCell>{a++}</StyledTableCell>
 
                                             <StyledTableCell>{data.Category}</StyledTableCell>
                                             <StyledTableCell><img src="" style={{ width: "5em", height: "5em" }} alt=".........."></img> </StyledTableCell>
 
-                                            <StyledTableCell><p></p></StyledTableCell>
+                                            <StyledTableCell>{data.Discription}</StyledTableCell>
                                             <StyledTableCell><p></p></StyledTableCell>
                                             <StyledTableCell><Button data-bs-toggle="modal"  data-bs-target="#EditCategory"><i class="fa-solid fa-pencil"></i></Button></StyledTableCell>
                                             <StyledTableCell><Button ><i class="fa-regular fa-trash-can"></i></Button></StyledTableCell>
