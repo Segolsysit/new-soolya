@@ -57,8 +57,8 @@
     border-radius: 10px;
     margin: 20px;
     height: fit-content;
-    background-color:rgb(252, 253, 253);
     transition-duration: 1s;
+    background-color:white;
 }
 
 .container-fluid:hover{
@@ -279,5 +279,13 @@
         height: fit-content;
         background-color:rgb(252, 253, 253);
         transition-duration: 1s;
+    }
+    .Vendor-data{
+        color: rgb(253, 252, 252);
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .Vendor-data>i{
+        color: rgb(253, 252, 252);
     }
 }

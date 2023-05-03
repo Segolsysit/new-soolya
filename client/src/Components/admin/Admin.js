@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Admin.css"
-import { CategoryForm, Rejected_list, Orders } from './Categoryform';
+import { CategoryForm, Rejected_list, Orders ,SubCategory} from './Categoryform';
 import DashBoard from './Dashboard';
 import RecivedApplication from './RecivedApplications';
 import { Add_new_service, ServiceList } from './Servicelist';
@@ -154,7 +154,10 @@ export const Admin = () => {
                                             setState(true)
                                             setFormnum(1)
                                         }}>Category Setup</div>
-                                        <a className="collapse-item" href="/subcategorysetup">Sub Category Setup</a>
+                                        <div className="collapse-item" onClick={() => {
+                                            setState(true)
+                                            setFormnum(11)
+                                        }} >Sub Category Setup</div>
                                     </div>
                                 </div>
                             </li>
@@ -475,6 +478,7 @@ export const Admin = () => {
                                 <ServiceList formNumber={Formnum} />
                                 <Add_new_service formNumber={Formnum} />
                                 <RecivedApplication formNumber={Formnum} />
+                                <SubCategory formNumber={Formnum}/>
 
                             </div>
                             {/* <!-- End of Main Content --> */}
