@@ -26,8 +26,6 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
     const [categorySetup, setCatagorySetup] = useState("");
     const [img, setImg] = useState("");
-    const [Desc, setDesc] = useState("")
-    const [Price, setPrice] = useState("")
     const [getData, setgetData] = useState([]);
     const [getbyid, setgetbyid] = useState('');
     const nav = useNavigate()
@@ -147,31 +145,20 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                 theme: "colored"
             })
         }
-        else if (img.type !== "image/jpeg") {
+        else if (img.type !== "image/jpeg" &&img.type!=="image/png") {
 
             toast.error("jpeg,jpg,png can upload", {
                 position: "top-center"
             })
         }
 
-        else if (Desc === "") {
-            toast.error("Enter Description", {
-                position: "top-center"
-            })
-        }
-
-        else if (Price === "") {
-            toast.error("Enter Price", {
-                position: "top-center"
-            })
-        }
+        
 
         else {
             const formdata = new FormData()
             formdata.append("catagorySetup", categorySetup);
             formdata.append("file", img)
-            formdata.append("Desc", Desc)
-            formdata.append("Price", Price)
+            
             axios.post("http://localhost:3001/api/new_catagory/", formdata).then((res) => {
 
                 toast.success(' uploaded Successed!', {
@@ -190,8 +177,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                 categorydata()
                 setCatagorySetup("")
                 setImg("")
-                setDesc("")
-                setPrice("")
+                
 
 
             })
@@ -210,7 +196,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             })
 
         }
-        else if (file.type !== "image/jpeg" && file.type !== "image/jpg") {
+        else if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
 
             toast.error("jpeg,jpg,png can upload", {
                 position: "top-center"
@@ -271,12 +257,11 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         console.log(getbyid);
     }
 
-    const saveChange = (e) => {
+    const saveChange = () => {
         const formdata = new FormData();
         formdata.append("catagorySetup", Editservice);
         formdata.append("file", EditImage)
-        formdata.append("Desc", EditDesc)
-        formdata.append("Price", EditPrice)
+        
         axios.patch(`http://localhost:3001/api//update_items/${getbyid._id}`, formdata).then(() => {
             // alert("updated")
             categorydata();
@@ -315,8 +300,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                     <StyledTableCell>SN</StyledTableCell>
                                     <StyledTableCell>Category</StyledTableCell>
                                     <StyledTableCell>Image</StyledTableCell>
-                                    <StyledTableCell>Desc</StyledTableCell>
-                                    <StyledTableCell>Price</StyledTableCell>
+                                    
                                     <StyledTableCell>Edit</StyledTableCell>
                                     <StyledTableCell>Delete</StyledTableCell>
 
@@ -335,8 +319,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                             <StyledTableCell><p>{data.catagorySetup}</p></StyledTableCell>
                                             <StyledTableCell><img src={localpath + data.filename} style={{ width: "5em", height: "5em" }} alt=".........."></img> </StyledTableCell>
 
-                                            <StyledTableCell><p>{data.Desc}</p></StyledTableCell>
-                                            <StyledTableCell><p>{data.Price}</p></StyledTableCell>
+                                            
                                             <StyledTableCell><Button data-bs-toggle="modal" onClick={() => EditFun(data._id)} data-bs-target="#EditCategory"><i class="fa-solid fa-pencil"></i></Button></StyledTableCell>
                                             <StyledTableCell><Button onClick={() => delete_item(data._id)}><i class="fa-regular fa-trash-can"></i></Button></StyledTableCell>
                                         </StyledTableRow>
@@ -376,10 +359,9 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form className="category_form" id="category_form" onSubmit={() => saveChange(getbyid._id)}>
+                                    <form className="category_form" id="category_form" onSubmit={()=>saveChange(getbyid._id)}>
                                         <TextField type="text" placeholder={getbyid.catagorySetup} onChange={(e) => setEditservice(e.target.value)} label="Service" /><br></br>
-                                        <TextField type="text" placeholder={getbyid.Desc} onChange={(e) => setEditDesc(e.target.value)} label="Description" /><br></br>
-                                        <TextField type="text" placeholder={getbyid.Price} onChange={(e) => setEditPrice(e.target.value)} label="Price" /><br></br>
+                                        
                                         <TextField type="file" onChange={(e) => setEditImage(e.target.files[0])} /><br></br>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

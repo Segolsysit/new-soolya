@@ -26,14 +26,7 @@ const schema = mongoose.Schema({
         type: Number,
 
     },
-    Desc: {
-        type: String,
-
-    },
-    Price: {
-        type: Number,
-
-    }
+    
 
 });
 

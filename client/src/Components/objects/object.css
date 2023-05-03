@@ -13,12 +13,14 @@
 .card-active{
     display: flex;
     flex-direction: column;
-    background-color: dodgerblue;
+    background-color: rgb(7, 126, 244);
     align-items: center;
     gap:10px;
     border-radius: 3px;
-    padding: 20px;
     transition-duration: 0.5s;
+    cursor: pointer;
+    padding: 20px;
+    width:10rem;
 }
 
 .card-active>h3{
@@ -43,9 +45,8 @@
     border-radius: 3px;
     position: relative;
     top: 100%;
-    margin: 10px;
-    margin-top: -50px;
     text-align: right;
+    margin: 10px;
 }
 .Filterbtn-div{
     display: flex;
@@ -71,8 +72,6 @@
     flex-direction: row;
     gap:20px;
     justify-content: space-around;
-    position: sticky;
-    top: 0px;
 }
 .main{
     margin: 0px;

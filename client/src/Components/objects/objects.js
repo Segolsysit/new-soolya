@@ -127,38 +127,12 @@ const MenuBar = () => {
 
 const Category = ({Cat,setCat}) => {
 //hello
-    const data = [{
-        "Name": "Ac Repair",
-        "Extras": "5+service",
-        "src": "https://cdn-icons-png.flaticon.com/512/2554/2554117.png"
-    },
-    {
-        "Name": "Car wash",
-        "Extras": "5+service",
-        "src": "https://png.pngtree.com/png-clipart/20191120/original/pngtree-car-repair-line-icon-vector-png-image_5079274.jpg"
-    },
-    {
-        "Name": "cleaning",
-        "Extras": "3+service",
-        "src": "https://cdn-icons-png.flaticon.com/512/995/995053.png"
-    },
-    {
-        "Name": "Painting",
-        "Extras": "1+service",
-        "src": "https://www.pngkey.com/png/full/30-300638_paint-brush-vector-png-painting-icon.png"
-    },
-    {
-        "Name": "Pest Control",
-        "Extras": "2+service",
-        "src": "https://cdn-icons-png.flaticon.com/512/4295/4295647.png"
-    },
-    {
-        "Name": "Plumbing",
-        "Extras": "5+service",
-        "src": "https://e7.pngegg.com/pngimages/464/476/png-clipart-plumber-computer-icons-plumbing-home-repair-others-miscellaneous-text.png"
-    },
-
-    ]
+const[Data,setData]=useState([])
+    useEffect(()=>{
+        axios.get(`http://localhost:3001/api/fetch_items`)
+        .then((data)=>{
+        setData(data.data)
+    })})
 
     const[Selectindex,setIndex]=useState(null)
 
@@ -166,18 +140,20 @@ const Category = ({Cat,setCat}) => {
         setIndex(null)
         setCat("Select")
     }
+    const localpath = "http://localhost:3001/";
+
     
     return (
         <div>
         <div className="cardouter">
-            {data.map((item,index)=> {
+            {Data.map((item,index)=> {
                 return (
-                     <div className="card" key={index} onClick={(e)=>{
-                     setCat(item.Name)
+                     <div className={index===Selectindex?"card-active":"card"} key={index} onClick={(e)=>{
+                     setCat(item.catagorySetup)
                      setIndex(index)}}>
-                        <img className="icons" src={item.src} alt="" />
-                        <h3 className="main">{item.Name}</h3>
-                        <p className="extras">{item.Extras}</p>
+                        <img className="icons" src={localpath + item.filename} alt="" />
+                        <h3 className="main">{item.catagorySetup}</h3>
+                        <p className="extras">service</p>
                     </div>
 
                         
