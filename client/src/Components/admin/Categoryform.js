@@ -38,6 +38,8 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
     const [EditImage, setEditImage] = useState('');
 
+    const [serviceman,setserviceman] = useState([])
+
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -67,9 +69,9 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             backgroundColor: theme.palette.action.hover,
         },
         // hide last border
-        '&:last-child td, &:last-child th': {
-            border: 0,
-        },
+        // '&:last-child td, &:last-child th': {
+        //     border: 0,
+        // },
     }));
 
     // const [orderdetails, setorderdetails] = useState([])
@@ -80,10 +82,18 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     //         setorderdetails(res.data)
     //     })}
 
+    const servicemandata = () =>{
+        axios.get("http://localhost:3001/vendor_Auth/").then((res)=>{
+            setserviceman(res.data)
+            console.log(res.data);
+        })
+    }
+
     useEffect(() => {
         // getdata2()
         categorydata()
         verify()
+        servicemandata ()
     }, [])
 
     // const adminlogout = ()=>{
@@ -437,9 +447,23 @@ const Rejected_list = ({ formNumber }) => {
 
     let serialNumber = 1;
 
+    const style1 = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+      };
+
     const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
     const [rejected, setregected] = useState([])
     const [viewdata, setviewdata] = useState([]);
+    const [open, setOpen1] = useState(false);
+    const [openModel2, setOpenModel2] = useState(false);
 
     const aemail = localStorage.getItem("adminemail")
     const apassword = localStorage.getItem("adminpassword")
@@ -455,14 +479,32 @@ const Rejected_list = ({ formNumber }) => {
         },
     }));
 
+    const handleOpen = (id) => {
+console.log("hii")
+        axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
+            setviewdata(response.data);
+            console.log(response.data);
+        })
+      setOpen1(true);
+    };
+
+    const handleClose = () => {
+        setOpen1(false);
+        setOpenModel2(false)
+      };
+
+      const handleOpenModel2 = () => {
+        setOpenModel2(true)
+        setOpen1(false)
+    }
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
         '&:nth-of-type(odd)': {
             backgroundColor: theme.palette.action.hover,
         },
         // hide last border
-        '&:last-child td, &:last-child th': {
-            border: 0,
-        },
+        // '&:last-child td, &:last-child th': {
+        //     border: 0,
+        // },
     }));
 
 
@@ -499,6 +541,9 @@ const Rejected_list = ({ formNumber }) => {
 
     }
 
+    
+
+
     const [orderdetails, setorderdetails] = useState([])
 
 
@@ -508,11 +553,11 @@ const Rejected_list = ({ formNumber }) => {
         })
     }
 
-    // useEffect(()=>{
-    //     getdata2()
-    //     getrejected_list()
-    //     verify()
-    // })
+    useEffect(()=>{
+        // getdata2()
+        getrejected_list()
+        // verify()
+    })
 
     const viewdeatils = (id) => {
         axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
@@ -549,8 +594,7 @@ const Rejected_list = ({ formNumber }) => {
                                         <Switch color="primary" /></StyledTableCell>
                                     <StyledTableCell>
                                         <Button
-                                            type="button" data-toggle="modal" data-target="#exampleModalCenter"
-                                            onClick={() => viewdeatils(data._id)}
+                                            type="button" onClick={() => handleOpen(data._id)}
                                         ><i class="fa-solid fa-eye"></i></Button>
                                     </StyledTableCell>
                                 </StyledTableRow>
@@ -561,6 +605,28 @@ const Rejected_list = ({ formNumber }) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <div>
+                    
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="parent-modal-title"
+                        aria-describedby="parent-modal-description"
+                    >
+                        <Box sx={{ ...style1, width: 400 }}>
+                       <p><b>Name</b> : {viewdata.FirstName}</p>
+                       <p>Email    : {viewdata.Email}</p>
+                       <p>phone    : {viewdata.Phone}</p>
+                       <p>Address  : {viewdata.Address}</p>
+                       <p>Location : {viewdata.Location}</p>
+                       {/* <ChildModal close={setOpen1}/> */}
+                       <Button onClick={handleOpenModel2}>hire</Button>
+                       {/* <Button onClick={() => reject_data()}>Reject</Button> */}
+
+                        {/* <ChildModal /> */}
+                        </Box>
+                    </Modal>
+            </div>
 
             </div>
         )

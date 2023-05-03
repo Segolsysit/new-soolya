@@ -19,7 +19,7 @@ const Application_Router=require('./RouteFiles/Application_router');
 const bookingdetails_router = require("./RouteFiles/bookingdetails_router");
 // const cart_router = require("./Router/cart_router");
 // const bookingdetails_router = require("./Router/bookingdetails_router");
-// const RejectedList_router = require("./Router/RejectedList_router");
+const RejectedList_router = require("./RouteFiles/RejectedList_router");
 const VendorAuthRoute = require("./RouteFiles/vendor_authRoute");
 // const Footer_form_router = require("./Router/Footer_form_router");
 // const feedback_api = require ("./Router/feedback")
@@ -47,7 +47,7 @@ app.use("/vendor_Auth",VendorAuthRoute);
  
 // app.use("/cart_api",cart_router);
 // app.use("/booking_api",bookingdetails_router);
-// app.use("/reject_api",RejectedList_router);
+app.use("/reject_api",RejectedList_router);
 
 // app.use("/footer_api",Footer_form_router);
 // app.use("/feedback_api",feedback_api);

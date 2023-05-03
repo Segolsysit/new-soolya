@@ -543,6 +543,10 @@ a{
     border-radius: 10px;
     margin-top: 30px;
 }
+.Div-select{
+    align-items: center;
+    justify-content: center;
+}
 .solid{
     display: none;
 }
@@ -587,9 +591,9 @@ a{
 }
 
 .secondarycontent{
-    position: absolute;
-    top:58rem;
-    right:3rem;
+    position: relative;
+    top:-4rem;
+    right:-10rem;
     display: flex;
     gap: 5px;
     flex-direction: column;
@@ -599,12 +603,13 @@ a{
     border-radius: 50px;
     border: 5px white;
     border-style: solid;
+    width: fit-content;
     
 
 }
 
 .secondary{
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .selection{
