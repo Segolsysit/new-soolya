@@ -57,7 +57,7 @@ const RecivedApplication = ({ formNumber }) => {
 
     const handleVendorAuth = async (e) => {
         e.preventDefault()
-        
+
 
         if (vendorName === "") {
             setNameErr(true)
@@ -84,6 +84,11 @@ const RecivedApplication = ({ formNumber }) => {
                 setemailerr(response.data.message);
             } else {
                 setSuccess(response.data.message)
+                deleteapplication()
+                getdata()
+                toast.info("Registration Completed", {
+                    position: "top-center",
+                });
                 setTimeout(() => {
                     setVendorName("")
                     setVendorEmail("")
@@ -94,8 +99,7 @@ const RecivedApplication = ({ formNumber }) => {
                 }, 3000);
             }
         }
-        deleteapplication()
-                getdata()
+
 
     }
 
