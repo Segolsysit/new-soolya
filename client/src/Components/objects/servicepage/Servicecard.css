@@ -4,13 +4,13 @@
     gap: 30px;
     padding: 20px;
     justify-content:space-evenly;
-    margin: 10px 40px 10px 40px;
 }
 
 .CaroselCard-block{
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
+    margin-top: -100px;
 }
 
 .Carosel-cardService{
@@ -22,6 +22,11 @@
     transition-duration: 1s;
     overflow: hidden;
     justify-content: space-between;
+}
+
+.NoService{
+    margin: 100px;
+    margin-top: 0px;
 }
 
 .SERVICECard-body{

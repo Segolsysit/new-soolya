@@ -204,7 +204,7 @@ const Page2 = () => {
     const id=localStorage.getItem("order_id")
 
     function get(){
-        axios.get(`http://localhost:3001/api/fetch_items_id/${id}`)
+        axios.get(`http://localhost:3001/sub_api/Book_new_fetch_items/${id}`)
         .then((data)=>setData(data.data))
     }
     useEffect(()=>{
@@ -227,7 +227,7 @@ const Page2 = () => {
                     <h2 className="Form2-heading">Billing Summary</h2>
                     <div className="Form2-contactdiv">
                             <div className="Purchase-data">
-                                <p className="Bill-data">Item:<p style={{color:"grey",fontWeight:"400",margin:"0px"}}>{Data.Desc}</p></p>
+                                <p className="Bill-data">Item:<p style={{color:"grey",fontWeight:"400",margin:"0px"}}>{Data.Subcategory}</p></p>
                                 <p className="Bill-data">Price:<p style={{color:"grey",fontWeight:"400",margin:"0px"}}>${Data.Price}</p></p>
                                 </div>
                         <ul className="Form2-ul">
@@ -257,8 +257,8 @@ const Page3 = ({ Page, setPage }) => {
   const Orderid=localStorage.getItem("order_id")
 
   function get(){
-      axios.get(`http://localhost:3001/api/fetch_items_id/${Orderid}`)
-      .then((data)=>setData(data.data))
+    axios.get(`http://localhost:3001/sub_api/Book_new_fetch_items/${Orderid}`)
+    .then((data)=>setData(data.data))
   }
   useEffect(()=>{
        get()
@@ -279,34 +279,6 @@ const Page3 = ({ Page, setPage }) => {
     }
     else{
       localStorage.setItem("paymentType",selectedOption);
-      
-      var options = {
-        key:"rzp_test_1SnQnLm783h5Op",
-        key_secret:"W3x1XiUXiyqIKQJrSBqaXGmE",
-        amount:Data.Price *100,
-        currency:"INR",
-        name:"SOOLYA",
-        description:"Payment here",
-        handler:function(res){
-            console.log(res);
-            alert(res.razorpay_payment_id);
-        },
-        prefill:{
-            name:'vignesh',
-            email:"vigneshvignesh4727@gmail.com",
-            contact:"9791823953"
-        },
-        notes:{
-            address:"Segolsys software solutions"
-        },
-        theme:{
-            color:"#3399cc"
-        }
-    };
-
-    var pay = new window.Razorpay(options);
-
-    pay.open();
     }
     console.log(selectedOption);
     // handle payment based on selected option

@@ -6,7 +6,7 @@ import '../home.css'
 import'./dashboard.css'
 import { Link } from "react-router-dom";
 import {useCookies} from 'react-cookie'
-import {UserProfile,UserOrders, VendorOrders} from "./Userdashboardcomps/Dashboard components";
+import {UserProfile,UserOrders, VendorOrders, PendingOrders} from "./Userdashboardcomps/Dashboard components";
 import { useLocation } from "react-router-dom";
 import jwt_decode from  "jwt-decode"
 import axios from "axios";
@@ -132,7 +132,7 @@ const[Data,setData]=useState([])
         axios.get(`http://localhost:3001/api/fetch_items`)
         .then((data)=>{
         setData(data.data)
-    })})
+    })},[])
 
     const[Selectindex,setIndex]=useState(null)
 
@@ -144,11 +144,11 @@ const[Data,setData]=useState([])
 
     
     return (
-        <div>
+        <div className="Card-dic">
         <div className="cardouter">
             {Data.map((item,index)=> {
                 return (
-                     <div className={index===Selectindex?"card-active":"card"} key={index} onClick={(e)=>{
+                     <div className={index===Selectindex?"card-active":"Category-card"} key={index} onClick={(e)=>{
                      setCat(item.catagorySetup)
                      setIndex(index)}}>
                         <img className="icons" src={localpath + item.filename} alt="" />
@@ -918,17 +918,7 @@ const VendorDashboard=()=>{
         }
         const fetchData = async() => {
             if(!cookies.venjwt){
-                // toast.error('Authorization denied, Please logIn', {
-                //     position: "top-center",
-                //     autoClose: false,
-                //     hideProgressBar: true,
-                //     closeOnClick: true,
-                //     pauseOnHover: true,
-                //     draggable: true,
-                //     progress: undefined,
-                //     theme: "colored",
-                //     });
-            //   safdsggf
+              
             Swal.fire({
                 title: 'Access denied?',
                 text: "Please login!",
@@ -971,11 +961,13 @@ const VendorDashboard=()=>{
                         <ul className="Sidebar-ul">
                             <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}><i class="fa-solid fa-user"/><p className="Sidebar-lable">My Profile</p></li>
                             <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">Orders</p></li>
+                            <li className={state===3? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(3)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">Pending Orders</p></li>
                         </ul>
                     </div>
                     <div className="Dashboard-right" >
                         <VendorProfile State={state}/>
                         <VendorOrders State={state}/>
+                        <PendingOrders State={state}/>
                     </div>
     
                 </div>

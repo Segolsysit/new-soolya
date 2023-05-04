@@ -34,6 +34,7 @@ subcategory_router.post("/new_subcategory",upload.single("file"),async(req,res) 
         Category:req.body.Category,
         Subcategory:req.body.Subcategory,
         Discription:req.body.Discription,
+        Price:req.body.Price,
         originalname: req.file.originalname,
         mimetype: req.file.mimetype,
         filename: req.file.filename,
@@ -54,9 +55,14 @@ subcategory_router.get("/new_fetch_items_limits",async(req,res)=>{
     res.json( new_fetch_items)
 })
 
-subcategory_router.get("/new_fetch_items/:id",async(req,res)=>{
+subcategory_router.get("/Book_new_fetch_items/:id",async(req,res)=>{
     const item_by_id = await subcategoyr_schema.findById(req.params.id)
     res.json(item_by_id )
+})
+
+subcategory_router.get("/new_fetch_items/:service",async(req,res)=>{
+    const Find_By_service = await subcategoyr_schema.find({"Category":req.params.service})
+    res.json(Find_By_service )
 })
 
 subcategory_router.patch("/update_subcategory/:id",upload.single('file'),async(req,res)=>{

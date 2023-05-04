@@ -1,33 +1,16 @@
-.card{
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(242, 246, 250);
+
+
+.Card-dic{
     align-items: center;
-    gap:10px;
-    border-radius: 3px;
-    transition-duration: 0.5s;
-    cursor: pointer;
-    padding: 20px;
-    width:10rem;
-}
-.card-active{
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(7, 126, 244);
-    align-items: center;
-    gap:10px;
-    border-radius: 3px;
-    transition-duration: 0.5s;
-    cursor: pointer;
-    padding: 20px;
-    width:10rem;
 }
 
 .card-active>h3{
     color: white;
+    margin: 0px;
 }
 .card-active>p{
     color: white;
+    margin: 0px;
 }
 
 .cardouter a{
@@ -65,13 +48,47 @@
     border-radius: 50%;
     object-fit:scale-down;
     margin-bottom: 30px;
+    margin: 10px;
+    margin-bottom: 20px;
+}
+
+.cardouter::-webkit-scrollbar{
+    visibility: hidden;
 }
 
 .cardouter{
     display: flex;
-    flex-direction: row;
-    gap:20px;
-    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    margin: 20px;
+    overflow-x: scroll;
+}
+.Category-card{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(242, 246, 250);
+    align-items: center;
+    gap:10px;
+    border-radius: 3px;
+    transition-duration: 0.5s;
+    cursor: pointer;
+    padding: 10px;
+    width: 30rem;
+    height: fit-content;
+}
+.card-active{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(7, 126, 244);
+    align-items: center;
+    gap:10px;
+    border-radius: 3px;
+    transition-duration: 0.5s;
+    cursor: pointer;
+    padding: 10px;
+    width:20rem;
+    height: fit-content;
+
 }
 .main{
     margin: 0px;
@@ -81,19 +98,19 @@
     text-decoration: none;
 }
 
-.card:hover {
+.Category-card:hover {
     background-color: dodgerblue;
     color: white;
     text-decoration: none;
 }
 
 
-.card:hover .main{
+.Category-card:hover .main{
     color: white;
     text-decoration: none;
 }
 
-.card:hover .extras{
+.Category-card:hover .extras{
     color: white;
     text-decoration: none;
 }
@@ -426,26 +443,8 @@
 }
 
 
-.card{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: rgb(242, 246, 250);
-    align-items: center;
-    gap:10px;
-    border-radius: 3px;
-    transition-duration: 0.5s;
-    height: 14rem;
-    padding: 100px;
-    margin: 10px;
-}
-.cardouter{
-    display: flex;
-    flex-direction: row;
-    gap:20px;
-    justify-content: space-between;
-    overflow-x: scroll;
-}
+
+
 
 .cardouter::-webkit-scrollbar{
     visibility: hidden;
