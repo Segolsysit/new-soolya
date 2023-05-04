@@ -150,7 +150,7 @@ const RecivedApplication = ({ formNumber }) => {
     const [application, setApplication] = useState([])
     useEffect(() => {
         getdata()
-    })
+    },[])
 
     if (formNumber === 10) {
         return (
