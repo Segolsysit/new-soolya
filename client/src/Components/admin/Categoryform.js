@@ -18,6 +18,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import Switch from '@mui/material/Switch';
+import Swal from "sweetalert2";
 
 
 import { Toast } from "bootstrap";
@@ -86,6 +87,27 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             console.log(res.data);
             console.log(serviceman.Email)
         })
+    }
+
+    const deleteOpen = (_id) =>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`http://localhost:3001/vendor_Auth/delete_item/${_id}`)
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            }
+          })
     }
 
     useEffect(() => {
@@ -370,7 +392,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                 <StyledTableCell>
                                     <Button><i class="fa-solid fa-pencil"></i></Button>
                                     <Button><i class="fa-solid fa-eye"></i></Button>
-                                    <Button><i class="fa-solid fa-trash"></i></Button>
+                                    <Button type="button" onClick={() => deleteOpen(data._id)}><i class="fa-solid fa-trash"></i></Button>
                                 </StyledTableCell>
                             </StyledTableRow >
                             )}
@@ -636,13 +658,33 @@ const Rejected_list = ({ formNumber }) => {
     }));
 
     const handleOpen = (_id) => {
-        console.log("hii")
         axios.get(`http://localhost:3001/reject_api/rejected_data/${_id}`).then((response) => {
             setviewdata(response.data);
             console.log(response.data);
         })
       setOpen1(true);
     };
+
+    const deleteOpen = (_id) =>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`http://localhost:3001/reject_api/delete_item/${_id}`)
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            }
+          })
+    }
 
     const handleClose = () => {
         setOpen1(false);
@@ -733,6 +775,9 @@ const Rejected_list = ({ formNumber }) => {
                                         <Button
                                             type="button" onClick={() => handleOpen(data._id)}
                                         ><i class="fa-solid fa-eye"></i></Button>
+                                        <Button
+                                        type="button" onClick={() => deleteOpen(data._id)}
+                                        ><i class="fa-solid fa-trash"></i></Button>
                                     </StyledTableCell>
                                 </StyledTableRow>
                             )}

@@ -155,7 +155,7 @@ const VendorProfile=({State})=>{
                     })
                  // orders1()
             
-        },[state])
+        },[])
        
 
         useEffect(()=>{
@@ -163,7 +163,7 @@ const VendorProfile=({State})=>{
                 setCount(count+1)
 
             }
-        })
+        },[])
     
         const orders = () => {
             console.log(userId);
@@ -171,7 +171,6 @@ const VendorProfile=({State})=>{
           }
 
 
-              console.log(myorders);
     
     
 
@@ -396,14 +395,12 @@ const VendorOrders=({State})=>{
              setVendorDetails(res.data)
             })
          }
-    console.log(vendorDetails);
          function vendor_orders(){
             axios.get(`http://localhost:3001/booking_api/pending_booking_data/${vendorDetails.Email}`)
             .then((res)=>{
                 setPendingorders(res.data)
             })
          }
-    console.log(pendingorders);
         useEffect(() => {
             get_vendor()
             vendor_orders()
