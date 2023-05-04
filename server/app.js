@@ -23,7 +23,7 @@ const RejectedList_router = require("./RouteFiles/RejectedList_router");
 const VendorAuthRoute = require("./RouteFiles/vendor_authRoute");
 // const Footer_form_router = require("./Router/Footer_form_router");
 // const feedback_api = require ("./Router/feedback")
-// const twilioOtpRoute = require("./Router/twilioRoute")
+const twilioOtpRoute = require("./RouteFiles/twilioRoute")
 // server.on("request", app)
 app.use(express.urlencoded({extended:false}))
 app.set("view engine","ejs")
@@ -51,7 +51,7 @@ app.use("/reject_api",RejectedList_router);
 
 // app.use("/footer_api",Footer_form_router);
 // app.use("/feedback_api",feedback_api);
-// app.use("/twilioOtp",twilioOtpRoute);
+app.use("/twilioOtp",twilioOtpRoute);
 
 app.use(express.static(path.join(__dirname, "js")));
 app.use(express.static(path.join(__dirname, "files&img")));
