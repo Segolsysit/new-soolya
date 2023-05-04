@@ -325,6 +325,112 @@ const VendorOrders=({State})=>{
      }
  
  
+     const PendingOrders=({State})=>{
+        // const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+        const [orderdetails, setorderdetails] = useState([])
+        
+        const [notificationCount, setNotificationCount] = useState(0);
+        const nav = useNavigate()
+    
+        const StyledTableCell = styled(TableCell)(({ theme }) => ({
+            [`&.${tableCellClasses.head}`]: {
+                backgroundColor: theme.palette.common.black,
+                color: theme.palette.common.white,
+            },
+            [`&.${tableCellClasses.body}`]: {
+                fontSize: 14,
+                border: 0,
+            },
+        }));
+    
+        const StyledTableRow = styled(TableRow)(({ theme }) => ({
+            '&:nth-of-type(odd)': {
+                backgroundColor: theme.palette.action.hover,
+            },
+            // hide last border
+            // '&:last-child td, &:last-child th': {
+            //     border: 0,
+            // },
+        }));
+    
+    
+        
+    
+       
+    
+    
+    
+        // useEffect(() => {
+        //     getdata()
+            
+        // },[])
+    
+        // function resetNoti() {
+        //     setNotificationCount("")
+        // }
+   
+        useEffect(()=>{
+           if (State === 3){
+               window.scroll(0,100000)
+           }
+       },[State])
+    
+        if(State===3){
+           return (
+               <div className="container-fluid vendor-container">
+                   <h1>PendingOrder Deatails</h1>
+                   {/* <TableContainer component={Paper} style={{padding:"20px",alignItems:"center",justifyContent:"center"}}>
+                       <Table className='table-cat' style={{margin:"0px"}}>
+                           <TableHead>
+                               <TableRow>
+                                   <StyledTableCell align="center">SN</StyledTableCell>
+                                   <StyledTableCell align="center">Name</StyledTableCell>
+                                   <StyledTableCell align="center">Email</StyledTableCell>
+                                   <StyledTableCell align="center">Category</StyledTableCell>
+                                   <StyledTableCell align="center">Price</StyledTableCell>
+                                   <StyledTableCell align="center">Address</StyledTableCell>
+                                   <StyledTableCell align="center">Number</StyledTableCell>
+                                   <StyledTableCell align="center">paymentMethod</StyledTableCell>
+                                   <StyledTableCell align="center">Action</StyledTableCell>
+   
+   
+   
+                               </TableRow>
+                           </TableHead>
+                           <TableBody>
+                               {
+                                   orderdetails.map((data, index) => (
+   
+   
+                                       <StyledTableRow key={index}>
+                                           <StyledTableCell>{a++}</StyledTableCell>
+   
+                                           <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                           <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
+                                           <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
+                                           <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
+                                           <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
+                                           <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
+                                           <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                           <StyledTableCell align="center"><button className="Action-btn">completed</button></StyledTableCell>
+                                       </StyledTableRow>
+   
+   
+                                   ))
+                               }
+                           </TableBody>
+                       </Table>
+                   </TableContainer> */}
+   
+               </div>
+   
+   
+   
+           )
+        }
+            
+        }
+    
 
 
 const UserOrders=({State,Loader,setLoader})=>{
@@ -465,4 +571,4 @@ else return null
     
 }
 
-export  {UserProfile,UserOrders,VendorProfile,VendorOrders}
+export  {UserProfile,UserOrders,VendorProfile,VendorOrders,PendingOrders}
