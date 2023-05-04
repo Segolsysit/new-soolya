@@ -23,7 +23,7 @@ const[Data,setData]=useState([])
 
 
 
-const[Service,setService]=useState("")
+const[Service,setService]=useState("Select")
 const[PriceRange,setPricerange]=useState("")
 
 useEffect(()=>{
@@ -39,7 +39,10 @@ const[Cat,setCat]=useState("Select")
 useEffect(()=>{
     console.log(Cat);
     setService(Cat)
-    window.scroll(0,600)
+    if(Cat!=="Select"){
+        window.scroll(0,400)
+    }
+    
 },[Cat])
 
     return(

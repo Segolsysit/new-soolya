@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './home.css'
-import {Category,  Carosel,Ad,Popular, Join, Store,Testimonials, LatestNews ,Subscribe,Footer,End,MenuList, Header, MenuBar} from "./objects/objects";
+import {Category,  Carosel,Ad,Popular, Join, Store,Testimonials, LatestNews ,Subscribe,Footer,End,MenuList, Header, MenuBar, CategoryHome} from "./objects/objects";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -22,7 +22,8 @@ const Home=()=>{
 
   useEffect(()=>{
     if(pathname!=="/service"){
-        localStorage.removeItem("SearchCategory")
+        localStorage.removeItem("SubcategoryID")
+        localStorage.removeItem("SubCategory")
     }
 },[pathname])
 
@@ -112,7 +113,7 @@ const Home=()=>{
             <h1 className="SubHead">Our Categories</h1>
             <p>There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration</p>
             </>
-            <Category/>
+            <CategoryHome/>
         </div>
         <div className="Featured">
             <>
