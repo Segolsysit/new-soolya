@@ -7,6 +7,9 @@ import { useEffect, } from "react";
 import axios from "axios"
 import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
+import Swal from "sweetalert2";
+import 'animate.css';
+
 const Login = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
     const Navigate=useNavigate();
@@ -434,6 +437,7 @@ const[Phone,setPhone]=useState("")
 const[Address,setAddress]=useState("")
 const[Category,setCategory]=useState("")
 const[File,setFile]=useState("")
+const Navigate=useNavigate();
 
 const[Pno,setPno]=useState(1)//page number
 
@@ -657,9 +661,20 @@ const Form3=(e)=>{
         formdata.append("Address",Address)
         formdata.append("Category",Category)
         axios.post("http://localhost:3001/vendor_Applications/Applications",formdata)
-        .then((response)=>{console.log(response.data);})
+        .then(()=>{
+            Swal.fire({
+                title: 'Your Application is recived We will contact you soon...',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+              });Navigate("/")
+        })
     }
 }
+   
 
 if(Pno===3){
     return(
