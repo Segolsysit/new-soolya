@@ -73,10 +73,10 @@ const pendingOderSchema =new mongoose.Schema({
     }
 })
 
-const pendingOders_schema = mongoose.model("pendingOders_schema", pendingOderSchema)
-const bookingdetails_schema = mongoose.model("bookingdetails_schema", bookingdetailSchema)
+const pendingOrders_Model = mongoose.model("pendingOrders_Model", pendingOderSchema)
+const bookingdetails_Model = mongoose.model("bookingdetails_Model", bookingdetailSchema)
 
 module.exports = {
-    pendingOders_schema,
-    bookingdetails_schema
+    pendingOrders_Model,
+    bookingdetails_Model
 }
