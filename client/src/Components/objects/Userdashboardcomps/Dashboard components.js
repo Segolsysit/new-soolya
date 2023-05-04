@@ -1,6 +1,6 @@
 import React from "react";
 import './Usercomponents.css'
-import { Table, TableBody, TableCell, TableRow, TableHead } from '@mui/material';
+import { Table, TableBody, TableCell, TableRow, TableHead, Button } from '@mui/material';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useState,useEffect } from "react";
@@ -11,8 +11,19 @@ import { styled } from '@mui/material/styles';
 import  { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
-
-
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 
 const UserProfile=({State})=>{
@@ -127,7 +138,7 @@ const VendorProfile=({State})=>{
     const userId = decodedToken.id;
     const[count,setCount]=useState(0)
     const[dummy,setDummy]=useState(0)
-    const useremail = myorders.Email
+    // const useremail = myorders.Email
     const { pathname } = useLocation();
         useEffect(() => {
         window.scrollTo(0, 0);
@@ -155,7 +166,7 @@ const VendorProfile=({State})=>{
                     })
                  // orders1()
             
-        },[state])
+        },[state,token])
        
 
         useEffect(()=>{
@@ -218,7 +229,12 @@ const VendorOrders=({State})=>{
      const [cookies, setCookie, removeCookie] = useCookies([]);
      const [notificationCount, setNotificationCount] = useState(0);
      const [vendorDetails, setVendorDetails] = useState(null);
-     const [otpSent, setOTPSent] = useState(false);
+    //  const [otpSent, setOTPSent] = useState(false);
+    const [otp, setOtp] = useState('');
+    const [open, setOpen] = useState(false);
+
+//   const [token, setToken] = useState('');
+  const [error, setError] = useState('');
      const nav = useNavigate()
  
      const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -254,26 +270,41 @@ const VendorOrders=({State})=>{
         })
      }
  
-     const acceptOrder = (order) => {
-        axios.post(`http://localhost:3001/booking_api/pending_orders/${order._id}`,{
-            vendor_email:vendorDetails.Email,
-            address: order.address,
-            street:order.street,
-            city:order.city,
-            zip:order.zip,
-            person:order.person,
-            number:order.number,
-            Service:order.Service,
-            Category: order.Category,
-            price:order.price,
-            paymentMethod:order.paymentMethod
-        })
-        setOTPSent(true)
-        axios.delete(`http://localhost:3001/booking_api/delete_item/${order._id}`)
-        alert("posted")
-        getdata()
+     const handleOpen = () => {
+        setOpen(true)
+    }
+
+     const acceptOrder = async(order) => {
+
+        try {
+            const res = await axios.post('http://localhost:3001/twilioOtp/send-otp', { mobile:`+91${8220669541}` })
+            console.log(res.data.otp);
+           
+          } catch (err) {
+            setError(err.res.data);
+          }
+        
+        // axios.post(`http://localhost:3001/booking_api/pending_orders/${order._id}`,{
+        //     vendor_email:vendorDetails.Email,
+        //     address: order.address,
+        //     street:order.street,
+        //     city:order.city,
+        //     zip:order.zip,
+        //     person:order.person,
+        //     number:order.number,
+        //     Service:order.Service,
+        //     Category: order.Category,
+        //     price:order.price,
+        //     paymentMethod:order.paymentMethod
+        // })
+        
+        
+        // axios.delete(`http://localhost:3001/booking_api/delete_item/${order._id}`)
+        // alert("posted")
+        // getdata()
     }
  
+    
     
  
      const getdata = () => {
@@ -345,6 +376,29 @@ const VendorOrders=({State})=>{
                         </TableBody>
                     </Table>
                 </TableContainer>
+
+                <div>
+                    <Modal
+                        open={open}
+                        // onClose={handleClose}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                    >
+                        <Box sx={{ ...style, width: 400 }}>
+
+                            <form >
+                               
+
+                                <Button type="submit">submit</Button>
+                                
+
+                            </form>
+
+
+                            {/* <ChildModal /> */}
+                        </Box>
+                    </Modal>
+                </div>
 
             </div>
 

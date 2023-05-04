@@ -7,7 +7,7 @@ const secret = 'soolya secret magic key';
 const twilio = require('twilio');
 
 const accountSid = 'AC42a05923ee73112583a32c130ba44de1'
-const authToken = '79046bed28a6eb20f1ce4284516ab7bf'
+const authToken = '007915eb4f9c5452a5a836fd6a7e21aa'
 const twilioNumber = "+16073604744"
 
 const client = twilio(accountSid, authToken);
@@ -68,6 +68,10 @@ twilioOtpRoute.post('/verify-otp',async(req, res) => {
     if (otp === ven.otp) {
     // Generate a JWT token and send it back to the client
     const token = jwt.sign({ mobile }, secret);
+    res.cookie("otp_Token", token, {
+      withCredentials: true,
+      httpOnly: false,
+    });
     res.status(200).json({ token });
   } else {
     res.status(401).send('Invalid OTP');
