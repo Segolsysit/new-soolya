@@ -55,10 +55,10 @@ subcategory_router.get("/new_fetch_items_limits",async(req,res)=>{
     res.json( new_fetch_items)
 })
 
-// subcategory_router.get("/new_fetch_items/:id",async(req,res)=>{
-//     const item_by_id = await subcategoyr_schema.findById(req.params.id)
-//     res.json(item_by_id )
-// })
+subcategory_router.get("/Book_new_fetch_items/:id",async(req,res)=>{
+    const item_by_id = await subcategoyr_schema.findById(req.params.id)
+    res.json(item_by_id )
+})
 
 subcategory_router.get("/new_fetch_items/:service",async(req,res)=>{
     const Find_By_service = await subcategoyr_schema.find({"Category":req.params.service})

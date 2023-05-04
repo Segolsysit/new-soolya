@@ -438,6 +438,9 @@ const SubCategory=({formNumber})=>{
     const[ErrImg,setErrImg]=useState("")
     const[ErrPrice,setErrPrice]=useState("")
     const[subcategorydata,setsubcategorydata]=useState([])
+
+
+    const [count,setCount]=useState(1)
     useEffect(()=>{
         axios.get("http://localhost:3001/api/fetch_items")
         .then((data)=>{
@@ -449,7 +452,7 @@ const SubCategory=({formNumber})=>{
             setsubcategorydata(data.data)
         })
         
-    },[])
+    },[count])
 
     const handleImgChange = (e) => {
         let file = e.target.files[0]
@@ -544,6 +547,7 @@ const SubCategory=({formNumber})=>{
                 theme: "colored"
 
             })
+            setCount(count+1)
         })
         }
     }
@@ -574,7 +578,7 @@ const SubCategory=({formNumber})=>{
                 setErrDesc("")}}/>
                 <p style={{color:"red"}}>{ErrDesc}</p>
                 <label className="Category-Label">Price</label>
-                <input className="Category-input" type='number' onChange={(e)=>{setPrice(e.target.value)
+                <input className="Category-input" type='number' onWheel={(e)=>e.target.blur()} onChange={(e)=>{setPrice(e.target.value)
                 setErrPrice("")}}/>
                 <p style={{color:"red"}}>{ErrPrice}</p>
                 <label className="Category-Label">Image</label>

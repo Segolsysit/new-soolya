@@ -1,8 +1,6 @@
 
 
 .Card-dic{
-    width: 100%;
-    overflow-x: scroll;
     align-items: center;
 }
 
@@ -54,6 +52,10 @@
     margin-bottom: 20px;
 }
 
+.cardouter::-webkit-scrollbar{
+    visibility: hidden;
+}
+
 .cardouter{
     display: flex;
     align-items: center;
@@ -71,7 +73,7 @@
     transition-duration: 0.5s;
     cursor: pointer;
     padding: 10px;
-    width: 20rem;
+    width: 30rem;
     height: fit-content;
 }
 .card-active{
@@ -96,19 +98,19 @@
     text-decoration: none;
 }
 
-.card:hover {
+.Category-card:hover {
     background-color: dodgerblue;
     color: white;
     text-decoration: none;
 }
 
 
-.card:hover .main{
+.Category-card:hover .main{
     color: white;
     text-decoration: none;
 }
 
-.card:hover .extras{
+.Category-card:hover .extras{
     color: white;
     text-decoration: none;
 }

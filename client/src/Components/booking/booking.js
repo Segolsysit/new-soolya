@@ -35,7 +35,7 @@ const BookingPage=()=>{
       }
 
       function get() {
-        axios.get(`http://localhost:3001/api/fetch_items_id/${id}`)
+        axios.get(`http://localhost:3001/sub_api/Book_new_fetch_items/${id}`)
             .then((res) => setbooking_service(res.data))
     }
 
@@ -77,7 +77,7 @@ const BookingPage=()=>{
             person,
             number,
             // Service:booking_service.Service,
-            Category:booking_service.catagorySetup,
+            Category:booking_service.Subcategory,
             price:booking_service.Price,
             paymentMethod:localStorage.getItem("paymentType")
         })

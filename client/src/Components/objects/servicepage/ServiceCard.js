@@ -29,7 +29,7 @@ useEffect(()=>{
         const da = Data.map((df)=>{
             return df.Discription
         })
-        console.log(da);
+        console.log(Data);
     })
     }
     else{
@@ -97,7 +97,7 @@ const localpath = "http://localhost:3001/";
 
 
 
-
+if(Data.length!==0){
     return(
         <div>
             <div className="CaroselCard-block">
@@ -123,7 +123,7 @@ const localpath = "http://localhost:3001/";
                                                 <div className="Carosel-third">
                                                     
                                                 </div>
-                                            <button className="Carosel-btn">Book Now</button>
+                                            <button onClick={Booking} className="Carosel-btn">Book Now</button>
                                         </div>
                             </div>
                             
@@ -186,6 +186,13 @@ const localpath = "http://localhost:3001/";
              postPer={postPer} Navigate={Navigate} Color={Color} currentPage={currentPage}/> 
             </div>
         )
+}
+else{
+    return(
+        <h1 className="NoService">No Service Available Currently!!!</h1>
+    )
+}
+    
 }
     
     

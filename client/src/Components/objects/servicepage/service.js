@@ -21,8 +21,7 @@ const[Data,setData]=useState([])
 
 
 
-var SearchCategory=localStorage.getItem("SearchCategory")
-var searchLocation=localStorage.getItem("Location")
+
 
 const[Service,setService]=useState("")
 const[PriceRange,setPricerange]=useState("")
@@ -40,6 +39,7 @@ const[Cat,setCat]=useState("Select")
 useEffect(()=>{
     console.log(Cat);
     setService(Cat)
+    window.scroll(0,600)
 },[Cat])
 
     return(
