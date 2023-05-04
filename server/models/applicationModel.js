@@ -10,22 +10,6 @@ const Applicationschema = mongoose.Schema({
         type: String,
 
     },
-    mimetype: {
-        type: String,
-
-    },
-    filename: {
-        type: String,
-
-    },
-    path: {
-        type: String,
-
-    },
-    size: {
-        type: Number,
-
-    },
     Email: {
         type:String,
     },
@@ -41,6 +25,22 @@ const Applicationschema = mongoose.Schema({
     Phone:{
         type:Number,
     },
+    mimetype: {
+        type: String,
+
+    },
+    filename: {
+        type: String,
+
+    },
+    path: {
+        type: String,
+
+    },
+    size: {
+        type: Number,
+
+    }
    
 
 
