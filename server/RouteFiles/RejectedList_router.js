@@ -3,16 +3,13 @@ const RejectedListSchema = require("../models/rejected_list_schema");
 
 RejectedList_router.post("/new_rejection", async (req, res) => {
     const deatails = new RejectedListSchema({
-        WorkType: req.body.WorkType,
-        district: req.body.district,
+        Category: req.body.Category,
+        Location: req.body.Location,
         FirstName: req.body.FirstName,
         LastName: req.body.LastName,
-        MobilePhoneNumber: req.body.MobilePhoneNumber,
-        StreetAddress: req.body.StreetAddress,
-        PostalCode: req.body.PostalCode,
-        Email: req.body.Email,
-        IdentityType: req.body.IdentityType,
-        IdentityNumber: req.body.IdentityNumber,
+        Phone: req.body.Phone,
+        Address: req.body.Address,
+        Email: req.body.Email
     })
     await deatails.save();
     res.status(200).json({message:"Uploaded Successfully",deatails})

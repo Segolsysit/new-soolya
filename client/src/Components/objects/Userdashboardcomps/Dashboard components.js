@@ -155,7 +155,7 @@ const VendorProfile=({State})=>{
                     })
                  // orders1()
             
-        },[state])
+        },[])
        
 
         useEffect(()=>{
@@ -163,7 +163,7 @@ const VendorProfile=({State})=>{
                 setCount(count+1)
 
             }
-        })
+        },[])
     
         const orders = () => {
             console.log(userId);
@@ -171,7 +171,6 @@ const VendorProfile=({State})=>{
           }
 
 
-              console.log(myorders);
     
     
 
@@ -215,8 +214,10 @@ const VendorProfile=({State})=>{
 const VendorOrders=({State})=>{
      // const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
      const [orderdetails, setorderdetails] = useState([])
-     
+     const [cookies, setCookie, removeCookie] = useCookies([]);
      const [notificationCount, setNotificationCount] = useState(0);
+     const [vendorDetails, setVendorDetails] = useState(null);
+     const [otpSent, setOTPSent] = useState(false);
      const nav = useNavigate()
  
      const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -240,8 +241,37 @@ const VendorOrders=({State})=>{
          // },
      }));
  
+     const token = cookies.venjwt;
+     const decodedToken = jwt_decode(token);
+     const vendorId = decodedToken.id;
+
+     function get_vendor(){
+
+        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${vendorId}`)
+        .then((res)=>{
+         setVendorDetails(res.data)
+        })
+     }
  
-     
+     const acceptOrder = (order) => {
+        axios.post(`http://localhost:3001/booking_api/pending_orders/${order._id}`,{
+            vendor_email:vendorDetails.Email,
+            address: order.address,
+            street:order.street,
+            city:order.city,
+            zip:order.zip,
+            person:order.person,
+            number:order.number,
+            Service:order.Service,
+            Category: order.Category,
+            price:order.price,
+            paymentMethod:order.paymentMethod
+        })
+        setOTPSent(true)
+        axios.delete(`http://localhost:3001/booking_api/delete_item/${order._id}`)
+        alert("posted")
+        getdata()
+    }
  
     
  
@@ -255,7 +285,7 @@ const VendorOrders=({State})=>{
  
      useEffect(() => {
          getdata()
-         
+         get_vendor()
      },[])
  
      // function resetNoti() {
@@ -305,7 +335,7 @@ const VendorOrders=({State})=>{
                                         <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><button className="Action-btn">Accept</button></StyledTableCell>
+                                        <StyledTableCell align="center"><button className="Action-btn"  onClick={()=>acceptOrder(data)}>Accept</button></StyledTableCell>
                                     </StyledTableRow>
 
 
@@ -326,7 +356,7 @@ const VendorOrders=({State})=>{
  
  
      const PendingOrders=({State})=>{
-        // const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+        
         const [orderdetails, setorderdetails] = useState([])
         
         const [notificationCount, setNotificationCount] = useState(0);
@@ -347,27 +377,39 @@ const VendorOrders=({State})=>{
             '&:nth-of-type(odd)': {
                 backgroundColor: theme.palette.action.hover,
             },
-            // hide last border
-            // '&:last-child td, &:last-child th': {
-            //     border: 0,
-            // },
+          
         }));
     
+        const [cookies, setCookie, removeCookie] = useCookies([]);
+
+        const [vendorDetails, setVendorDetails] = useState([]);
+        const [pendingorders, setPendingorders] = useState([]);
     
-        
+        const token = cookies.venjwt;
+        const decodedToken = jwt_decode(token);
+        const vendorId = decodedToken.id;
+        let a=1;
+        function get_vendor(){
+            axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${vendorId}`)
+            .then((res)=>{
+             setVendorDetails(res.data)
+            })
+         }
+         function vendor_orders(){
+            axios.get(`http://localhost:3001/booking_api/pending_booking_data/${vendorDetails.Email}`)
+            .then((res)=>{
+                setPendingorders(res.data)
+            })
+         }
+        useEffect(() => {
+            get_vendor()
+            vendor_orders()
+        },[vendorDetails.Email])
     
        
     
     
     
-        // useEffect(() => {
-        //     getdata()
-            
-        // },[])
-    
-        // function resetNoti() {
-        //     setNotificationCount("")
-        // }
    
         useEffect(()=>{
            if (State === 3){
@@ -379,7 +421,7 @@ const VendorOrders=({State})=>{
            return (
                <div className="container-fluid vendor-container">
                    <h1>PendingOrder Deatails</h1>
-                   {/* <TableContainer component={Paper} style={{padding:"20px",alignItems:"center",justifyContent:"center"}}>
+                   <TableContainer component={Paper} style={{padding:"20px",alignItems:"center",justifyContent:"center"}}>
                        <Table className='table-cat' style={{margin:"0px"}}>
                            <TableHead>
                                <TableRow>
@@ -399,7 +441,7 @@ const VendorOrders=({State})=>{
                            </TableHead>
                            <TableBody>
                                {
-                                   orderdetails.map((data, index) => (
+                                   pendingorders.map((data, index) => (
    
    
                                        <StyledTableRow key={index}>
@@ -420,7 +462,7 @@ const VendorOrders=({State})=>{
                                }
                            </TableBody>
                        </Table>
-                   </TableContainer> */}
+                   </TableContainer>
    
                </div>
    

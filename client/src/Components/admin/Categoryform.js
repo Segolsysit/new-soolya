@@ -93,7 +93,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         categorydata()
         verify()
         servicemandata ()
-    }, [])
+    },[])
 
     // const adminlogout = ()=>{
     //     localStorage.removeItem("adminemail")
@@ -228,25 +228,6 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
     const localpath = "http://localhost:3001/"
 
-    // const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-
-    // const changeStyle = () => {
-    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
-    //     }
-    //     else {
-    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-    //     }
-    // }
-
-    // const changeStyle1 = () => {
-    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
-    //     }
-    //     else {
-    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-    //     }
-    // }
 
     const EditFun = (id) => {
         axios.get(`http://localhost:3001/api/fetch_items_id/${id}`).then((res) => {
@@ -332,25 +313,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                     </TableContainer>
                 </div>
                 <div>
-                    {/* <Button onClick={handleOpen}>Open modal</Button> */}
-                    {/* <Modal
-                                    open={open}
-                                    onClose={handleClose}
-                                    aria-labelledby="modal-modal-title"
-                                    aria-describedby="modal-modal-description"
-                                >
-                                    <Box sx={modelstyle}>
-                                        <form className="category_form" id="category_form" onSubmit={saveChange}>
-                                            <TextField type="text" placeholder={getbyid.catagorySetup} onChange={(e) => setEditservice(e.target.value)} label="Service" /><br></br>
-                                            <TextField type="file" onChange={(e) => setEditImage(e.target.files[0])} /><br></br>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" onClick={() => handleClose()}>Close</button>
-                                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                            </div>
-
-                                        </form>
-                                    </Box>
-                                </Modal> */}
+                    
                     <div class="modal fade" id="EditCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -672,8 +635,9 @@ const Rejected_list = ({ formNumber }) => {
         },
     }));
 
-    const handleOpen = (id) => {
-        axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
+    const handleOpen = (_id) => {
+        console.log("hii")
+        axios.get(`http://localhost:3001/reject_api/rejected_data/${_id}`).then((response) => {
             setviewdata(response.data);
             console.log(response.data);
         })
@@ -703,25 +667,6 @@ const Rejected_list = ({ formNumber }) => {
     const verify = () => {
         if (aemail === null && apassword === null) {
             nav("/admin")
-        }
-    }
-
-
-    const changeStyle = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
-        }
-        else {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-        }
-    }
-
-    const changeStyle1 = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
-        }
-        else {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
         }
     }
 
@@ -780,7 +725,7 @@ const Rejected_list = ({ formNumber }) => {
                                     <StyledTableCell>{data.FirstName} {data.LastName}</StyledTableCell>
                                     <StyledTableCell>
                                         <p>{data.Email}</p>
-                                        <p>{data.MobilePhoneNumber}</p>
+                                        <p>{data.Phone}</p>
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         <Switch color="primary" /></StyledTableCell>
