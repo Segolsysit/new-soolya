@@ -93,7 +93,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         categorydata()
         verify()
         servicemandata ()
-    })
+    },[])
 
     // const adminlogout = ()=>{
     //     localStorage.removeItem("adminemail")
