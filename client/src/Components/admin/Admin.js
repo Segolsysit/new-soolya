@@ -20,12 +20,9 @@ export const Admin = () => {
     const [Formnum, setFormnum] = useState(0)
     const [not, setnot] = useState(0)
 
-<<<<<<< HEAD
-=======
     const notification = localStorage.getItem("ordercount")
     
     const [Visible,setVisible]=useState(false)
->>>>>>> 7b9b0d4fc5f3229ef5a4d5ffb2a3870cb952834d
 
 
 
