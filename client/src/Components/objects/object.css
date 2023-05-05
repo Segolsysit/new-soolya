@@ -311,8 +311,8 @@
     padding: 3rem;
     justify-content: space-between;
     align-items: center;
-    height: 40rem;
-    margin-top: 5rem;
+    height: 50rem;
+    margin-top: 0rem;
 }
 
 .Store-desc{
@@ -321,6 +321,7 @@
     text-align: left;
     width: 40%;
     padding: 30px;
+    margin: 0px;
 }
 
 .Store-img{
@@ -381,8 +382,51 @@
     font-weight: bolder;
 }
 
+@media only screen and (max-width: 1200px) {
+
+    .Store-btn{
+        display: flex;
+        gap:20px;
+    }
+
+    .Btn-inside{
+        display: flex;
+        flex-direction: column;
+        width: 120px;
+    }
+
+    .Store-button{
+    display: flex;
+    align-items: center;
+    background-color: dodgerblue;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    transition-duration: 0.5s;
+    padding: 10px 30px 10px 30px;
+}
+
+    .h4btn{
+        margin: 0px;
+        font-size: 15px;
+    }
+    .h2btn{
+        margin:0px;
+        font-size: 20px;
+        font-weight: bolder;
+    }
+
+    .Store-img{
+        aspect-ratio: 1/1;
+        width: 40rem;
+        margin: 0px;
+    }
+}
+
 
 @media only screen and (max-width: 600px) {
+
+    
     .Carosel-card  {
         width: 17.5rem;
 
