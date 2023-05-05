@@ -9,7 +9,10 @@ import axios from "axios";
 const Service=()=>{
     const { pathname } = useLocation();
         useEffect(() => {
-        window.scrollTo(0, 0);
+            if(window.innerWidth<600&&localStorage.getItem("SubCategory")){
+                window.scroll(0,200)
+            }
+            else{window.scrollTo(0, 0);}
          }, [pathname]);
 
          

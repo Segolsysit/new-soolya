@@ -311,7 +311,7 @@
     padding: 3rem;
     justify-content: space-between;
     align-items: center;
-    height: 50rem;
+    height: 40rem;
     margin-top: 0rem;
 }
 
@@ -326,7 +326,7 @@
 
 .Store-img{
     aspect-ratio: 1/1;
-    width: 40rem;
+    width: 30rem;
     margin: 0px;
 }
 
@@ -421,6 +421,10 @@
         width: 40rem;
         margin: 0px;
     }
+
+    .Adblock{
+        padding: 100px;
+    }
 }
 
 
@@ -446,11 +450,11 @@
 
 .h4btn{
     margin: 0px;
-    font-size: 10px;
+    font-size: 12px;
 }
 .h2btn{
     margin:0px;
-    font-size: 20px;
+    font-size: 15px;
 
 }
 .Platform-logo{
@@ -461,7 +465,8 @@
 .Store-button{
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
+    gap: 3px;
 }
 .Store-desc{
     display: flex;
@@ -476,14 +481,16 @@
     padding: 1rem;
     justify-content: space-between;
     align-items: center;
-    height: 40rem;
+    height: 30rem;
 }
 
 .Store-btn{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: fit-content;
-    gap:20px;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
 }
 
 
