@@ -37,6 +37,9 @@ const Home=()=>{
             localStorage.setItem("SubCategory",SelectCategory)
             localStorage.setItem("SubcategoryID",ID)
             Navigate("/service")
+            if(window.innerWidth<600){
+                window.scroll(0,600)
+            }
          }
 
          useEffect(()=>{
