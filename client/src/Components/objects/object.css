@@ -528,3 +528,16 @@
 
 
 }
+
+
+@media only screen and (max-width: 1200px) {
+.h4btn{
+    margin: 0px;
+    font-size: 100px;
+}
+.h2btn{
+    margin:0px;
+    font-size:40px;
+
+}
+}
