@@ -18,7 +18,7 @@ const Pagination=({TotalPost,postPer,Navigate,Color,currentPage})=>{
         }
     }
 
-    console.log(Pagenumber);
+    // console.log(Pagenumber);
 
     return(
         <div className="PaginateDiv">

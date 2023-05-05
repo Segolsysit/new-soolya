@@ -9,7 +9,10 @@ import axios from "axios";
 const Service=()=>{
     const { pathname } = useLocation();
         useEffect(() => {
-        window.scrollTo(0, 0);
+            if(window.innerWidth<600&&localStorage.getItem("SubCategory")){
+                window.scroll(0,200)
+            }
+            else{window.scrollTo(0, 0);}
          }, [pathname]);
 
          
@@ -23,7 +26,7 @@ const[Data,setData]=useState([])
 
 
 
-const[Service,setService]=useState("")
+const[Service,setService]=useState("Select")
 const[PriceRange,setPricerange]=useState("")
 
 useEffect(()=>{
@@ -39,7 +42,10 @@ const[Cat,setCat]=useState("Select")
 useEffect(()=>{
     console.log(Cat);
     setService(Cat)
-    window.scroll(0,600)
+    if(Cat!=="Select"){
+        window.scroll(0,400)
+    }
+    
 },[Cat])
 
     return(

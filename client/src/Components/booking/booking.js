@@ -3,7 +3,7 @@ import {Page1,Page2,Page3,Page4} from "./page1";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import jwt_decode from 'jwt-decode';
-
+import { useLocation } from "react-router-dom";
 
 const BookingPage=()=>{
     const [Page,setPage]=useState(1)
@@ -13,6 +13,7 @@ const BookingPage=()=>{
     const [myorders,setMyorders] = useState([])
     const [cookies, setCookie, removeCookie] = useCookies([]);
     const id = localStorage.getItem("order_id")
+    const  {pathname}  = useLocation();
 
     const token = cookies.jwt2;
     const decodedToken = jwt_decode(token);
@@ -85,6 +86,13 @@ const BookingPage=()=>{
     setTimeout(()=>window.location.href="/Mydashboard",3000)        
     
     }
+
+    useEffect(()=>{
+        if(pathname!=="/service"){
+            localStorage.removeItem("SubcategoryID")
+            localStorage.removeItem("SubCategory")
+        }
+    },[pathname])
 
     return(
         <div className="Screen">

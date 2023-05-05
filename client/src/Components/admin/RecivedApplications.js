@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { toast } from "react-toastify";
+// import { get } from '../../../../server/RouteFiles/subcategory_router';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -57,7 +58,7 @@ const RecivedApplication = ({ formNumber }) => {
 
     const handleVendorAuth = async (e) => {
         e.preventDefault()
-        
+
 
         if (vendorName === "") {
             setNameErr(true)
@@ -84,6 +85,11 @@ const RecivedApplication = ({ formNumber }) => {
                 setemailerr(response.data.message);
             } else {
                 setSuccess(response.data.message)
+                deleteapplication()
+                getdata()
+                toast.info("Registration Completed", {
+                    position: "top-center",
+                });
                 setTimeout(() => {
                     setVendorName("")
                     setVendorEmail("")
@@ -94,8 +100,7 @@ const RecivedApplication = ({ formNumber }) => {
                 }, 3000);
             }
         }
-        deleteapplication()
-                getdata()
+
 
     }
 
@@ -146,7 +151,7 @@ const RecivedApplication = ({ formNumber }) => {
     const [application, setApplication] = useState([])
     useEffect(() => {
         getdata()
-    })
+    },[])
 
     if (formNumber === 10) {
         return (

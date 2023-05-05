@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import './home.css'
-import {Category,  Carosel,Ad,Popular, Join, Store,Testimonials, LatestNews ,Subscribe,Footer,End,MenuList, Header, MenuBar} from "./objects/objects";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import {  Carosel,Ad,Popular, Join, Store,Testimonials, LatestNews ,Subscribe,Footer,End,MenuList, Header, MenuBar, CategoryHome} from "./objects/objects";
+import { useLocation ,useNavigate} from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Home=()=>{
+    console.log(window.innerWidth);
     const[count0,setCount0]=useState(0)
     const[Data,setData]=useState([])
+    const Navigate=useNavigate()
+
+
     useEffect(()=>{
         if(count0<1000){
         setCount0(count0+2)}
@@ -15,24 +19,34 @@ const Home=()=>{
             setCount0(count0+0)
         }
     },[count0])
-    const { pathname } = useLocation();
+    const  {pathname}  = useLocation();
         useEffect(() => {
         window.scrollTo(0, 0);
          }, [pathname]);
 
   useEffect(()=>{
     if(pathname!=="/service"){
-        localStorage.removeItem("SearchCategory")
+        localStorage.removeItem("SubcategoryID")
+        localStorage.removeItem("SubCategory")
     }
 },[pathname])
 
 
-         const[Location,setLocation]=useState("Select")
+         const[ID,setID]=useState(null)
          const[SelectCategory,setCategory]=useState("Select")
          const search=()=>{
-            localStorage.setItem("Location",Location)
-            localStorage.setItem("SearchCategory",SelectCategory)
-            window.location.href="/service"
+            // localStorage.setItem("Location",Location)
+            if(SelectCategory==="Select"){
+                toast.error("Select a category", {
+                    position:"top-center",
+                  })
+            }
+            else{localStorage.setItem("SubCategory",SelectCategory)
+            localStorage.setItem("SubcategoryID",ID)
+            Navigate("/service")
+            if(window.innerWidth<600){
+                window.scroll(0,600)
+            }}
          }
 
          useEffect(()=>{
@@ -59,7 +73,7 @@ const Home=()=>{
                     <div className="serchblock">
                         <div className="selection">
                         <p className="ptagforsearchbox">I'm looking to..</p>
-                        <select className="SelectionBox" onChange={(e)=>setLocation(e.target.value)}>
+                        <select className="SelectionBox">
                             <option>Select Location</option>
                             <option>America</option>
                             <option>India</option>
@@ -69,7 +83,8 @@ const Home=()=>{
                         <hr className="solid"></hr>
                         <div className="selection">
                         <p className="ptagforsearchbox">I'm looking to..</p>
-                        <select className="SelectionBox" onChange={(e)=>setCategory(e.target.value)}>
+                    <select className="SelectionBox" onChange={(e)=>{setCategory(e.target.value)
+                    setID(e.target.options.selectedIndex-1)}}>
                         <option value="Find Category">Find Category</option>
 
                         {
@@ -112,7 +127,7 @@ const Home=()=>{
             <h1 className="SubHead">Our Categories</h1>
             <p>There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration</p>
             </>
-            <Category/>
+            <CategoryHome/>
         </div>
         <div className="Featured">
             <>
@@ -134,8 +149,7 @@ const Home=()=>{
             <Join/>
         </div>
         <Store/>
-        <Testimonials/>
-        <LatestNews/>
+        
         <Subscribe/>
         <Footer/>
         <End/>

@@ -4,14 +4,13 @@ import './add.css'
 import './footer.css'
 import '../home.css'
 import'./dashboard.css'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {useCookies} from 'react-cookie'
 import {UserProfile,UserOrders, VendorOrders, PendingOrders} from "./Userdashboardcomps/Dashboard components";
 import { useLocation } from "react-router-dom";
 import jwt_decode from  "jwt-decode"
 import axios from "axios";
 import { VendorProfile } from "./Userdashboardcomps/Dashboard components";
-import { toast } from "react-toastify";
 import Swal from 'sweetalert2'
 
 
@@ -84,10 +83,7 @@ const MenuBar = () => {
         }
     }
 
-    const Logout = () => {
-        cookies.removeCookie("jwt2")
-        window.location.href = "/"
-    }
+   
     return (
         <div className="Menubar-outer">
         <div className="Titlebar-sticky">
@@ -134,12 +130,28 @@ const[Data,setData]=useState([])
         setData(data.data)
     })},[])
 
+    
+
     const[Selectindex,setIndex]=useState(null)
 
-    const RemoveFilter=()=>{
-        setIndex(null)
-        setCat("Select")
-    }
+    useEffect(()=>{
+        const Local=localStorage.getItem("SubcategoryID")
+        console.log(Local);
+        // console.log(typeof(Local));
+        if(Local!==null||Local!==undefined){
+            setIndex(parseInt(Local))
+        }
+        else{
+            setIndex(null)
+        }
+        
+    },[])
+
+
+
+    
+
+    
     const localpath = "http://localhost:3001/";
 
     
@@ -148,7 +160,7 @@ const[Data,setData]=useState([])
         <div className="cardouter">
             {Data.map((item,index)=> {
                 return (
-                     <div className={index===Selectindex?"card-active":"Category-card"} key={index} onClick={(e)=>{
+                     <div className={index===Selectindex ? "card-active":"Category-card"} key={index} onClick={(e)=>{
                      setCat(item.catagorySetup)
                      setIndex(index)}}>
                         <img className="icons" src={localpath + item.filename} alt="" />
@@ -163,13 +175,67 @@ const[Data,setData]=useState([])
             }
             
         </div>
-        <div className="Filterbtn-div">
-        <button className="Filter-button" hidden={Selectindex===null?true:false} onClick={RemoveFilter}><i class="fa-sharp fa-solid fa-filter-circle-xmark"></i></button>
-        </div>
+        
         </div>
 
     )
 }
+
+const CategoryHome = ({Cat,setCat}) => {
+    //hello
+    const[Data,setData]=useState([])
+        useEffect(()=>{
+            axios.get(`http://localhost:3001/api/fetch_items`)
+            .then((data)=>{
+            setData(data.data)
+        })},[])
+    
+    const Navigate=useNavigate()
+        const RemoveFilter=()=>{
+            setIndex(null)
+            setCat("Select")
+        }
+        const localpath = "http://localhost:3001/";
+
+        const[Selectindex,setIndex]=useState(null)
+
+        const ServiceRoute=(index,Category)=>{
+            localStorage.setItem("SubcategoryID",index)
+            localStorage.setItem("SubCategory",Category)
+            Navigate('/Service')
+        }
+
+        
+    
+ 
+        
+        
+        return (
+            <div className="Card-dic">
+            <div className="cardouter">
+                {Data.map((item,index)=> {
+                    return (
+                         <div className="Category-card" key={index} onClick={()=>{
+                            ServiceRoute(index,item.catagorySetup)}}>
+                            <img className="icons" src={localpath + item.filename} alt="" />
+                            <h3 className="main">{item.catagorySetup}</h3>
+                            <p className="extras">service</p>
+                        </div>
+    
+                            
+    
+                    )
+                })
+                }
+                
+            </div>
+            <div className="Filterbtn-div">
+            <button className="Filter-button" hidden={Selectindex===null?true:false} onClick={RemoveFilter}><i class="fa-sharp fa-solid fa-filter-circle-xmark"></i></button>
+            </div>
+            </div>
+    
+        )
+    }
 
 
 
@@ -810,7 +876,6 @@ const Profile=({open,close})=>{
 }
 
 const UserDashboard=()=>{
-    const { pathname } = useLocation();
     const[state,setState]=useState(1)
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
     const[myorders1,setMyorders1]=useState([])
@@ -848,7 +913,7 @@ const UserDashboard=()=>{
             setorderdetails1(res.data)
     })
 
-        },[myorders1])
+        },[myorders1,useremail])
     
 
     const notificationfun =()=>{
@@ -873,7 +938,7 @@ const UserDashboard=()=>{
             
         }
         
-    },[state])
+    },[state,Div])
 
 
     if(token){
@@ -986,4 +1051,4 @@ const VendorDashboard=()=>{
 
 
 
-export { Category, Carosel, Ad, Popular, Join, Store, Testimonials, LatestNews, Subscribe, Footer, End, MenuList, Header, MenuBar,UserDashboard,VendorDashboard }
+export { Category, Carosel, Ad, Popular, Join, Store, Testimonials, LatestNews, Subscribe, Footer, End, MenuList, Header, MenuBar,UserDashboard,VendorDashboard,CategoryHome }

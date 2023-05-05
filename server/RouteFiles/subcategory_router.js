@@ -60,10 +60,23 @@ subcategory_router.get("/Book_new_fetch_items/:id",async(req,res)=>{
     res.json(item_by_id )
 })
 
+
+
+
+
 subcategory_router.get("/new_fetch_items/:service",async(req,res)=>{
-    const Find_By_service = await subcategoyr_schema.find({"Category":req.params.service})
+    if(req.params.service===null){
+        res.json("Select a category")
+    }
+    else{
+        const Find_By_service = await subcategoyr_schema.find({"Category":req.params.service})
     res.json(Find_By_service )
+    }
+    
 })
+
+
+
 
 subcategory_router.patch("/update_subcategory/:id",upload.single('file'),async(req,res)=>{
     const removeExisitingFile = await subcategoyr_schema.findById(req.params.id)
