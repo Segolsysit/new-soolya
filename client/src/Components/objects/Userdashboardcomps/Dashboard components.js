@@ -1,6 +1,6 @@
 import React from "react";
 import './Usercomponents.css'
-import { Table, TableBody, TableCell, TableRow, TableHead, Button } from '@mui/material';
+import { Table, TableBody, TableCell, TableRow, TableHead, Button,Stack,TextField } from '@mui/material';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useState,useEffect } from "react";
@@ -166,7 +166,7 @@ const VendorProfile=({State})=>{
                     })
                  // orders1()
             
-        },[state,token])
+        },[state])
        
 
         useEffect(()=>{
@@ -230,7 +230,8 @@ const VendorOrders=({State})=>{
      const [notificationCount, setNotificationCount] = useState(0);
      const [vendorDetails, setVendorDetails] = useState(null);
     //  const [otpSent, setOTPSent] = useState(false);
-    const [otp, setOtp] = useState('');
+    const [orders, setOrderId] = useState('');
+    const [veriyfyOtp, setVerifyOtp] = useState('');
     const [open, setOpen] = useState(false);
 
 //   const [token, setToken] = useState('');
@@ -274,36 +275,64 @@ const VendorOrders=({State})=>{
         setOpen(true)
     }
 
+    const handleClose = () => {
+        setOpen(false)
+    }
+
      const acceptOrder = async(order) => {
 
         try {
-            const res = await axios.post('http://localhost:3001/twilioOtp/send-otp', { mobile:`+91${8220669541}` })
+            const res = await axios.post('http://localhost:3001/twilioOtp/send-otp', { mobile:`+91${6382836087}` },{withCredentials:true})
             console.log(res.data.otp);
+            setOrderId(order)
+            handleOpen()
            
           } catch (err) {
             setError(err.res.data);
           }
         
-        // axios.post(`http://localhost:3001/booking_api/pending_orders/${order._id}`,{
-        //     vendor_email:vendorDetails.Email,
-        //     address: order.address,
-        //     street:order.street,
-        //     city:order.city,
-        //     zip:order.zip,
-        //     person:order.person,
-        //     number:order.number,
-        //     Service:order.Service,
-        //     Category: order.Category,
-        //     price:order.price,
-        //     paymentMethod:order.paymentMethod
-        // })
-        
-        
-        // axios.delete(`http://localhost:3001/booking_api/delete_item/${order._id}`)
-        // alert("posted")
-        // getdata()
+       
     }
  
+    const handleVerifyOtp =async (e) => {
+        e.preventDefault()
+        try {
+             const response=await axios.post('http://localhost:3001/twilioOtp/verify-otp', { mobile:`+91${6382836087}`, otp:veriyfyOtp },{withCredentials:true})
+             
+
+                if(cookies.otp_Token){
+                    console.log(response.data.message)
+                    setError('');
+                  await axios.post(`http://localhost:3001/booking_api/pending_orders/${orders._id}`,{
+                        vendor_email:vendorDetails.Email,
+                        address: orders.address,
+                        street:orders.street,
+                        city:orders.city,
+                        zip:orders.zip,
+                        person:orders.person,
+                        number:orders.number,
+                        Service:orders.Service,
+                        Category: orders.Category,
+                        price:orders.price,
+                        paymentMethod:orders.paymentMethod
+                    })
+                      await axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
+                        alert("posted")
+                        getdata()
+                    
+                    
+                    
+                   
+                }
+               
+           
+          
+          } catch (err) {
+            console.log(err.response.data);
+            setError(err.response.data);
+          }
+
+    }
     
     
  
@@ -380,16 +409,30 @@ const VendorOrders=({State})=>{
                 <div>
                     <Modal
                         open={open}
-                        // onClose={handleClose}
+                        onClose={handleClose}
                         aria-labelledby="child-modal-title"
                         aria-describedby="child-modal-description"
                     >
                         <Box sx={{ ...style, width: 400 }}>
 
-                            <form >
-                               
+                            <form onSubmit={handleVerifyOtp}>
+   
+                            <div >
+                            <TextField
+                            type='text'
+                            id="outlined-basic"
+                            label="otp"
+                            value={veriyfyOtp}
+                            variant="outlined"
+                            autoComplete="off"
+                            onChange={e=>setVerifyOtp(e.target.value)}
+                            /><br/><br/>
+                            
+                            <Button type="submit">verifyOtp</Button>
+                            <Button type="submit" onClick={handleClose}>cancel</Button>
 
-                                <Button type="submit">submit</Button>
+                                                        </div>
+
                                 
 
                             </form>
@@ -484,7 +527,7 @@ const VendorOrders=({State})=>{
                                <TableRow>
                                    <StyledTableCell align="center">SN</StyledTableCell>
                                    <StyledTableCell align="center">Name</StyledTableCell>
-                                   <StyledTableCell align="center">Email</StyledTableCell>
+                                   {/* <StyledTableCell align="center">Email</StyledTableCell> */}
                                    <StyledTableCell align="center">Category</StyledTableCell>
                                    <StyledTableCell align="center">Price</StyledTableCell>
                                    <StyledTableCell align="center">Address</StyledTableCell>
