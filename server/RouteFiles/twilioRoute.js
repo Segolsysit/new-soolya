@@ -6,9 +6,9 @@ const secret = 'soolya secret magic key';
 
 const twilio = require('twilio');
 
-const accountSid = 'AC42a05923ee73112583a32c130ba44de1'
-const authToken = '79046bed28a6eb20f1ce4284516ab7bf'
-const twilioNumber = "+16073604744"
+const accountSid = 'ACa28711fdf748fc911c31dc44314d2f4a'
+const authToken = '4eaba296783ee3a543135c4fc4b46035'
+const twilioNumber = "+18622929576"
 
 const client = twilio(accountSid, authToken);
 
@@ -53,34 +53,40 @@ twilioOtpRoute.post('/send-otp', async (req, res) => {
 
 
 // Verify OTP
-twilioOtpRoute.post('/verify-otp',async(req, res) => {
+twilioOtpRoute.post('/verify-otp', async (req, res) => {
   const { mobile, otp } = req.body;
 
   try {
-    const ven = await OtpSchema.findOne({ mobile:mobile });
-    
-    if (!ven) {
-      return res.status(404).json({ message: "OTP expired" });
-    }
-    
+    const storedOTP = await OtpSchema.findOne({ mobile });
 
-  
-    if (otp === ven.otp) {
-    // Generate a JWT token and send it back to the client
+    if (!storedOTP) {
+      return res.status(404).json({ message: 'OTP not found' });
+    }
+
+    const now = new Date();
+    if (now > storedOTP.expiresAt) {
+      await storedOTP.remove();
+      return res.status(400).json({ message: 'OTP expired' });
+    }
+
+    if (storedOTP.otp !== otp) {
+      return res.status(400).json({ message: 'Invalid OTP' });
+    }
+
+    await storedOTP.remove();
     const token = jwt.sign({ mobile }, secret);
-    res.status(200).json({ token });
-  } else {
-    res.status(401).send('Invalid OTP');
-  }
+    res.cookie("otp_Token", token, {
+      withCredentials: true,
+      httpOnly: false,
+    });
+    return res.status(200).json({ message: 'OTP verified successfully!' });
+
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Server error" });
   }
-
-  const correctOTP = '123456'; // This is just an example value, you should get it from your database
-
- 
 });
+
 
 
 module.exports = twilioOtpRoute;

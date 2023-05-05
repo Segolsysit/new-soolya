@@ -20,6 +20,12 @@ export const Admin = () => {
     const [Formnum, setFormnum] = useState(0)
     const [not, setnot] = useState(0)
 
+<<<<<<< HEAD
+=======
+    const notification = localStorage.getItem("ordercount")
+    
+    const [Visible,setVisible]=useState(false)
+>>>>>>> 7b9b0d4fc5f3229ef5a4d5ffb2a3870cb952834d
 
 
 
@@ -158,20 +164,22 @@ export const Admin = () => {
                             </li>
                             <li className="nav-item" >
                                 <div className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                                    aria-expanded="true" aria-controls="collapseTwo">
+                                    aria-expanded="true" aria-controls="collapseTwo" onClick={()=>setVisible(false)}>
                                     <i class="fa-solid fa-shapes"></i>
                                     <span >Service Categories</span>
                                 </div>
                                 <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
-                                    <div className="bg-white py-2 collapse-inner rounded">
+                                    <div className="bg-white py-2 collapse-inner rounded"  hidden={Visible}>
                                         {/* <h6 className="collapse-header">Custom Components:</h6> */}
-                                        <div className="collapse-item" onClick={() => {
+                                        <div className="collapse-item"  onClick={() => {
                                             setState(true)
                                             setFormnum(1)
+                                            setVisible(true)
                                         }}>Category Setup</div>
                                         <div className="collapse-item" onClick={() => {
                                             setState(true)
                                             setFormnum(11)
+                                            setVisible(true)
                                         }} >Sub Category Setup</div>
                                     </div>
                                 </div>
@@ -180,21 +188,21 @@ export const Admin = () => {
                             {/* <!-- Nav Item - Utilities Collapse Menu --> */}
                             <li className="nav-item">
                                 <div className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseUtilities"
-                                    aria-expanded="true" aria-controls="collapseUtilities">
+                                    aria-expanded="true" aria-controls="collapseUtilities" onClick={()=>setVisible(false)}>
                                     <i className="fas fa-fw fa-wrench"></i>
                                     <span>Services</span>
                                 </div>
                                 <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities"
-                                    data-parent="#accordionSidebar">
-                                    <div className="bg-white py-2 collapse-inner rounded">
-                                        {/* <h6 className="collapse-header">Custom Utilities:</h6> */}
-                                        <div className="collapse-item" onClick={() => { setFormnum(6) }}>Service List</div>
-                                        <div className="collapse-item" onClick={() => { setFormnum(7) }}>Add New Service</div>
-                                        {/* <a className="collapse-item" href="utilities-animation.js">Animations</a>
-                                        <a className="collapse-item" href="utilities-other.js">Other</a> */}
-                                    </div>
+                                    data-bs-parent="#accordionSidebar" hidden={Visible}>
+                                    <div className="bg-white py-2 collapse-inner rounded" >
+                                        <div className="collapse-item" onClick={() => { setFormnum(6) 
+                                        setVisible(true)}}>Service List</div>
+                                        <div className="collapse-item" onClick={() => { setFormnum(7) 
+                                        setVisible(true)}}>Add New Service</div>
+                                         </div>
                                 </div>
                             </li>
+
 
                             {/* <!-- Divider --> */}
                             <hr className="sidebar-divider" />
@@ -207,18 +215,20 @@ export const Admin = () => {
                             {/* <!-- Nav Item - Pages Collapse Menu --> */}
                             <li className="nav-item" >
                                 <div className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapsePages1"
-                                    aria-expanded="true" aria-controls="collapsePages1">
+                                    aria-expanded="true" aria-controls="collapsePages1" onClick={()=>setVisible(false)}>
                                     <i className="fas fa-fw fa-user"></i>
                                     <span>SERVICE MAN</span>
                                 </div>
-                                <div id="collapsePages1" className="collapse" aria-labelledby="headingPages1" data-bs-parent="#accordionSidebar">
+                                <div id="collapsePages1" className="collapse" aria-labelledby="headingPages1" data-bs-parent="#accordionSidebar" hidden={Visible}>
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         {/* <h6 className="collapse-header">Login Screens:</h6> */}
                                         <div className="collapse-item" onClick={() => {
                                             setFormnum(2)
+                                            setVisible(true)
                                         }}>Service Man List</div>
                                         <div className="collapse-item" onClick={() => {
                                             setFormnum(4)
+                                            setVisible(true)
                                         }}>Rejected List</div>
                                     </div>
                                 </div>
