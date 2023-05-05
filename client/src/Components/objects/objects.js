@@ -890,41 +890,35 @@ const UserDashboard=()=>{
 
     const useremail = myorders1.email
 
-    const notification = localStorage.getItem("userordercount")
+    
     
     useEffect(()=>{ 
         orderss()
-        notificationfun()
     },[])
 
     const orderss = () => {
         axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
         .then((res) => {
-            // console.log(res.data);
             setMyorders1(res.data);
             
         })
       }
 
     useEffect(()=>{
+        const notification = parseInt(localStorage.getItem("userordercount"))
         axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
         .then((res) => {
-            // console.log(res.data);
             setorderdetails1(res.data)
+            if(notification  ===  res.data.length){
+                setnot(0)
+                console.log(res.data.length);
+            }
+                else{
+                    setnot(res.data.length - notification)
+                console.log(res.data.length);}
     })
 
         },[myorders1,useremail])
-    
-
-    const notificationfun =()=>{
-        if(notification < orderdetails1.length){
-            setnot (orderdetails1.length - notification)
-            console.log(not);
-        }
-        if(notification === orderdetails1.length){
-            setnot(0)
-        }
-    }
    
 
     const Div=document.querySelector('.Dashboard-right')
@@ -976,6 +970,29 @@ const VendorDashboard=()=>{
     const[vendorName,setVendorName]=useState("")
     const[loading,setLoading]=useState(true)
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+    const [not, setnot] = useState(0)
+    const [orderdetails, setorderdetails] = useState([])
+
+    const getdata2 = () => {
+        const notification = parseInt(localStorage.getItem("ordercount"))
+        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+            setorderdetails(res.data)
+            console.log(res.data.length);
+            console.log(notification);
+            if (notification === res.data.length) {
+                setnot(0)
+                console.log(res.data.length);
+            }
+            else {
+                setnot( res.data.length - notification)
+                console.log(res.data.length);
+            }
+        })
+    }
+
+    useEffect(() => {
+        getdata2()
+    }, [])
 
     useEffect(()=>{
         if(pathname!=="/service"){
@@ -1025,7 +1042,8 @@ const VendorDashboard=()=>{
                     <div className="Sidebar">
                         <ul className="Sidebar-ul">
                             <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}><i class="fa-solid fa-user"/><p className="Sidebar-lable">My Profile</p></li>
-                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(2)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">Orders</p></li>
+                            <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={() => { localStorage.setItem("ordercount", orderdetails.length); setnot(0);setState(2)}}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">Orders
+                            {not === 0 ? <span></span> : <span className="badge badge-danger badge-counter">{not}</span>}</p></li>
                             <li className={state===3? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(3)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">Pending Orders</p></li>
                         </ul>
                     </div>
