@@ -21,15 +21,12 @@ export const Admin = () => {
     const [not,setnot] = useState(0)
 
     const notification = localStorage.getItem("ordercount")
-    useEffect(() => {
-        getdata2()
-        notificationfun()
-    },[])
+    
     
     const notificationfun =()=>{
         if(notification < orderdetails.length){
             setnot (orderdetails.length - notification)
-            console.log(not);
+            console.log("not");
         }
         if(notification === orderdetails.length){
             setnot(0)
@@ -40,8 +37,23 @@ export const Admin = () => {
     const getdata2 = () => {
         axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
+            console.log(res.data);
+            if(notification < orderdetails.length){
+                console.log("lll");
+                setnot (orderdetails.length - notification)
+                console.log("lll");
+            }
+            if(notification === orderdetails.length){
+                setnot(0)
+            }
+            
         })
     }
+
+    useEffect(() => {
+        getdata2()
+        
+    },[])
 
     const changeStyle = () => {
         if (style === "Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
@@ -136,7 +148,7 @@ export const Admin = () => {
                                     //  setorderdetails("0")
                                 }>
                                     <i class="fa-regular fa-link-horizontal"></i>
-                                    <span>Orders{not === 0 ? <span/> :<span className="badge badge-danger badge-counter">{not}</span> }
+                                    <span>Orders{not === 0 ? <span className="badge badge-danger badge-counter">{not}</span> :<span className="badge badge-danger badge-counter">{not}</span> }
                                         
                                     </span>
                                 </div>

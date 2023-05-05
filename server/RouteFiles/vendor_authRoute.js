@@ -105,6 +105,11 @@ VendorAuthRoute.get("/fetch_vendor/:id",async(req,res) => {
     res.json(getbyid)
   })
 
+  VendorAuthRoute.delete("/delete_item/:id",async(req,res)=>{
+    await VendorAuth.findByIdAndDelete(req.params.id)
+    return res.json('Deleted')
+})
+
 
 
   VendorAuthRoute.post("/forgot_password", async (req, res , next) => {
