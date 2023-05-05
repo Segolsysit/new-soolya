@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 const Home=()=>{
+    console.log(window.innerWidth);
     const[count0,setCount0]=useState(0)
     const[Data,setData]=useState([])
     useEffect(()=>{
