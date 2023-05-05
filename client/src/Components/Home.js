@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import './home.css'
-import {Category,  Carosel,Ad,Popular, Join, Store,Testimonials, LatestNews ,Subscribe,Footer,End,MenuList, Header, MenuBar, CategoryHome} from "./objects/objects";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import {  Carosel,Ad,Popular, Join, Store,Testimonials, LatestNews ,Subscribe,Footer,End,MenuList, Header, MenuBar, CategoryHome} from "./objects/objects";
+import { useLocation ,useNavigate} from "react-router-dom";
 import axios from "axios";
 
 const Home=()=>{
     const[count0,setCount0]=useState(0)
     const[Data,setData]=useState([])
+    const Navigate=useNavigate()
+
+
     useEffect(()=>{
         if(count0<1000){
         setCount0(count0+2)}
@@ -15,7 +17,7 @@ const Home=()=>{
             setCount0(count0+0)
         }
     },[count0])
-    const { pathname } = useLocation();
+    const  {pathname}  = useLocation();
         useEffect(() => {
         window.scrollTo(0, 0);
          }, [pathname]);
@@ -28,12 +30,13 @@ const Home=()=>{
 },[pathname])
 
 
-         const[Location,setLocation]=useState("Select")
+         const[ID,setID]=useState(null)
          const[SelectCategory,setCategory]=useState("Select")
          const search=()=>{
-            localStorage.setItem("Location",Location)
-            localStorage.setItem("SearchCategory",SelectCategory)
-            window.location.href="/service"
+            // localStorage.setItem("Location",Location)
+            localStorage.setItem("SubCategory",SelectCategory)
+            localStorage.setItem("SubcategoryID",ID)
+            Navigate("/service")
          }
 
          useEffect(()=>{
@@ -60,7 +63,7 @@ const Home=()=>{
                     <div className="serchblock">
                         <div className="selection">
                         <p className="ptagforsearchbox">I'm looking to..</p>
-                        <select className="SelectionBox" onChange={(e)=>setLocation(e.target.value)}>
+                        <select className="SelectionBox">
                             <option>Select Location</option>
                             <option>America</option>
                             <option>India</option>
@@ -70,7 +73,8 @@ const Home=()=>{
                         <hr className="solid"></hr>
                         <div className="selection">
                         <p className="ptagforsearchbox">I'm looking to..</p>
-                        <select className="SelectionBox" onChange={(e)=>setCategory(e.target.value)}>
+                    <select className="SelectionBox" onChange={(e)=>{setCategory(e.target.value)
+                    setID(e.target.options.selectedIndex-1)}}>
                         <option value="Find Category">Find Category</option>
 
                         {
@@ -135,8 +139,7 @@ const Home=()=>{
             <Join/>
         </div>
         <Store/>
-        <Testimonials/>
-        <LatestNews/>
+        
         <Subscribe/>
         <Footer/>
         <End/>

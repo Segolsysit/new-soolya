@@ -6,7 +6,7 @@ import { End, Footer, Header, MenuBar } from "../objects";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 
-import { useNavigate,useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 
 
@@ -16,65 +16,59 @@ const ServiceCard=({service,Range})=>{
 
     const[Data,setData]=useState([])
     const[count,setCount]=useState(0)
-    var SearchCategory=localStorage.getItem("SearchCategory")
-    const Navigator=useNavigate();
-    const { pathname } = useLocation();
 
 
-
-    
 
 const[Category,setCategory]=useState("")
     
     
-    console.log(Category);
+    // console.log(Category);
     
 
 
 
 useEffect(()=>{
     setCategory(localStorage.getItem("SubCategory"))
-    if(Category!==""&&(service==="Select"||service===null||service===undefined)&&count<1){
+    if((Category!==""&&(Category!==null||Category!==undefined))&&(service==="Select"||service===null||service===undefined)&&count<1){
         axios.get(`http://localhost:3001/sub_api/new_fetch_items/${Category}`)
         .then((data)=>{
-        setData(data.data)
-        const da = Data.map((df)=>{
-            return df.Discription
-        })
-        console.log(Data);
+                setData(data.data)
         setCount(count+1)
+          
+        
+        console.log(Data);
     })
+    
+
         }
-})
+        
+},[Category])
 
-    console.log(pathname);
+    // console.log(pathname);
 useEffect(()=>{
-
-    
-    
-    if(Category===""||service!=="Select") {
+    if(service!=="Select" &&service!==null) {
         axios.get(`http://localhost:3001/sub_api/new_fetch_items/${service}`)
         .then((data)=>{
-        setData(data.data)
+            
+                setData(data.data)
+        setCount(count+1)
+         
+
     }
     )
-}
-
-    
-    
-    
+}    
 },[service])
     
 useEffect(()=>{
-    if(count===1){
-        localStorage.removeItem("SearchCategory")
+    if(count>0){
+        localStorage.removeItem("SubCategory")
     }
 },[service])
 
 
 
 
-console.log(Data);
+// console.log(Data);
 
 const[currentPage,setCurrent]=useState(1)
 const[postPer,setpostPer]=useState(6)
@@ -99,7 +93,7 @@ const Navigate=(Number)=>{
     setColor(Number)
 }
 const CurerntPost=Data.slice(Firstpost,Lastpost)
-console.log(CurerntPost);
+// console.log(CurerntPost);
 const [serviceName,setServiceName]=useState("")
 
 useEffect(()=>{
@@ -110,15 +104,20 @@ useEffect(()=>{
 },[serviceName])
 
 
-console.log(SearchCategory);
 
 const localpath = "http://localhost:3001/";
 
 
 
+if((Category===""||Category===null)&&(service==="Select"||service===null||service===undefined)){
+    return(
+        <div>
+            <h1 style={{marginBottom:"10rem"}}>Select a category to display!!!</h1>
+        </div>
+    )
+}
 
-
-if(Data.length!==0){
+else if(Data.length!==0 && count>0){
     return(
         <div>
             <div className="CaroselCard-block">
@@ -142,18 +141,7 @@ if(Data.length!==0){
                                     </div>
                         </div>
                         
-                            )
-                        
-                    
-
-                    
-                                  
-                       
-                
-
-                    
-
-                    
+                            )      
                     
                 })}
                                 </div>
@@ -167,11 +155,13 @@ if(Data.length!==0){
 }
 
 
-else{
+else if(Data.length===0&&count>0) {
     return(
         <h1 className="NoService">No Service Available Currently!!!</h1>
     )
 }
+
+
     
 }
     

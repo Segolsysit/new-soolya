@@ -216,6 +216,7 @@ a{
     background-repeat: no-repeat;
     height:40rem;
     margin-top: 0rem;
+    justify-content: space-between;
 
 }
 
@@ -703,3 +704,84 @@ a{
 }
 
 }
+
+@media only screen and (min-width: 1500px) {
+    .coverimage1{
+        object-fit: cover;
+        aspect-ratio: 1/1;
+        width:300px;
+        border-radius: 50%;
+        background-color: rgb(250, 247, 247);
+        padding: 10px;
+        position: relative;
+        top: 10rem;
+        right: -10rem;
+    }
+    
+    .coverimage2{
+        object-fit: cover;
+        aspect-ratio: 1/1;
+        width:200px;
+        border-radius: 50%;
+        background-color: rgb(250, 247, 247);
+        padding: 10px;
+        position: relative;
+        top: -1rem;
+        right: 16rem;
+    }
+    .coverimage3{
+        object-fit: cover;
+        aspect-ratio: 1/1;
+        width:100px;
+        border-radius: 50%;
+        background-color: rgb(250, 247, 247);
+        padding: 10px;
+        position: relative;
+        top:1rem;
+        right:7rem;
+    }
+
+    
+
+}
+
+@media only screen and (max-width: 1200px) {
+    .coverimage1{
+        object-fit: cover;
+        aspect-ratio: 1/1;
+        width:200px;
+        border-radius: 50%;
+        background-color: rgb(250, 247, 247);
+        padding: 10px;
+        position: relative;
+        top: 15rem;
+        right:2rem;
+    }
+    
+    .coverimage2{
+        object-fit: cover;
+        aspect-ratio: 1/1;
+        width:150px;
+        border-radius: 50%;
+        background-color: rgb(250, 247, 247);
+        padding: 10px;
+        position: relative;
+        top: -5rem;
+        right: 4rem;
+    }
+    .coverimage3{
+        object-fit: cover;
+        aspect-ratio: 1/1;
+        width:80px;
+        border-radius: 50%;
+        background-color: rgb(250, 247, 247);
+        padding: 10px;
+        position: relative;
+        top:0rem;
+        right:1rem;
+    }
+
+    
+
+}
+
