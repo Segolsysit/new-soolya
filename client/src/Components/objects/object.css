@@ -483,7 +483,6 @@
     padding: 1rem;
     justify-content: space-between;
     align-items: center;
-    height: 30rem;
 }
 
 .Store-btn{
@@ -549,9 +548,7 @@
     margin: 0px;
 }
 
-.joindesc{
-    font-size: 0.2rem;
-}
+
 
 .Store-h1{
     font-size: 2rem;

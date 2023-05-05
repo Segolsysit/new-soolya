@@ -3,6 +3,7 @@ import './home.css'
 import {  Carosel,Ad,Popular, Join, Store,Testimonials, LatestNews ,Subscribe,Footer,End,MenuList, Header, MenuBar, CategoryHome} from "./objects/objects";
 import { useLocation ,useNavigate} from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Home=()=>{
     console.log(window.innerWidth);
@@ -35,12 +36,17 @@ const Home=()=>{
          const[SelectCategory,setCategory]=useState("Select")
          const search=()=>{
             // localStorage.setItem("Location",Location)
-            localStorage.setItem("SubCategory",SelectCategory)
+            if(SelectCategory==="Select"){
+                toast.error("Select a category", {
+                    position:"top-center",
+                  })
+            }
+            else{localStorage.setItem("SubCategory",SelectCategory)
             localStorage.setItem("SubcategoryID",ID)
             Navigate("/service")
             if(window.innerWidth<600){
                 window.scroll(0,600)
-            }
+            }}
          }
 
          useEffect(()=>{
