@@ -645,7 +645,7 @@ const Rejected_list = ({ formNumber }) => {
         p: 4,
     };
 
-    const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    
     const [rejected, setregected] = useState([])
     const [viewdata, setviewdata] = useState([]);
     const [open, setOpen1] = useState(false);
@@ -713,13 +713,6 @@ const Rejected_list = ({ formNumber }) => {
         // },
     }));
 
-
-    const verify = () => {
-        if (aemail === null && apassword === null) {
-            nav("/admin")
-        }
-    }
-
     const getrejected_list = () => {
         axios.get("http://localhost:3001/reject_api/rejected_data").then((res) => {
             setregected(res.data)
@@ -728,22 +721,8 @@ const Rejected_list = ({ formNumber }) => {
 
     }
 
-
-
-
-    const [orderdetails, setorderdetails] = useState([])
-
-
-    // const getdata2 = () => {
-    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
-    //         setorderdetails(res.data)
-    //     })
-    // }
-
     useEffect(() => {
-        // getdata2()
         getrejected_list()
-        // verify()
     },[])
 
     const viewdeatils = (id) => {
