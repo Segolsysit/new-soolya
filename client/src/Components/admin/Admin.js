@@ -63,6 +63,11 @@ export const Admin = () => {
     //     notificationfun(notification)
     // },[notification])
 
+    useEffect(() => {
+        getdata2()
+        
+    },[])
+
     const changeStyle = () => {
         if (style === "Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
             setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")

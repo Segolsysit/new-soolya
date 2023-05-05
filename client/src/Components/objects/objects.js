@@ -4,14 +4,13 @@ import './add.css'
 import './footer.css'
 import '../home.css'
 import'./dashboard.css'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {useCookies} from 'react-cookie'
 import {UserProfile,UserOrders, VendorOrders, PendingOrders} from "./Userdashboardcomps/Dashboard components";
 import { useLocation } from "react-router-dom";
 import jwt_decode from  "jwt-decode"
 import axios from "axios";
 import { VendorProfile } from "./Userdashboardcomps/Dashboard components";
-import { toast } from "react-toastify";
 import Swal from 'sweetalert2'
 
 
@@ -84,10 +83,7 @@ const MenuBar = () => {
         }
     }
 
-    const Logout = () => {
-        cookies.removeCookie("jwt2")
-        window.location.href = "/"
-    }
+   
     return (
         <div className="Menubar-outer">
         <div className="Titlebar-sticky">
@@ -137,26 +133,25 @@ const[Data,setData]=useState([])
     
 
     const[Selectindex,setIndex]=useState(null)
-    const Index=localStorage.getItem("SubcategoryID")
+
+    useEffect(()=>{
+        const Local=localStorage.getItem("SubcategoryID")
+        console.log(Local);
+        // console.log(typeof(Local));
+        if(Local!==null||Local!==undefined){
+            setIndex(parseInt(Local))
+        }
+        else{
+            setIndex(null)
+        }
+        
+    },[])
 
 
-    // useEffect(()=>{
-    //     if(Index!==null||Index!==undefined){
-    //         setIndex(Index)
-    //         console.log(Selectindex);
-    //     }
-    //     else{
-    //         setIndex(null)
-    //         console.log(Selectindex);
-    //     }
-    // })
 
-    const RemoveFilter=()=>{
-        setIndex(null)
-        setCat("Select")
-        localStorage.removeItem("SubcategoryID")
     
-    }
+
+    
     const localpath = "http://localhost:3001/";
 
     
@@ -180,9 +175,7 @@ const[Data,setData]=useState([])
             }
             
         </div>
-        <div className="Filterbtn-div">
-        <button className="Filter-button" hidden={Selectindex===null?true:false} onClick={RemoveFilter}><i class="fa-sharp fa-solid fa-filter-circle-xmark"></i></button>
-        </div>
+        
         </div>
 
     )
@@ -197,7 +190,7 @@ const CategoryHome = ({Cat,setCat}) => {
             setData(data.data)
         })},[])
     
-    
+    const Navigate=useNavigate()
         const RemoveFilter=()=>{
             setIndex(null)
             setCat("Select")
@@ -209,7 +202,7 @@ const CategoryHome = ({Cat,setCat}) => {
         const ServiceRoute=(index,Category)=>{
             localStorage.setItem("SubcategoryID",index)
             localStorage.setItem("SubCategory",Category)
-            window.location.href="/Service"
+            Navigate('/Service')
         }
 
         
@@ -883,7 +876,6 @@ const Profile=({open,close})=>{
 }
 
 const UserDashboard=()=>{
-    const { pathname } = useLocation();
     const[state,setState]=useState(1)
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
     const[myorders1,setMyorders1]=useState([])
@@ -921,7 +913,7 @@ const UserDashboard=()=>{
             setorderdetails1(res.data)
     })
 
-        },[myorders1])
+        },[myorders1,useremail])
     
 
     const notificationfun =()=>{
@@ -946,7 +938,7 @@ const UserDashboard=()=>{
             
         }
         
-    },[state])
+    },[state,Div])
 
 
     if(token){

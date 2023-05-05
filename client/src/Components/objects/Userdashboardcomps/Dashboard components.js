@@ -163,7 +163,7 @@ const VendorProfile=({State})=>{
                 setCount(count+1)
 
             }
-        },[])
+        })
     
         const orders = () => {
             console.log(userId);
