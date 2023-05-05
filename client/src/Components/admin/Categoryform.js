@@ -744,7 +744,7 @@ const Rejected_list = ({ formNumber }) => {
         // getdata2()
         getrejected_list()
         // verify()
-    })
+    },[])
 
     const viewdeatils = (id) => {
         axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
@@ -754,10 +754,10 @@ const Rejected_list = ({ formNumber }) => {
     }
     if (formNumber === 4) {
         return (
-            <div className="container-fluid">
+            <div>
                 <h1>Rejected List</h1>
                 <TableContainer component={Paper} style={{ padding: "20px" }}>
-                    <Table className='table-cat'>
+                    <Table className='table-cat' aria-label="customized table">
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell>SN</StyledTableCell>
@@ -875,7 +875,7 @@ const Orders = ({ formNumber }) => {
         getdata()
         verify()
 
-    })
+    },[])
 
     // function resetNoti() {
     //     setNotificationCount("")

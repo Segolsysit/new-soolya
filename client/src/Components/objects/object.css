@@ -428,6 +428,8 @@
 }
 
 
+
+
 @media only screen and (max-width: 600px) {
 
     
@@ -533,11 +535,32 @@
 @media only screen and (max-width: 1200px) {
 .h4btn{
     margin: 0px;
-    font-size: 100px;
+    font-size: 10px;
 }
 .h2btn{
     margin:0px;
-    font-size:40px;
+    font-size:20px;
 
+}
+
+.Store-img{
+    aspect-ratio: 1/1;
+    width: 20rem;
+    margin: 0px;
+}
+
+.joindesc{
+    font-size: 0.2rem;
+}
+
+.Store-h1{
+    font-size: 2rem;
+}
+
+.Store-button{
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 1px;
 }
 }
