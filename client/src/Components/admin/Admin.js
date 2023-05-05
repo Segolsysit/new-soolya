@@ -21,27 +21,47 @@ export const Admin = () => {
     const [not,setnot] = useState(0)
 
     const notification = localStorage.getItem("ordercount")
-    useEffect(() => {
-        getdata2()
-        notificationfun()
-    },[])
     
-    const notificationfun =()=>{
-        if(notification < orderdetails.length){
-            setnot (orderdetails.length - notification)
-            console.log(not);
-        }
-        if(notification === orderdetails.length){
-            setnot(0)
-        }
-    }
 
-
-    const getdata2 = () => {
+    const getdata2 = (notification) => {
         axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
+            console.log(res.data.length);
+            console.log(notification);
+            if(parseInt(notification)  ===  parseInt(res.data.length)){
+                setnot(0)
+                console.log(res.data.length);
+            }
+                else{
+                    setnot(parseInt(res.data.length) - parseInt(notification))
+                console.log(res.data.length);}
+            // if(notification < orderdetails.length){
+            //     setnot (orderdetails.length - notification)
+            //     console.log("not");
+            // }
+            // if(notification === orderdetails.length){
+            //     setnot(0)
+            // }
         })
+            
+               
     }
+    
+   
+
+
+    
+
+    useEffect(() => {
+        // const notification = localStorage.getItem("ordercount")
+        
+        getdata2(notification)
+        // notificationfun(notification)
+    },[notification])
+    
+    // useEffect(()=>{
+    //     notificationfun(notification)
+    // },[notification])
 
     const changeStyle = () => {
         if (style === "Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
@@ -136,7 +156,7 @@ export const Admin = () => {
                                     //  setorderdetails("0")
                                 }>
                                     <i class="fa-regular fa-link-horizontal"></i>
-                                    <span>Orders{not === 0 ? <span/> :<span className="badge badge-danger badge-counter">{not}</span> }
+                                    <span>Orders{not === 0 ? <span></span> :<span className="badge badge-danger badge-counter">{not}</span> }
                                         
                                     </span>
                                 </div>

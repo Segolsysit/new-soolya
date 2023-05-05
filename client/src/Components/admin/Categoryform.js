@@ -746,7 +746,7 @@ const Rejected_list = ({ formNumber }) => {
     }
     if (formNumber === 4) {
         return (
-            <div className="container-fluid">
+            <div >
                 <h1>Rejected List</h1>
                 <TableContainer component={Paper} style={{padding:"20px"}}>
                     <Table className='table-cat'>
