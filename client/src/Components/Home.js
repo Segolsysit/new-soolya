@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Home=()=>{
-    console.log(window.innerWidth);
+    // console.log(window.innerWidth);
     const[count0,setCount0]=useState(0)
     const[Data,setData]=useState([])
     const Navigate=useNavigate()

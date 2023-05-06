@@ -909,7 +909,7 @@ const UserDashboard=()=>{
         axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
         .then((res) => {
             setorderdetails1(res.data)
-            if(notification  ===  res.data.length){
+            if(notification  ===  res.data.length || isNaN(notification)){
                 setnot(0)
                 console.log(res.data.length);
             }

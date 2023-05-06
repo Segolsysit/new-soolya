@@ -32,7 +32,7 @@ export const Admin = () => {
             setorderdetails(res.data)
             console.log(res.data.length);
             console.log(notification);
-            if (notification === res.data.length) {
+            if (notification === res.data.length || isNaN(notification)) {
                 setnot(0)
                 console.log(res.data.length);
             }
