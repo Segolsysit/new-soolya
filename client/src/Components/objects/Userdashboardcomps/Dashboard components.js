@@ -281,10 +281,27 @@ const VendorOrders=({State})=>{
      const acceptOrder = async(order) => {
 
         try {
-            const res = await axios.post('http://localhost:3001/twilioOtp/send-otp', { mobile:`+91${6382836087}` },{withCredentials:true})
-            console.log(res.data.otp);
-            setOrderId(order)
-            handleOpen()
+            await axios.post(`http://localhost:3001/booking_api/pending_orders/${order._id}`,{
+                vendor_email:vendorDetails.Email,
+                address: order.address,
+                street:order.street,
+                city:order.city,
+                zip:order.zip,
+                person:order.person,
+                number:order.number,
+                Service:order.Service,
+                Category: order.Category,
+                price:order.price,
+                paymentMethod:order.paymentMethod
+            })
+              await axios.delete(`http://localhost:3001/booking_api/delete_item/${order._id}`)
+                alert("posted")
+                getdata()
+            
+            // const res = await axios.post('http://localhost:3001/twilioOtp/send-otp', { mobile:`+91${6382836087}` },{withCredentials:true})
+            // console.log(res.data.otp);
+            // setOrderId(order)
+            // handleOpen()
            
           } catch (err) {
             setError(err.res.data);
@@ -302,22 +319,22 @@ const VendorOrders=({State})=>{
                 if(cookies.otp_Token){
                     console.log(response.data.message)
                     setError('');
-                  await axios.post(`http://localhost:3001/booking_api/pending_orders/${orders._id}`,{
-                        vendor_email:vendorDetails.Email,
-                        address: orders.address,
-                        street:orders.street,
-                        city:orders.city,
-                        zip:orders.zip,
-                        person:orders.person,
-                        number:orders.number,
-                        Service:orders.Service,
-                        Category: orders.Category,
-                        price:orders.price,
-                        paymentMethod:orders.paymentMethod
-                    })
-                      await axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
-                        alert("posted")
-                        getdata()
+                //   await axios.post(`http://localhost:3001/booking_api/pending_orders/${orders._id}`,{
+                //         vendor_email:vendorDetails.Email,
+                //         address: orders.address,
+                //         street:orders.street,
+                //         city:orders.city,
+                //         zip:orders.zip,
+                //         person:orders.person,
+                //         number:orders.number,
+                //         Service:orders.Service,
+                //         Category: orders.Category,
+                //         price:orders.price,
+                //         paymentMethod:orders.paymentMethod
+                //     })
+                //       await axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
+                //         alert("posted")
+                //         getdata()
                     
                     
                     
