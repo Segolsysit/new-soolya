@@ -281,54 +281,58 @@ const VendorOrders=({State})=>{
      const acceptOrder = async(order) => {
 
         try {
-            const res = await axios.post('http://localhost:3001/twilioOtp/send-otp', { mobile:`+91${6382836087}` },{withCredentials:true})
-            console.log(res.data.otp);
+           
+            console.log(order.number);
+            const response = await axios.post('http://localhost:3001/OTP/sendotp', { phoneNumber:order.number},{withCredentials:true})
+            console.log(response.data.message);
             setOrderId(order)
             handleOpen()
            
           } catch (err) {
-            setError(err.res.data);
-          }
+            console.log(err.response.data.message);
+         }
         
        
+    }
+
+    const pending_data = () => {
+        
     }
  
     const handleVerifyOtp =async (e) => {
         e.preventDefault()
         try {
-             const response=await axios.post('http://localhost:3001/twilioOtp/verify-otp', { mobile:`+91${6382836087}`, otp:veriyfyOtp },{withCredentials:true})
-             
-
-                if(cookies.otp_Token){
-                    console.log(response.data.message)
+            const response = await axios.post('http://localhost:3001/OTP/verifyotp', { phoneNumber:orders.number, otp:veriyfyOtp },{withCredentials:true})
+             console.log(response.data.message)
                     setError('');
-                  await axios.post(`http://localhost:3001/booking_api/pending_orders/${orders._id}`,{
-                        vendor_email:vendorDetails.Email,
-                        address: orders.address,
-                        street:orders.street,
-                        city:orders.city,
-                        zip:orders.zip,
-                        person:orders.person,
-                        number:orders.number,
-                        Service:orders.Service,
-                        Category: orders.Category,
-                        price:orders.price,
-                        paymentMethod:orders.paymentMethod
-                    })
-                      await axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
-                        alert("posted")
-                        getdata()
-                    
-                    
-                    
+                    if(cookies.otpToken){
+                        await  axios.post(`http://localhost:3001/booking_api/pending_orders/${orders._id}`,{
+                            vendor_email:vendorDetails.Email,
+                            address: orders.address,
+                            street:orders.street,
+                            city:orders.city,
+                            zip:orders.zip,
+                            person:orders.person,
+                            number:orders.number,
+                            Service:orders.Service,
+                            Category: orders.Category,
+                            price:orders.price,
+                            paymentMethod:orders.paymentMethod
+                        })
+                        axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
+                            alert("posted")
+                            
+                            getdata()
+                    }else{
+                       
+                      
+                            console.log("invalid token");
+                    }
+                 
                    
-                }
-               
-           
-          
-          } catch (err) {
-            console.log(err.response.data);
-            setError(err.response.data);
+            } catch (error) {
+            console.log(error.response.data.message);
+            // setError('Invalid or expired OTP');
           }
 
     }
