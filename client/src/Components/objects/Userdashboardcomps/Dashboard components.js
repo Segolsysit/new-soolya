@@ -305,12 +305,12 @@ const VendorOrders = ({ State }) => {
     const acceptOrder = async (order) => {
 
         try {
-            const res = await axios.post('http://localhost:3001/twilioOtp/send-otp', { mobile: `+91${6382836087}` }, { withCredentials: true })
+            const res = await axios.post('http://localhost:3001/twilioOtp/send-otp', { mobile:`+91${6382836087}` },{withCredentials:true})
             console.log(res.data.otp);
             setOrderId(order)
             handleOpen()
-
-        } catch (err) {
+           
+          } catch (err) {
             setError(err.res.data);
         }
 
