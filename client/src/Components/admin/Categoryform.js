@@ -405,7 +405,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
 }
-
+const localpath = "http://localhost:3001/"
 const SubCategory = ({ formNumber }) => {
     const [Data, setData] = useState([])
 
@@ -478,10 +478,7 @@ const SubCategory = ({ formNumber }) => {
         '&:nth-of-type(odd)': {
             backgroundColor: theme.palette.action.hover,
         },
-        // hide last border
-        '&:last-child td, &:last-child th': {
-            border: 0,
-        },
+        
     }));
 
     const AddSubCategory = (e) => {
@@ -606,7 +603,7 @@ const SubCategory = ({ formNumber }) => {
                                             <StyledTableCell>{a++}</StyledTableCell>
 
                                             <StyledTableCell>{data.Category}</StyledTableCell>
-                                            <StyledTableCell><img src="" style={{ width: "5em", height: "5em" }} alt=".........."></img> </StyledTableCell>
+                                            <StyledTableCell><img src={localpath + data.filename}  style={{ width: "5em", height: "5em" }} alt=".........."></img> </StyledTableCell>
 
                                             <StyledTableCell>{data.Discription}</StyledTableCell>
                                             <StyledTableCell><p>{data.Price}</p></StyledTableCell>

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Admin.css"
-import { CategoryForm, Rejected_list, Orders ,SubCategory} from './Categoryform';
+import { CategoryForm, Rejected_list, Orders, SubCategory } from './Categoryform';
 import DashBoard from './Dashboard';
 import RecivedApplication from './RecivedApplications';
 import { Add_new_service, ServiceList } from './Servicelist';
@@ -18,56 +18,48 @@ export const Admin = () => {
 
     const [state, setState] = useState(false)
     const [Formnum, setFormnum] = useState(0)
-    const [not,setnot] = useState(0)
+    const [not, setnot] = useState(0)
 
     const notification = localStorage.getItem("ordercount")
     
     const [Visible,setVisible]=useState(false)
 
-    const getdata2 = (notification) => {
+
+
+    const getdata2 = () => {
+        const notification = parseInt(localStorage.getItem("ordercount"))
         axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
             console.log(res.data.length);
             console.log(notification);
-            if(parseInt(notification)  ===  parseInt(res.data.length)){
+            if (notification === res.data.length) {
                 setnot(0)
                 console.log(res.data.length);
             }
-                else{
-                    setnot(parseInt(res.data.length) - parseInt(notification))
-                console.log(res.data.length);}
-            // if(notification < orderdetails.length){
-            //     setnot (orderdetails.length - notification)
-            //     console.log("not");
-            // }
-            // if(notification === orderdetails.length){
-            //     setnot(0)
-            // }
+            else {
+                setnot( res.data.length - notification)
+                console.log(res.data.length);
+            }
         })
-            
-               
     }
-    
-   
 
 
-    
+
+
+
 
     useEffect(() => {
-        // const notification = localStorage.getItem("ordercount")
-        
-        getdata2(notification)
-        // notificationfun(notification)
-    },[notification])
-    
+        getdata2()
+    }, [])
+
     // useEffect(()=>{
     //     notificationfun(notification)
     // },[notification])
 
     useEffect(() => {
         getdata2()
-        
-    },[])
+
+    }, [])
 
     const changeStyle = () => {
         if (style === "Sidebar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
@@ -158,12 +150,12 @@ export const Admin = () => {
 
                             {/* <!-- Nav Item - Pages Collapse Menu --> */}
                             <li className="nav-item" onClick={() => setFormnum(5)}>
-                                <div className="nav-link" onClick={() => {localStorage.setItem("ordercount", orderdetails.length);setnot(0)}
+                                <div className="nav-link" onClick={() => { localStorage.setItem("ordercount", orderdetails.length); setnot(0) }
                                     //  setorderdetails("0")
                                 }>
                                     <i class="fa-regular fa-link-horizontal"></i>
-                                    <span>Orders{not === 0 ? <span></span> :<span className="badge badge-danger badge-counter">{not}</span> }
-                                        
+                                    <span>Orders{not === 0 ? <span></span> : <span className="badge badge-danger badge-counter">{not}</span>}
+
                                     </span>
                                 </div>
                             </li>
@@ -508,7 +500,7 @@ export const Admin = () => {
                                 <ServiceList formNumber={Formnum} />
                                 <Add_new_service formNumber={Formnum} />
                                 <RecivedApplication formNumber={Formnum} />
-                                <SubCategory formNumber={Formnum}/>
+                                <SubCategory formNumber={Formnum} />
 
                             </div>
                             {/* <!-- End of Main Content --> */}
@@ -535,7 +527,7 @@ export const Admin = () => {
                     </a>
 
                     {/* <!-- Logout Modal--> */}
-                    
+
                 </body>
             </div>
         )
