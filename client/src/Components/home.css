@@ -225,7 +225,7 @@ a{
     flex-direction: column;
     text-align: left;
     margin: 5rem 2rem 5rem 4rem;
-    width: 50rem;
+    width: fit-content;
 }
 
 .Primarytitle{
@@ -338,6 +338,7 @@ a{
     font-size: 14px;
     color: #868585;
     margin-top: 0px;
+
 }
 
 .selection{
@@ -606,10 +607,10 @@ a{
         display: none;
     }
     .Primarytitle{
+        max-width:28rem ;
         font-size: 2rem;
     }
     .Covertitle{
-        width: 20rem;
         margin: 5rem 2rem 5rem 1rem;
     }
     .social{
@@ -621,10 +622,14 @@ a{
         gap:10px;
         padding: 15px;
         background-color: white;
-        width: 100%;
         align-items: flex-start;
         border-radius: 10px;
         margin-top: 30px;
+        width: 100%;
+    }
+
+    .ptagforsearchbox{
+        margin: 0px;
     }
     .Div-select{
         align-items: center;
@@ -697,6 +702,15 @@ a{
     
     .selection{
         padding: 0px; 
+
+    }
+
+    .Inner-selection{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     
     .SearchBtn{

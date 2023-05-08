@@ -319,9 +319,7 @@ const VendorOrders = ({ State }) => {
        
     }
 
-    const pending_data = () => {
-        
-    }
+    
  
     const handleVerifyOtp =async (e) => {
         e.preventDefault()
@@ -344,9 +342,12 @@ const VendorOrders = ({ State }) => {
                             paymentMethod:orders.paymentMethod
                         })
                         axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
+                        .then(() => {
                             alert("posted")
-                            
                             getdata()
+                            handleClose()
+                        })
+                            
                     }else{
                        
                       
@@ -401,7 +402,7 @@ const VendorOrders = ({ State }) => {
     if (State === 2) {
         return (
             <div className="container-fluid vendor-container">
-                <h1>Order Deatails</h1>
+                <h1>Order Details</h1>
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
                     <Table className='table-cat' style={{ margin: "0px" }}>
                         <TableHead>
@@ -615,7 +616,7 @@ const PendingOrders = ({ State }) => {
     if (State === 3) {
         return (
             <div className="container-fluid vendor-container">
-                <h1>PendingOrder Deatails</h1>
+                <h1>Pending order Details</h1>
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
                     <Table className='table-cat' style={{ margin: "0px" }}>
                         <TableHead>
@@ -643,7 +644,6 @@ const PendingOrders = ({ State }) => {
                                         <StyledTableCell>{a++}</StyledTableCell>
 
                                         <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
