@@ -1,0 +1,196 @@
+.contact-image{
+    display: flex;
+    width: 100%;
+    height: 18rem;
+    overflow: hidden;
+    margin: 0px;
+   background-image: url("https://cdn.pixabay.com/photo/2018/01/19/06/26/handymen-3091826_1280.jpg");
+   background-position: 0% 30%;
+   background-color: rgb(100, 97, 97);
+   background-blend-mode: multiply;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact_div_overall{
+    margin: 50px 0px 50px 0px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-column-gap: 40px;
+    grid-template-columns: auto auto auto;
+}
+
+.contact_div_one_img{
+    height: 50px;
+    width:50px;
+}
+
+.contact_div{
+    border:1px solid rgb(221, 221, 221);
+    height:190px;
+    width:320px;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    border-radius: 5px;
+    background-color: #fff;
+    /* box-shadow: 1px 3px 15px 2px rgba(87,97,143,1); */
+}
+
+.contact_sub_div div{
+    padding: 20px;
+}
+
+.contact_div_para{
+    line-height: 13px;
+    font-weight: 500;
+    color:black;
+}
+
+.contact_div:hover{
+    background-color: dodgerblue;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.contact_div:hover .contact_div_para p {
+    color:#fff;
+    cursor: pointer;
+}
+
+.form{
+    /* width: 500px; */
+    /* margin: 0 auto; */
+    /* margin-top: 150px; */
+    font-family: sans-serif;
+    background: #fff;
+    /* padding: 20px; */
+  }
+
+.form_div{
+    display: flex;
+
+}
+
+.form_div_overall_one{
+    /* border:1px solid rgb(221, 221, 221);s */
+    /* padding: 25px 25px 25px 25px;  */
+    margin-right: 15px;
+}
+
+.form_div div{
+    margin-left: 10px;
+}
+
+.form_input_message{
+    margin-left: 10px;
+}
+
+.form-item{
+    position: relative;
+    margin-bottom: 15px
+  }
+  .form-item input{
+    display: block;
+    width: 280px;
+    height: 50px;
+    background: transparent;
+    border: solid 1px #ccc;
+    transition: all .3s ease;
+    padding: 0 15px
+  }
+  .form-item input:focus{
+    border-color: blue
+  }
+
+ .message_input{
+    display: block;
+    width: 570px;
+    height: 150px;
+    background: transparent;
+    border: solid 1px #ccc;
+    transition: all .3s ease;
+    padding: 0 15px;
+    resize: none;
+  }
+  .message_input:focus{
+    border-color: blue
+  }
+
+  .form-item label{
+    position: absolute;
+    cursor: text;
+    z-index: 2;
+    top: 13px;
+    left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    background: #fff;
+    padding: 0 10px;
+    color: #999;
+    transition: all .3s ease
+  }
+  .form-item input:focus + label,
+  .form-item input:valid + label{
+    font-size: 11px;
+    top: -5px
+  }
+  .message_input:focus + label{
+    color: blue
+  }
+
+  .message_input:focus + label,
+  .message_input:valid + label{
+    font-size: 11px;
+    top: -5px
+  }
+  .message_input:focus + label{
+    color: blue
+  }
+
+  .message_button{
+    background-color: dodgerblue;
+    font-weight: bold;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    transition-duration: 1s;
+    width: 150px;
+  }
+
+  .form_div_overall{
+    /* display: grid;
+    grid-template-columns: 50% 50%; */
+    /* padding: 25px 40px 25px 25px;  */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+  .form_div_border{
+    display: flex;
+    border:1px solid rgb(221, 221, 221);
+    padding: 25px 40px 25px 25px; 
+  }
+
+  /* .form_div_overall_one div{
+     padding: 20px;
+  } */
+
+  .align_left{
+    text-align: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+
+  #title{
+    font-weight: 500;
+    color: black;
+  }
+
+  /* @media only screen and (max-width:) {
+    
+  } */
