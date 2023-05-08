@@ -31,6 +31,9 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const [getbyid, setgetbyid] = useState('');
     const nav = useNavigate()
 
+    let aRef=useRef(null)
+
+
     const [Editservice, setEditservice] = useState('');
     const [EditDesc, setEditDesc] = useState('');
     const [EditPrice, setEditPrice] = useState('');
@@ -199,7 +202,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                 categorydata()
                 setCatagorySetup("")
                 setImg("")
-
+                aRef.current.value=null
 
 
             })
@@ -289,7 +292,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
                         <label className="Category-Label">Image</label>
                         <div className="Categoryfile-div">
-                            <input type="file" className="Category-input" onChange={handleImgChange} />
+                            <input ref={aRef} type="file" className="Category-input" onChange={handleImgChange}/>
                         </div>
                         <button type="Submit" className="Category-button">Add</button>
                     </form>
@@ -411,11 +414,13 @@ const SubCategory = ({ formNumber }) => {
 
     let a = 1
 
-    const [Category, setCategory] = useState("")
+    const [Category, setCategory] = useState("Select")
     const [SubCategory, setSubCategory] = useState("")
     const [Description, setDescription] = useState("")
     const [Image, setImage] = useState("")
     const [Price, setPrice] = useState("")
+
+    let aRef=useRef(null)
 
     const [ErrCat, setErrCat] = useState("")
     const [ErrSub, setErrSub] = useState("")
@@ -497,12 +502,13 @@ const SubCategory = ({ formNumber }) => {
         else if (Description === "" || Description === null) {
             setErrDesc("Enter Description")
         }
-        else if (Image === "No file chosen" || Image === "" || Image === null) {
-            setErrImg("Please select a file")
-        }
         else if (Price === "" || Price === null) {
             setErrPrice("Please enter a price")
         }
+        else if (Image === "No file chosen" || Image === "" || Image === null) {
+            setErrImg("Please select a file")
+        }
+        
         else {
             const formData = new FormData();
             formData.append("Category", Category);
@@ -513,11 +519,7 @@ const SubCategory = ({ formNumber }) => {
             // console.log(Image.file.originalname);
             axios.post("http://localhost:3001/sub_api/new_subcategory", formData).then((res) => {
                 // console.log(category);
-                setCategory("");
-                setSubCategory("");
-                setDescription("");
-                setImage("");
-                setPrice("")
+               
                 toast.success(' uploaded Successed!', {
                     position: "top-right",
                     autoClose: 2000,
@@ -530,19 +532,32 @@ const SubCategory = ({ formNumber }) => {
 
                 })
                 setCount(count + 1)
+                aRef.current.value=null
+
+            
             })
+
+            
         }
     }
+
+    useEffect(()=>{
+    setCategory("Select");
+    setSubCategory("");
+    setDescription("");
+    setImage("");
+    setPrice("")
+    },[count])
 
     if (formNumber === 11) {
         return (
             <div className="Subcategory-Outer">
                 <form className="SubCategory" onSubmit={AddSubCategory}>
                     <label className="Category-Label">Category</label>
-                    <select defaultValue="Select" className="Category-input" onChange={(e) => {
+                    <select  className="Category-input" onChange={(e) => {
                         setCategory(e.target.value)
                         setErrCat("")
-                    }}>
+                    }} value={Category}>
                         <option>Select</option>
                         {Data.map((item, index) => {
                             return (
@@ -554,25 +569,25 @@ const SubCategory = ({ formNumber }) => {
                     </select>
                     <p style={{ color: "red" }}>{ErrCat}</p>
                     <label className="Category-Label">Sub Category</label>
-                    <input className="Category-input" onChange={(e) => {
+                    <input className="Category-input"  onChange={(e) => {
                         setSubCategory(e.target.value)
                         setErrSub("")
-                    }} />
+                    }} value={SubCategory}/>
                     <p style={{ color: "red" }}>{ErrSub}</p>
                     <label className="Category-Label">Description</label>
-                    <textarea className="Category-input" onChange={(e) => {
+                    <textarea className="Category-input"  onChange={(e) => {
                         setDescription(e.target.value)
                         setErrDesc("")
-                    }} />
+                    }} value={Description}/>
                     <p style={{ color: "red" }}>{ErrDesc}</p>
                     <label className="Category-Label">Price</label>
-                    <input className="Category-input" type='number' onWheel={(e) => e.target.blur()} onChange={(e) => {
+                    <input className="Category-input"  type='number' onWheel={(e) => e.target.blur()} onChange={(e) => {
                         setPrice(e.target.value)
                         setErrPrice("")
-                    }} />
+                    }} value={Price}/>
                     <p style={{ color: "red" }}>{ErrPrice}</p>
                     <label className="Category-Label">Image</label>
-                    <input className="Category-input" type="file" onChange={handleImgChange} />
+                    <input ref={aRef}className="Category-input" type="file" onChange={handleImgChange} />
                     <p style={{ color: "red" }}>{ErrImg}</p>
                     <button className="Category-button" type="submit">Add</button>
 

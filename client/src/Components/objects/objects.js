@@ -4,6 +4,7 @@ import './add.css'
 import './footer.css'
 import '../home.css'
 import'./dashboard.css'
+import './aboutus.css'
 import { Link, useNavigate } from "react-router-dom";
 import {useCookies} from 'react-cookie'
 import {UserProfile,UserOrders, VendorOrders, PendingOrders} from "./Userdashboardcomps/Dashboard components";
@@ -97,7 +98,7 @@ const MenuBar = () => {
             <div className="menubar">
                 <ul className="menulist">
                     <Link to="/"><li className="Menuitem">Home</li></Link>
-                    <li className="Menuitem">About Us</li>
+                    <Link to='/AboutUs'><li className="Menuitem">About Us</li></Link>
                     <Link to="/service"><li className="Menuitem">Service</li></Link>
                     <li className="Menuitem">Pages</li>
                     <li className="Menuitem">Blog</li>
@@ -1069,5 +1070,47 @@ const VendorDashboard=()=>{
 }
 
 
+const AboutUs=()=>{
+    return(
+        <div>
+        <Header />
+            <MenuBar />
+            <MenuList />
+            <div className="Service-image">
+                <h1 className="Service-heading">About Us</h1>
+            </div>
+            <div className="Aboutus-body">
+                <h1 className="About-us-Heading1">How it works</h1>
+                <div className="AboutUs-Sec2">
+                    <div className="Aboutus-sec2-1">
+                        <img className="Aboutus-sec2-img" src="https://www.nicepng.com/png/detail/299-2992860_completed-order-comments-order-completed-icon.png" alt=""/>
+                        <h2 className="Aboutus-sec2-h2">Online Booking</h2>
+                        <p className="Aboutus-sec2-p">Order will be placed by users</p>
+                    </div>
+                    <div className="Aboutus-sec2-1">
+                        <img className="Aboutus-sec2-img" src="data:image/png;base64,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" alt=""/>
+                        <h2 className="Aboutus-sec2-h2">Get our experts</h2>
+                        <p className="Aboutus-sec2-p">Our experts will reach you to deliver our service</p>
+                    </div>
+                    <div className="Aboutus-sec2-1">
+                        <img className="Aboutus-sec2-img" src="https://cdn-icons-png.flaticon.com/512/1356/1356648.png" alt=""/>
+                        <h2 className="Aboutus-sec2-h2">Enjoy our service</h2>
+                        <p className="Aboutus-sec2-p">Hope you enjoy our service</p>
+                    </div>
+                </div>
+                <div className="Aboutus-content">
+                    <img className="Aboutus-content-img" src="https://img.freepik.com/free-vector/discussion-concept-illustration_114360-4990.jpg?w=2000&t=st=1683532294~exp=1683532894~hmac=806a2d98de86a1c812141bca8619297400b27e28663efc8d7526b25931a012d6" alt=""/>
+                    <div className="Aboutus-right">
+                        <h1 className="About-us-Heading1">Know about us</h1>
+                        <p>SpDe231U0TWGRckFRueH51tEQL20SiC8JJV6pm4vUq5Y8xz4NNq78oL2Q49oreaIP6XaETh48fHTI9OjRw8mYKDZIBnyQvp2VzyfTYNOrFTI0iBoH</p>
+                    </div>
+                </div>
+            </div>
+            <Footer/>
+            <End/>
+            </div>
+    )
+}
 
-export { Category, Carosel, Ad, Popular, Join, Store, Testimonials, LatestNews, Subscribe, Footer, End, MenuList, Header, MenuBar,UserDashboard,VendorDashboard,CategoryHome }
+
+export { Category, Carosel, Ad, Popular, Join, Store, Testimonials, LatestNews, Subscribe, Footer, End, MenuList, Header, MenuBar,UserDashboard,VendorDashboard,CategoryHome,AboutUs }
