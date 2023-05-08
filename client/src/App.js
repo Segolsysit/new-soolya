@@ -12,7 +12,7 @@ import Myorder from './Components/booking/myOrder';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
 // import Servicemanlist from './Components/admin/Servicemanlist';
-import { UserDashboard,VendorDashboard } from './Components/objects/objects';
+import { UserDashboard,VendorDashboard,AboutUs } from './Components/objects/objects';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Contact from './Components/objects/contactpage/contact';
@@ -51,6 +51,7 @@ function App() {
         <Route path='/VendorLogin' element={<VendorLogin/>}></Route>
         <Route path='/VendorDashboard' element={<VendorDashboard/>}/>
         <Route path="/contact" element={<Contact></Contact>}></Route>
+        <Route path='/AboutUs' element={<AboutUs/>}/>
       </Routes>
       </BrowserRouter>
       </Suspense>

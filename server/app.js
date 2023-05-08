@@ -23,7 +23,8 @@ const RejectedList_router = require("./RouteFiles/RejectedList_router");
 const VendorAuthRoute = require("./RouteFiles/vendor_authRoute");
 // const Footer_form_router = require("./Router/Footer_form_router");
 // const feedback_api = require ("./Router/feedback")
-const OtpRoute = require("./RouteFiles/Otp")
+const OtpRoute = require("./RouteFiles/Otp");
+const vendor_orders_router = require("./RouteFiles/vendor_order_router copy");
 // server.on("request", app)
 app.use(express.urlencoded({extended:false}))
 app.set("view engine","ejs")
@@ -38,6 +39,7 @@ app.use(
   );
 app.use("/api", category_setup_Router)
 app.use("/booking_api",bookingdetails_router);
+app.use("/vendororder_api",vendor_orders_router);
 app.use("/authUser",auth_router); 
 app.use('/vendor_Applications', Application_Router)
 app.use("/vendor_Auth",VendorAuthRoute);
