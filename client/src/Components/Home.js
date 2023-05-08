@@ -84,6 +84,7 @@ const Home=()=>{
 
                         <hr className="solid"></hr>
                         <div className="selection">
+                        <div className="Inner-selection">
                         <p className="ptagforsearchbox">I'm looking to..</p>
                     <select className="SelectionBox" onChange={(e)=>{setCategory(e.target.value)
                     setID(e.target.options.selectedIndex-1)}}>
@@ -101,7 +102,7 @@ const Home=()=>{
                             })
                         }
                     </select>
-
+                    </div>
                         </div>
                         <hr className="solid"/>
                         <div>
