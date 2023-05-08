@@ -319,9 +319,7 @@ const VendorOrders = ({ State }) => {
        
     }
 
-    const pending_data = () => {
-        
-    }
+    
  
     const handleVerifyOtp =async (e) => {
         e.preventDefault()
@@ -329,7 +327,8 @@ const VendorOrders = ({ State }) => {
             const response = await axios.post('http://localhost:3001/OTP/verifyotp', { phoneNumber:orders.number, otp:veriyfyOtp },{withCredentials:true})
              console.log(response.data.message)
                     setError('');
-                    if(cookies.otpToken){
+                    if(response.data.message === "OTP verified successfully"){
+                    
                         await  axios.post(`http://localhost:3001/booking_api/pending_orders/${orders._id}`,{
                             vendor_email:vendorDetails.Email,
                             address: orders.address,
@@ -344,13 +343,15 @@ const VendorOrders = ({ State }) => {
                             paymentMethod:orders.paymentMethod
                         })
                         axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
+                        .then(() => {
                             alert("posted")
-                            
                             getdata()
+                            handleClose()
+                        })
+                            
                     }else{
-                       
-                      
-                            console.log("invalid token");
+                           console.log("invalid token");
+                     
                     }
                  
                    
@@ -526,8 +527,7 @@ const VendorOrders = ({ State }) => {
                             }
                             <StyledTableRow>
                                 <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
-
-                                <StyledTableCell align="center">{total}</StyledTableCell>
+                                <StyledTableCell align="center">{total}<br/><button>confirm</button></StyledTableCell>
                             </StyledTableRow>
                             
                         </TableBody>
@@ -550,7 +550,7 @@ const VendorOrders = ({ State }) => {
 }
 
 
-const PendingOrders = ({ State }) => {
+const PendingOrders = ({ State ,setState }) => {
 
     const [orderdetails, setorderdetails] = useState([])
 
@@ -648,7 +648,7 @@ const PendingOrders = ({ State }) => {
                                         <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><button className="Action-btn">completed</button></StyledTableCell>
+                                        <StyledTableCell align="center"><button onClick={()=>setState(4)} className="Action-btn">completed</button></StyledTableCell>
                                     </StyledTableRow>
 
 

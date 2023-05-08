@@ -1046,13 +1046,13 @@ const VendorDashboard=()=>{
                             <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={() => { localStorage.setItem("ordercount", orderdetails.length); setnot(0);setState(2)}}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">Orders
                             {not === 0 ? <span></span> : <span className="badge badge-danger badge-counter">{not}</span>}</p></li>
                             <li className={state===3? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(3)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">Pending Orders</p></li>
-                            <li className={state===4? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(4)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">List of Work</p></li>
+                            {/* <li className={state===4? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(4)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">List of Work</p></li> */}
                         </ul>
                     </div>
                     <div className="Dashboard-right" >
                         <VendorProfile State={state}/>
                         <VendorOrders State={state}/>
-                        <PendingOrders State={state}/>
+                        <PendingOrders State={state} setState={setState}/>
                     </div>
     
                 </div>
