@@ -287,6 +287,15 @@ const Signup=()=>{
          const[errP,seterrP]=useState("")
          const[errEmail,setEE]=useState("")
          const[errPwd,setPwd]=useState("")
+
+        //  function passverfi(){
+        //     if(Password.length<8){
+        //         setPwd("Your password should have at least 8 characters")
+        //     }
+        //     else if(!passwordPattern.test(Password)){
+        //         setPwd("Your password must have atleast one lowercase letter, one uppercase letter, one number, and one special character (!@#$%^&*).")
+        //     }
+        //  }
          
 
 const Register= async(e)=>{
@@ -298,9 +307,6 @@ const Register= async(e)=>{
     setPwd("")
     
 const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
-
-    
-
 
 
     if(First===""||First===null){
@@ -362,16 +368,18 @@ const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
               toast.info("successfully registerd", {
                   position: "top-center",
                 });
-                // Navigate("/sign_in");
+                Navigate("/sign_in");
             }
           }
     }
 }
+
 if(cookies.jwt2){
     alert("already loggedin")
     window.location.href='/'
 }
 else{
+
     return(
         <div>
             <Header />
@@ -403,7 +411,7 @@ else{
                             setEE("")}}/>
                         <p className="Error-signup">{errEmail}</p>
                         <label className="Signup-Label">Password</label>
-                        <input type="password" className="Signup-Input" onChange={(e)=>{setPassword(e.target.value)
+                        <input type="password" className="Signup-Input"  onChange={(e)=>{setPassword(e.target.value);
                         setPwd("")}}/>
                         <p className="Error-signup">{errPwd}</p>
                         <button className="Button-Signup" type="submit">Create Account</button>

@@ -19,8 +19,6 @@ export const Admin = () => {
     const [state, setState] = useState(false)
     const [Formnum, setFormnum] = useState(0)
     const [not, setnot] = useState(0)
-
-    const notification = localStorage.getItem("ordercount")
     
     const [Visible,setVisible]=useState(false)
 
@@ -32,7 +30,7 @@ export const Admin = () => {
             setorderdetails(res.data)
             console.log(res.data.length);
             console.log(notification);
-            if (notification === res.data.length) {
+            if (notification === res.data.length || isNaN(notification)) {
                 setnot(0)
                 console.log(res.data.length);
             }

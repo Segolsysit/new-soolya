@@ -5,9 +5,8 @@ const jwt = require('jsonwebtoken');
 const secret = 'soolya secret magic key';
 
 const twilio = require('twilio');
-
 const accountSid = 'ACa28711fdf748fc911c31dc44314d2f4a'
-const authToken = '4eaba296783ee3a543135c4fc4b46035'
+const authToken = '4a911618d09fd73d04149a4d2c0f57a2'
 const twilioNumber = "+18622929576"
 
 const client = twilio(accountSid, authToken);
