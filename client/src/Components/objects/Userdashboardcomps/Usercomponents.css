@@ -22,7 +22,7 @@
     border-radius: 10px;
     text-align: left;
     margin: 10px;
-    width: 100%;
+    /* width: 100%; */
     color: black;
 }
 
@@ -77,6 +77,7 @@
     padding: 20px;
     background-color: rgb(6, 59, 115);
     height: fit-content;
+    width: 450px;
 }
 
 .Vendor-sec1{
@@ -103,6 +104,7 @@
     padding: 20px;
     background-color: rgb(239, 161, 5);
     gap: 10px;
+    width: 450px;
 }
 
 .vendor-sec2{
