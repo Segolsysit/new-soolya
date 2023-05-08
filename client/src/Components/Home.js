@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Home=()=>{
-    console.log(window.innerWidth);
+    // console.log(window.innerWidth);
     const[count0,setCount0]=useState(0)
     const[Data,setData]=useState([])
     const Navigate=useNavigate()
@@ -69,17 +69,19 @@ const Home=()=>{
                 <h4 className="secondaryTitle1">Premium Service 24/7</h4>
                 <h1 className="Primarytitle">We Provide High Quality Professional Services</h1>
                 <h4 className="secondaryTitle2">There are many variations to</h4>
-                <div className="Div-select">
+                {/* <div className="Div-select"> */}
                     <div className="serchblock">
-                        <div className="selection">
+
+                        {/* <div className="selection">
                         <p className="ptagforsearchbox">I'm looking to..</p>
                         <select className="SelectionBox">
                             <option>Select Location</option>
                             <option>America</option>
                             <option>India</option>
                         </select>
-                        
-                        </div>
+                        </div> */}
+
+
                         <hr className="solid"></hr>
                         <div className="selection">
                         <p className="ptagforsearchbox">I'm looking to..</p>
@@ -106,7 +108,7 @@ const Home=()=>{
                             <button className="SearchBtn" onClick={search}>search</button>
                         </div>
                     </div>
-                    </div>
+                    {/* </div> */}
 
             </div>
             <div className="CoverPhoto">

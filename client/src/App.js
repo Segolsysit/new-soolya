@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css"
 import { UserDashboard,VendorDashboard } from './Components/objects/objects';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import Contact from './Components/objects/contactpage/contact';
 
 
 const Home = lazy(() => import('./Components/Home'));
@@ -49,6 +50,7 @@ function App() {
         <Route path='/vendorForgetPassword' element={<ForgetPasswordVendor/>}/>
         <Route path='/VendorLogin' element={<VendorLogin/>}></Route>
         <Route path='/VendorDashboard' element={<VendorDashboard/>}/>
+        <Route path="/contact" element={<Contact></Contact>}></Route>
       </Routes>
       </BrowserRouter>
       </Suspense>

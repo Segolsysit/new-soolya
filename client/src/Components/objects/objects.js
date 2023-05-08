@@ -88,7 +88,7 @@ const MenuBar = () => {
         <div className="Menubar-outer">
         <div className="Titlebar-sticky">
             <div className="Logo">
-                <img className="LogoImage" alt="" src="https://cdn.logojoy.com/wp-content/uploads/2018/08/23155513/18927550-1024x776.png" />
+               <Link to={"/"}><img className="LogoImage" alt="" src="https://cdn.logojoy.com/wp-content/uploads/2018/08/23155513/18927550-1024x776.png" /></Link> 
                 <div className="Profile-block">
                 <img onClick={ProfileOpen} alt="" src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" className={status === "Loggedin" ? "Profileimg-res" : "Profileimgres-hide"}></img>
                 <button className="BurgerBtn" onClick={OpenMenu}>{icon}</button>
@@ -101,14 +101,14 @@ const MenuBar = () => {
                     <Link to="/service"><li className="Menuitem">Service</li></Link>
                     <li className="Menuitem">Pages</li>
                     <li className="Menuitem">Blog</li>
-                    <li className="Menuitem">Contact Us</li>
+                    <Link to="/contact"><li className="Menuitem">Contact Us</li></Link>
                 </ul>
             </div>
             <div className="buttonflex">
-                <div className="Search-block">
+                {/* <div className="Search-block">
                     <input placeholder="Search" className="Search-box" />
                     <button className="Searchbutton"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
+                </div> */}
                 <Link to="/Provider"><button className="hireButton">Provider Joining</button></Link>
                 <Link to="/Login"><button className={Token||VendorToken  ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
                 <img onClick={ProfileOpen} src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=1380&t=st=1682572419~exp=1682573019~hmac=ce813aaccc4d2e8202195a8bbb9a53a4d0e5a9b057dda865cfe06a7ee5d93f9b" alt="" className={Token||VendorToken ? "Profileimg" : "Profileimg-hide"}></img>
@@ -838,10 +838,10 @@ const MenuList = ({ Open, Close }) => {
                     <li className="ResItem">Contact Us</li>
                 </ul>
                 <div className="buttonflex2">
-                    <div className="Search-block">
+                    {/* <div className="Search-block">
                         <input placeholder="Search" className="Search-box2" />
                         <button className="Searchbutton"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </div >
+                    </div > */}
                     <Link to="/Provider"><button className="hireButton">Provider Joining</button></Link>
                     <Link to="/Login"><button className={Token||VendorToken  ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
                 <img onClick={ProfileOpen} src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=1380&t=st=1682572419~exp=1682573019~hmac=ce813aaccc4d2e8202195a8bbb9a53a4d0e5a9b057dda865cfe06a7ee5d93f9b" alt="" className={Token||VendorToken ? "Profileimg" : "Profileimg-hide"}></img>
