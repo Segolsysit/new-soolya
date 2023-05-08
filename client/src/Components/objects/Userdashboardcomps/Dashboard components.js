@@ -342,8 +342,8 @@ const VendorOrders = ({ State }) => {
                             price:orders.price,
                             paymentMethod:orders.paymentMethod
                         })
-                        axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
-                        .then(() => {
+                        axios.delete(`http://localhost:3001/vendororder_api/delete_item/${orders._id}`)
+                        .then(()=>{
                             alert("posted")
                             getdata()
                             handleClose()
