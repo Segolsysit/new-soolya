@@ -99,8 +99,7 @@ const MenuBar = () => {
                     <Link to="/"><li className="Menuitem">Home</li></Link>
                     <Link to='/AboutUs'><li className="Menuitem">About Us</li></Link>
                     <Link to="/service"><li className="Menuitem">Service</li></Link>
-                    <li className="Menuitem">Pages</li>
-                    <li className="Menuitem">Blog</li>
+                    
                     <Link to="/contact"><li className="Menuitem">Contact Us</li></Link>
                 </ul>
             </div>
@@ -831,11 +830,10 @@ const MenuList = ({ Open, Close }) => {
             <div className="Responsive-menu">
                 <ul className="Res">
                     <Link to="/"><li className="ResItem">Home</li></Link>
-                    <li className="ResItem">About Us</li>
+                    <Link to='/AboutUs'><li className="ResItem">About Us</li></Link>
                     <Link to="/Service"><li className="ResItem">Service</li></Link>
-                    <li className="ResItem">Pages</li>
-                    <li className="ResItem">Blog</li>
-                    <li className="ResItem">Contact Us</li>
+                    
+                    <Link to="/contact"><li className="ResItem">Contact Us</li></Link>
                 </ul>
                 <div className="buttonflex2">
                     {/* <div className="Search-block">
