@@ -344,9 +344,12 @@ const VendorOrders = ({ State }) => {
                             paymentMethod:orders.paymentMethod
                         })
                         axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
+                        .then(() => {
                             alert("posted")
-                            
                             getdata()
+                            handleClose()
+                        })
+                            
                     }else{
                        
                       
