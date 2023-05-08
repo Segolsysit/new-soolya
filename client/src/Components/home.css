@@ -476,7 +476,7 @@ a{
 .Profile-li{
     padding: 10px;
     font-weight: 450;
-    font-size: 22px;
+    font-size: 16px;
     color: black;
 }
 
@@ -484,7 +484,7 @@ a{
     display: flex;
     padding: 10px;
     font-weight: 500;
-    font-size: 22px;
+    font-size: 16px;
     color: black;
     align-items: center;
     justify-content: space-between;
