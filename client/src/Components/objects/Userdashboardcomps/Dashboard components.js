@@ -319,9 +319,7 @@ const VendorOrders = ({ State }) => {
        
     }
 
-    const pending_data = () => {
-        
-    }
+    
  
     const handleVerifyOtp =async (e) => {
         e.preventDefault()
