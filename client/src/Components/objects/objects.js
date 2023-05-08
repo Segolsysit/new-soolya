@@ -15,7 +15,6 @@ import { VendorProfile } from "./Userdashboardcomps/Dashboard components";
 import Swal from 'sweetalert2'
 
 
-
 const Header = () => {
 
     
@@ -1071,6 +1070,10 @@ const VendorDashboard=()=>{
 
 
 const AboutUs=()=>{
+
+
+
+    
     return(
         <div>
         <Header />
@@ -1098,11 +1101,21 @@ const AboutUs=()=>{
                         <p className="Aboutus-sec2-p">Hope you enjoy our service</p>
                     </div>
                 </div>
+                <Ad/>
                 <div className="Aboutus-content">
-                    <img className="Aboutus-content-img" src="https://img.freepik.com/free-vector/discussion-concept-illustration_114360-4990.jpg?w=2000&t=st=1683532294~exp=1683532894~hmac=806a2d98de86a1c812141bca8619297400b27e28663efc8d7526b25931a012d6" alt=""/>
+                    <img className="Aboutus-content-img" src="https://img.freepik.com/free-vector/hand-drawn-business-communication-illustration_23-2149158973.jpg?w=2000&t=st=1683548764~exp=1683549364~hmac=088755ecc9b08abe2d94f1dd5a45e949b10acd7cee5255f42f3f800c06c04372" alt=""/>
                     <div className="Aboutus-right">
                         <h1 className="About-us-Heading1">Know about us</h1>
-                        <p>SpDe231U0TWGRckFRueH51tEQL20SiC8JJV6pm4vUq5Y8xz4NNq78oL2Q49oreaIP6XaETh48fHTI9OjRw8mYKDZIBnyQvp2VzyfTYNOrFTI0iBoH</p>
+                        <p className="Aboutus-ptag">What sets Websolutionus apart, we believe in our commitment to providing actual value to our consumers. In the business, our dedication and quality are unrivaled. We're more than a technology service provider. We care as much about our customer’s achievements as we do about our own, therefore we share business risks with them so they may take chances with technological innovations. We provide the following services.</p>
+                        <ul className="Aboutus-ul">
+                            <li><i class="fa-solid fa-circle-check"/> Cleaning Service</li>
+                            <li><i class="fa-solid fa-circle-check "/> Repair Service</li>
+                            <li><i class="fa-solid fa-circle-check "/> Transport Service</li>
+                            <li><i class="fa-solid fa-circle-check"/> Plumbing Service</li>
+                            <li><i class="fa-solid fa-circle-check"/> AC Service</li>
+                            <li><i class="fa-solid fa-circle-check"/> Home Service</li>
+                        </ul>
+                        <Link to='/contact'><button className="Aboutus-btn">Contact Us</button></Link>
                     </div>
                 </div>
             </div>

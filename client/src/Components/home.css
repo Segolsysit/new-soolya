@@ -429,6 +429,7 @@ a{
 .SelectionBox{
     background-color: none;
     border: none;
+    width: 100%;
 }
 
 .SelectionBox:focus{
@@ -603,7 +604,11 @@ a{
     }    
     .covercontent{
         flex-direction: column;
+        gap: 0px;
+        justify-content: space-around;
     }
+
+    
     .buttonflex{
         display: none;
     }
@@ -612,7 +617,7 @@ a{
         font-size: 2rem;
     }
     .Covertitle{
-        margin: 5rem 2rem 5rem 1rem;
+        margin: 2rem 2rem 2rem 0.5rem;
     }
     .social{
         display: none;
