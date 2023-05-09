@@ -261,15 +261,15 @@ const VendorOrders = ({ State }) => {
     const token = cookies.venjwt;
     const decodedToken = jwt_decode(token);
     const vendorId = decodedToken.id;
-    const [options2, setoptions2] = useState([]);
-    const [selected, setSelected] = useState([]);
+    // const [options2, setoptions2] = useState([]);
+    // const [selected, setSelected] = useState([]);
 
-    function onSelect1(selectedList, selectedItem) {
+   function onSelect1(selectedList, selectedItem) {
         setSelected(selectedList)
         console.log(selectedList);
         listofwork()
     };
-
+    
     function onRemove(selectedList, removedItem) {
         setSelected(selectedList)
         console.log(selectedList);
@@ -277,6 +277,7 @@ const VendorOrders = ({ State }) => {
 
     }
     console.log(selected);
+    const options1 = [
 
     function get_vendor() {
 
@@ -289,11 +290,15 @@ const VendorOrders = ({ State }) => {
     const handleOpen = () => {
         setOpen(true)
     }
-
+    // const handleOpen2 = () => {
+    //     setOpen2(true)
+    // }
     const handleClose = () => {
         setOpen(false)
     }
-
+    // const handleClose2 = () => {
+    //     setOpen2(false)
+    // }
     const acceptOrder = async (order) => {
 
         try {
@@ -364,17 +369,17 @@ const VendorOrders = ({ State }) => {
     }
     let a = 1;
 
-    const listofwork = () => {
-        axios.get("http://localhost:3001/sub_api/new_fetch_items").then((res) => {
-            setoptions2(res.data)
-            console.log(res.data);
-        })
-    }
+    // const listofwork = () => {
+    //     axios.get("http://localhost:3001/sub_api/new_fetch_items").then((res) => {
+    //         setoptions2(res.data)
+    //         console.log(res.data);
+    //     })
+    // }
 
     useEffect(() => {
         getdata()
         get_vendor()
-        listofwork()
+        // listofwork()
     }, [])
 
     // function resetNoti() {
@@ -387,11 +392,38 @@ const VendorOrders = ({ State }) => {
         }
     }, [State])
 
-    // const value1 = () => {
+    // const value1 = ()=>{
     //     console.log(selected);
     // }
+    // const [resendOTP, setResendOTP] = useState(false);
+    // const [timer, setTimer] = useState(null);
+    // const [timeRemaining, setTimeRemaining] = useState(0);
+    // const [otpSent, setOTPSent] = useState(false);
+    // const [open2, setOpen2] = useState(false);
+    // const [error, setError] = useState('');
+  
+    // const completeOtp = async() => {
+    //     setResendOTP(false);
+    //     clearInterval(timer);
+    //     try {
+    //         // console.log(orders.number);
+    //       const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
+    //         phoneNumber: orders.number
+    //       });
+    //       console.log(response.data.message);
+    //       handleOpen2()
+    //       setOTPSent(true);
+    //       setTimeRemaining(120);
+    //       setTimer(setInterval(() => {
+    //         setTimeRemaining(prevTime => prevTime - 1);
+    //       }, 1000));
+    //     } catch (error) {
+    //         console.log(error.response.data.message);
+    //     //   setError(error.response.data.message);
+    //     }
+    // }
 
-    const total = selected.reduce((acc, curr) => acc + curr.Price, 0)
+    // const total = selected.reduce((acc,curr)=> acc + curr.Price, 0)
     if (State === 2) {
         return (
             <div className="container-fluid vendor-container">
@@ -489,16 +521,16 @@ const VendorOrders = ({ State }) => {
             <div className="container-fluid vendor-container">
                 <h1>List of Works</h1>
                 <div>
-                    <Multiselect
-                        options={options2} // Options to display in the dropdown
-                        // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
-                        onSelect={onSelect1} // Function will trigger on select event
-                        onRemove={onRemove} // Function will trigger on remove event
-                        displayValue={"Subcategory"} // Property name to display in the dropdown options
+                <Multiselect 
+                    options={options2} // Options to display in the dropdown
+                    // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
+                    onSelect={onSelect1} // Function will trigger on select event
+                    onRemove={onRemove} // Function will trigger on remove event
+                    displayValue={"Subcategory"} // Property name to display in the dropdown options
                     // displayValue={"Price"}
-                    />
+                />
                 </div>
-
+                
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
                     <Table className='table-cat' style={{ margin: "0px" }}>
                         <TableHead>
@@ -510,19 +542,19 @@ const VendorOrders = ({ State }) => {
                         </TableHead>
                         <TableBody>
                             {selected.map((data, index) => (
-                                <StyledTableRow key={index}>
-                                    <StyledTableCell align="center">{a++}</StyledTableCell>
+                                    <StyledTableRow key={index}>
+                                        <StyledTableCell align="center">{a++}</StyledTableCell>
 
-                                    <StyledTableCell align="center"><p>{data.Subcategory}</p></StyledTableCell>
-                                    <StyledTableCell align="center"><p>{data.Price}</p></StyledTableCell>
-                                </StyledTableRow>
-                            ))
+                                        <StyledTableCell align="center"><p>{data.Subcategory}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.Price}</p></StyledTableCell>
+                                    </StyledTableRow>
+                                ))
                             }
                             <StyledTableRow>
                                 <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
-                                <StyledTableCell align="center">{total}<br /><button>confirm</button></StyledTableCell>
+                                <StyledTableCell align="center">{total}<br/><button>confirm</button></StyledTableCell>
                             </StyledTableRow>
-
+                            
                         </TableBody>
                     </Table>
                 </TableContainer>
@@ -543,12 +575,12 @@ const VendorOrders = ({ State }) => {
 }
 
 
-const PendingOrders = ({ State, setState }) => {
+const PendingOrders = ({ State ,setState }) => {
 
-    // const [orderdetails, setorderdetails] = useState([])
+    const [orderdetails, setorderdetails] = useState([])
 
-    // const [notificationCount, setNotificationCount] = useState(0);
-    //const nav = useNavigate()
+    const [notificationCount, setNotificationCount] = useState(0);
+    const nav = useNavigate()
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -577,6 +609,32 @@ const PendingOrders = ({ State, setState }) => {
     const decodedToken = jwt_decode(token);
     const vendorId = decodedToken.id;
     let a = 1;
+    const handleClose2 = () => {
+        setOpen2(false)
+    }
+    const handleOpen2 = () => {
+        setOpen2(true)
+    }
+    const completeOtp = async() => {
+        setResendOTP(false);
+        clearInterval(timer);
+        try {
+            // console.log(orders.number);
+          const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
+            phoneNumber: orders.number
+          });
+          console.log(response.data.message);
+          handleOpen2()
+          setOTPSent(true);
+          setTimeRemaining(120);
+          setTimer(setInterval(() => {
+            setTimeRemaining(prevTime => prevTime - 1);
+          }, 1000));
+        } catch (error) {
+            console.log(error.response.data.message);
+        //   setError(error.response.data.message);
+        }
+    }
     function get_vendor() {
         axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${vendorId}`)
             .then((res) => {
@@ -589,10 +647,17 @@ const PendingOrders = ({ State, setState }) => {
                 setPendingorders(res.data)
             })
     }
+    const listofwork = () => {
+        axios.get("http://localhost:3001/sub_api/new_fetch_items").then((res) => {
+            setoptions2(res.data)
+            console.log(res.data);
+        })
+    }
+    const total = selected.reduce((acc,curr)=> acc + curr.Price, 0)
     useEffect(() => {
         get_vendor()
         vendor_orders()
-    }, [vendorDetails.Email,get_vendor,vendorDetails])
+    }, [vendorDetails.Email])
 
 
 
@@ -657,57 +722,7 @@ const PendingOrders = ({ State, setState }) => {
 
         )
     }
-
-    else if (State === 5) {
-        return (
-            <div className="container-fluid vendor-container">
-                <h1>Completed Orders</h1>
-                <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
-                    <Table className='table-cat' style={{ margin: "0px" }}>
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="center">SN</StyledTableCell>
-                                <StyledTableCell align="center">Name</StyledTableCell>
-                                {/* <StyledTableCell align="center">Email</StyledTableCell> */}
-                                <StyledTableCell align="center">Category</StyledTableCell>
-                                <StyledTableCell align="center">Price</StyledTableCell>
-                                <StyledTableCell align="center">Address</StyledTableCell>
-                                <StyledTableCell align="center">Number</StyledTableCell>
-                                <StyledTableCell align="center">paymentMethod</StyledTableCell>
-
-
-
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                pendingorders.map((data, index) => (
-
-
-                                    <StyledTableRow key={index}>
-                                        <StyledTableCell>{a++}</StyledTableCell>
-
-                                        <StyledTableCell align="center"><p>{}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{}</p> </StyledTableCell>
-                                        <StyledTableCell align="center"><p>{}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{}</p></StyledTableCell>
-                                    </StyledTableRow>
-
-
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-
-            </div>
-
-
-
-        )
-    }
+    if (State === 4) {
 
 }
 
