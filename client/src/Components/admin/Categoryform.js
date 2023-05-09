@@ -854,7 +854,7 @@ const Orders = ({ formNumber }) => {
 
 
     const getdata = () => {
-        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+        axios.get("http://localhost:3001/booking_api/pending_booking_data").then((res) => {
             setorderdetails(res.data)
         })
     }
@@ -874,7 +874,7 @@ const Orders = ({ formNumber }) => {
     if (formNumber === 5) {
         return (
             <div className="container-fluid">
-                <h1>Order Deatails</h1>
+                <h1> pending Order Deatails</h1>
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
                     <Table className='table-cat' style={{ margin: "0px" }}>
                         <TableHead>
