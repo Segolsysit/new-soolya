@@ -21,7 +21,6 @@ import Switch from '@mui/material/Switch';
 import Swal from "sweetalert2";
 
 
-import { Toast } from "bootstrap";
 
 const CategoryForm = ({ FormNumber, setNumber }) => {
 
@@ -35,8 +34,8 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
     const [Editservice, setEditservice] = useState('');
-    const [EditDesc, setEditDesc] = useState('');
-    const [EditPrice, setEditPrice] = useState('');
+    // const [EditDesc, setEditDesc] = useState('');
+    // const [EditPrice, setEditPrice] = useState('');
 
     const [EditImage, setEditImage] = useState('');
 
@@ -132,17 +131,17 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         })
 
     }
-    const modelstyle = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-    };
+    // const modelstyle = {
+    //     position: 'absolute',
+    //     top: '50%',
+    //     left: '50%',
+    //     transform: 'translate(-50%, -50%)',
+    //     width: 400,
+    //     bgcolor: 'background.paper',
+    //     border: '2px solid #000',
+    //     boxShadow: 24,
+    //     p: 4,
+    // };
     const AddService = (e) => {
 
         e.preventDefault();
@@ -296,7 +295,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                         </div>
                         <button type="Submit" className="Category-button">Add</button>
                     </form>
-                    <img className="Category-Right" src="https://cdn.pixabay.com/photo/2018/07/25/15/52/design-3561661_1280.jpg" />
+                    <img className="Category-Right" src="https://cdn.pixabay.com/photo/2018/07/25/15/52/design-3561661_1280.jpg" alt=""/>
                 </div>
                 <div >
                     <TableContainer component={Paper} style={{ padding: "20px" }}>
@@ -663,9 +662,9 @@ const Rejected_list = ({ formNumber }) => {
     const [open, setOpen1] = useState(false);
     const [openModel2, setOpenModel2] = useState(false);
 
-    const aemail = localStorage.getItem("adminemail")
-    const apassword = localStorage.getItem("adminpassword")
-    const nav = useNavigate()
+    // const aemail = localStorage.getItem("adminemail")
+    // const apassword = localStorage.getItem("adminpassword")
+    // const nav = useNavigate()
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -677,13 +676,13 @@ const Rejected_list = ({ formNumber }) => {
         },
     }));
 
-    const handleOpen = (_id) => {
-        axios.get(`http://localhost:3001/reject_api/rejected_data/${_id}`).then((response) => {
-            setviewdata(response.data);
-            console.log(response.data);
-        })
-        setOpen1(true);
-    };
+    // const handleOpen = (_id) => {
+    //     axios.get(`http://localhost:3001/reject_api/rejected_data/${_id}`).then((response) => {
+    //         setviewdata(response.data);
+    //         console.log(response.data);
+    //     })
+    //     setOpen1(true);
+    // };
 
     const deleteOpen = (_id) => {
         Swal.fire({
@@ -737,12 +736,12 @@ const Rejected_list = ({ formNumber }) => {
         getrejected_list()
     },[])
 
-    const viewdeatils = (id) => {
-        axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
-            setviewdata(response.data);
-            console.log(response.data);
-        })
-    }
+    // const viewdeatils = (id) => {
+    //     axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
+    //         setviewdata(response.data);
+    //         console.log(response.data);
+    //     })
+    // }
     if (formNumber === 4) {
         return (
             <div className="container-fluid">
@@ -813,9 +812,10 @@ const Orders = ({ formNumber }) => {
 
     // const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
     const [orderdetails, setorderdetails] = useState([])
+    const [pending_orderdetails, setpending_orderdetails] = useState([])
     const aemail = localStorage.getItem("adminemail")
     const apassword = localStorage.getItem("adminpassword");
-    const [notificationCount, setNotificationCount] = useState(0);
+    // const [notificationCount, setNotificationCount] = useState(0);
     const nav = useNavigate()
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -858,6 +858,9 @@ const Orders = ({ formNumber }) => {
         axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
         })
+        axios.get("http://localhost:3001/booking_api/pending_booking_data").then((res) => {
+            setpending_orderdetails(res.data)
+        })
     }
     let a = 1;
 
@@ -875,7 +878,58 @@ const Orders = ({ formNumber }) => {
     if (formNumber === 5) {
         return (
             <div className="container-fluid">
-                <h1>Order Deatails</h1>
+                <h1> pending Order Deatails</h1>
+                <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                    <Table className='table-cat' style={{ margin: "0px" }}>
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align="center">SN</StyledTableCell>
+                                <StyledTableCell align="center">Name</StyledTableCell>
+                                <StyledTableCell align="center">Email</StyledTableCell>
+                                <StyledTableCell align="center">Category</StyledTableCell>
+                                <StyledTableCell align="center">Price</StyledTableCell>
+                                <StyledTableCell align="center">Address</StyledTableCell>
+                                <StyledTableCell align="center">Number</StyledTableCell>
+                                <StyledTableCell align="center">paymentMethod</StyledTableCell>
+
+
+
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                pending_orderdetails.map((data, index) => (
+
+
+                                    <StyledTableRow key={index}>
+                                        <StyledTableCell>{a++}</StyledTableCell>
+
+                                        <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                    </StyledTableRow>
+
+
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+            </div>
+
+
+
+        )
+    }
+    else if(formNumber===12){
+        return(
+            <div className="container-fluid">
+                <h1>Orders</h1>
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
                     <Table className='table-cat' style={{ margin: "0px" }}>
                         <TableHead>
@@ -918,9 +972,55 @@ const Orders = ({ formNumber }) => {
                 </TableContainer>
 
             </div>
+        )
+    }
+
+    else if(formNumber===13){
+        return(
+            <div className="container-fluid">
+                <h1>Completed Orders</h1>
+                <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                    <Table className='table-cat' style={{ margin: "0px" }}>
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align="center">SN</StyledTableCell>
+                                <StyledTableCell align="center">Name</StyledTableCell>
+                                <StyledTableCell align="center">Email</StyledTableCell>
+                                <StyledTableCell align="center">Category</StyledTableCell>
+                                <StyledTableCell align="center">Price</StyledTableCell>
+                                <StyledTableCell align="center">Address</StyledTableCell>
+                                <StyledTableCell align="center">Number</StyledTableCell>
+                                <StyledTableCell align="center">paymentMethod</StyledTableCell>
 
 
 
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                orderdetails.map((data, index) => (
+
+
+                                    <StyledTableRow key={index}>
+                                        <StyledTableCell>{a++}</StyledTableCell>
+
+                                        <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                    </StyledTableRow>
+
+
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+            </div>
         )
     }
 

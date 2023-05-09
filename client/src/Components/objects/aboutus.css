@@ -27,19 +27,7 @@
     padding: 0px;
 }
 
-.Service-image{
-    display: flex;
-    width: 100%;
-    height: 18rem;
-    overflow: hidden;
-    margin: 0px;
-   background-image: url("https://cdn.pixabay.com/photo/2018/01/19/06/26/handymen-3091826_1280.jpg");
-   background-position: 0% 30%;
-   background-color: rgb(100, 97, 97);
-   background-blend-mode: multiply;
-    align-items: center;
-    justify-content: center;
-}
+
 
 .Service-heading{
     position: relative;
@@ -56,27 +44,116 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    transition-duration: 1s;
+    animation: opacity 1s ease-in-out;
+    margin-top: 40px;
+}
+
+@keyframes opacity {
+    0%{
+        filter: opacity(0%);
+    }
+    100%{
+        filter: opacity(100%);
+    }
 }
 
 .Aboutus-right{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     flex-wrap: wrap;
     width:50%;
     text-align: left;
+    padding: 60px;
 }
 
 .Aboutus-content-img{
     object-fit: cover;
-   aspect-ratio: 1/1;
+   aspect-ratio: 1/0.7;
    width: 50%; 
 }
 
+.About-us-Heading1{
+    margin-bottom: 20px;
+}
+
+.Aboutus-ptag{
+    word-break: break-all;
+    white-space: normal;
+    color: black;
+    font-size: 15px;
+}
+
+.Tick-Aboutus{
+    color: dodgerblue;
+}
+
+.Aboutus-ul{
+    list-style: none;
+    color: black;
+}
+
+.Aboutus-ul>li{
+    padding: 5px;
+}
+
+.Aboutus-ul>li>i{
+    color: dodgerblue;
+    font-size: 20px;
+    animation: none;
+}
+
+.Aboutus-btn{
+    background-color: dodgerblue;
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 8px;
+    width: fit-content;
+    border-radius: 5px;
+}
+
+
 
 @media only screen and (max-width: 600px) {
+    .Aboutus-body{
+        margin-top: 20px;
+    }
+    .Aboutus-sec2-img{
+        width: 60px;
+    }
     .AboutUs-Sec2{
         display: flex;
         flex-direction: column;
+        gap: 30px;
         margin: 0px;
+        justify-content: center;
+        align-items: center;
+    }
+    .Aboutus-sec2-h2{
+        font-size: 25px;
+        margin-bottom: 1px;
+    }
+    .Aboutus-sec2-1{
+        width: 15rem;
+    }
+    .Aboutus-content-img{
+        display:none;
+    }
+    .Aboutus-right{
+        margin-top: 60px;
+        width:100%;
+        text-align: center;
+        padding: 20px;
+    }
+    .Aboutus-ul{
+        margin: 0px;
+        padding: 0px;
+        text-align: left;
+    }
+
+    .Aboutus-content{
+        margin-top: 10px;
     }
 }

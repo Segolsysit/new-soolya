@@ -70,7 +70,6 @@
 
 .form_div{
     display: flex;
-
 }
 
 .form_div_overall_one{
@@ -191,6 +190,80 @@
     color: black;
   }
 
-  /* @media only screen and (max-width:) {
+
+  @media only screen and (max-width:410px) {
+    .contact_div{
+      width:100%  ;
+      max-width: 320px;
+  }
+  }
+
+  @media only screen and (min-width:320px) {
+    .contact_div_overall{
+      grid-template-columns: auto;
+      grid-row-gap: 30px;
+  }
+  }
+
+  
+  @media only screen and (min-width:750px) {
+    .contact_div_overall{
+      grid-template-columns: auto auto;
+      grid-row-gap: 30px;
+  }
+  }
+
+
+  @media only screen and (min-width:1150px) {
+    .contact_div_overall{
+      grid-row-gap: 30px;
+      grid-template-columns: auto auto auto;
+  }
+  }
+
+
+
+  @media only screen and (max-width:1150px) {
     
-  } */
+    .form_div_border{
+      display: inline;
+      border:1px solid rgb(221, 221, 221);
+      /* padding: 25px 40px 25px 25px;  */
+    }
+
+    #none{
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width:730px) {
+    .form-item input{
+      display: block;
+      width:100%;
+      max-width: 280px;
+      height: 50px;
+      background: transparent;
+      border: solid 1px #ccc;
+      transition: all .3s ease;
+      padding: 0 15px
+    }
+
+   .message_input{
+      display: block;
+      width:100%;
+      max-width: 570px;
+      height: 150px;
+      background: transparent;
+      border: solid 1px #ccc;
+      transition: all .3s ease;
+      padding: 0 15px;
+      resize: none;
+    }
+    .form_div{
+      display: unset;
+      /* border:1px solid rgb(221, 221, 221); */
+      padding: 25px 40px 25px 25px; 
+    }
+  
+
+  }

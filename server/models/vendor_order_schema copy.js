@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 
-const bookingdetailSchema =new mongoose.Schema({
+const vendorOrderSchema =new mongoose.Schema({
     user_email:{
         type:String
     },
@@ -41,9 +41,6 @@ const pendingOderSchema =new mongoose.Schema({
     vendor_email:{
         type:String
     },
-    user_email:{
-        type:String
-    },
     address:{
         type:String
     },
@@ -73,13 +70,16 @@ const pendingOderSchema =new mongoose.Schema({
     },
     paymentMethod:{
         type:String
+    },
+    order_id:{
+        type:String
     }
 })
 
-const pendingOrders_Model = mongoose.model("pendingOrders_Model", pendingOderSchema)
-const bookingdetails_Model = mongoose.model("bookingdetails_Model", bookingdetailSchema)
+// const pendingOrders_Model = mongoose.model("pendingOrders_Model", pendingOderSchema)
+const vendorOrder_Model = mongoose.model("vendorOrder_Model", vendorOrderSchema)
 
 module.exports = {
-    pendingOrders_Model,
-    bookingdetails_Model
+    // pendingOrders_Model,
+    vendorOrder_Model
 }

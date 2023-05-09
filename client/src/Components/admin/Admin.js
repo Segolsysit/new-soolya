@@ -30,7 +30,7 @@ export const Admin = () => {
             setorderdetails(res.data)
             console.log(res.data.length);
             console.log(notification);
-            if (notification === res.data.length || isNaN(notification)) {
+            if (notification === res.data.length || isNaN(notification) || notification >= res.data.length) {
                 setnot(0)
                 console.log(res.data.length);
             }
@@ -78,11 +78,11 @@ export const Admin = () => {
     }
     // const isPasswordCorrect = bcrypt.compareSync(apassword, hashedPassword);
 
-    const verify = () => {
-        if (aemail === null) {
-            nav("/admin")
-        }
-    }
+    // const verify = () => {
+    //     if (aemail === null) {
+    //         nav("/admin")
+    //     }
+    // }
 
     const adminlogout = () => {
         localStorage.removeItem("adminemail")
@@ -147,14 +147,35 @@ export const Admin = () => {
                             </div>
 
                             {/* <!-- Nav Item - Pages Collapse Menu --> */}
-                            <li className="nav-item" onClick={() => setFormnum(5)}>
-                                <div className="nav-link" onClick={() => { localStorage.setItem("ordercount", orderdetails.length); setnot(0) }
+                            <li className="nav-item">
+                                <div className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOrder"
+                                    aria-expanded="true" aria-controls="collapseOrder"  onClick={() => { localStorage.setItem("ordercount", orderdetails.length); setnot(0) ;setVisible(false) }
                                     //  setorderdetails("0")
                                 }>
                                     <i class="fa-regular fa-link-horizontal"></i>
                                     <span>Orders{not === 0 ? <span></span> : <span className="badge badge-danger badge-counter">{not}</span>}
 
                                     </span>
+                                </div>
+                                <div id="collapseOrder" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
+                                    <div className="bg-white py-2 collapse-inner rounded"  hidden={Visible}>
+                                        {/* <h6 className="collapse-header">Custom Components:</h6> */}
+                                        <div className="collapse-item"  onClick={() => {
+                                            setState(true)
+                                            setFormnum(12)
+                                            setVisible(true)
+                                        }}>Orders</div>
+                                        <div className="collapse-item" onClick={() => {
+                                            setState(true)
+                                            setFormnum(5)
+                                            setVisible(true)
+                                        }} >Pending Orders</div>
+                                        <div className="collapse-item" onClick={() => {
+                                            setState(true)
+                                            setFormnum(13)
+                                            setVisible(true)
+                                        }} >Completed Orders</div>
+                                    </div>
                                 </div>
                             </li>
                             <li className="nav-item" >

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './home.css'
-import { Carosel, Ad, Popular, Join, Store, Testimonials, LatestNews, Subscribe, Footer, End, MenuList, Header, MenuBar, CategoryHome } from "./objects/objects";
+import { Carosel, Ad, Popular, Join, Store, Subscribe, Footer, End, MenuList, Header, MenuBar, CategoryHome } from "./objects/objects";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -154,7 +154,6 @@ const Home = () => {
                     <Join />
                 </div>
                 <Store />
-
                 <Subscribe />
                 <Footer />
                 <End />

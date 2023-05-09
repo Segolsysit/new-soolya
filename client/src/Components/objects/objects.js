@@ -15,11 +15,10 @@ import { VendorProfile } from "./Userdashboardcomps/Dashboard components";
 import Swal from 'sweetalert2'
 
 
-
 const Header = () => {
 
     
-
+if(window.innerWidth>600){
     return (
         <div className="Header">
             <div>
@@ -49,6 +48,31 @@ const Header = () => {
 
     )
 }
+else if(window.innerWidth<600){
+    return (
+        <div className="Header">
+            <div>
+                <ul className="contact">
+                    <li><i class="fa-solid fa-phone "></i> 1234</li>
+                    <li><i class="fa-solid fa-envelope"></i> abcd@gmail.com</li>
+                </ul>
+            </div>
+
+        </div>
+
+
+
+
+    )
+}
+    
+}
+
+
+
+
+
+
 
 const MenuBar = () => {
 
@@ -100,8 +124,7 @@ const MenuBar = () => {
                     <Link to="/"><li className="Menuitem">Home</li></Link>
                     <Link to='/AboutUs'><li className="Menuitem">About Us</li></Link>
                     <Link to="/service"><li className="Menuitem">Service</li></Link>
-                    <li className="Menuitem">Pages</li>
-                    <li className="Menuitem">Blog</li>
+                    
                     <Link to="/contact"><li className="Menuitem">Contact Us</li></Link>
                 </ul>
             </div>
@@ -832,11 +855,10 @@ const MenuList = ({ Open, Close }) => {
             <div className="Responsive-menu">
                 <ul className="Res">
                     <Link to="/"><li className="ResItem">Home</li></Link>
-                    <li className="ResItem">About Us</li>
+                    <Link to='/AboutUs'><li className="ResItem">About Us</li></Link>
                     <Link to="/Service"><li className="ResItem">Service</li></Link>
-                    <li className="ResItem">Pages</li>
-                    <li className="ResItem">Blog</li>
-                    <li className="ResItem">Contact Us</li>
+                    
+                    <Link to="/contact"><li className="ResItem">Contact Us</li></Link>
                 </ul>
                 <div className="buttonflex2">
                     {/* <div className="Search-block">
@@ -910,7 +932,7 @@ const UserDashboard=()=>{
         axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
         .then((res) => {
             setorderdetails1(res.data)
-            if(notification  ===  res.data.length || isNaN(notification)){
+            if(notification  ===  res.data.length || isNaN(notification) || notification >= res.data.length){
                 setnot(0)
                 console.log(res.data.length);
             }
@@ -946,11 +968,14 @@ const UserDashboard=()=>{
                         <ul className="Sidebar-ul">
                             <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}><i class="fa-solid fa-user"/><p className="Sidebar-lable">My Profile</p></li>
                             <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>{setState(2);localStorage.setItem("userordercount", orderdetails1.length);setnot(0) }}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">My Orders</p>{not === 0 ? <span/> :<span className="badge badge-danger badge-counter">{not}</span> }</li>
+                            <li className={state===3? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(3)}><i class="fa-solid fa-clock"></i><p className="Sidebar-lable">Pending Orders</p></li>
+                            <li className={state===4? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(4)}><i class="fa-solid fa-check"></i><p className="Sidebar-lable">Completed Orders</p></li>
                         </ul>
                     </div>
                     <div className="Dashboard-right">
                         <UserProfile State={state}/>
                         <UserOrders State={state} Loader={Loader} setLoader={setLoader}/> 
+                    
                     </div>
     
                 </div>
@@ -980,7 +1005,7 @@ const VendorDashboard=()=>{
             setorderdetails(res.data)
             console.log(res.data.length);
             console.log(notification);
-            if (notification === res.data.length ||  isNaN(notification)) {
+            if (notification === res.data.length ||  isNaN(notification) || notification >= res.data.length) {
                 setnot(0)
                 console.log(res.data.length);
             }
@@ -1045,8 +1070,8 @@ const VendorDashboard=()=>{
                             <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}><i class="fa-solid fa-user"/><p className="Sidebar-lable">My Profile</p></li>
                             <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={() => { localStorage.setItem("ordercount", orderdetails.length); setnot(0);setState(2)}}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">Orders
                             {not === 0 ? <span></span> : <span className="badge badge-danger badge-counter">{not}</span>}</p></li>
-                            <li className={state===3? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(3)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">Pending Orders</p></li>
-                            {/* <li className={state===4? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(4)}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">List of Work</p></li> */}
+                            <li className={state===3? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(3)}><i class="fa-solid fa-clock"></i><p className="Sidebar-lable">Pending Orders</p></li>
+                            <li className={state===5? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(5)}><i class="fa-solid fa-check"></i><p className="Sidebar-lable">Completed Orders</p></li>
                         </ul>
                     </div>
                     <div className="Dashboard-right" >
@@ -1071,6 +1096,10 @@ const VendorDashboard=()=>{
 
 
 const AboutUs=()=>{
+
+
+
+    
     return(
         <div>
         <Header />
@@ -1098,11 +1127,21 @@ const AboutUs=()=>{
                         <p className="Aboutus-sec2-p">Hope you enjoy our service</p>
                     </div>
                 </div>
+                <Ad/>
                 <div className="Aboutus-content">
-                    <img className="Aboutus-content-img" src="https://img.freepik.com/free-vector/discussion-concept-illustration_114360-4990.jpg?w=2000&t=st=1683532294~exp=1683532894~hmac=806a2d98de86a1c812141bca8619297400b27e28663efc8d7526b25931a012d6" alt=""/>
+                    <img className="Aboutus-content-img" src="https://img.freepik.com/free-vector/hand-drawn-business-communication-illustration_23-2149158973.jpg?w=2000&t=st=1683548764~exp=1683549364~hmac=088755ecc9b08abe2d94f1dd5a45e949b10acd7cee5255f42f3f800c06c04372" alt=""/>
                     <div className="Aboutus-right">
                         <h1 className="About-us-Heading1">Know about us</h1>
-                        <p>SpDe231U0TWGRckFRueH51tEQL20SiC8JJV6pm4vUq5Y8xz4NNq78oL2Q49oreaIP6XaETh48fHTI9OjRw8mYKDZIBnyQvp2VzyfTYNOrFTI0iBoH</p>
+                        <p className="Aboutus-ptag">What sets Websolutionus apart, we believe in our commitment to providing actual value to our consumers. In the business, our dedication and quality are unrivaled. We're more than a technology service provider. We care as much about our customer’s achievements as we do about our own, therefore we share business risks with them so they may take chances with technological innovations. We provide the following services.</p>
+                        <ul className="Aboutus-ul">
+                            <li><i class="fa-solid fa-circle-check"/> Cleaning Service</li>
+                            <li><i class="fa-solid fa-circle-check "/> Repair Service</li>
+                            <li><i class="fa-solid fa-circle-check "/> Transport Service</li>
+                            <li><i class="fa-solid fa-circle-check"/> Plumbing Service</li>
+                            <li><i class="fa-solid fa-circle-check"/> AC Service</li>
+                            <li><i class="fa-solid fa-circle-check"/> Home Service</li>
+                        </ul>
+                        <Link to='/contact'><button className="Aboutus-btn">Contact Us</button></Link>
                     </div>
                 </div>
             </div>

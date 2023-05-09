@@ -57,29 +57,29 @@ function Contact() {
                             </div>
                             <div className="form_div">
                                 <div class="form-item">
-                                    <input type="text" id="username" autocomplete="off" required />
-                                    <label for="username">First Name*</label>
+                                    <input type="text"  autocomplete="off" required />
+                                    <label >First Name*</label>
                                 </div>
                                 <div class="form-item">
-                                    <input type="text" id="username" autocomplete="off" required />
-                                    <label for="username">Last Name*</label>
+                                    <input type="text"  autocomplete="off" required />
+                                    <label >Last Name*</label>
                                 </div>
 
                             </div>
                             <div className="form_div">
                                 <div class="form-item">
-                                    <input type="text" id="username" autocomplete="off" required />
-                                    <label for="username">Email*</label>
+                                    <input type="text"  autocomplete="off" required />
+                                    <label >Email*</label>
                                 </div>
                                 <div class="form-item">
-                                    <input type="text" id="username" autocomplete="off" required />
-                                    <label for="username">Phone*</label>
+                                    <input type="text"  autocomplete="off" required />
+                                    <label >Phone*</label>
                                 </div>
                             </div>
                             <div className="form_input_message">
                                 <div class="form-item">
                                     <textarea className="message_input"></textarea>
-                                    <label for="username">Message*</label>
+                                    <label >Message*</label>
                                 </div>
                             </div>
                             <div className="align_left">
@@ -89,7 +89,7 @@ function Contact() {
 
                     </form>
                 </div>
-                <div className="Image-div">
+                <div className="Image-div" id="none">
                 </div>
                 </div>
             
