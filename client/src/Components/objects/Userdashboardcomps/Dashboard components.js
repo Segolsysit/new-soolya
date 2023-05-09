@@ -714,6 +714,8 @@ const PendingOrders = ({ State ,setState }) => {
     }, [State])
 
     const[visibility,setvisibility]=useState(true)
+    const[completedOrder,setCompletedorder]=useState([])
+    
 
 
 
@@ -721,7 +723,7 @@ const PendingOrders = ({ State ,setState }) => {
 
     const VerifiyOTP=(e)=>{
         e.preventDefault()
-        axios.post("http://localhost:3001/doneOtp/verifyotp",{
+          axios.post("http://localhost:3001/doneOtp/verifyotp",{
             phoneNumber:Phonenumber,
             otp:OTP
         }
@@ -729,6 +731,36 @@ const PendingOrders = ({ State ,setState }) => {
         .then((res)=>{
             console.log(res.data.message);
             handleClose2()
+            if (res.data.message === "OTP verified successfully") {
+
+                 axios.post(`http://localhost:3001/booking_api/Completed_orders/${completedOrder._id}`, {
+                    vendor_email: completedOrder.vendor_email,
+                    user_email: completedOrder.user_email,
+                    address: completedOrder.address,
+                    street: completedOrder.street,
+                    city: completedOrder.city,
+                    zip: completedOrder.zip,
+                    person: completedOrder.person,
+                    number: completedOrder.number,
+                    Service: completedOrder.Service,
+                    Category: completedOrder.Category,
+                    price: completedOrder.price,
+                    paymentMethod: completedOrder.paymentMethod
+                }).then(()=>{
+                console.log(completedOrder._id);
+                axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${completedOrder._id}`)
+                    .then(() => {
+                        alert("posted")
+                        // getdata()
+                        // handleClose()
+                    })
+                })
+
+            } else {
+                console.log("invalid token");
+
+            }
+
         })
         .catch((err)=>{
             console.log(err.response.data.message);
@@ -775,7 +807,7 @@ const PendingOrders = ({ State ,setState }) => {
                                         <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
                                         <StyledTableCell align="center"><button onClick={() => {setState(4)
-                                        setPhone(data.number)}} className="Action-btn">completed</button></StyledTableCell>
+                                        setPhone(data.number);setCompletedorder(data);console.log(data);}} className="Action-btn">completed</button></StyledTableCell>
                                     </StyledTableRow>
 
 
