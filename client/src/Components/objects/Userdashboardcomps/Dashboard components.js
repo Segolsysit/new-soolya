@@ -278,13 +278,6 @@ const VendorOrders = ({ State }) => {
 
     }
     console.log(selected);
-    const options1 = [
-
-        { label: "Grapes 🍇", value: "grapes" },
-        { label: "Mango 🥭", value: "mango" },
-        { label: "Strawberry 🍓", value: "strawberry", disabled: true },
-    ];
-    
 
     function get_vendor() {
 
@@ -331,6 +324,7 @@ const VendorOrders = ({ State }) => {
                     
                         await  axios.post(`http://localhost:3001/booking_api/pending_orders/${orders._id}`,{
                             vendor_email:vendorDetails.Email,
+                            user_email:orders.user_email,
                             address: orders.address,
                             street:orders.street,
                             city:orders.city,
