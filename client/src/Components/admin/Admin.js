@@ -162,14 +162,19 @@ export const Admin = () => {
                                         {/* <h6 className="collapse-header">Custom Components:</h6> */}
                                         <div className="collapse-item"  onClick={() => {
                                             setState(true)
-                                            setFormnum(5)
-                                            setVisible(true)
-                                        }}>Pending Orders</div>
-                                        <div className="collapse-item" onClick={() => {
-                                            setState(true)
                                             setFormnum(12)
                                             setVisible(true)
-                                        }} > Orders</div>
+                                        }}>Orders</div>
+                                        <div className="collapse-item" onClick={() => {
+                                            setState(true)
+                                            setFormnum(5)
+                                            setVisible(true)
+                                        }} >Pending Orders</div>
+                                        <div className="collapse-item" onClick={() => {
+                                            setState(true)
+                                            setFormnum(13)
+                                            setVisible(true)
+                                        }} >Completed Orders</div>
                                     </div>
                                 </div>
                             </li>
