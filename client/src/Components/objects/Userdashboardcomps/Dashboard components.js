@@ -2,7 +2,6 @@ import React from "react";
 import './Usercomponents.css'
 import { Table, TableBody, TableCell, TableRow, TableHead, Button, TextField } from '@mui/material';
 import axios from 'axios';
-import {  useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import jwt_decode from 'jwt-decode';
@@ -60,7 +59,7 @@ const UserProfile = ({ State }) => {
         // orders1()
 
 
-    }, [])
+    }, [setMyorders])
 
 
     useEffect(() => {
@@ -81,10 +80,10 @@ const UserProfile = ({ State }) => {
         }
     })
 
-    const orders = () => {
-        console.log(userId);
+    // const orders = () => {
+    //     console.log(userId);
 
-    }
+    // }
 
 
     //   console.log(myorders);
@@ -138,7 +137,7 @@ const VendorProfile = ({ State }) => {
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
     const [count, setCount] = useState(0)
-    const [dummy, setDummy] = useState(0)
+    //const [dummy, setDummy] = useState(0)
     // const useremail = myorders.Email
     const { pathname } = useLocation();
     useEffect(() => {
@@ -167,7 +166,7 @@ const VendorProfile = ({ State }) => {
             })
         // orders1()
 
-    }, [])
+    }, [setMyorders,setorderdetails])
 
 
     useEffect(() => {
@@ -762,7 +761,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                 setpending_order(res.data)
                 console.log(res.data);
             })
-    }, [myorders])
+    }, [myorders,useremail])
 
 
 
