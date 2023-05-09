@@ -43,7 +43,7 @@ OtpDoneRoute.post('/service-done-otp', async (req, res) => {
           }
   
           setTimeout(async () => {
-            const result = await DoneOtpModel.deleteOne({ formattedPhoneNumber });
+            //const result = await DoneOtpModel.deleteOne({ formattedPhoneNumber });
             const result = await serviceDone_OtpModel.deleteOne({ phoneNumber });
             console.log(result);
             console.log(`Deleted ${result.deletedCount} OTP for ${formattedPhoneNumber}`);
