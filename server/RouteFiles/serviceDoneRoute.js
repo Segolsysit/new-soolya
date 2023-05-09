@@ -9,10 +9,10 @@ OtpDoneRoute.post('/service-done-otp', async (req, res) => {
     const {  phoneNumber } = req.body;
 
     try {
-      // const formattedPhoneNumber = phoneNumber.toString().replace(/\D/g, '').slice(-10);
-      // if (!/^\d{10}$/.test(formattedPhoneNumber)) {
-      //   return res.status(400).json({ message: 'Invalid phone number format' });
-      // }
+      const formattedPhoneNumber = phoneNumber.toString().replace(/\D/g, '').slice(-10);
+      if (!/^\d{10}$/.test(formattedPhoneNumber)) {
+        return res.status(400).json({ message: 'Invalid phone number format' });
+      }
   
       let data = await serviceDone_OtpModel.findOne({ phoneNumber });
       const otp = Math.floor(100000 + Math.random() * 900000);
@@ -25,13 +25,13 @@ OtpDoneRoute.post('/service-done-otp', async (req, res) => {
         data.expiresAt = expiryTime;
       } else {
         data = new serviceDone_OtpModel({
-          phoneNumber: phoneNumber,
+          phoneNumber: formattedPhoneNumber,
           otp:otp,
           expiresAt: expiryTime
         });
       }
   
-      twoFactor.sendOTP(phoneNumber, { otp: otp })
+      twoFactor.sendOTP(formattedPhoneNumber, { otp: otp })
         .then(async (response) => {
           try {
             await data.save();
@@ -43,9 +43,10 @@ OtpDoneRoute.post('/service-done-otp', async (req, res) => {
           }
   
           setTimeout(async () => {
-            const result = await serviceDone_OtpModel.deleteOne({ phoneNumber });
+            //const result = await DoneOtpModel.deleteOne({ formattedPhoneNumber });
+            const result = await serviceDone_OtpModel.deleteOne({ formattedPhoneNumber });
             console.log(result);
-            console.log(`Deleted ${result.deletedCount} OTP for ${phoneNumber}`);
+            console.log(`Deleted ${result.deletedCount} OTP for ${formattedPhoneNumber}`);
           }, expiryTime - Date.now());
           res.json({ message: 'OTP sent successfully', response });
         }).catch((error) => {
@@ -94,20 +95,26 @@ OtpDoneRoute.post('/service-done-otp', async (req, res) => {
     try{
       const{workLists,total,user_email} = req.body;
 
-      const newserviceDone_OtpModel = new serviceDone_OtpModel({
+      const newserviceDone_OtpModel = new workDone_Model({
         workLists,
         total,
         user_email
       });
 
-      const savesedrviceDone_OtpModel = await newserviceDone_OtpModel.save()
-      res.status(201).json(savesedrviceDone_OtpModel);
+       await newserviceDone_OtpModel.save()
+      res.status(200).json(newserviceDone_OtpModel);
     }catch (error){
       console.log(error);
-      res.status(500).send('Internal Service Error')
+      res.status(500).send(error)
     }
   });
   
+
+  OtpDoneRoute.get('/WorkafterOTP/:user_email',async(req,res)=>{
+    const user_email=req.params.user_email
+    const data= await workDone_Model.find({user_email:user_email})
+    res.json(data)
+  })
   
 
 module.exports = OtpDoneRoute;

@@ -154,6 +154,22 @@
 
 }
 
+.Vendor-popup{
+    width: 20rem;
+    padding: 20px;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    z-index: 2;
+    background-color: aliceblue;
+    box-shadow: 10px 10px 40px rgb(232, 232, 244);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap:20px
+}
+
 @media only screen and (max-width:600px) {
     .User-sec1{
         display: flex;

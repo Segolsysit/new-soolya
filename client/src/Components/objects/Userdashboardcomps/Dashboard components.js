@@ -233,6 +233,9 @@ const VendorOrders = ({ State }) => {
     const [veriyfyOtp, setVerifyOtp] = useState('');
     const [open, setOpen] = useState(false);
 
+
+
+
     //   const [token, setToken] = useState('');
     const [error, setError] = useState('');
     //const nav = useNavigate()
@@ -264,20 +267,20 @@ const VendorOrders = ({ State }) => {
     // const [options2, setoptions2] = useState([]);
     // const [selected, setSelected] = useState([]);
 
-   function onSelect1(selectedList, selectedItem) {
-        setSelected(selectedList)
-        console.log(selectedList);
-        listofwork()
-    };
+//    function onSelect1(selectedList, selectedItem) {
+//         setSelected(selectedList)
+//         console.log(selectedList);
+//         listofwork()
+//     };
     
-    function onRemove(selectedList, removedItem) {
-        setSelected(selectedList)
-        console.log(selectedList);
-        listofwork()
+//     function onRemove(selectedList, removedItem) {
+//         setSelected(selectedList)
+//         console.log(selectedList);
+//         listofwork()
 
-    }
-    console.log(selected);
-    const options1 = [
+//     }
+    //console.log(selected);
+    // const options1 = [
 
     function get_vendor() {
 
@@ -515,72 +518,104 @@ const VendorOrders = ({ State }) => {
         )
     }
 
-    if (State === 4) {
+    // if (State === 4) {
 
-        return (
-            <div className="container-fluid vendor-container">
-                <h1>List of Works</h1>
-                <div>
-                <Multiselect 
-                    options={options2} // Options to display in the dropdown
-                    // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
-                    onSelect={onSelect1} // Function will trigger on select event
-                    onRemove={onRemove} // Function will trigger on remove event
-                    displayValue={"Subcategory"} // Property name to display in the dropdown options
-                    // displayValue={"Price"}
-                />
-                </div>
+    //     return (
+    //         <div className="container-fluid vendor-container">
+    //             <h1>List of Works</h1>
+    //             <div>
+    //             <Multiselect 
+    //                 options={options2} // Options to display in the dropdown
+    //                 // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
+    //                 onSelect={onSelect1} // Function will trigger on select event
+    //                 onRemove={onRemove} // Function will trigger on remove event
+    //                 displayValue={"Subcategory"} // Property name to display in the dropdown options
+    //                 // displayValue={"Price"}
+    //             />
+    //             </div>
                 
-                <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
-                    <Table className='table-cat' style={{ margin: "0px" }}>
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="center">SN</StyledTableCell>
-                                <StyledTableCell align="center">Work</StyledTableCell>
-                                <StyledTableCell align="center">Price</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {selected.map((data, index) => (
-                                    <StyledTableRow key={index}>
-                                        <StyledTableCell align="center">{a++}</StyledTableCell>
+    //             <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+    //                 <Table className='table-cat' style={{ margin: "0px" }}>
+    //                     <TableHead>
+    //                         <TableRow>
+    //                             <StyledTableCell align="center">SN</StyledTableCell>
+    //                             <StyledTableCell align="center">Work</StyledTableCell>
+    //                             <StyledTableCell align="center">Price</StyledTableCell>
+    //                         </TableRow>
+    //                     </TableHead>
+    //                     <TableBody>
+    //                         {selected.map((data, index) => (
+    //                                 <StyledTableRow key={index}>
+    //                                     <StyledTableCell align="center">{a++}</StyledTableCell>
 
-                                        <StyledTableCell align="center"><p>{data.Subcategory}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.Price}</p></StyledTableCell>
-                                    </StyledTableRow>
-                                ))
-                            }
-                            <StyledTableRow>
-                                <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
-                                <StyledTableCell align="center">{total}<br/><button>confirm</button></StyledTableCell>
-                            </StyledTableRow>
+    //                                     <StyledTableCell align="center"><p>{data.Subcategory}</p></StyledTableCell>
+    //                                     <StyledTableCell align="center"><p>{data.Price}</p></StyledTableCell>
+    //                                 </StyledTableRow>
+    //                             ))
+    //                         }
+    //                         <StyledTableRow>
+    //                             <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
+    //                             {/* <StyledTableCell align="center">{total}<br/><button>confirm</button></StyledTableCell> */}
+    //                         </StyledTableRow>
                             
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                {/*                    
-                        <MultiSelect
-                         {...options2.map((data)=>(
-                        options={data.Subcategory} ))}
-                        value={selected}
-                        onChange={setSelected}
-                        labelledBy="Select"
+    //                     </TableBody>
+    //                 </Table>
+    //             </TableContainer>
+    //             {/*                    
+    //                     <MultiSelect
+    //                      {...options2.map((data)=>(
+    //                     options={data.Subcategory} ))}
+    //                     value={selected}
+    //                     onChange={setSelected}
+    //                     labelledBy="Select"
                        
-                    /> */}
+    //                 /> */}
 
-            </div>
-        )
-    }
+    //         </div>
+    //     )
+    // }
 
 }
 
 
 const PendingOrders = ({ State ,setState }) => {
 
+    const [options2, setoptions2] = useState([]);
+    const [selected, setSelected] = useState([]);
+
+
+
+   function onSelect1(selectedList, selectedItem) {
+        setSelected(selectedList)
+        console.log(selectedList);
+        listofwork()
+    };
+    
+    function onRemove(selectedList, removedItem) {
+        setSelected(selectedList)
+        console.log(selectedList);
+        listofwork()
+
+    }
+
+
+    const value1 = ()=>{
+        console.log(selected);
+    }
+    const [resendOTP, setResendOTP] = useState(false);
+    const [timer, setTimer] = useState(null);
+    const [timeRemaining, setTimeRemaining] = useState(0);
+    const [otpSent, setOTPSent] = useState(false);
+    const [open2, setOpen2] = useState(false);
+    const [error, setError] = useState('');
+    const[Phonenumber,setPhone]=useState("")
+    // const total = selected.reduce((acc,curr)=> acc + curr.Price, 0)
+
+
     const [orderdetails, setorderdetails] = useState([])
 
     const [notificationCount, setNotificationCount] = useState(0);
-    const nav = useNavigate()
+   // const nav = useNavigate()
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -599,6 +634,11 @@ const PendingOrders = ({ State ,setState }) => {
         },
 
     }));
+
+
+
+
+    
 
     const [cookies, setCookie, removeCookie] = useCookies([]);
 
@@ -621,7 +661,7 @@ const PendingOrders = ({ State ,setState }) => {
         try {
             // console.log(orders.number);
           const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
-            phoneNumber: orders.number
+            phoneNumber: Phonenumber
           });
           console.log(response.data.message);
           handleOpen2()
@@ -657,9 +697,12 @@ const PendingOrders = ({ State ,setState }) => {
     useEffect(() => {
         get_vendor()
         vendor_orders()
+        listofwork()
     }, [vendorDetails.Email])
 
 
+
+    const[OTP,setOTP]=useState("")
 
 
 
@@ -669,6 +712,31 @@ const PendingOrders = ({ State ,setState }) => {
             window.scroll(0, 100000)
         }
     }, [State])
+
+    const[visibility,setvisibility]=useState(true)
+
+
+
+    //confirmation otp api
+
+    const VerifiyOTP=(e)=>{
+        e.preventDefault()
+        axios.post("http://localhost:3001/doneOtp/verifyotp",{
+            phoneNumber:Phonenumber,
+            otp:OTP
+        }
+        )
+        .then((res)=>{
+            console.log(res.data.message);
+            handleClose2()
+        })
+        .catch((err)=>{
+            console.log(err.response.data.message);
+        })
+    
+
+    }
+
 
     if (State === 3) {
         return (
@@ -706,7 +774,8 @@ const PendingOrders = ({ State ,setState }) => {
                                         <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><button onClick={() => setState(4)} className="Action-btn">completed</button></StyledTableCell>
+                                        <StyledTableCell align="center"><button onClick={() => {setState(4)
+                                        setPhone(data.number)}} className="Action-btn">completed</button></StyledTableCell>
                                     </StyledTableRow>
 
 
@@ -723,9 +792,100 @@ const PendingOrders = ({ State ,setState }) => {
         )
     }
     if (State === 4) {
+        return (
+                    <div className="container-fluid vendor-container">
 
+                        
+                <div>
+                    <Modal
+                        open={open2}
+                        onClose={handleClose2}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                    >
+                        <Box sx={{ ...style, width: 400 }}>
+
+                            <form onSubmit={VerifiyOTP}>
+
+                                <div >
+                                    <TextField
+                                        type='text'
+                                        id="outlined-basic"
+                                        label="otp"
+                                        value={OTP}
+                                        variant="outlined"
+                                        autoComplete="off"
+                                       onChange={e => setOTP(e.target.value)}
+                                    /><br /><br />
+
+                                    <Button type="submit">verifyOtp</Button>
+                                    <Button type="submit" onClick={handleClose2}>cancel</Button>
+
+                                </div>
+
+
+
+                            </form>
+
+
+                            {/* <ChildModal /> */}
+                        </Box>
+                    </Modal>
+                </div>
+                        <h1>List of Works</h1>
+                        <div>
+                        <Multiselect 
+                            options={options2} // Options to display in the dropdown
+                            // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
+                            onSelect={onSelect1} // Function will trigger on select event
+                            onRemove={onRemove} // Function will trigger on remove event
+                            displayValue={"Subcategory"} // Property name to display in the dropdown options
+                            // displayValue={"Price"}
+                        />
+                        </div>
+                        
+                        <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                            <Table className='table-cat' style={{ margin: "0px" }}>
+                                <TableHead>
+                                    <TableRow>
+                                        <StyledTableCell align="center">SN</StyledTableCell>
+                                        <StyledTableCell align="center">Work</StyledTableCell>
+                                        <StyledTableCell align="center">Price</StyledTableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {selected.map((data, index) => (
+                                            <StyledTableRow key={index}>
+                                                <StyledTableCell align="center">{a++}</StyledTableCell>
+        
+                                                <StyledTableCell align="center"><p>{data.Subcategory}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.Price}</p></StyledTableCell>
+                                            </StyledTableRow>
+                                        ))
+                                    }
+                                    <StyledTableRow>
+                                        <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
+                                        <StyledTableCell align="center">{total}<br/><button onClick={()=>{completeOtp()
+                                            handleOpen2()}}>confirm</button></StyledTableCell>
+                                    </StyledTableRow>
+                                    
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        {/*                    
+                                <MultiSelect
+                                 {...options2.map((data)=>(
+                                options={data.Subcategory} ))}
+                                value={selected}
+                                onChange={setSelected}
+                                labelledBy="Select"
+                               
+                            /> */}
+        
+                    </div>
+                )
 }
-
+}
 
 
 const UserOrders = ({ State, Loader, setLoader }) => {
@@ -966,6 +1126,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         
     )
     }
+
 
     else return null
 
