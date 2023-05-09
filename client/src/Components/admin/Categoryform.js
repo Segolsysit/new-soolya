@@ -21,7 +21,6 @@ import Switch from '@mui/material/Switch';
 import Swal from "sweetalert2";
 
 
-import { Toast } from "bootstrap";
 
 const CategoryForm = ({ FormNumber, setNumber }) => {
 
@@ -35,8 +34,8 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
     const [Editservice, setEditservice] = useState('');
-    const [EditDesc, setEditDesc] = useState('');
-    const [EditPrice, setEditPrice] = useState('');
+    // const [EditDesc, setEditDesc] = useState('');
+    // const [EditPrice, setEditPrice] = useState('');
 
     const [EditImage, setEditImage] = useState('');
 
@@ -132,17 +131,17 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         })
 
     }
-    const modelstyle = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-    };
+    // const modelstyle = {
+    //     position: 'absolute',
+    //     top: '50%',
+    //     left: '50%',
+    //     transform: 'translate(-50%, -50%)',
+    //     width: 400,
+    //     bgcolor: 'background.paper',
+    //     border: '2px solid #000',
+    //     boxShadow: 24,
+    //     p: 4,
+    // };
     const AddService = (e) => {
 
         e.preventDefault();
@@ -296,7 +295,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                         </div>
                         <button type="Submit" className="Category-button">Add</button>
                     </form>
-                    <img className="Category-Right" src="https://cdn.pixabay.com/photo/2018/07/25/15/52/design-3561661_1280.jpg" />
+                    <img className="Category-Right" src="https://cdn.pixabay.com/photo/2018/07/25/15/52/design-3561661_1280.jpg" alt=""/>
                 </div>
                 <div >
                     <TableContainer component={Paper} style={{ padding: "20px" }}>
@@ -663,9 +662,9 @@ const Rejected_list = ({ formNumber }) => {
     const [open, setOpen1] = useState(false);
     const [openModel2, setOpenModel2] = useState(false);
 
-    const aemail = localStorage.getItem("adminemail")
-    const apassword = localStorage.getItem("adminpassword")
-    const nav = useNavigate()
+    // const aemail = localStorage.getItem("adminemail")
+    // const apassword = localStorage.getItem("adminpassword")
+    // const nav = useNavigate()
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -677,13 +676,13 @@ const Rejected_list = ({ formNumber }) => {
         },
     }));
 
-    const handleOpen = (_id) => {
-        axios.get(`http://localhost:3001/reject_api/rejected_data/${_id}`).then((response) => {
-            setviewdata(response.data);
-            console.log(response.data);
-        })
-        setOpen1(true);
-    };
+    // const handleOpen = (_id) => {
+    //     axios.get(`http://localhost:3001/reject_api/rejected_data/${_id}`).then((response) => {
+    //         setviewdata(response.data);
+    //         console.log(response.data);
+    //     })
+    //     setOpen1(true);
+    // };
 
     const deleteOpen = (_id) => {
         Swal.fire({
@@ -737,12 +736,12 @@ const Rejected_list = ({ formNumber }) => {
         getrejected_list()
     },[])
 
-    const viewdeatils = (id) => {
-        axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
-            setviewdata(response.data);
-            console.log(response.data);
-        })
-    }
+    // const viewdeatils = (id) => {
+    //     axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
+    //         setviewdata(response.data);
+    //         console.log(response.data);
+    //     })
+    // }
     if (formNumber === 4) {
         return (
             <div className="container-fluid">
@@ -815,7 +814,7 @@ const Orders = ({ formNumber }) => {
     const [orderdetails, setorderdetails] = useState([])
     const aemail = localStorage.getItem("adminemail")
     const apassword = localStorage.getItem("adminpassword");
-    const [notificationCount, setNotificationCount] = useState(0);
+    // const [notificationCount, setNotificationCount] = useState(0);
     const nav = useNavigate()
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({

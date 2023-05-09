@@ -753,7 +753,6 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
     if (State === 2) {
         return (
-            <div className="Order-container">
             <div className="container-fluid">
                 <h1>Pending Orders</h1>
                 <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
@@ -793,6 +792,13 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                     </TableBody>
                 </Table>
                 </div>
+                
+        )
+    }
+
+    else if(State===3){
+        return(
+        
                 <div className="container-fluid">   
                 <h1>Completed Orders</h1>
                 <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
@@ -833,9 +839,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                 </Table>
                 
             </div>
-
-
-            </div>
+            
         )
     }
 
