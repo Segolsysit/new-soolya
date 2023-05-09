@@ -812,6 +812,7 @@ const Orders = ({ formNumber }) => {
 
     // const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
     const [orderdetails, setorderdetails] = useState([])
+    const [pending_orderdetails, setpending_orderdetails] = useState([])
     const aemail = localStorage.getItem("adminemail")
     const apassword = localStorage.getItem("adminpassword");
     // const [notificationCount, setNotificationCount] = useState(0);
@@ -854,8 +855,11 @@ const Orders = ({ formNumber }) => {
 
 
     const getdata = () => {
-        axios.get("http://localhost:3001/booking_api/pending_booking_data").then((res) => {
+        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
+        })
+        axios.get("http://localhost:3001/booking_api/pending_booking_data").then((res) => {
+            setpending_orderdetails(res.data)
         })
     }
     let a = 1;
@@ -894,7 +898,7 @@ const Orders = ({ formNumber }) => {
                         </TableHead>
                         <TableBody>
                             {
-                                orderdetails.map((data, index) => (
+                                pending_orderdetails.map((data, index) => (
 
 
                                     <StyledTableRow key={index}>
@@ -925,7 +929,7 @@ const Orders = ({ formNumber }) => {
     else if(formNumber===12){
         return(
             <div className="container-fluid">
-                <h1>Completed Orders</h1>
+                <h1>Orders</h1>
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
                     <Table className='table-cat' style={{ margin: "0px" }}>
                         <TableHead>
