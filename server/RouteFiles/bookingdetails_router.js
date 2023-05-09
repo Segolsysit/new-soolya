@@ -29,6 +29,7 @@ bookingdetails_router.post("/pending_orders/:id", async (req, res) => {
     
     const deatails = new pendingOrders_Model({
         vendor_email:req.body.vendor_email,
+        user_email:req.body.user_email,
         address: req.body.address,
         street: req.body.street,
         city: req.body.city,
@@ -54,6 +55,11 @@ bookingdetails_router.get("/pending_booking_data/:vendor_email",async(req,res)=>
     res.json(item_by_id )
 })
 
+bookingdetails_router.get("/pending_booking_data",async(req,res)=>{
+    const booking_data = await pendingOrders_Model.find()
+    res.json(booking_data )
+})
+
 bookingdetails_router.get("/booking_data",async(req,res)=>{
     const booking_data = await bookingdetails_Model.find()
     res.json(booking_data)
@@ -63,6 +69,12 @@ bookingdetails_router.get("/booking_data",async(req,res)=>{
 //     const booking_data = await bookingdetails_schema.find(req.params.id)
 //     res.json(booking_data)
 // })
+
+bookingdetails_router.get("/pending_booking_data/:user_email",async(req,res)=>{
+    const user_email = req.params.user_email;
+    const item_by_id = await bookingdetails_Model.find({user_email:user_email})
+    res.json(item_by_id )
+})
 
 bookingdetails_router.get("/booking_data/:user_email",async(req,res)=>{
     const user_email = req.params.user_email;
