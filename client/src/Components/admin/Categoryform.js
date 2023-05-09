@@ -923,6 +923,54 @@ const Orders = ({ formNumber }) => {
 
         )
     }
+    else if(formNumber===12){
+        return(
+            <div className="container-fluid">
+                <h1>Completed Orders</h1>
+                <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                    <Table className='table-cat' style={{ margin: "0px" }}>
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align="center">SN</StyledTableCell>
+                                <StyledTableCell align="center">Name</StyledTableCell>
+                                <StyledTableCell align="center">Email</StyledTableCell>
+                                <StyledTableCell align="center">Category</StyledTableCell>
+                                <StyledTableCell align="center">Price</StyledTableCell>
+                                <StyledTableCell align="center">Address</StyledTableCell>
+                                <StyledTableCell align="center">Number</StyledTableCell>
+                                <StyledTableCell align="center">paymentMethod</StyledTableCell>
+
+
+
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                orderdetails.map((data, index) => (
+
+
+                                    <StyledTableRow key={index}>
+                                        <StyledTableCell>{a++}</StyledTableCell>
+
+                                        <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                    </StyledTableRow>
+
+
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+            </div>
+        )
+    }
 
 }
 

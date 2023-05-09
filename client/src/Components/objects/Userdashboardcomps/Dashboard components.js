@@ -278,13 +278,6 @@ const VendorOrders = ({ State }) => {
 
     }
     console.log(selected);
-    const options1 = [
-
-        { label: "Grapes 🍇", value: "grapes" },
-        { label: "Mango 🥭", value: "mango" },
-        { label: "Strawberry 🍓", value: "strawberry", disabled: true },
-    ];
-    
 
     function get_vendor() {
 
@@ -331,6 +324,7 @@ const VendorOrders = ({ State }) => {
                     
                         await  axios.post(`http://localhost:3001/booking_api/pending_orders/${orders._id}`,{
                             vendor_email:vendorDetails.Email,
+                            user_email:orders.user_email,
                             address: orders.address,
                             street:orders.street,
                             city:orders.city,
@@ -759,7 +753,9 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
     if (State === 2) {
         return (
+            <div className="Order-container">
             <div className="container-fluid">
+                <h1>Pending Orders</h1>
                 <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
                     <TableHead>
                         <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
@@ -796,13 +792,53 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                         }
                     </TableBody>
                 </Table>
+                </div>
+                <div className="container-fluid">   
+                <h1>Completed Orders</h1>
+                <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
+                    <TableHead>
+                        <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
+                            {/* <TableCell>Service</TableCell> */}
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
 
+
+
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            orderdetails.map((data, index) => (
+
+
+                                <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                    <TableCell>{a++}</TableCell>
+
+                                    {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                    <TableCell><p>{data.Category}</p> </TableCell>
+                                    <TableCell><p>{data.price}</p></TableCell>
+                                    <TableCell><p>{data.address}</p></TableCell>
+                                    <TableCell><p>{data.number}</p></TableCell>
+                                    <TableCell><p>{data.paymentMethod}</p></TableCell>
+                                </TableRow>
+
+
+                            ))
+                        }
+                    </TableBody>
+                </Table>
+                
             </div>
 
 
-
+            </div>
         )
     }
+
     else return null
 
 }

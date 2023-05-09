@@ -76,10 +76,10 @@ const pendingOderSchema =new mongoose.Schema({
     }
 })
 
-const pendingOrders_Model = mongoose.model("pendingOrders_Model", pendingOderSchema)
-const vendorOrder_Model = mongoose.model("bookingdetails_Model", vendorOrderSchema)
+// const pendingOrders_Model = mongoose.model("pendingOrders_Model", pendingOderSchema)
+const vendorOrder_Model = mongoose.model("vendorOrder_Model", vendorOrderSchema)
 
 module.exports = {
-    pendingOrders_Model,
+    // pendingOrders_Model,
     vendorOrder_Model
 }

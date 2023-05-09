@@ -41,6 +41,9 @@ const pendingOderSchema =new mongoose.Schema({
     vendor_email:{
         type:String
     },
+    user_email:{
+        type:String
+    },
     address:{
         type:String
     },
