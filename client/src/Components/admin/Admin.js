@@ -78,11 +78,11 @@ export const Admin = () => {
     }
     // const isPasswordCorrect = bcrypt.compareSync(apassword, hashedPassword);
 
-    const verify = () => {
-        if (aemail === null) {
-            nav("/admin")
-        }
-    }
+    // const verify = () => {
+    //     if (aemail === null) {
+    //         nav("/admin")
+    //     }
+    // }
 
     const adminlogout = () => {
         localStorage.removeItem("adminemail")
