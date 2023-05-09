@@ -659,6 +659,57 @@ const PendingOrders = ({ State, setState }) => {
         )
     }
 
+    else if (State === 5) {
+        return (
+            <div className="container-fluid vendor-container">
+                <h1>Completed Orders</h1>
+                <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                    <Table className='table-cat' style={{ margin: "0px" }}>
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align="center">SN</StyledTableCell>
+                                <StyledTableCell align="center">Name</StyledTableCell>
+                                {/* <StyledTableCell align="center">Email</StyledTableCell> */}
+                                <StyledTableCell align="center">Category</StyledTableCell>
+                                <StyledTableCell align="center">Price</StyledTableCell>
+                                <StyledTableCell align="center">Address</StyledTableCell>
+                                <StyledTableCell align="center">Number</StyledTableCell>
+                                <StyledTableCell align="center">paymentMethod</StyledTableCell>
+
+
+
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                pendingorders.map((data, index) => (
+
+
+                                    <StyledTableRow key={index}>
+                                        <StyledTableCell>{a++}</StyledTableCell>
+
+                                        <StyledTableCell align="center"><p>{}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{}</p> </StyledTableCell>
+                                        <StyledTableCell align="center"><p>{}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{}</p></StyledTableCell>
+                                    </StyledTableRow>
+
+
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+            </div>
+
+
+
+        )
+    }
+
 }
 
 
