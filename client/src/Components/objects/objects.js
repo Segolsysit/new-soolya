@@ -974,7 +974,7 @@ const VendorDashboard=()=>{
 
     const getdata2 = () => {
         const notification = parseInt(localStorage.getItem("ordercount"))
-        axios.get("http://localhost:3001/vendororder_api/booking_data").then((res) => {
+        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
             console.log(res.data.length);
             console.log(notification);
