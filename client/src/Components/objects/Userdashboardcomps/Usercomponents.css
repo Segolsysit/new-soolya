@@ -61,6 +61,12 @@
     background-color:white;
 }
 
+.Order-container{
+    width: 95%;
+     margin: 10px;
+     text-align: left;
+}
+
 .container-fluid:hover{
     box-shadow: 0 0 30px lightblue;
 
