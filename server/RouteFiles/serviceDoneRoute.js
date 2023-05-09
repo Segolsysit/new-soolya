@@ -9,12 +9,12 @@ OtpDoneRoute.post('/service-done-otp', async (req, res) => {
     const {  phoneNumber } = req.body;
 
     try {
-      // const formattedPhoneNumber = phoneNumber.toString().replace(/\D/g, '').slice(-10);
-      // if (!/^\d{10}$/.test(formattedPhoneNumber)) {
-      //   return res.status(400).json({ message: 'Invalid phone number format' });
-      // }
+      const formattedPhoneNumber = phoneNumber.toString().replace(/\D/g, '').slice(-10);
+      if (!/^\d{10}$/.test(formattedPhoneNumber)) {
+        return res.status(400).json({ message: 'Invalid phone number format' });
+      }
   
-      let data = await DoneOtpModel.findOne({ phoneNumber });
+      let data = await DoneOtpModel.findOne({ formattedPhoneNumber });
       const otp = Math.floor(100000 + Math.random() * 900000);
       const expiryTime = new Date(Date.now() + 2 * 60 * 1000);
        // remove all non-digits and take the last 10 digits
@@ -25,13 +25,13 @@ OtpDoneRoute.post('/service-done-otp', async (req, res) => {
         data.expiresAt = expiryTime;
       } else {
         data = new DoneOtpModel({
-          phoneNumber: phoneNumber,
+          phoneNumber: formattedPhoneNumber,
           otp:otp,
           expiresAt: expiryTime
         });
       }
   
-      twoFactor.sendOTP(phoneNumber, { otp: otp })
+      twoFactor.sendOTP(formattedPhoneNumber, { otp: otp })
         .then(async (response) => {
           try {
             await data.save();
@@ -43,9 +43,9 @@ OtpDoneRoute.post('/service-done-otp', async (req, res) => {
           }
   
           setTimeout(async () => {
-            const result = await DoneOtpModel.deleteOne({ phoneNumber });
+            const result = await DoneOtpModel.deleteOne({ formattedPhoneNumber });
             console.log(result);
-            console.log(`Deleted ${result.deletedCount} OTP for ${phoneNumber}`);
+            console.log(`Deleted ${result.deletedCount} OTP for ${formattedPhoneNumber}`);
           }, expiryTime - Date.now());
           res.json({ message: 'OTP sent successfully', response });
         }).catch((error) => {
