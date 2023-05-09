@@ -1,8 +1,8 @@
 import React from "react";
 import './Usercomponents.css'
-import { Table, TableBody, TableCell, TableRow, TableHead, Button, Stack, TextField } from '@mui/material';
+import { Table, TableBody, TableCell, TableRow, TableHead, Button, TextField } from '@mui/material';
 import axios from 'axios';
-import { Navigate, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import jwt_decode from 'jwt-decode';
@@ -36,7 +36,7 @@ const UserProfile = ({ State }) => {
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
     const [count, setCount] = useState(0)
-    const [dummy, setDummy] = useState(0)
+   // const [dummy, setDummy] = useState(0)
     const useremail = myorders.email
     const { pathname } = useLocation();
     useEffect(() => {
@@ -177,10 +177,10 @@ const VendorProfile = ({ State }) => {
         }
     })
 
-    const orders = () => {
-        console.log(userId);
+    // const orders = () => {
+    //     console.log(userId);
 
-    }
+    // }
 
 
 
@@ -227,7 +227,7 @@ const VendorOrders = ({ State }) => {
     // const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
     const [orderdetails, setorderdetails] = useState([])
     const [cookies, setCookie, removeCookie] = useCookies([]);
-    const [notificationCount, setNotificationCount] = useState(0);
+    //const [notificationCount, setNotificationCount] = useState(0);
     const [vendorDetails, setVendorDetails] = useState(null);
     //  const [otpSent, setOTPSent] = useState(false);
     const [orders, setOrderId] = useState('');
@@ -236,7 +236,7 @@ const VendorOrders = ({ State }) => {
 
     //   const [token, setToken] = useState('');
     const [error, setError] = useState('');
-    const nav = useNavigate()
+    //const nav = useNavigate()
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -388,9 +388,9 @@ const VendorOrders = ({ State }) => {
         }
     }, [State])
 
-    const value1 = () => {
-        console.log(selected);
-    }
+    // const value1 = () => {
+    //     console.log(selected);
+    // }
 
     const total = selected.reduce((acc, curr) => acc + curr.Price, 0)
     if (State === 2) {
@@ -546,10 +546,10 @@ const VendorOrders = ({ State }) => {
 
 const PendingOrders = ({ State, setState }) => {
 
-    const [orderdetails, setorderdetails] = useState([])
+    // const [orderdetails, setorderdetails] = useState([])
 
-    const [notificationCount, setNotificationCount] = useState(0);
-    const nav = useNavigate()
+    // const [notificationCount, setNotificationCount] = useState(0);
+    //const nav = useNavigate()
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -593,7 +593,7 @@ const PendingOrders = ({ State, setState }) => {
     useEffect(() => {
         get_vendor()
         vendor_orders()
-    }, [vendorDetails.Email])
+    }, [vendorDetails.Email,get_vendor,vendorDetails])
 
 
 
@@ -812,7 +812,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         return(
         
                 <div className="container-fluid">   
-                <h1>Pending Orders</h1>
+                <h1>My Orders</h1>
                 <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
                     <TableHead>
                         <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>

@@ -50,7 +50,7 @@ const BookingPage = () => {
     const ConfirmBooking = (e) => {
         e.preventDefault()
         setState(false)
-        const id = localStorage.getItem("order_id")
+        // const id = localStorage.getItem("order_id")
         const person = localStorage.getItem("Name")
         const number = localStorage.getItem("Phone")
         const address = localStorage.getItem("Address")
