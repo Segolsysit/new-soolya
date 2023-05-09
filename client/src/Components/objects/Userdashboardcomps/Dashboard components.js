@@ -766,7 +766,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     if (State === 3) {
         return (
             <div className="container-fluid">
-                <h1>Completed Orders</h1>
+                <h1>Pending Orders</h1>
                 <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
                     <TableHead>
                         <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>

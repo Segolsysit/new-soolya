@@ -969,7 +969,6 @@ const UserDashboard=()=>{
                             <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}><i class="fa-solid fa-user"/><p className="Sidebar-lable">My Profile</p></li>
                             <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={()=>{setState(2);localStorage.setItem("userordercount", orderdetails1.length);setnot(0) }}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">My Orders</p>{not === 0 ? <span/> :<span className="badge badge-danger badge-counter">{not}</span> }</li>
                             <li className={state===3? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(3)}><i class="fa-solid fa-check"></i><p className="Sidebar-lable">Pending Orders</p></li>
-                            <li className={state===4? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(4)}><i class="fa-solid fa-check"></i><p className="Sidebar-lable">Completed Orders</p></li>
                         </ul>
                     </div>
                     <div className="Dashboard-right">

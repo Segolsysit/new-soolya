@@ -169,7 +169,7 @@ export const Admin = () => {
                                             setState(true)
                                             setFormnum(12)
                                             setVisible(true)
-                                        }} >Completed Orders</div>
+                                        }} > Orders</div>
                                     </div>
                                 </div>
                             </li>
