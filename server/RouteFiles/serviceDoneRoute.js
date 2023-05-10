@@ -16,7 +16,7 @@ OtpDoneRoute.post('/service-done-otp', async (req, res) => {
   
       let data = await serviceDone_OtpModel.findOne({ phoneNumber });
       const otp = Math.floor(100000 + Math.random() * 900000);
-      const expiryTime = new Date(Date.now() + 2 * 60 * 1000);
+      const expiryTime = new Date(Date.now() + 5 * 60 * 1000);
        // remove all non-digits and take the last 10 digits
   
       if (data && data.expiresAt > new Date()) {
@@ -65,11 +65,11 @@ OtpDoneRoute.post('/service-done-otp', async (req, res) => {
     const { phoneNumber, otp } = req.body;
   
     try {
-      if (!/^\d{10}$/.test(phoneNumber)) {
-        return res.status(400).json({ message: 'Invalid phone number format' });
-      }
+      // if (!/^\d{10}$/.test(phoneNumber)) {
+      //   return res.status(400).json({ message: 'Invalid phone number format' });
+      // }
   
-      const formattedPhoneNumber = phoneNumber.toString().replace(/\D/g, '').slice(-10); // remove all non-digits and take the last 10 digits
+      // const formattedPhoneNumber = phoneNumber.toString().replace(/\D/g, '').slice(-10); // remove all non-digits and take the last 10 digits
   
       let data = await serviceDone_OtpModel.findOne({ phoneNumber });
       if (!data || data.expiresAt < new Date()) {
