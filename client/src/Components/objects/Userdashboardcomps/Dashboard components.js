@@ -41,7 +41,7 @@ const UserProfile = ({ State }) => {
     useEffect(() => {
         window.scrollTo(0, 0);
 
-    }, [{ pathname }]);
+    }, [ pathname ]);
 
 
     setTimeout(() => {
@@ -59,7 +59,7 @@ const UserProfile = ({ State }) => {
         // orders1()
 
 
-    }, [setMyorders])
+    }, [setMyorders,userId])
 
 
     useEffect(() => {
@@ -71,7 +71,7 @@ const UserProfile = ({ State }) => {
 
             })
 
-    }, [myorders])
+    }, [myorders,useremail])
 
     useEffect(() => {
         if (count < orderdetails.length) {
@@ -133,7 +133,6 @@ const VendorProfile = ({ State }) => {
     const [cookies, setCookie, removeCookie] = useCookies([]);
     const [myorders, setMyorders] = useState([])
     const token = cookies.venjwt;
-    const [state, setState] = useState(State)
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
     const [count, setCount] = useState(0)
@@ -143,13 +142,13 @@ const VendorProfile = ({ State }) => {
     useEffect(() => {
         window.scrollTo(0, 0);
 
-    }, [{ pathname }]);
+    }, [ pathname ]);
 
 
-    setTimeout(() => {
-        setState(2)
+    // setTimeout(() => {
+    //     setState(2)
 
-    }, 1000)
+    // }, 1000)
 
 
     useEffect(() => {
@@ -166,7 +165,7 @@ const VendorProfile = ({ State }) => {
             })
         // orders1()
 
-    }, [setMyorders,setorderdetails])
+    }, [])
 
 
     useEffect(() => {
@@ -209,7 +208,7 @@ const VendorProfile = ({ State }) => {
                     </div>
                 </div>
 
-                <div className="vendor-sec2" onClick={() => setState(2)}>
+                <div className="vendor-sec2" >
                     <h1 className="Count">{count}</h1>
                     <h2 className="Orders">Orders Available</h2>
                 </div>
