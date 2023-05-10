@@ -35,13 +35,13 @@ const UserProfile = ({ State }) => {
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
     const [count, setCount] = useState(0)
-   // const [dummy, setDummy] = useState(0)
+    // const [dummy, setDummy] = useState(0)
     const useremail = myorders.email
     const { pathname } = useLocation();
     useEffect(() => {
         window.scrollTo(0, 0);
 
-    }, [ pathname ]);
+    }, [pathname]);
 
 
     setTimeout(() => {
@@ -59,7 +59,7 @@ const UserProfile = ({ State }) => {
         // orders1()
 
 
-    }, [setMyorders,userId])
+    }, [setMyorders, userId])
 
 
     useEffect(() => {
@@ -71,7 +71,7 @@ const UserProfile = ({ State }) => {
 
             })
 
-    }, [myorders,useremail])
+    }, [myorders, useremail])
 
     useEffect(() => {
         if (count < orderdetails.length) {
@@ -142,7 +142,7 @@ const VendorProfile = ({ State }) => {
     useEffect(() => {
         window.scrollTo(0, 0);
 
-    }, [ pathname ]);
+    }, [pathname]);
 
 
     // setTimeout(() => {
@@ -233,7 +233,7 @@ const VendorOrders = ({ State }) => {
     const [veriyfyOtp, setVerifyOtp] = useState('');
     const [open, setOpen] = useState(false);
 
-    const[pending_order,setPendingorder]=useState([])
+    const [pending_order, setPendingorder] = useState([])
 
 
 
@@ -266,22 +266,22 @@ const VendorOrders = ({ State }) => {
     const token = cookies.venjwt;
     const decodedToken = jwt_decode(token);
     const vendorId = decodedToken.id;
-    
+
     // const [options2, setoptions2] = useState([]);
     // const [selected, setSelected] = useState([]);
 
-//    function onSelect1(selectedList, selectedItem) {
-//         setSelected(selectedList)
-//         console.log(selectedList);
-//         listofwork()
-//     };
-    
-//     function onRemove(selectedList, removedItem) {
-//         setSelected(selectedList)
-//         console.log(selectedList);
-//         listofwork()
+    //    function onSelect1(selectedList, selectedItem) {
+    //         setSelected(selectedList)
+    //         console.log(selectedList);
+    //         listofwork()
+    //     };
 
-//     }
+    //     function onRemove(selectedList, removedItem) {
+    //         setSelected(selectedList)
+    //         console.log(selectedList);
+    //         listofwork()
+
+    //     }
     //console.log(selected);
     // const options1 = [
 
@@ -291,9 +291,9 @@ const VendorOrders = ({ State }) => {
             .then((res) => {
                 setVendorDetails(res.data)
                 axios.get(`http://localhost:3001/booking_api/Completed_vendor_order/${res.data.Email}`)
-            .then((res) => {
-                setcompletedOrderdetails(res.data)
-            })
+                    .then((res) => {
+                        setcompletedOrderdetails(res.data)
+                    })
             })
     }
     // const Vemail = vendorDetails.Email
@@ -379,7 +379,7 @@ const VendorOrders = ({ State }) => {
             // console.log(vendorDetails.Username);
         })
 
-        
+
     }
     let a = 1;
 
@@ -415,7 +415,7 @@ const VendorOrders = ({ State }) => {
     // const [otpSent, setOTPSent] = useState(false);
     // const [open2, setOpen2] = useState(false);
     // const [error, setError] = useState('');
-  
+
     // const completeOtp = async() => {
     //     setResendOTP(false);
     //     clearInterval(timer);
@@ -544,7 +544,7 @@ const VendorOrders = ({ State }) => {
     //                 // displayValue={"Price"}
     //             />
     //             </div>
-                
+
     //             <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
     //                 <Table className='table-cat' style={{ margin: "0px" }}>
     //                     <TableHead>
@@ -568,7 +568,7 @@ const VendorOrders = ({ State }) => {
     //                             <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
     //                             {/* <StyledTableCell align="center">{total}<br/><button>confirm</button></StyledTableCell> */}
     //                         </StyledTableRow>
-                            
+
     //                     </TableBody>
     //                 </Table>
     //             </TableContainer>
@@ -579,7 +579,7 @@ const VendorOrders = ({ State }) => {
     //                     value={selected}
     //                     onChange={setSelected}
     //                     labelledBy="Select"
-                       
+
     //                 /> */}
 
     //         </div>
@@ -604,31 +604,31 @@ const VendorOrders = ({ State }) => {
 
 
 
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
                             completedOrderdetails.map((data, index) => (
 
 
-                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                        <StyledTableCell>{a++}</StyledTableCell>
+                                <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                    <StyledTableCell>{a++}</StyledTableCell>
 
-                                        {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                        <StyledTableCell><p>{data.Category}</p> </StyledTableCell>
-                                        <StyledTableCell><p>{data.price}</p></StyledTableCell>
-                                        <StyledTableCell><p>{data.address}</p></StyledTableCell>
-                                        <StyledTableCell><p>{data.number}</p></StyledTableCell>
-                                        <StyledTableCell><p>{data.paymentMethod}</p></StyledTableCell>
-                                    </TableRow>
+                                    {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                    <StyledTableCell><p>{data.Category}</p> </StyledTableCell>
+                                    <StyledTableCell><p>{data.price}</p></StyledTableCell>
+                                    <StyledTableCell><p>{data.address}</p></StyledTableCell>
+                                    <StyledTableCell><p>{data.number}</p></StyledTableCell>
+                                    <StyledTableCell><p>{data.paymentMethod}</p></StyledTableCell>
+                                </TableRow>
 
 
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
-                </div>
-                
+                            ))
+                        }
+                    </TableBody>
+                </Table>
+            </div>
+
         )
     }
 
@@ -636,7 +636,7 @@ const VendorOrders = ({ State }) => {
 
 
 
-const PendingOrders = ({ State ,setState }) => {
+const PendingOrders = ({ State, setState }) => {
 
     const [options2, setoptions2] = useState([]);
     const [selected, setSelected] = useState([]);
@@ -644,12 +644,12 @@ const PendingOrders = ({ State ,setState }) => {
 
 
 
-   function onSelect1(selectedList, selectedItem) {
+    function onSelect1(selectedList, selectedItem) {
         setSelected(selectedList)
         console.log(selectedList);
         listofwork()
     };
-    
+
     function onRemove(selectedList, removedItem) {
         setSelected(selectedList)
         console.log(selectedList);
@@ -660,7 +660,7 @@ const PendingOrders = ({ State ,setState }) => {
         setOpen(false)
     }
 
-    const value1 = ()=>{
+    const value1 = () => {
         console.log(selected);
     }
     const [resendOTP, setResendOTP] = useState(false);
@@ -669,14 +669,14 @@ const PendingOrders = ({ State ,setState }) => {
     const [otpSent, setOTPSent] = useState(false);
     const [open2, setOpen2] = useState(false);
     const [error, setError] = useState('');
-    const[Phonenumber,setPhone]=useState("")
+    const [Phonenumber, setPhone] = useState("")
     // const total = selected.reduce((acc,curr)=> acc + curr.Price, 0)
 
 
     const [orderdetails, setorderdetails] = useState([])
 
     const [notificationCount, setNotificationCount] = useState(0);
-   // const nav = useNavigate()
+    // const nav = useNavigate()
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -699,7 +699,7 @@ const PendingOrders = ({ State ,setState }) => {
 
 
 
-    
+
 
     const [cookies, setCookie, removeCookie] = useCookies([]);
 
@@ -716,24 +716,24 @@ const PendingOrders = ({ State ,setState }) => {
     const handleOpen2 = () => {
         setOpen2(true)
     }
-    const completeOtp = async() => {
+    const completeOtp = async () => {
         setResendOTP(false);
         clearInterval(timer);
         try {
             // console.log(orders.number);
-          const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
-            phoneNumber: Phonenumber
-          });
-          console.log(response.data.message);
-          handleOpen2()
-          setOTPSent(true);
-          setTimeRemaining(120);
-          setTimer(setInterval(() => {
-            setTimeRemaining(prevTime => prevTime - 1);
-          }, 1000));
+            const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
+                phoneNumber: Phonenumber
+            });
+            console.log(response.data.message);
+            handleOpen2()
+            setOTPSent(true);
+            setTimeRemaining(120);
+            setTimer(setInterval(() => {
+                setTimeRemaining(prevTime => prevTime - 1);
+            }, 1000));
         } catch (error) {
             console.log(error.response.data.message);
-        //   setError(error.response.data.message);
+            //   setError(error.response.data.message);
         }
     }
     function get_vendor() {
@@ -754,7 +754,7 @@ const PendingOrders = ({ State ,setState }) => {
             console.log(res.data);
         })
     }
-    const total = selected.reduce((acc,curr)=> acc + curr.Price, 0)
+    const total = selected.reduce((acc, curr) => acc + curr.Price, 0)
     useEffect(() => {
         get_vendor()
         vendor_orders()
@@ -763,7 +763,7 @@ const PendingOrders = ({ State ,setState }) => {
 
 
 
-    const[OTP,setOTP]=useState("")
+    const [OTP, setOTP] = useState("")
 
 
 
@@ -774,53 +774,59 @@ const PendingOrders = ({ State ,setState }) => {
         }
     }, [State])
 
-    const[visibility,setvisibility]=useState(true)
+    const [WorkListwork, setWorkListwork] = useState([])
 
-
+    console.log(selected);
 
     //confirmation otp api
 
-    const VerifiyOTP=(e)=>{
+    const VerifiyOTP = (e) => {
         e.preventDefault()
-        axios.post("http://localhost:3001/doneOtp/verifyotp",{
-            phoneNumber:Phonenumber,
-            otp:OTP
+        const workListsData = selected.map((data) => ({
+            subCategory: data.Subcategory,
+            price: data.Price
+          }));
+        axios.post("http://localhost:3001/doneOtp/verifyotp", {
+            phoneNumber: Phonenumber,
+            otp: OTP
         }
         )
-        .then((res)=>{
-            console.log(res.data.message);
-            handleClose2()
-            if (res.data.message === "OTP verified successfully") {
+            .then((res) => {
+                console.log(res.data.message);
+                handleClose2()
+                if (res.data.message === "OTP verified successfully") {
 
-                 axios.post(`http://localhost:3001/booking_api/Completed_orders/${pendingorders._id}`, {
-                    vendor_email: vendorDetails.Email,
-                    user_email: pendingorders.user_email,
-                    address: pendingorders.address,
-                    street: pendingorders.street,
-                    city: pendingorders.city,
-                    zip: pendingorders.zip,
-                    person: pendingorders.person,
-                    number: pendingorders.number,
-                    Service: pendingorders.Service,
-                    Category: pendingorders.Category,
-                    price: pendingorders.price,
-                    paymentMethod: pendingorders.paymentMethod
-                }).then(() => {
-                    axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${pendingorders._id}`)
+                    axios.post(`http://localhost:3001/booking_api/Completed_orders/${pendingorders._id}`, {
+                        vendor_email: vendorDetails.Email,
+                        user_email: pendingorders.user_email,
+                        address: pendingorders.address,
+                        street: pendingorders.street,
+                        city: pendingorders.city,
+                        zip: pendingorders.zip,
+                        person: pendingorders.person,
+                        number: pendingorders.number,
+                        Service: pendingorders.Service,
+                        Category: pendingorders.Category,
+                        price: pendingorders.price,
+                        paymentMethod: pendingorders.paymentMethod,
+                        workLists: workListsData,
+                        total:total
+                    }).then(() => {
+                        axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${pendingorders._id}`)
                         alert("posted")
                         // getdata()
                         handleClose()
                     })
 
-            } else {
-                console.log("invalid token");
+                } else {
+                    console.log("invalid token");
 
-            }
-        })
-        .catch((err)=>{
-            console.log(err.response.data.message);
-        })
-    
+                }
+            })
+            .catch((err) => {
+                console.log(err.response.data.message);
+            })
+
 
     }
 
@@ -861,8 +867,10 @@ const PendingOrders = ({ State ,setState }) => {
                                         <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><button onClick={() => {setState(4)
-                                        setPhone(data.number);setPendingorders(data)}} className="Action-btn">completed</button></StyledTableCell>
+                                        <StyledTableCell align="center"><button onClick={() => {
+                                            setState(4)
+                                            setPhone(data.number); setPendingorders(data)
+                                        }} className="Action-btn">completed</button></StyledTableCell>
                                     </StyledTableRow>
 
 
@@ -880,9 +888,9 @@ const PendingOrders = ({ State ,setState }) => {
     }
     if (State === 4) {
         return (
-                    <div className="container-fluid vendor-container">
+            <div className="container-fluid vendor-container">
 
-                        
+
                 <div>
                     <Modal
                         open={open2}
@@ -902,7 +910,7 @@ const PendingOrders = ({ State ,setState }) => {
                                         value={OTP}
                                         variant="outlined"
                                         autoComplete="off"
-                                       onChange={e => setOTP(e.target.value)}
+                                        onChange={e => setOTP(e.target.value)}
                                     /><br /><br />
 
                                     <Button type="submit">verifyOtp</Button>
@@ -919,47 +927,48 @@ const PendingOrders = ({ State ,setState }) => {
                         </Box>
                     </Modal>
                 </div>
-                        <h1>List of Works</h1>
-                        <div>
-                        <Multiselect 
-                            options={options2} // Options to display in the dropdown
-                            // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
-                            onSelect={onSelect1} // Function will trigger on select event
-                            onRemove={onRemove} // Function will trigger on remove event
-                            displayValue={"Subcategory"} // Property name to display in the dropdown options
-                            // displayValue={"Price"}
-                        />
-                        </div>
-                        
-                        <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
-                            <Table className='table-cat' style={{ margin: "0px" }}>
-                                <TableHead>
-                                    <TableRow>
-                                        <StyledTableCell align="center">SN</StyledTableCell>
-                                        <StyledTableCell align="center">Work</StyledTableCell>
-                                        <StyledTableCell align="center">Price</StyledTableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {selected.map((data, index) => (
-                                            <StyledTableRow key={index}>
-                                                <StyledTableCell align="center">{a++}</StyledTableCell>
-        
-                                                <StyledTableCell align="center"><p>{data.Subcategory}</p></StyledTableCell>
-                                                <StyledTableCell align="center"><p>{data.Price}</p></StyledTableCell>
-                                            </StyledTableRow>
-                                        ))
-                                    }
-                                    <StyledTableRow>
-                                        <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
-                                        <StyledTableCell align="center">{total}<br/><button onClick={()=>{
-                                            handleOpen2();completeOtp()}}>confirm</button></StyledTableCell>
-                                    </StyledTableRow>
-                                    
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        {/*                    
+                <h1>List of Works</h1>
+                <div>
+                    <Multiselect
+                        options={options2} // Options to display in the dropdown
+                        // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
+                        onSelect={onSelect1} // Function will trigger on select event
+                        onRemove={onRemove} // Function will trigger on remove event
+                        displayValue={"Subcategory"} // Property name to display in the dropdown options
+                    // displayValue={"Price"}
+                    />
+                </div>
+
+                <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                    <Table className='table-cat' style={{ margin: "0px" }}>
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align="center">SN</StyledTableCell>
+                                <StyledTableCell align="center">Work</StyledTableCell>
+                                <StyledTableCell align="center">Price</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {selected.map((data, index) => (
+                                <StyledTableRow key={index}>
+                                    <StyledTableCell align="center">{a++}</StyledTableCell>
+
+                                    <StyledTableCell align="center"><p>{data.Subcategory}</p></StyledTableCell>
+                                    <StyledTableCell align="center"><p>{data.Price}</p></StyledTableCell>
+                                </StyledTableRow>
+                            ))
+                            }
+                            <StyledTableRow>
+                                <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
+                                <StyledTableCell align="center">{total}<br /><button onClick={() => {
+                                    handleOpen2(); completeOtp()
+                                }}>confirm</button></StyledTableCell>
+                            </StyledTableRow>
+
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                {/*                    
                                 <MultiSelect
                                  {...options2.map((data)=>(
                                 options={data.Subcategory} ))}
@@ -968,10 +977,10 @@ const PendingOrders = ({ State ,setState }) => {
                                 labelledBy="Select"
                                
                             /> */}
-        
-                    </div>
-                )
-}
+
+            </div>
+        )
+    }
 }
 
 
@@ -991,8 +1000,8 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
 
 
-    const[Method,setMethod]=useState(true)
-    const[Button,setButton]=useState(true)
+    const [Method, setMethod] = useState(true)
+    const [Button, setButton] = useState(true)
 
     useEffect(() => {
         orders()
@@ -1030,12 +1039,12 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                 console.log(res.data);
             })
 
-            axios.get(`http://localhost:3001/booking_api/Completed_order/${useremail}`)
+        axios.get(`http://localhost:3001/booking_api/Completed_order/${useremail}`)
             .then((res) => {
                 setCompleted_order(res.data)
                 console.log(res.data);
             })
-    }, [myorders,useremail])
+    }, [myorders, useremail])
 
 
 
@@ -1104,38 +1113,38 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
 
 
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                pending_order.map((data, index) => (
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            pending_order.map((data, index) => (
 
 
-                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                        <TableCell>{a++}</TableCell>
+                                <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                    <TableCell>{a++}</TableCell>
 
-                                        {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                        <TableCell><p>{data.Category}</p> </TableCell>
-                                        <TableCell><p>{data.price}</p></TableCell>
-                                        <TableCell><p>{data.address}</p></TableCell>
-                                        <TableCell><p>{data.number}</p></TableCell>
-                                        <TableCell><p>{data.paymentMethod}</p></TableCell>
-                                    </TableRow>
+                                    {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                    <TableCell><p>{data.Category}</p> </TableCell>
+                                    <TableCell><p>{data.price}</p></TableCell>
+                                    <TableCell><p>{data.address}</p></TableCell>
+                                    <TableCell><p>{data.number}</p></TableCell>
+                                    <TableCell><p>{data.paymentMethod}</p></TableCell>
+                                </TableRow>
 
 
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
-                </div>
-                
+                            ))
+                        }
+                    </TableBody>
+                </Table>
+            </div>
+
         )
     }
 
-    else if(State===2){
-        return(
-        
-                <div className="container-fluid">   
+    else if (State === 2) {
+        return (
+
+            <div className="container-fluid">
                 <h1>My Orders</h1>
                 <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
                     <TableHead>
@@ -1150,13 +1159,60 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
 
 
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                orderdetails.map((data, index) => (
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            orderdetails.map((data, index) => (
 
 
+                                <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                    <TableCell>{a++}</TableCell>
+
+                                    {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                    <TableCell><p>{data.Category}</p> </TableCell>
+                                    <TableCell><p>{data.price}</p></TableCell>
+                                    <TableCell><p>{data.address}</p></TableCell>
+                                    <TableCell><p>{data.number}</p></TableCell>
+                                    <TableCell><p>{data.paymentMethod}</p></TableCell>
+                                </TableRow>
+
+
+                            ))
+                        }
+                    </TableBody>
+                </Table>
+
+            </div>
+
+        )
+    }
+
+    else if (State === 4) {
+        return (
+
+            <div className="container-fluid">
+                <h1>Completed Orders</h1>
+                <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
+                    <TableHead>
+                        <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
+                            {/* <TableCell>Service</TableCell> */}
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
+
+
+
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            completed_order.map((data, index) => {
+
+                                return (
                                     <TableRow key={index} style={{ backgroundColor: "white" }}>
                                         <TableCell>{a++}</TableCell>
 
@@ -1167,82 +1223,35 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                         <TableCell><p>{data.number}</p></TableCell>
                                         <TableCell><p>{data.paymentMethod}</p></TableCell>
                                     </TableRow>
-
-
-                            ))
-                        }
-                    </TableBody>
-                </Table>
-                
-            </div>
-            
-        )
-    }
-
-    else if(State===4){
-        return(
-        
-            <div className="container-fluid">   
-            <h1>Completed Orders</h1>
-            <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
-                <TableHead>
-                    <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
-                        {/* <TableCell>Service</TableCell> */}
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
-
-
-
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            completed_order.map((data, index) => {
-                                
-                                return(
-                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                    <TableCell>{a++}</TableCell>
-
-                                    {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                    <TableCell><p>{data.Category}</p> </TableCell>
-                                    <TableCell><p>{data.price}</p></TableCell>
-                                    <TableCell><p>{data.address}</p></TableCell>
-                                    <TableCell><p>{data.number}</p></TableCell>
-                                    <TableCell><p>{data.paymentMethod}</p></TableCell>
-                                </TableRow>
                                 )
 
 
 
-                                })
-                    }
-                </TableBody>
-            </Table>
-            
-        </div>
-        
-    )
+                            })
+                        }
+                    </TableBody>
+                </Table>
+
+            </div>
+
+        )
     }
 
-    else if(State===5){
-        return(
-        
-            <div className="container-fluid">   
-            <h1>Bills & Payment</h1>
-            <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
-                <TableHead>
-                    <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
-                        {/* <TableCell>Service</TableCell> */}
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>payment</TableCell>
+    else if (State === 5) {
+        return (
+
+            <div className="container-fluid">
+                <h1>Bills & Payment</h1>
+                <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
+                    <TableHead>
+                        <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
+                            {/* <TableCell>Service</TableCell> */}
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>payment</TableCell>
 
 
 
@@ -1251,31 +1260,31 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                     <TableBody>
                         {
                             completed_order.map((data, index) => {
-                                
-                            return(
-                                <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                    <TableCell>{a++}</TableCell>
 
-                                    {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                    <TableCell><p>{data.Category}</p> </TableCell>
-                                    <TableCell><p>{data.price}</p></TableCell>
-                                    <TableCell><p>{data.address}</p></TableCell>
-                                    <TableCell><p>{data.number}</p></TableCell>
-                                    <TableCell style={{textAlign:"center"}}><button className="Pay-button" hidden={data.paymentMethod==="onlinePayment"? false : true}>Pay</button><p hidden={data.paymentMethod==="cashOnDelivery"? false : true}>{data.paymentMethod}</p></TableCell>
-                                </TableRow>
-                            )
+                                return (
+                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                        <TableCell>{a++}</TableCell>
 
-                                
+                                        {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                        <TableCell><p>{data.Category}</p> </TableCell>
+                                        <TableCell><p>{data.price}</p></TableCell>
+                                        <TableCell><p>{data.address}</p></TableCell>
+                                        <TableCell><p>{data.number}</p></TableCell>
+                                        <TableCell style={{ textAlign: "center" }}><button className="Pay-button" hidden={data.paymentMethod === "onlinePayment" ? false : true}>Pay</button><p hidden={data.paymentMethod === "cashOnDelivery" ? false : true}>{data.paymentMethod}</p></TableCell>
+                                    </TableRow>
+                                )
 
 
-    })
-                    }
-                </TableBody>
-            </Table>
-            
-        </div>
-        
-    )
+
+
+                            })
+                        }
+                    </TableBody>
+                </Table>
+
+            </div>
+
+        )
     }
 
 
