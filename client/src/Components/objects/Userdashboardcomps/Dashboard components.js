@@ -577,7 +577,6 @@ const VendorOrders = ({ State }) => {
 
 }
 
-
 const PendingOrders = ({ State ,setState }) => {
 
     const [options2, setoptions2] = useState([]);
