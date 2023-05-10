@@ -1,5 +1,5 @@
 const OtpDoneRoute = require("express").Router();
-const {serviceDone_OtpModel,workDone_Model} = require("../models/service_done_otpModel");
+const {serviceDone_OtpModel} = require("../models/service_done_otpModel");
 const TwoFactor = require('2factor');
 const twoFactor = new TwoFactor('8264f349-2231-11ed-9c12-0200cd936042');
 const jwt = require('jsonwebtoken');
@@ -91,23 +91,23 @@ OtpDoneRoute.post('/service-done-otp', async (req, res) => {
     }
   });
 
-  OtpDoneRoute.post('/worklist', async(req,res) =>{
-    try{
-      const{workLists,total,user_email} = req.body;
+  // OtpDoneRoute.post('/worklist', async(req,res) =>{
+  //   try{
+  //     const{workLists,total,user_email} = req.body;
 
-      const newserviceDone_OtpModel = new workDone_Model({
-        workLists,
-        total,
-        user_email
-      });
+  //     const newserviceDone_OtpModel = new workDone_Model({
+  //       workLists,
+  //       total,
+  //       user_email
+  //     });
 
-       await newserviceDone_OtpModel.save()
-      res.status(200).json(newserviceDone_OtpModel);
-    }catch (error){
-      console.log(error);
-      res.status(500).send(error)
-    }
-  });
+  //      await newserviceDone_OtpModel.save()
+  //     res.status(200).json(newserviceDone_OtpModel);
+  //   }catch (error){
+  //     console.log(error);
+  //     res.status(500).send(error)
+  //   }
+  // });
   
 
   OtpDoneRoute.get('/WorkafterOTP/:user_email',async(req,res)=>{
