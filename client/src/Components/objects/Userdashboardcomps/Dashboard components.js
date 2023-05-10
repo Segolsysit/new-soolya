@@ -696,7 +696,7 @@ const PendingOrders = ({ State ,setState }) => {
 
     }));
 
-
+    const [open3, setOpen3] = useState(false);
 
 
     
@@ -989,6 +989,17 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
     const useremail = myorders.email
 
+    const [open4, setOpen4] = useState(true);
+
+
+    const handleClose4 = () => {
+        setOpen4(true)
+    }
+    const handleOpen4 = () => {
+        setOpen4(false)
+        console.log(open4);
+    }
+
 
 
     const[Method,setMethod]=useState(true)
@@ -1230,9 +1241,12 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
     else if(State===5){
         return(
+            <div style={{width:"100%"}}>
         
-            <div className="container-fluid">   
+            <div className="container-fluid" >   
             <h1>Bills & Payment</h1>
+
+           
             <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
                 <TableHead>
                     <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
@@ -1242,7 +1256,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                         <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
                         <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
                         <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>payment</TableCell>
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Bill</TableCell>
 
 
 
@@ -1261,7 +1275,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                     <TableCell><p>{data.price}</p></TableCell>
                                     <TableCell><p>{data.address}</p></TableCell>
                                     <TableCell><p>{data.number}</p></TableCell>
-                                    <TableCell style={{textAlign:"center"}}><button className="Pay-button" hidden={data.paymentMethod==="onlinePayment"? false : true}>Pay</button><p hidden={data.paymentMethod==="cashOnDelivery"? false : true}>{data.paymentMethod}</p></TableCell>
+                                    <TableCell style={{textAlign:"center"}}><button onClick={handleOpen4}className="Pay-button">View Bill</button></TableCell>
                                 </TableRow>
                             )
 
@@ -1273,7 +1287,35 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                 </TableBody>
             </Table>
             
+                
+                
         </div>
+        <div className="Bill-modal" hidden={open4}>
+            <h2 className="Bills-heading">Your bill</h2>
+            <div className="Bill-sec2">
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Work Done</TableCell>
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Charges</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell style={{backgroundColor:"white"}}><p></p></TableCell>
+                            <TableCell style={{backgroundColor:"white"}}><p></p></TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </div>
+            <div style={{display:"flex",gap:"5px"}}>
+            <button className="Bill-btn1">Pay</button>
+            <button className="Bill-btn2" onClick={handleClose4}>Cancel</button>
+            </div>
+
+        </div>
+        </div>
+        
         
     )
     }
