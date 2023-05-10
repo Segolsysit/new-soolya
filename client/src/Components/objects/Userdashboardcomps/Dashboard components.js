@@ -41,7 +41,7 @@ const UserProfile = ({ State }) => {
     useEffect(() => {
         window.scrollTo(0, 0);
 
-    }, [{ pathname }]);
+    }, [ pathname ]);
 
 
     setTimeout(() => {
@@ -59,7 +59,7 @@ const UserProfile = ({ State }) => {
         // orders1()
 
 
-    }, [setMyorders])
+    }, [setMyorders,userId])
 
 
     useEffect(() => {
@@ -71,7 +71,7 @@ const UserProfile = ({ State }) => {
 
             })
 
-    }, [myorders])
+    }, [myorders,useremail])
 
     useEffect(() => {
         if (count < orderdetails.length) {
@@ -133,7 +133,6 @@ const VendorProfile = ({ State }) => {
     const [cookies, setCookie, removeCookie] = useCookies([]);
     const [myorders, setMyorders] = useState([])
     const token = cookies.venjwt;
-    const [state, setState] = useState(State)
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
     const [count, setCount] = useState(0)
@@ -143,13 +142,13 @@ const VendorProfile = ({ State }) => {
     useEffect(() => {
         window.scrollTo(0, 0);
 
-    }, [{ pathname }]);
+    }, [ pathname ]);
 
 
-    setTimeout(() => {
-        setState(2)
+    // setTimeout(() => {
+    //     setState(2)
 
-    }, 1000)
+    // }, 1000)
 
 
     useEffect(() => {
@@ -166,7 +165,7 @@ const VendorProfile = ({ State }) => {
             })
         // orders1()
 
-    }, [setMyorders,setorderdetails])
+    }, [])
 
 
     useEffect(() => {
@@ -209,7 +208,7 @@ const VendorProfile = ({ State }) => {
                     </div>
                 </div>
 
-                <div className="vendor-sec2" onClick={() => setState(2)}>
+                <div className="vendor-sec2" >
                     <h1 className="Count">{count}</h1>
                     <h2 className="Orders">Orders Available</h2>
                 </div>
@@ -990,6 +989,11 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
     const useremail = myorders.email
 
+
+
+    const[Method,setMethod]=useState(true)
+    const[Button,setButton]=useState(true)
+
     useEffect(() => {
         orders()
         // pending_orderss()
@@ -1197,10 +1201,10 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                     </TableHead>
                     <TableBody>
                         {
-                            completed_order.map((data, index) => (
-
-
-                                <TableRow key={index} style={{ backgroundColor: "white" }}>
+                            completed_order.map((data, index) => {
+                                
+                                return(
+                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
                                     <TableCell>{a++}</TableCell>
 
                                     {/* <TableCell><p>{data.Service}</p></TableCell> */}
@@ -1210,9 +1214,61 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                     <TableCell><p>{data.number}</p></TableCell>
                                     <TableCell><p>{data.paymentMethod}</p></TableCell>
                                 </TableRow>
+                                )
 
 
-                        ))
+
+                                })
+                    }
+                </TableBody>
+            </Table>
+            
+        </div>
+        
+    )
+    }
+
+    else if(State===5){
+        return(
+        
+            <div className="container-fluid">   
+            <h1>Bills & Payment</h1>
+            <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
+                <TableHead>
+                    <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
+                        {/* <TableCell>Service</TableCell> */}
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>payment</TableCell>
+
+
+
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            completed_order.map((data, index) => {
+                                
+                            return(
+                                <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                    <TableCell>{a++}</TableCell>
+
+                                    {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                    <TableCell><p>{data.Category}</p> </TableCell>
+                                    <TableCell><p>{data.price}</p></TableCell>
+                                    <TableCell><p>{data.address}</p></TableCell>
+                                    <TableCell><p>{data.number}</p></TableCell>
+                                    <TableCell style={{textAlign:"center"}}><button className="Pay-button" hidden={data.paymentMethod==="onlinePayment"? false : true}>Pay</button><p hidden={data.paymentMethod==="cashOnDelivery"? false : true}>{data.paymentMethod}</p></TableCell>
+                                </TableRow>
+                            )
+
+                                
+
+
+    })
                     }
                 </TableBody>
             </Table>
