@@ -2,6 +2,7 @@ import React from "react";
 import './Usercomponents.css'
 import { Table, TableBody, TableCell, TableRow, TableHead, Button, TextField } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import jwt_decode from 'jwt-decode';
@@ -35,7 +36,7 @@ const UserProfile = ({ State }) => {
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
     const [count, setCount] = useState(0)
-   // const [dummy, setDummy] = useState(0)
+    // const [dummy, setDummy] = useState(0)
     const useremail = myorders.email
     const { pathname } = useLocation();
     useEffect(() => {
@@ -267,20 +268,20 @@ const VendorOrders = ({ State }) => {
     // const [options2, setoptions2] = useState([]);
     // const [selected, setSelected] = useState([]);
 
-//    function onSelect1(selectedList, selectedItem) {
-//         setSelected(selectedList)
-//         console.log(selectedList);
-//         listofwork()
-//     };
+   function onSelect1(selectedList, selectedItem) {
+        setSelected(selectedList)
+        console.log(selectedList);
+        listofwork()
+    };
     
-//     function onRemove(selectedList, removedItem) {
-//         setSelected(selectedList)
-//         console.log(selectedList);
-//         listofwork()
+    function onRemove(selectedList, removedItem) {
+        setSelected(selectedList)
+        console.log(selectedList);
+        listofwork()
 
-//     }
-    //console.log(selected);
-    // const options1 = [
+    }
+    console.log(selected);
+   
 
     function get_vendor() {
 
@@ -404,7 +405,7 @@ const VendorOrders = ({ State }) => {
     // const [otpSent, setOTPSent] = useState(false);
     // const [open2, setOpen2] = useState(false);
     // const [error, setError] = useState('');
-  
+
     // const completeOtp = async() => {
     //     setResendOTP(false);
     //     clearInterval(timer);
@@ -520,54 +521,54 @@ const VendorOrders = ({ State }) => {
 
     // if (State === 4) {
 
-    //     return (
-    //         <div className="container-fluid vendor-container">
-    //             <h1>List of Works</h1>
-    //             <div>
-    //             <Multiselect 
-    //                 options={options2} // Options to display in the dropdown
-    //                 // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
-    //                 onSelect={onSelect1} // Function will trigger on select event
-    //                 onRemove={onRemove} // Function will trigger on remove event
-    //                 displayValue={"Subcategory"} // Property name to display in the dropdown options
-    //                 // displayValue={"Price"}
-    //             />
-    //             </div>
+        return (
+            <div className="container-fluid vendor-container">
+                <h1>List of Works</h1>
+                <div>
+                <Multiselect 
+                    options={options2} // Options to display in the dropdown
+                    // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
+                    onSelect={onSelect1} // Function will trigger on select event
+                    onRemove={onRemove} // Function will trigger on remove event
+                    displayValue={"Subcategory"} // Property name to display in the dropdown options
+                    // displayValue={"Price"}
+                />
+                </div>
                 
-    //             <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
-    //                 <Table className='table-cat' style={{ margin: "0px" }}>
-    //                     <TableHead>
-    //                         <TableRow>
-    //                             <StyledTableCell align="center">SN</StyledTableCell>
-    //                             <StyledTableCell align="center">Work</StyledTableCell>
-    //                             <StyledTableCell align="center">Price</StyledTableCell>
-    //                         </TableRow>
-    //                     </TableHead>
-    //                     <TableBody>
-    //                         {selected.map((data, index) => (
-    //                                 <StyledTableRow key={index}>
-    //                                     <StyledTableCell align="center">{a++}</StyledTableCell>
+                <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                    <Table className='table-cat' style={{ margin: "0px" }}>
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align="center">SN</StyledTableCell>
+                                <StyledTableCell align="center">Work</StyledTableCell>
+                                <StyledTableCell align="center">Price</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {selected.map((data, index) => (
+                                    <StyledTableRow key={index}>
+                                        <StyledTableCell align="center">{a++}</StyledTableCell>
 
-    //                                     <StyledTableCell align="center"><p>{data.Subcategory}</p></StyledTableCell>
-    //                                     <StyledTableCell align="center"><p>{data.Price}</p></StyledTableCell>
-    //                                 </StyledTableRow>
-    //                             ))
-    //                         }
-    //                         <StyledTableRow>
-    //                             <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
-    //                             {/* <StyledTableCell align="center">{total}<br/><button>confirm</button></StyledTableCell> */}
-    //                         </StyledTableRow>
+                                        <StyledTableCell align="center"><p>{data.Subcategory}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.Price}</p></StyledTableCell>
+                                    </StyledTableRow>
+                                ))
+                            }
+                            <StyledTableRow>
+                                <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
+                                <StyledTableCell align="center">{total}<br/><button>confirm</button></StyledTableCell>
+                            </StyledTableRow>
                             
-    //                     </TableBody>
-    //                 </Table>
-    //             </TableContainer>
-    //             {/*                    
-    //                     <MultiSelect
-    //                      {...options2.map((data)=>(
-    //                     options={data.Subcategory} ))}
-    //                     value={selected}
-    //                     onChange={setSelected}
-    //                     labelledBy="Select"
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                {/*                    
+                        <MultiSelect
+                         {...options2.map((data)=>(
+                        options={data.Subcategory} ))}
+                        value={selected}
+                        onChange={setSelected}
+                        labelledBy="Select"
                        
     //                 /> */}
 
@@ -577,8 +578,7 @@ const VendorOrders = ({ State }) => {
 
 }
 
-
-const PendingOrders = ({ State ,setState }) => {
+const PendingOrders = ({ State, setState }) => {
 
     const [options2, setoptions2] = useState([]);
     const [selected, setSelected] = useState([]);
@@ -655,13 +655,13 @@ const PendingOrders = ({ State ,setState }) => {
     const handleOpen2 = () => {
         setOpen2(true)
     }
-    const completeOtp = async() => {
+    const completeOtp = async () => {
         setResendOTP(false);
         clearInterval(timer);
         try {
             // console.log(orders.number);
           const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
-            phoneNumber: Phonenumber
+            phoneNumber: orders.number
           });
           console.log(response.data.message);
           handleOpen2()
@@ -672,7 +672,7 @@ const PendingOrders = ({ State ,setState }) => {
           }, 1000));
         } catch (error) {
             console.log(error.response.data.message);
-        //   setError(error.response.data.message);
+            //   setError(error.response.data.message);
         }
     }
     function get_vendor() {
@@ -687,13 +687,13 @@ const PendingOrders = ({ State ,setState }) => {
                 setPendingorders(res.data)
             })
     }
-    const listofwork = () => {
-        axios.get("http://localhost:3001/sub_api/new_fetch_items").then((res) => {
-            setoptions2(res.data)
-            console.log(res.data);
-        })
-    }
-    const total = selected.reduce((acc,curr)=> acc + curr.Price, 0)
+    // const listofwork = () => {
+    //     axios.get("http://localhost:3001/sub_api/new_fetch_items").then((res) => {
+    //         setoptions2(res.data)
+    //         console.log(res.data);
+    //     })
+    // }
+    const total = selected.reduce((acc, curr) => acc + curr.Price, 0)
     useEffect(() => {
         get_vendor()
         vendor_orders()
@@ -714,6 +714,8 @@ const PendingOrders = ({ State ,setState }) => {
     }, [State])
 
     const[visibility,setvisibility]=useState(true)
+    const[completedOrder,setCompletedorder]=useState([])
+    
 
 
 
@@ -721,7 +723,7 @@ const PendingOrders = ({ State ,setState }) => {
 
     const VerifiyOTP=(e)=>{
         e.preventDefault()
-        axios.post("http://localhost:3001/doneOtp/verifyotp",{
+          axios.post("http://localhost:3001/doneOtp/verifyotp",{
             phoneNumber:Phonenumber,
             otp:OTP
         }
@@ -729,6 +731,36 @@ const PendingOrders = ({ State ,setState }) => {
         .then((res)=>{
             console.log(res.data.message);
             handleClose2()
+            if (res.data.message === "OTP verified successfully") {
+
+                 axios.post(`http://localhost:3001/booking_api/Completed_orders/${completedOrder._id}`, {
+                    vendor_email: completedOrder.vendor_email,
+                    user_email: completedOrder.user_email,
+                    address: completedOrder.address,
+                    street: completedOrder.street,
+                    city: completedOrder.city,
+                    zip: completedOrder.zip,
+                    person: completedOrder.person,
+                    number: completedOrder.number,
+                    Service: completedOrder.Service,
+                    Category: completedOrder.Category,
+                    price: completedOrder.price,
+                    paymentMethod: completedOrder.paymentMethod
+                }).then(()=>{
+                console.log(completedOrder._id);
+                axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${completedOrder._id}`)
+                    .then(() => {
+                        alert("posted")
+                        // getdata()
+                        // handleClose()
+                    })
+                })
+
+            } else {
+                console.log("invalid token");
+
+            }
+
         })
         .catch((err)=>{
             console.log(err.response.data.message);
@@ -775,7 +807,7 @@ const PendingOrders = ({ State ,setState }) => {
                                         <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
                                         <StyledTableCell align="center"><button onClick={() => {setState(4)
-                                        setPhone(data.number)}} className="Action-btn">completed</button></StyledTableCell>
+                                        setPhone(data.number);setCompletedorder(data);console.log(data);}} className="Action-btn">completed</button></StyledTableCell>
                                     </StyledTableRow>
 
 
@@ -795,97 +827,8 @@ const PendingOrders = ({ State ,setState }) => {
         return (
                     <div className="container-fluid vendor-container">
 
-                        
-                <div>
-                    <Modal
-                        open={open2}
-                        onClose={handleClose2}
-                        aria-labelledby="child-modal-title"
-                        aria-describedby="child-modal-description"
-                    >
-                        <Box sx={{ ...style, width: 400 }}>
-
-                            <form onSubmit={VerifiyOTP}>
-
-                                <div >
-                                    <TextField
-                                        type='text'
-                                        id="outlined-basic"
-                                        label="otp"
-                                        value={OTP}
-                                        variant="outlined"
-                                        autoComplete="off"
-                                       onChange={e => setOTP(e.target.value)}
-                                    /><br /><br />
-
-                                    <Button type="submit">verifyOtp</Button>
-                                    <Button type="submit" onClick={handleClose2}>cancel</Button>
-
-                                </div>
-
-
-
-                            </form>
-
-
-                            {/* <ChildModal /> */}
-                        </Box>
-                    </Modal>
-                </div>
-                        <h1>List of Works</h1>
-                        <div>
-                        <Multiselect 
-                            options={options2} // Options to display in the dropdown
-                            // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
-                            onSelect={onSelect1} // Function will trigger on select event
-                            onRemove={onRemove} // Function will trigger on remove event
-                            displayValue={"Subcategory"} // Property name to display in the dropdown options
-                            // displayValue={"Price"}
-                        />
-                        </div>
-                        
-                        <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
-                            <Table className='table-cat' style={{ margin: "0px" }}>
-                                <TableHead>
-                                    <TableRow>
-                                        <StyledTableCell align="center">SN</StyledTableCell>
-                                        <StyledTableCell align="center">Work</StyledTableCell>
-                                        <StyledTableCell align="center">Price</StyledTableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {selected.map((data, index) => (
-                                            <StyledTableRow key={index}>
-                                                <StyledTableCell align="center">{a++}</StyledTableCell>
-        
-                                                <StyledTableCell align="center"><p>{data.Subcategory}</p></StyledTableCell>
-                                                <StyledTableCell align="center"><p>{data.Price}</p></StyledTableCell>
-                                            </StyledTableRow>
-                                        ))
-                                    }
-                                    <StyledTableRow>
-                                        <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
-                                        <StyledTableCell align="center">{total}<br/><button onClick={()=>{completeOtp()
-                                            handleOpen2()}}>confirm</button></StyledTableCell>
-                                    </StyledTableRow>
-                                    
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        {/*                    
-                                <MultiSelect
-                                 {...options2.map((data)=>(
-                                options={data.Subcategory} ))}
-                                value={selected}
-                                onChange={setSelected}
-                                labelledBy="Select"
-                               
-                            /> */}
-        
-                    </div>
-                )
 }
-}
+
 
 
 const UserOrders = ({ State, Loader, setLoader }) => {
@@ -895,113 +838,114 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     const [pending_order, setpending_order] = useState([])
 
 
-    const token = cookies.jwt2;
-    const decodedToken = jwt_decode(token);
-    const userId = decodedToken.id;
+        const token = cookies.jwt2;
+        const decodedToken = jwt_decode(token);
+        const userId = decodedToken.id;
 
-    const useremail = myorders.email
+        const useremail = myorders.email
 
-    useEffect(() => {
-        orders()
-        // pending_orderss()
-        // orders1()
-    }, [])
+        useEffect(() => {
+            orders()
+            // pending_orderss()
+            // orders1()
+        }, [])
 
 
 
-    const orders = () => {
-        console.log(userId);
-        axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
-            .then((res) => {
-                // console.log(res.data);
-                setMyorders(res.data);
+        const orders = () => {
+            console.log(userId);
+            axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
+                .then((res) => {
+                    // console.log(res.data);
+                    setMyorders(res.data);
 
-            })
-    }
+                })
+        }
 
-    // const pending_orderss = () => {
+        // const pending_orderss = () => {
 
-    // }
+        // }
 
-    useEffect(() => {
-        axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
-            .then((res) => {
-                console.log(res.data);
-                setorderdetails(res.data)
+        useEffect(() => {
+            axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
+                .then((res) => {
+                    console.log(res.data);
+                    setorderdetails(res.data)
 
-            })
+                })
 
         axios.get(`http://localhost:3001/booking_api/pending_book/${useremail}`)
             .then((res) => {
                 setpending_order(res.data)
                 console.log(res.data);
             })
-    }, [myorders,useremail])
+    }, [myorders])
 
 
 
 
 
-    // const verify = ()=>{
-    //     if(aemail === null || apassword === null){
-    //         nav("/admin")
-    //     }
+        // const verify = ()=>{
+        //     if(aemail === null || apassword === null){
+        //         nav("/admin")
+        //     }
+        // }
+
+        // const changeStyle = () => {
+        //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+        //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
+        //     }
+        //     else {
+        //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+        //     }
+        // }
+
+        // const changeStyle1 = () => {
+        //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+        //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
+        //     }
+        //     else {
+        //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+        //     }
+        // }
+
+        // const getdata = () => {
+        //     axios.get("http://localhost:3001/booking_api/booking_data").then((res)=>{
+        //             setorderdetails(res.data)
+        //             setNotificationCount(orderdetails.length)
+        //         })
     // }
 
-    // const changeStyle = () => {
-    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
-    //     }
-    //     else {
-    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-    //     }
-    // }
-
-    // const changeStyle1 = () => {
-    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
-    //     }
-    //     else {
-    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-    //     }
-    // }
-
-    // const getdata = () => {
-    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res)=>{
-    //             setorderdetails(res.data)
-    //             setNotificationCount(orderdetails.length)
-    //         })
-    // }
-    let a = 1;
+        let a = 1;
 
 
-    // useEffect(()=>{
-    //     getdata()
-    //     verify()
+        // useEffect(()=>{
+        //     getdata()
+        //     verify()
 
 
-    // })
+        // })
 
-    // function resetNoti() {
-    //     setNotificationCount("")
-    // }
+        // function resetNoti() {
+        //     setNotificationCount("")
+        // }
 
 
 
-    if (State === 3) {
-        return (
-            <div className="container-fluid">
-                <h1>Pending Orders</h1>
-                <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
-                    <TableHead>
-                        <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
-                            {/* <TableCell>Service</TableCell> */}
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
+        if (State === 3) {
+            return (
+                <div className="container-fluid">
+                    <h1>Pending Orders</h1>
+                    <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
+                        <TableHead>
+                            <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
+                                {/* <TableCell>Service</TableCell> */}
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
 
 
 
@@ -1029,25 +973,25 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                         </TableBody>
                     </Table>
                 </div>
-                
-        )
-    }
 
-    else if(State===2){
-        return(
-        
-                <div className="container-fluid">   
-                <h1>My Orders</h1>
-                <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
-                    <TableHead>
-                        <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
-                            {/* <TableCell>Service</TableCell> */}
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
+            )
+        }
+
+        else if (State === 2) {
+            return (
+
+                <div className="container-fluid">
+                    <h1>My Orders</h1>
+                    <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
+                        <TableHead>
+                            <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
+                                {/* <TableCell>Service</TableCell> */}
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
 
 
 
@@ -1070,66 +1014,67 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                     </TableRow>
 
 
-                            ))
-                        }
-                    </TableBody>
-                </Table>
-                
-            </div>
-            
-        )
-    }
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
 
-    else if(State===4){
-        return(
-        
-            <div className="container-fluid">   
-            <h1>Completed Orders</h1>
-            <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
-                <TableHead>
-                    <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
-                        {/* <TableCell>Service</TableCell> */}
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
-                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
+                </div>
 
+            )
+        }
 
+        else if (State === 4) {
+            return (
 
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            orderdetails.map((data, index) => (
+                <div className="container-fluid">
+                    <h1>Completed Orders</h1>
+                    <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
+                        <TableHead>
+                            <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
+                                {/* <TableCell>Service</TableCell> */}
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
 
 
-                                <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                    <TableCell>{a++}</TableCell>
 
-                                    {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                    <TableCell><p>{data.Category}</p> </TableCell>
-                                    <TableCell><p>{data.price}</p></TableCell>
-                                    <TableCell><p>{data.address}</p></TableCell>
-                                    <TableCell><p>{data.number}</p></TableCell>
-                                    <TableCell><p>{data.paymentMethod}</p></TableCell>
-                                </TableRow>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                orderdetails.map((data, index) => (
 
 
-                        ))
-                    }
-                </TableBody>
-            </Table>
-            
-        </div>
-        
-    )
-    }
+                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                        <TableCell>{a++}</TableCell>
 
+                                        {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                        <TableCell><p>{data.Category}</p> </TableCell>
+                                        <TableCell><p>{data.price}</p></TableCell>
+                                        <TableCell><p>{data.address}</p></TableCell>
+                                        <TableCell><p>{data.number}</p></TableCell>
+                                        <TableCell><p>{data.paymentMethod}</p></TableCell>
+                                    </TableRow>
+
+
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+
+                </div>
+
+            )
+        }
 
     else return null
 
 }
 
-export { UserProfile, UserOrders, VendorProfile, VendorOrders, PendingOrders }
+
+
+    export { UserProfile, UserOrders, VendorProfile, VendorOrders, PendingOrders }

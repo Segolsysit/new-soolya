@@ -1,5 +1,5 @@
 const bookingdetails_router = require("express").Router();
-const {bookingdetails_Model,pendingOrders_Model} = require("../models/bookingdetails_schema");
+const {bookingdetails_Model,pendingOrders_Model,CompletedOder_Model} = require("../models/bookingdetails_schema");
 // const  objectId = require('mongoose').isObjectIdOrHexString()
 // const { ObjectId } = require('mongodb');
 
@@ -28,6 +28,30 @@ bookingdetails_router.post("/new_booking", async (req, res) => {
 bookingdetails_router.post("/pending_orders/:id", async (req, res) => {
     
     const deatails = new pendingOrders_Model({
+        vendor_email:req.body.vendor_email,
+        user_email:req.body.user_email,
+        address: req.body.address,
+        street: req.body.street,
+        city: req.body.city,
+        zip: req.body.zip,
+        person: req.body.person,
+        number: req.body.number,
+        Service: req.body.Service,
+        Category: req.body.Category,
+        price: req.body.price,
+        paymentMethod:req.body.paymentMethod
+    })
+
+   await deatails.save();
+    res.status(200).json({message:"Uploaded Successfully",deatails})
+
+    
+
+})
+
+bookingdetails_router.post("/Completed_orders/:id", async (req, res) => {
+    
+    const deatails = new CompletedOder_Model({
         vendor_email:req.body.vendor_email,
         user_email:req.body.user_email,
         address: req.body.address,
@@ -84,8 +108,32 @@ bookingdetails_router.get("/booking_data/:user_email",async(req,res)=>{
     res.json(item_by_id )
 })
 
+bookingdetails_router.get("/Completed_order/:user_email",async(req,res)=>{
+    const user_email = req.params.user_email;
+    const item_by_id = await CompletedOder_Model.find({user_email:user_email})
+    res.json(item_by_id )
+})
+
+bookingdetails_router.get("/Completed_vendor_order/:vendor_email",async(req,res)=>{
+    const vendor_email = req.params.vendor_email;
+    const item_by_id = await CompletedOder_Model.find({vendor_email:vendor_email})
+    res.json(item_by_id )
+})
+
 bookingdetails_router.delete("/delete_item/:id",async(req,res)=>{
     await bookingdetails_Model
+    .findByIdAndDelete(req.params.id)
+    return res.json('Deleted')
+})
+
+// bookingdetails_router.delete("/delete_item/:id",async(req,res)=>{
+//     await pendingOrders_Model
+//     .findByIdAndDelete(req.params.id)
+//     return res.json('Deleted')
+// })
+
+bookingdetails_router.delete("/delete_pending_item/:id",async(req,res)=>{
+    await pendingOrders_Model
     .findByIdAndDelete(req.params.id)
     return res.json('Deleted')
 })
