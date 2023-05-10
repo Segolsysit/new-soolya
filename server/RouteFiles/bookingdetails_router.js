@@ -50,7 +50,7 @@ bookingdetails_router.post("/pending_orders/:id", async (req, res) => {
 })
 
 bookingdetails_router.post("/Completed_orders/:id", async (req, res) => {
-    
+    const{workLists,total} = req.body;
     const deatails = new CompletedOder_Model({
         vendor_email:req.body.vendor_email,
         user_email:req.body.user_email,
@@ -63,7 +63,9 @@ bookingdetails_router.post("/Completed_orders/:id", async (req, res) => {
         Service: req.body.Service,
         Category: req.body.Category,
         price: req.body.price,
-        paymentMethod:req.body.paymentMethod
+        paymentMethod:req.body.paymentMethod,
+        workLists,
+        total
     })
 
    await deatails.save();

@@ -1,119 +1,127 @@
 const mongoose = require("mongoose");
 
 
-const bookingdetailSchema =new mongoose.Schema({
-    user_email:{
-        type:String
+const bookingdetailSchema = new mongoose.Schema({
+    user_email: {
+        type: String
     },
-    address:{
-        type:String
+    address: {
+        type: String
     },
-    street:{
-        type:String
+    street: {
+        type: String
     },
-    city:{
-        type:String
+    city: {
+        type: String
     },
-    zip:{
-        type:Number
+    zip: {
+        type: Number
     },
-    person:{
-        type:String
+    person: {
+        type: String
     },
-    number:{
-        type:Number
+    number: {
+        type: Number
     },
-    Service:{
-        type:String
+    Service: {
+        type: String
     },
-    Category:{
-        type:String
+    Category: {
+        type: String
     },
-    price:{
-        type:Number
+    price: {
+        type: Number
     },
-    paymentMethod:{
-        type:String
+    paymentMethod: {
+        type: String
     }
 })
 
-const pendingOderSchema =new mongoose.Schema({
-    vendor_email:{
-        type:String
+const pendingOderSchema = new mongoose.Schema({
+    vendor_email: {
+        type: String
     },
-    user_email:{
-        type:String
+    user_email: {
+        type: String
     },
-    address:{
-        type:String
+    address: {
+        type: String
     },
-    street:{
-        type:String
+    street: {
+        type: String
     },
-    city:{
-        type:String
+    city: {
+        type: String
     },
-    zip:{
-        type:Number
+    zip: {
+        type: Number
     },
-    person:{
-        type:String
+    person: {
+        type: String
     },
-    number:{
-        type:Number
+    number: {
+        type: Number
     },
     // Service:{
     //     type:String
     // },
-    Category:{
-        type:String
+    Category: {
+        type: String
     },
-    price:{
-        type:Number
+    price: {
+        type: Number
     },
-    paymentMethod:{
-        type:String
+    paymentMethod: {
+        type: String
     }
 })
 
 
-const CompletedOderSchema =new mongoose.Schema({
-    vendor_email:{
-        type:String
+const CompletedOderSchema = new mongoose.Schema({
+    vendor_email: {
+        type: String
     },
-    user_email:{
-        type:String
+    user_email: {
+        type: String
     },
-    address:{
-        type:String
+    address: {
+        type: String
     },
-    street:{
-        type:String
+    street: {
+        type: String
     },
-    city:{
-        type:String
+    city: {
+        type: String
     },
-    zip:{
-        type:Number
+    zip: {
+        type: Number
     },
-    person:{
-        type:String
+    person: {
+        type: String
     },
-    number:{
-        type:Number
+    number: {
+        type: Number
     },
     // Service:{
     //     type:String
     // },
-    Category:{
-        type:String
+    Category: {
+        type: String
     },
-    price:{
-        type:Number
+    price: {
+        type: Number
     },
-    paymentMethod:{
-        type:String
-    }
+    paymentMethod: {
+        type: String
+    },
+    workLists: [{
+        subCategory: String,
+        price: String
+    }],
+    total: {
+        type: String,
+        required: true
+    },
 })
 
 const pendingOrders_Model = mongoose.model("pendingOrders_Model", pendingOderSchema)
