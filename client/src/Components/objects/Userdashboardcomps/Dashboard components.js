@@ -166,6 +166,8 @@ const VendorProfile = ({ State }) => {
             })
         // orders1()
 
+        
+
     }, [setMyorders,setorderdetails])
 
 
@@ -232,7 +234,7 @@ const VendorOrders = ({ State }) => {
     const [orders, setOrderId] = useState('');
     const [veriyfyOtp, setVerifyOtp] = useState('');
     const [open, setOpen] = useState(false);
-
+    const[pending_order,setPendingorders]=useState([])
 
 
 
@@ -574,6 +576,50 @@ const VendorOrders = ({ State }) => {
     //         </div>
     //     )
     // }
+    else if (State === 5) {
+        return (
+            <div className="container-fluid">
+                <h1>Completed Orders</h1>
+                <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
+                    <TableHead>
+                        <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
+                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</StyledTableCell>
+                            {/* <TableCell>Service</TableCell> */}
+                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</StyledTableCell>
+                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</StyledTableCell>
+                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</StyledTableCell>
+                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</StyledTableCell>
+                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</StyledTableCell>
+
+
+
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                pending_order.map((data, index) => (
+
+
+                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                        <StyledTableCell>{a++}</StyledTableCell>
+
+                                        {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                        <StyledTableCell><p>{data.Category}</p> </StyledTableCell>
+                                        <StyledTableCell><p>{data.price}</p></StyledTableCell>
+                                        <StyledTableCell><p>{data.address}</p></StyledTableCell>
+                                        <StyledTableCell><p>{data.number}</p></StyledTableCell>
+                                        <StyledTableCell><p>{data.paymentMethod}</p></StyledTableCell>
+                                    </TableRow>
+
+
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </div>
+                
+        )
+    }
 
 }
 

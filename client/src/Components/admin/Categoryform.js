@@ -117,7 +117,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         categorydata()
         verify()
         servicemandata()
-    }, [servicemandata,verify])
+    }, [])
 
     // const adminlogout = ()=>{
     //     localStorage.removeItem("adminemail")
@@ -702,7 +702,9 @@ const Rejected_list = ({ formNumber }) => {
                     'success'
                 )
             }
+            getrejected_list()
         })
+        
     }
 
     const handleClose = () => {
@@ -736,12 +738,12 @@ const Rejected_list = ({ formNumber }) => {
         getrejected_list()
     },[])
 
-    // const viewdeatils = (id) => {
-    //     axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
-    //         setviewdata(response.data);
-    //         console.log(response.data);
-    //     })
-    // }
+    const viewdeatils = (id) => {
+        axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
+            setviewdata(response.data);
+            console.log(response.data);
+        })
+    }
     if (formNumber === 4) {
         return (
             <div className="container-fluid">
@@ -769,8 +771,7 @@ const Rejected_list = ({ formNumber }) => {
                                 <StyledTableCell>
                                     <Switch color="primary" /></StyledTableCell>
                                 <StyledTableCell>
-                                    <Button><i class="fa-solid fa-pencil"></i></Button>
-                                    <Button><i class="fa-solid fa-eye"></i></Button>
+                                    
                                     <Button type="button" onClick={() => deleteOpen(data._id)}><i class="fa-solid fa-trash"></i></Button>
                                 </StyledTableCell>
                             </StyledTableRow >
@@ -869,7 +870,7 @@ const Orders = ({ formNumber }) => {
         getdata()
         verify()
 
-    },[verify])
+    },[])
 
     // function resetNoti() {
     //     setNotificationCount("")
