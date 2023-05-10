@@ -821,7 +821,8 @@ const PendingOrders = ({ State ,setState }) => {
                                         <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
                                         <StyledTableCell align="center"><button onClick={() => {setState(4)
-                                        setPhone(data.number)}} className="Action-btn">completed</button></StyledTableCell>
+                                        setPhone(data.number)
+                                        completeOtp()}} className="Action-btn">completed</button></StyledTableCell>
                                     </StyledTableRow>
 
 
@@ -911,7 +912,7 @@ const PendingOrders = ({ State ,setState }) => {
                                     }
                                     <StyledTableRow>
                                         <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
-                                        <StyledTableCell align="center">{total}<br/><button onClick={()=>{completeOtp()
+                                        <StyledTableCell align="center">{total}<br/><button onClick={()=>{
                                             handleOpen2()}}>confirm</button></StyledTableCell>
                                     </StyledTableRow>
                                     
