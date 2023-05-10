@@ -225,6 +225,7 @@ const VendorProfile = ({ State }) => {
 const VendorOrders = ({ State }) => {
     // const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
     const [orderdetails, setorderdetails] = useState([])
+    const [completedOrderdetails, setcompletedOrderdetails] = useState([])
     const [cookies, setCookie, removeCookie] = useCookies([]);
     //const [notificationCount, setNotificationCount] = useState(0);
     const [vendorDetails, setVendorDetails] = useState(null);
@@ -266,6 +267,7 @@ const VendorOrders = ({ State }) => {
     const token = cookies.venjwt;
     const decodedToken = jwt_decode(token);
     const vendorId = decodedToken.id;
+    
     // const [options2, setoptions2] = useState([]);
     // const [selected, setSelected] = useState([]);
 
@@ -289,8 +291,13 @@ const VendorOrders = ({ State }) => {
         axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${vendorId}`)
             .then((res) => {
                 setVendorDetails(res.data)
+                axios.get(`http://localhost:3001/booking_api/Completed_vendor_order/${res.data.Email}`)
+            .then((res) => {
+                setcompletedOrderdetails(res.data)
+            })
             })
     }
+    // const Vemail = vendorDetails.Email
 
     const handleOpen = () => {
         setOpen(true)
@@ -370,7 +377,10 @@ const VendorOrders = ({ State }) => {
     const getdata = () => {
         axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
+            // console.log(vendorDetails.Username);
         })
+
+        
     }
     let a = 1;
 
@@ -599,7 +609,7 @@ const VendorOrders = ({ State }) => {
                         </TableHead>
                         <TableBody>
                             {
-                            pending_order.map((data, index) => (
+                            completedOrderdetails.map((data, index) => (
 
 
                                     <TableRow key={index} style={{ backgroundColor: "white" }}>
