@@ -166,8 +166,6 @@ const VendorProfile = ({ State }) => {
             })
         // orders1()
 
-        
-
     }, [setMyorders,setorderdetails])
 
 
@@ -234,7 +232,7 @@ const VendorOrders = ({ State }) => {
     const [orders, setOrderId] = useState('');
     const [veriyfyOtp, setVerifyOtp] = useState('');
     const [open, setOpen] = useState(false);
-    const[pending_order,setPendingorders]=useState([])
+
 
 
 
@@ -576,50 +574,6 @@ const VendorOrders = ({ State }) => {
     //         </div>
     //     )
     // }
-    else if (State === 5) {
-        return (
-            <div className="container-fluid">
-                <h1>Completed Orders</h1>
-                <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
-                    <TableHead>
-                        <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</StyledTableCell>
-                            {/* <TableCell>Service</TableCell> */}
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</StyledTableCell>
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</StyledTableCell>
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</StyledTableCell>
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</StyledTableCell>
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</StyledTableCell>
-
-
-
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                pending_order.map((data, index) => (
-
-
-                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                        <StyledTableCell>{a++}</StyledTableCell>
-
-                                        {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                        <StyledTableCell><p>{data.Category}</p> </StyledTableCell>
-                                        <StyledTableCell><p>{data.price}</p></StyledTableCell>
-                                        <StyledTableCell><p>{data.address}</p></StyledTableCell>
-                                        <StyledTableCell><p>{data.number}</p></StyledTableCell>
-                                        <StyledTableCell><p>{data.paymentMethod}</p></StyledTableCell>
-                                    </TableRow>
-
-
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
-                </div>
-                
-        )
-    }
 
 }
 
@@ -628,6 +582,7 @@ const PendingOrders = ({ State ,setState }) => {
 
     const [options2, setoptions2] = useState([]);
     const [selected, setSelected] = useState([]);
+    const [open, setOpen] = useState(false);
 
 
 
@@ -643,7 +598,9 @@ const PendingOrders = ({ State ,setState }) => {
         listofwork()
 
     }
-
+    const handleClose = () => {
+        setOpen(false)
+    }
 
     const value1 = ()=>{
         console.log(selected);
@@ -775,6 +732,32 @@ const PendingOrders = ({ State ,setState }) => {
         .then((res)=>{
             console.log(res.data.message);
             handleClose2()
+            if (res.data.message === "OTP verified successfully") {
+
+                 axios.post(`http://localhost:3001/booking_api/Completed_orders/${pendingorders._id}`, {
+                    vendor_email: vendorDetails.Email,
+                    user_email: pendingorders.user_email,
+                    address: pendingorders.address,
+                    street: pendingorders.street,
+                    city: pendingorders.city,
+                    zip: pendingorders.zip,
+                    person: pendingorders.person,
+                    number: pendingorders.number,
+                    Service: pendingorders.Service,
+                    Category: pendingorders.Category,
+                    price: pendingorders.price,
+                    paymentMethod: pendingorders.paymentMethod
+                }).then(() => {
+                    axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${pendingorders._id}`)
+                        alert("posted")
+                        // getdata()
+                        handleClose()
+                    })
+
+            } else {
+                console.log("invalid token");
+
+            }
         })
         .catch((err)=>{
             console.log(err.response.data.message);
@@ -821,7 +804,7 @@ const PendingOrders = ({ State ,setState }) => {
                                         <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
                                         <StyledTableCell align="center"><button onClick={() => {setState(4)
-                                        setPhone(data.number)}} className="Action-btn">completed</button></StyledTableCell>
+                                        setPhone(data.number);setPendingorders(data)}} className="Action-btn">completed</button></StyledTableCell>
                                     </StyledTableRow>
 
 
