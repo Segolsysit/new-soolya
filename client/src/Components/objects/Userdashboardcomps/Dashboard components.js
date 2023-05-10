@@ -782,6 +782,10 @@ const PendingOrders = ({ State, setState }) => {
 
     const VerifiyOTP = (e) => {
         e.preventDefault()
+        const workListsData = selected.map((data) => ({
+            subCategory: data.Subcategory,
+            price: data.Price
+          }));
         axios.post("http://localhost:3001/doneOtp/verifyotp", {
             phoneNumber: Phonenumber,
             otp: OTP
@@ -792,21 +796,21 @@ const PendingOrders = ({ State, setState }) => {
                 handleClose2()
                 if (res.data.message === "OTP verified successfully") {
 
-                    axios.post(`http://localhost:3001/booking_api/Completed_orders/${pendingorders._id}`, {
-                        vendor_email: vendorDetails.Email,
-                        user_email: pendingorders.user_email,
-                        address: pendingorders.address,
-                        street: pendingorders.street,
-                        city: pendingorders.city,
-                        zip: pendingorders.zip,
-                        person: pendingorders.person,
-                        number: pendingorders.number,
-                        Service: pendingorders.Service,
-                        Category: pendingorders.Category,
-                        price: pendingorders.price,
-                        paymentMethod: pendingorders.paymentMethod
-                    }).then(() => {
-                        axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${pendingorders._id}`)
+                 axios.post(`http://localhost:3001/booking_api/Completed_orders/${pendingorders._id}`, {
+                    vendor_email: vendorDetails.Email,
+                    user_email: pendingorders.user_email,
+                    address: pendingorders.address,
+                    street: pendingorders.street,
+                    city: pendingorders.city,
+                    zip: pendingorders.zip,
+                    person: pendingorders.person,
+                    number: pendingorders.number,
+                    Service: pendingorders.Service,
+                    Category: pendingorders.Category,
+                    price: pendingorders.price,
+                    paymentMethod: pendingorders.paymentMethod
+                }).then(() => {
+                    axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${pendingorders._id}`)
                         alert("posted")
                         // getdata()
                         handleClose()
@@ -823,7 +827,6 @@ const PendingOrders = ({ State, setState }) => {
 
 
     }
-
 
     if (State === 3) {
         return (
