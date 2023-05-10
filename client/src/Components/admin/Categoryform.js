@@ -117,7 +117,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         categorydata()
         verify()
         servicemandata()
-    }, [])
+    }, [servicemandata,verify])
 
     // const adminlogout = ()=>{
     //     localStorage.removeItem("adminemail")
@@ -869,7 +869,7 @@ const Orders = ({ formNumber }) => {
         getdata()
         verify()
 
-    },[])
+    },[verify])
 
     // function resetNoti() {
     //     setNotificationCount("")

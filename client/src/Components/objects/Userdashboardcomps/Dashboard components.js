@@ -60,7 +60,7 @@ const UserProfile = ({ State }) => {
         // orders1()
 
 
-    }, [])
+    }, [setMyorders])
 
 
     useEffect(() => {
@@ -81,10 +81,10 @@ const UserProfile = ({ State }) => {
         }
     })
 
-    const orders = () => {
-        console.log(userId);
+    // const orders = () => {
+    //     console.log(userId);
 
-    }
+    // }
 
 
     //   console.log(myorders);
@@ -138,7 +138,7 @@ const VendorProfile = ({ State }) => {
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
     const [count, setCount] = useState(0)
-    const [dummy, setDummy] = useState(0)
+    //const [dummy, setDummy] = useState(0)
     // const useremail = myorders.Email
     const { pathname } = useLocation();
     useEffect(() => {
@@ -167,7 +167,7 @@ const VendorProfile = ({ State }) => {
             })
         // orders1()
 
-    }, [])
+    }, [setMyorders,setorderdetails])
 
 
     useEffect(() => {
@@ -234,6 +234,9 @@ const VendorOrders = ({ State }) => {
     const [veriyfyOtp, setVerifyOtp] = useState('');
     const [open, setOpen] = useState(false);
 
+
+
+
     //   const [token, setToken] = useState('');
     const [error, setError] = useState('');
     //const nav = useNavigate()
@@ -265,12 +268,12 @@ const VendorOrders = ({ State }) => {
     // const [options2, setoptions2] = useState([]);
     // const [selected, setSelected] = useState([]);
 
-    function onSelect1(selectedList, selectedItem) {
+   function onSelect1(selectedList, selectedItem) {
         setSelected(selectedList)
         console.log(selectedList);
         listofwork()
     };
-
+    
     function onRemove(selectedList, removedItem) {
         setSelected(selectedList)
         console.log(selectedList);
@@ -278,7 +281,7 @@ const VendorOrders = ({ State }) => {
 
     }
     console.log(selected);
-    // const options1 = [
+   
 
     function get_vendor() {
 
@@ -516,22 +519,22 @@ const VendorOrders = ({ State }) => {
         )
     }
 
-    if (State === 4) {
+    // if (State === 4) {
 
         return (
             <div className="container-fluid vendor-container">
                 <h1>List of Works</h1>
                 <div>
-                    <Multiselect
-                        options={options2} // Options to display in the dropdown
-                        // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
-                        onSelect={onSelect1} // Function will trigger on select event
-                        onRemove={onRemove} // Function will trigger on remove event
-                        displayValue={"Subcategory"} // Property name to display in the dropdown options
+                <Multiselect 
+                    options={options2} // Options to display in the dropdown
+                    // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
+                    onSelect={onSelect1} // Function will trigger on select event
+                    onRemove={onRemove} // Function will trigger on remove event
+                    displayValue={"Subcategory"} // Property name to display in the dropdown options
                     // displayValue={"Price"}
-                    />
+                />
                 </div>
-
+                
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
                     <Table className='table-cat' style={{ margin: "0px" }}>
                         <TableHead>
@@ -543,19 +546,19 @@ const VendorOrders = ({ State }) => {
                         </TableHead>
                         <TableBody>
                             {selected.map((data, index) => (
-                                <StyledTableRow key={index}>
-                                    <StyledTableCell align="center">{a++}</StyledTableCell>
+                                    <StyledTableRow key={index}>
+                                        <StyledTableCell align="center">{a++}</StyledTableCell>
 
-                                    <StyledTableCell align="center"><p>{data.Subcategory}</p></StyledTableCell>
-                                    <StyledTableCell align="center"><p>{data.Price}</p></StyledTableCell>
-                                </StyledTableRow>
-                            ))
+                                        <StyledTableCell align="center"><p>{data.Subcategory}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.Price}</p></StyledTableCell>
+                                    </StyledTableRow>
+                                ))
                             }
                             <StyledTableRow>
                                 <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
-                                <StyledTableCell align="center">{total}<br /><button>confirm</button></StyledTableCell>
+                                <StyledTableCell align="center">{total}<br/><button>confirm</button></StyledTableCell>
                             </StyledTableRow>
-
+                            
                         </TableBody>
                     </Table>
                 </TableContainer>
@@ -567,21 +570,52 @@ const VendorOrders = ({ State }) => {
                         onChange={setSelected}
                         labelledBy="Select"
                        
-                    /> */}
+    //                 /> */}
 
-            </div>
-        )
-    }
+    //         </div>
+    //     )
+    // }
 
 }
 
-
 const PendingOrders = ({ State, setState }) => {
+
+    const [options2, setoptions2] = useState([]);
+    const [selected, setSelected] = useState([]);
+
+
+
+   function onSelect1(selectedList, selectedItem) {
+        setSelected(selectedList)
+        console.log(selectedList);
+        listofwork()
+    };
+    
+    function onRemove(selectedList, removedItem) {
+        setSelected(selectedList)
+        console.log(selectedList);
+        listofwork()
+
+    }
+
+
+    const value1 = ()=>{
+        console.log(selected);
+    }
+    const [resendOTP, setResendOTP] = useState(false);
+    const [timer, setTimer] = useState(null);
+    const [timeRemaining, setTimeRemaining] = useState(0);
+    const [otpSent, setOTPSent] = useState(false);
+    const [open2, setOpen2] = useState(false);
+    const [error, setError] = useState('');
+    const[Phonenumber,setPhone]=useState("")
+    // const total = selected.reduce((acc,curr)=> acc + curr.Price, 0)
+
 
     const [orderdetails, setorderdetails] = useState([])
 
     const [notificationCount, setNotificationCount] = useState(0);
-    const nav = useNavigate()
+   // const nav = useNavigate()
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -600,6 +634,11 @@ const PendingOrders = ({ State, setState }) => {
         },
 
     }));
+
+
+
+
+    
 
     const [cookies, setCookie, removeCookie] = useCookies([]);
 
@@ -621,16 +660,16 @@ const PendingOrders = ({ State, setState }) => {
         clearInterval(timer);
         try {
             // console.log(orders.number);
-            const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
-                phoneNumber: orders.number
-            });
-            console.log(response.data.message);
-            handleOpen2()
-            setOTPSent(true);
-            setTimeRemaining(120);
-            setTimer(setInterval(() => {
-                setTimeRemaining(prevTime => prevTime - 1);
-            }, 1000));
+          const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
+            phoneNumber: orders.number
+          });
+          console.log(response.data.message);
+          handleOpen2()
+          setOTPSent(true);
+          setTimeRemaining(120);
+          setTimer(setInterval(() => {
+            setTimeRemaining(prevTime => prevTime - 1);
+          }, 1000));
         } catch (error) {
             console.log(error.response.data.message);
             //   setError(error.response.data.message);
@@ -658,9 +697,12 @@ const PendingOrders = ({ State, setState }) => {
     useEffect(() => {
         get_vendor()
         vendor_orders()
+        listofwork()
     }, [vendorDetails.Email])
 
 
+
+    const[OTP,setOTP]=useState("")
 
 
 
@@ -670,6 +712,63 @@ const PendingOrders = ({ State, setState }) => {
             window.scroll(0, 100000)
         }
     }, [State])
+
+    const[visibility,setvisibility]=useState(true)
+    const[completedOrder,setCompletedorder]=useState([])
+    
+
+
+
+    //confirmation otp api
+
+    const VerifiyOTP=(e)=>{
+        e.preventDefault()
+          axios.post("http://localhost:3001/doneOtp/verifyotp",{
+            phoneNumber:Phonenumber,
+            otp:OTP
+        }
+        )
+        .then((res)=>{
+            console.log(res.data.message);
+            handleClose2()
+            if (res.data.message === "OTP verified successfully") {
+
+                 axios.post(`http://localhost:3001/booking_api/Completed_orders/${completedOrder._id}`, {
+                    vendor_email: completedOrder.vendor_email,
+                    user_email: completedOrder.user_email,
+                    address: completedOrder.address,
+                    street: completedOrder.street,
+                    city: completedOrder.city,
+                    zip: completedOrder.zip,
+                    person: completedOrder.person,
+                    number: completedOrder.number,
+                    Service: completedOrder.Service,
+                    Category: completedOrder.Category,
+                    price: completedOrder.price,
+                    paymentMethod: completedOrder.paymentMethod
+                }).then(()=>{
+                console.log(completedOrder._id);
+                axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${completedOrder._id}`)
+                    .then(() => {
+                        alert("posted")
+                        // getdata()
+                        // handleClose()
+                    })
+                })
+
+            } else {
+                console.log("invalid token");
+
+            }
+
+        })
+        .catch((err)=>{
+            console.log(err.response.data.message);
+        })
+    
+
+    }
+
 
     if (State === 3) {
         return (
@@ -707,7 +806,8 @@ const PendingOrders = ({ State, setState }) => {
                                         <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><button onClick={() => setState(4)} className="Action-btn">completed</button></StyledTableCell>
+                                        <StyledTableCell align="center"><button onClick={() => {setState(4)
+                                        setPhone(data.number);setCompletedorder(data);console.log(data);}} className="Action-btn">completed</button></StyledTableCell>
                                     </StyledTableRow>
 
 
@@ -724,16 +824,18 @@ const PendingOrders = ({ State, setState }) => {
         )
     }
     if (State === 4) {
+        return (
+                    <div className="container-fluid vendor-container">
 
-    }
 }
 
 
-    const UserOrders = ({ State, Loader, setLoader }) => {
-        const [orderdetails, setorderdetails] = useState([])
-        const [cookies, setCookie, removeCookie] = useCookies([]);
-        const [myorders, setMyorders] = useState([])
-        const [pending_order, setpending_order] = useState([])
+
+const UserOrders = ({ State, Loader, setLoader }) => {
+    const [orderdetails, setorderdetails] = useState([])
+    const [cookies, setCookie, removeCookie] = useCookies([]);
+    const [myorders, setMyorders] = useState([])
+    const [pending_order, setpending_order] = useState([])
 
 
         const token = cookies.jwt2;
@@ -772,12 +874,12 @@ const PendingOrders = ({ State, setState }) => {
 
                 })
 
-            axios.get(`http://localhost:3001/booking_api/pending_book/${useremail}`)
-                .then((res) => {
-                    setpending_order(res.data)
-                    console.log(res.data);
-                })
-        }, [myorders])
+        axios.get(`http://localhost:3001/booking_api/pending_book/${useremail}`)
+            .then((res) => {
+                setpending_order(res.data)
+                console.log(res.data);
+            })
+    }, [myorders])
 
 
 
@@ -969,9 +1071,9 @@ const PendingOrders = ({ State, setState }) => {
             )
         }
 
-        else return null
-    
-    }
+    else return null
+
+}
 
 
 
