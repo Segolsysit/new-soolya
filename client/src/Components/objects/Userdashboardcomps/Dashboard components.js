@@ -1305,6 +1305,10 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                             <TableCell style={{backgroundColor:"white"}}><p></p></TableCell>
                             <TableCell style={{backgroundColor:"white"}}><p></p></TableCell>
                         </TableRow>
+                        <TableRow>
+                            <TableCell style={{backgroundColor:"white",display:'flex',alignItems:'center'}}><p style={{margin:'0px'}}>Total</p></TableCell>
+                            <TableCell style={{backgroundColor:"white"}}><p></p></TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </div>
