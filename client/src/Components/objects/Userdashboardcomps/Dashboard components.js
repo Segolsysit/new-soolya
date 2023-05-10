@@ -989,6 +989,11 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
     const useremail = myorders.email
 
+
+
+    const[Method,setMethod]=useState(true)
+    const[Button,setButton]=useState(true)
+
     useEffect(() => {
         orders()
         // pending_orderss()
@@ -1196,10 +1201,10 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                     </TableHead>
                     <TableBody>
                         {
-                            completed_order.map((data, index) => (
-
-
-                                <TableRow key={index} style={{ backgroundColor: "white" }}>
+                            completed_order.map((data, index) => {
+                                
+                                return(
+                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
                                     <TableCell>{a++}</TableCell>
 
                                     {/* <TableCell><p>{data.Service}</p></TableCell> */}
@@ -1209,9 +1214,61 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                     <TableCell><p>{data.number}</p></TableCell>
                                     <TableCell><p>{data.paymentMethod}</p></TableCell>
                                 </TableRow>
+                                )
 
 
-                        ))
+
+                                })
+                    }
+                </TableBody>
+            </Table>
+            
+        </div>
+        
+    )
+    }
+
+    else if(State===5){
+        return(
+        
+            <div className="container-fluid">   
+            <h1>Bills & Payment</h1>
+            <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
+                <TableHead>
+                    <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
+                        {/* <TableCell>Service</TableCell> */}
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
+                        <TableCell style={{ textAlign: "center", fontWeight: '600' }}>payment</TableCell>
+
+
+
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            completed_order.map((data, index) => {
+                                
+                            return(
+                                <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                    <TableCell>{a++}</TableCell>
+
+                                    {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                    <TableCell><p>{data.Category}</p> </TableCell>
+                                    <TableCell><p>{data.price}</p></TableCell>
+                                    <TableCell><p>{data.address}</p></TableCell>
+                                    <TableCell><p>{data.number}</p></TableCell>
+                                    <TableCell style={{textAlign:"center"}}><button className="Pay-button" hidden={data.paymentMethod==="onlinePayment"? false : true}>Pay</button><p hidden={data.paymentMethod==="cashOnDelivery"? false : true}>{data.paymentMethod}</p></TableCell>
+                                </TableRow>
+                            )
+
+                                
+
+
+    })
                     }
                 </TableBody>
             </Table>
