@@ -25,7 +25,7 @@ const style = {
     p: 4,
 };
 
-
+//completed orders
 const UserProfile = ({ State }) => {
     const [orderdetails, setorderdetails] = useState([])
     const [cookies, setCookie, removeCookie] = useCookies([]);
@@ -894,7 +894,7 @@ const PendingOrders = ({ State ,setState }) => {
                                     }
                                     <StyledTableRow>
                                         <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
-                                        <StyledTableCell align="center">{total}<br/><button onClick={()=>{completeOtp()
+                                        <StyledTableCell align="center">{total}<br/><button onClick={()=>{
                                             handleOpen2()}}>confirm</button></StyledTableCell>
                                     </StyledTableRow>
                                     
