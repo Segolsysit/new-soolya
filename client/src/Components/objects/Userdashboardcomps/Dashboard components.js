@@ -1050,11 +1050,12 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         axios.get(`http://localhost:3001/booking_api/Completed_order/${useremail}`)
             .then((res) => {
                 setCompleted_order(res.data)
+                setSubcategory(res.data.workLists)
                 console.log(res.data);
             })
     }, [myorders, useremail])
 
-
+const[subCategory,setSubcategory]=useState([])
 
 
 
@@ -1299,6 +1300,8 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                 <div className="Bill-modal" hidden={open4}>
                     <h2 className="Bills-heading">Your bill</h2>
                     <div className="Bill-sec2">
+                    <div style={{height:"15rem",overflow:'scroll',width:'100%'}}>
+
                         <Table>
                             <TableHead>
                                 <TableRow>
@@ -1306,29 +1309,48 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                     <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Charges</TableCell>
                                 </TableRow>
                             </TableHead>
-                            <TableBody>
 
+                            <TableBody style={{width:'100%'}}>
 
-                            {completed_order.map((data, index) => {
-                                return(
+                            {completed_order.map((data, index) => (
+                                data.workLists.map((Sub,secondindex)=>(
+                                    //console.log(Sub.subCategory)
 
-                                    <TableRow key={index}>
-                                        <TableCell style={{ backgroundColor: "white" }}><p>{data.workLists.subCategory}</p></TableCell>
-                                        <TableCell style={{ backgroundColor: "white" }}><p>{data.workLists.price}</p></TableCell>
-                                    </TableRow>
-                                   
-                                )
-                            })}
+                                        <TableRow key={secondindex} >
+                                            <TableCell style={{ backgroundColor: "white" }}><p>{Sub.subCategory}</p></TableCell>
+                                            <TableCell style={{ backgroundColor: "white" }}><p>{Sub.price}</p></TableCell>
+                                        </TableRow>
+                                       
+                                ))
+                                
+                            
+                            ))}
+
                             <TableRow>
-                            <TableCell style={{ backgroundColor: "white", display: 'flex', alignItems: 'center' }}><p style={{ margin: '0px' }}>Total</p></TableCell>
-                            <TableCell style={{ backgroundColor: "white" }}><p></p></TableCell>
-                        </TableRow>
+                                <TableCell style={{ backgroundColor: "white", display: 'flex', alignItems: 'center' }}><p style={{ margin: '0px' }}>Total</p></TableCell>
+                                {
+                                    completed_order.map((data,index)=>(
+                                        <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{margin:'0px'}}>{data.total}</p></TableCell>
+
+                                    )
+
+                                    )
+                                }
+                            </TableRow>
+                            
                             </TableBody>
 
                         </Table>
+                        </div>
+
                     </div>
                     <div style={{ display: "flex", gap: "5px" }}>
-                        <button className="Bill-btn1">Pay</button>
+                        {
+                            completed_order.map((data,index)=>(
+                                <button hidden={data.paymentMethod==="onlinePayment"?false:true} className="Bill-btn1">Pay</button>
+                            ))
+
+                        }
                         <button className="Bill-btn2" onClick={handleClose4}>Cancel</button>
                     </div>
 
