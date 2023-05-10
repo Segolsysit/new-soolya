@@ -922,6 +922,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     const [cookies, setCookie, removeCookie] = useCookies([]);
     const [myorders, setMyorders] = useState([])
     const [pending_order, setpending_order] = useState([])
+    const [completed_order, setCompleted_order] = useState([])
 
 
     const token = cookies.jwt2;
@@ -963,6 +964,12 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         axios.get(`http://localhost:3001/booking_api/pending_book/${useremail}`)
             .then((res) => {
                 setpending_order(res.data)
+                console.log(res.data);
+            })
+
+            axios.get(`http://localhost:3001/booking_api/Completed_order/${useremail}`)
+            .then((res) => {
+                setCompleted_order(res.data)
                 console.log(res.data);
             })
     }, [myorders,useremail])
@@ -1131,7 +1138,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                     </TableHead>
                     <TableBody>
                         {
-                            orderdetails.map((data, index) => (
+                            completed_order.map((data, index) => (
 
 
                                 <TableRow key={index} style={{ backgroundColor: "white" }}>

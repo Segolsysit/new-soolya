@@ -90,6 +90,11 @@ bookingdetails_router.get("/pending_booking_data",async(req,res)=>{
     res.json(booking_data )
 })
 
+bookingdetails_router.get("/completed_booking_data",async(req,res)=>{
+    const booking_data = await CompletedOder_Model.find()
+    res.json(booking_data )
+})
+
 bookingdetails_router.get("/booking_data",async(req,res)=>{
     const booking_data = await bookingdetails_Model.find()
     res.json(booking_data)

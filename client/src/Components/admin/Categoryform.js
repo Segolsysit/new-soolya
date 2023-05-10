@@ -813,6 +813,7 @@ const Orders = ({ formNumber }) => {
 
     // const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
     const [orderdetails, setorderdetails] = useState([])
+    const [completed_orderdetails, setcompleted_orderdetails] = useState([])
     const [pending_orderdetails, setpending_orderdetails] = useState([])
     const aemail = localStorage.getItem("adminemail")
     const apassword = localStorage.getItem("adminpassword");
@@ -862,6 +863,10 @@ const Orders = ({ formNumber }) => {
         axios.get("http://localhost:3001/booking_api/pending_booking_data").then((res) => {
             setpending_orderdetails(res.data)
         })
+        axios.get("http://localhost:3001/booking_api/completed_booking_data").then((res) => {
+            setcompleted_orderdetails(res.data)
+        })
+
     }
     let a = 1;
 
@@ -999,7 +1004,7 @@ const Orders = ({ formNumber }) => {
                         </TableHead>
                         <TableBody>
                             {
-                                orderdetails.map((data, index) => (
+                                completed_orderdetails.map((data, index) => (
 
 
                                     <StyledTableRow key={index}>
