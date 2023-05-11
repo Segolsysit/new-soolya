@@ -85,6 +85,10 @@ const MenuBar = () => {
     var status = localStorage.getItem("Status")
 
     const[state,setState]=useState(false)
+    const  {pathname}  = useLocation();
+
+
+    
 
     const ProfileOpen=()=>{
         if(!state){
@@ -121,11 +125,11 @@ const MenuBar = () => {
             </div>
             <div className="menubar">
                 <ul className="menulist">
-                    <Link to="/"><li className="Menuitem">Home</li></Link>
-                    <Link to='/AboutUs'><li className="Menuitem">About Us</li></Link>
-                    <Link to="/service"><li className="Menuitem">Service</li></Link>
+                    <Link to="/"><li className={pathname!=="/" ? "Menuitem":"Menuitem-active"}>Home</li></Link>
+                    <Link to='/AboutUs'><li className={pathname!=="/AboutUs" ? "Menuitem":"Menuitem-active"}>About Us</li></Link>
+                    <Link to="/service"><li className={pathname!=="/service" ? "Menuitem":"Menuitem-active"}>Service</li></Link>
                     
-                    <Link to="/contact"><li className="Menuitem">Contact Us</li></Link>
+                    <Link to="/contact"><li className={pathname!=="/contact" ? "Menuitem":"Menuitem-active"}>Contact Us</li></Link>
                 </ul>
             </div>
             <div className="buttonflex">

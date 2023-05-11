@@ -104,6 +104,7 @@ a{
     gap: 40px;
     padding: 0px;
     margin: 0px;
+    align-items: center;
 }
 
 .menulist a{
@@ -193,6 +194,8 @@ a{
 }
 .Menuitem{
     color: black;
+    transition-duration: 1s;
+
 }
 
 .Menuitem:hover{
@@ -200,6 +203,15 @@ a{
     cursor: pointer;
     text-decoration: none;
 }
+
+.Menuitem-active{
+    color: white;
+    background-color: dodgerblue;
+    padding: 3px 5px 3px 5px;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
 
 .cover{
     
