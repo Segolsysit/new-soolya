@@ -1012,12 +1012,12 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         setOpen4(true)
     }
     const handleOpen4 = (id) => {
-        // axios.get(`http://localhost:3001/booking_api/Completed_order/${id}`)
-        //     .then((res) => {
-        //         setCompleted_bill(res.data)
-        //         setSubcategory(res.data.workLists)
-        //         console.log(res.data);
-        //     })
+        axios.get(`http://localhost:3001/booking_api/completed_billing_data/${id}`)
+            .then((res) => {
+                setCompleted_bill(res.data)
+                setSubcategory(res.data.workLists)
+                console.log(res.data);
+            })
         setOpen4(false)
         console.log(open4);
     }
@@ -1362,7 +1362,7 @@ const[subCategory,setSubcategory]=useState([])
                     </div>
                     <div style={{ display: "flex", gap: "5px" }}>
                         {
-                            completed_order.map((data,index)=>(
+                            completed_bill.map((data,index)=>(
                                 <button hidden={data.paymentMethod==="onlinePayment"?false:true} className="Bill-btn1">Pay</button>
                             ))
 

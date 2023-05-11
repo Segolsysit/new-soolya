@@ -189,7 +189,7 @@
    position: absolute;
    top:25%;
    left: 40%;
-    background-color: rgb(210, 227, 243);
+    background-color: rgb(245, 246, 247);
     display: flex;
     flex-direction: column;
     width: 30rem;
@@ -253,8 +253,8 @@
 
     .Bill-modal{
         position: absolute;
-        left: 10%;
-         background-color: rgb(210, 227, 243);
+        left: 7%;
+         background-color: rgb(250, 251, 251);
          display: flex;
          flex-direction: column;
          width: 20rem;
@@ -384,6 +384,7 @@
         height: fit-content;
         background-color:rgb(252, 253, 253);
         transition-duration: 1s;
+        width: fit-content;
     }
     .Vendor-data{
         color: rgb(253, 252, 252);
