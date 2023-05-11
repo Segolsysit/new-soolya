@@ -13,6 +13,8 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Multiselect from 'multiselect-react-dropdown';
+import useRazorpay from "react-razorpay";
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -989,6 +991,8 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     const [completed_order, setCompleted_order] = useState([])
     const [completed_bill, setCompleted_bill] = useState([])
 
+    const Razorpay = useRazorpay();
+
 
     const token = cookies.jwt2;
     const decodedToken = jwt_decode(token);
@@ -1003,16 +1007,47 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         setOpen4(true)
     }
     const handleOpen4 = (id) => {
-        // axios.get(`http://localhost:3001/booking_api/Completed_order/${id}`)
-        //     .then((res) => {
-        //         setCompleted_bill(res.data)
-        //         setSubcategory(res.data.workLists)
-        //         console.log(res.data);
-        //     })
+        axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
+            .then((res) => {
+                setCompleted_bill(res.data)
+                setSubcategory(res.data.workLists)
+                console.log(res.data);
+            })
         setOpen4(false)
         console.log(open4);
     }
 
+    function pay(){
+
+        var amount = 200;
+    
+        var options = {
+            key:"rzp_test_1SnQnLm783h5Op",
+            key_secret:"W3x1XiUXiyqIKQJrSBqaXGmE",
+            "amount": amount * 100, // Example: 2000 paise = INR 20
+            "name": "MERCHANT name",
+            "description": "description",
+            "image": "img/logo.png",// COMPANY LOGO
+            "handler": function (response) {
+                console.log(response);
+                // AFTER TRANSACTION IS COMPLETE YOU WILL GET THE RESPONSE HERE.
+            },
+            "prefill": {
+                "name": "ABC", // pass customer name
+                "email": 'A@A.COM',// customer email
+                "contact": '+919123456780' //customer phone no.
+            },
+            "notes": {
+                "address": "address" //customer address 
+            },
+            "theme": {
+                "color": "#15b8f3" // screen color
+            }
+        };
+        console.log(options);
+        var propay = new Razorpay (options);
+        propay.open();
+    }
 
 
     const [Method, setMethod] = useState(true)
@@ -1290,7 +1325,7 @@ const[subCategory,setSubcategory]=useState([])
                                             <TableCell><p>{data.price}</p></TableCell>
                                             <TableCell><p>{data.address}</p></TableCell>
                                             <TableCell><p>{data.number}</p></TableCell>
-                                            <TableCell style={{ textAlign: "center" }}><button onClick={handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
+                                            <TableCell style={{ textAlign: "center" }}><button onClick={()=>handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
                                         </TableRow>
                                     )
 
@@ -1320,7 +1355,8 @@ const[subCategory,setSubcategory]=useState([])
 
                             <TableBody style={{width:'100%'}}>
 
-                            {completed_bill.map((data, index) => (
+                            {
+                            completed_bill.map((data) => (
                                 data.workLists.map((Sub,secondindex)=>(
                                     //console.log(Sub.subCategory)
 
@@ -1328,20 +1364,16 @@ const[subCategory,setSubcategory]=useState([])
                                             <TableCell style={{ backgroundColor: "white" }}><p>{Sub.subCategory}</p></TableCell>
                                             <TableCell style={{ backgroundColor: "white" }}><p>{Sub.price}</p></TableCell>
                                         </TableRow>
-                                       
                                 ))
-                                
-                            
-                            ))}
+                            ))
+                            }
 
                             <TableRow>
                                 <TableCell style={{ backgroundColor: "white", display: 'flex', alignItems: 'center' }}><p style={{ margin: '0px' }}>Total</p></TableCell>
                                 {
                                     completed_bill.map((data,index)=>(
                                         <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{margin:'0px'}}>{data.total}</p></TableCell>
-
                                     )
-
                                     )
                                 }
                             </TableRow>
@@ -1355,7 +1387,7 @@ const[subCategory,setSubcategory]=useState([])
                     <div style={{ display: "flex", gap: "5px" }}>
                         {
                             completed_order.map((data,index)=>(
-                                <button hidden={data.paymentMethod==="onlinePayment"?false:true} className="Bill-btn1">Pay</button>
+                                <button hidden={data.paymentMethod==="onlinePayment"?false:true} onClick={()=>pay()} className="Bill-btn1">Pay</button>
                             ))
 
                         }
