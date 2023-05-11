@@ -1070,7 +1070,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                 console.log(res.data);
             })
 
-    }, [myorders, useremail])
+    }, [useremail])
 
 const[subCategory,setSubcategory]=useState([])
 
@@ -1288,9 +1288,8 @@ const[subCategory,setSubcategory]=useState([])
                         </TableHead>
                         <TableBody>
                             {
-                                completed_order.map((data, index) => {
+                                completed_order.map((data, index) => (
 
-                                    return (
                                         <TableRow key={index} style={{ backgroundColor: "white" }}>
                                             <TableCell>{a++}</TableCell>
 
@@ -1299,14 +1298,14 @@ const[subCategory,setSubcategory]=useState([])
                                             <TableCell><p>{data.price}</p></TableCell>
                                             <TableCell><p>{data.address}</p></TableCell>
                                             <TableCell><p>{data.number}</p></TableCell>
-                                            <TableCell style={{ textAlign: "center" }}><button onClick={handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
+                                            <TableCell style={{ textAlign: "center" }}><button onClick={()=>handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
                                         </TableRow>
-                                    )
+                                    
 
 
 
 
-                                })
+                                ))
                             }
                         </TableBody>
                     </Table>
