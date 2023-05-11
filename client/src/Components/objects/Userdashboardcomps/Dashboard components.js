@@ -14,7 +14,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Multiselect from 'multiselect-react-dropdown';
 import {toast} from 'react-toastify';
-import {Razorpay} from 'react-razorpay'
+import useRazorpay, {Razorpay} from 'react-razorpay'
 
 
 
@@ -1004,7 +1004,12 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     const [completedbill, setCompletedbill] = useState([])
 
     
-
+    // const workListsData = completedbill.map((data) => (
+    //      data.workLists.map((data)=>{
+    //         subCategory = data.subCategory,
+    //         price = data.price
+    //     })
+    //   ));
 
     const token = cookies.jwt2;
     const decodedToken = jwt_decode(token);
@@ -1034,10 +1039,11 @@ const UserOrders = ({ State, Loader, setLoader }) => {
             
         console.log(open4);
     }
+const Razorpay = useRazorpay()
+const Total = completedbill.map((data)=>data.total)
+    function pay(data){
 
-    function pay(){
-
-        var amount = 200;
+        var amount = parseInt(Total);
     
         var options = {
             key:"rzp_test_1SnQnLm783h5Op",
@@ -1063,8 +1069,29 @@ const UserOrders = ({ State, Loader, setLoader }) => {
             }
         };
         console.log(options);
+        console.log((data._id));
         var propay = new Razorpay (options);
-        propay.open();
+        propay.open()
+        // .then(()=>{
+            
+            axios.patch(`http://localhost:3001/booking_api/edit_Completed_orders/${data._id}`, {
+                    vendor_email: data.vendor_email,
+                    user_email: data.user_email,
+                    address: data.address,
+                    street: data.street,
+                    city: data.city,
+                    zip: data.zip,
+                    person: data.person,
+                    number: data.number,
+                    Service: data.Service,
+                    Category: data.Category,
+                    price: data.price,
+                    paymentMethod: 'Payment Completed',
+                    workLists: data.workLists,
+                    total:data.total
+
+                })
+        // })
     }
 
 
@@ -1404,7 +1431,7 @@ const[subCategory,setSubcategory]=useState([])
                     <div style={{ display: "flex", gap: "5px" }}>
                         {
                             completedbill.map((data,index)=>(
-                                <button hidden={data.paymentMethod==="onlinePayment"?false:true} onClick={pay} className="Bill-btn1">Pay</button>
+                                <button hidden={data.paymentMethod==="onlinePayment"?false:true} onClick={()=>pay(data)} className="Bill-btn1">Pay</button>
                             ))
 
                         }
