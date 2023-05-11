@@ -13,6 +13,12 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Multiselect from 'multiselect-react-dropdown';
+import {toast} from 'react-toastify';
+import useRazorpay, {Razorpay} from 'react-razorpay'
+
+
+
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -440,6 +446,7 @@ const VendorOrders = ({ State }) => {
     // const total = selected.reduce((acc,curr)=> acc + curr.Price, 0)
     if (State === 2) {
         return (
+            <div style={{ width: "100%" }}>
             <div className="container-fluid vendor-container">
                 <h1>Order Details</h1>
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
@@ -523,7 +530,7 @@ const VendorOrders = ({ State }) => {
                 </div>
 
             </div>
-
+    </div>
 
 
         )
@@ -589,6 +596,7 @@ const VendorOrders = ({ State }) => {
 
     else if (State === 5) {
         return (
+            <div style={{ width: "100%" }}>
             <div className="container-fluid">
                 <h1>Completed Orders</h1>
                 <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
@@ -628,7 +636,7 @@ const VendorOrders = ({ State }) => {
                     </TableBody>
                 </Table>
             </div>
-
+                        </div>
         )
     }
 
@@ -718,8 +726,15 @@ const PendingOrders = ({ State, setState }) => {
         setOpen2(true)
     }
     const completeOtp = async () => {
+        if(selected.length===0){
+            toast.error("Select the work done",{
+                position:'top-center'
+            })
+        }
+        else{
         setResendOTP(false);
         clearInterval(timer);
+        console.log(selected);
         try {
             // console.log(orders.number);
             const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
@@ -735,7 +750,7 @@ const PendingOrders = ({ State, setState }) => {
         } catch (error) {
             console.log(error.response.data.message);
             //   setError(error.response.data.message);
-        }
+        }}
     }
     function get_vendor() {
         axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${vendorId}`)
@@ -833,7 +848,8 @@ const PendingOrders = ({ State, setState }) => {
 
     if (State === 3) {
         return (
-            <div className="container-fluid vendor-container">
+            <div style={{ width: "100%" }}>
+            <div className="container-fluid">
                 <h1>Pending order Details</h1>
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
                     <Table className='table-cat' style={{ margin: "0px" }}>
@@ -887,16 +903,15 @@ const PendingOrders = ({ State, setState }) => {
                 </TableContainer>
 
             </div>
-
+</div>
 
 
         )
     }
     if (State === 4) {
         return (
+            <div style={{ width: "100%" }}>
             <div className="container-fluid vendor-container">
-
-
                 <div>
                     <Modal
                         open={open2}
@@ -966,9 +981,7 @@ const PendingOrders = ({ State, setState }) => {
                             }
                             <StyledTableRow>
                                 <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
-                                <StyledTableCell align="center">{total}<br /><button onClick={() => {
-                                    handleOpen2(); completeOtp()
-                                }}>confirm</button></StyledTableCell>
+                                <StyledTableCell align="center">{total}<br /><button onClick={() => {completeOtp()}}>confirm</button></StyledTableCell>
                             </StyledTableRow>
 
                         </TableBody>
@@ -985,6 +998,7 @@ const PendingOrders = ({ State, setState }) => {
                             /> */}
 
             </div>
+            </div>
         )
     }
 }
@@ -996,8 +1010,15 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     const [myorders, setMyorders] = useState([])
     const [pending_order, setpending_order] = useState([])
     const [completed_order, setCompleted_order] = useState([])
-    const [completed_bill, setCompleted_bill] = useState([])
+    const [completedbill, setCompletedbill] = useState([])
 
+    
+    // const workListsData = completedbill.map((data) => (
+    //      data.workLists.map((data)=>{
+    //         subCategory = data.subCategory,
+    //         price = data.price
+    //     })
+    //   ));
 
     const token = cookies.jwt2;
     const decodedToken = jwt_decode(token);
@@ -1007,21 +1028,80 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
     const [open4, setOpen4] = useState(true);
 
-
+    console.log(completedbill);
     const handleClose4 = () => {
         setOpen4(true)
     }
     const handleOpen4 = (id) => {
-        axios.get(`http://localhost:3001/booking_api/Completed_order/${id}`)
+        axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
             .then((res) => {
-                setCompleted_bill(res.data)
-                setSubcategory(res.data.workLists)
                 console.log(res.data);
+                setCompletedbill([res.data])
+            
+                setSubcategory(res.data.workLists)
+                
             })
-        setOpen4(false)
+            .then(()=>{
+                    setOpen4(false)
+                
+            })
+            
         console.log(open4);
     }
+const Razorpay = useRazorpay()
+const Total = completedbill.map((data)=>data.total)
+    function pay(data){
 
+        var amount = parseInt(Total);
+    
+        var options = {
+            key:"rzp_test_1SnQnLm783h5Op",
+            key_secret:"W3x1XiUXiyqIKQJrSBqaXGmE",
+            "amount": amount * 100, // Example: 2000 paise = INR 20
+            "name": "MERCHANT name",
+            "description": "description",
+            "image": "img/logo.png",// COMPANY LOGO
+            "handler": function (response) {
+                console.log(response);
+                // AFTER TRANSACTION IS COMPLETE YOU WILL GET THE RESPONSE HERE.
+            },
+            "prefill": {
+                "name": "ABC", // pass customer name
+                "email": 'A@A.COM',// customer email
+                "contact": '+919123456780' //customer phone no.
+            },
+            "notes": {
+                "address": "address" //customer address 
+            },
+            "theme": {
+                "color": "#15b8f3" // screen color
+            }
+        };
+        console.log(options);
+        console.log((data._id));
+        var propay = new Razorpay (options);
+        propay.open()
+        // .then(()=>{
+            
+            axios.patch(`http://localhost:3001/booking_api/edit_Completed_orders/${data._id}`, {
+                    vendor_email: data.vendor_email,
+                    user_email: data.user_email,
+                    address: data.address,
+                    street: data.street,
+                    city: data.city,
+                    zip: data.zip,
+                    person: data.person,
+                    number: data.number,
+                    Service: data.Service,
+                    Category: data.Category,
+                    price: data.price,
+                    paymentMethod: 'Payment Completed',
+                    workLists: data.workLists,
+                    total:data.total
+
+                })
+        // })
+    }
 
 
     const [Method, setMethod] = useState(true)
@@ -1069,7 +1149,8 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                 setSubcategory(res.data.workLists)
                 console.log(res.data);
             })
-    }, [myorders, useremail])
+
+    }, [useremail])
 
 const[subCategory,setSubcategory]=useState([])
 
@@ -1123,6 +1204,8 @@ const[subCategory,setSubcategory]=useState([])
 
     if (State === 3) {
         return (
+            <div style={{ width: "100%" }}>
+
             <div className="container-fluid">
                 <h1>Pending Orders</h1>
                 <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
@@ -1162,12 +1245,14 @@ const[subCategory,setSubcategory]=useState([])
                     </TableBody>
                 </Table>
             </div>
+            </div>
 
         )
     }
 
     else if (State === 2) {
         return (
+            <div style={{ width: "100%" }}>
 
             <div className="container-fluid">
                 <h1>My Orders</h1>
@@ -1209,13 +1294,13 @@ const[subCategory,setSubcategory]=useState([])
                 </Table>
 
             </div>
-
+</div>
         )
     }
 
     else if (State === 4) {
         return (
-
+            <div style={{ width: "100%" }}>
             <div className="container-fluid">
                 <h1>Completed Orders</h1>
                 <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
@@ -1258,6 +1343,7 @@ const[subCategory,setSubcategory]=useState([])
                 </Table>
 
             </div>
+            </div>
 
         )
     }
@@ -1287,9 +1373,8 @@ const[subCategory,setSubcategory]=useState([])
                         </TableHead>
                         <TableBody>
                             {
-                                completed_bill.map((data, index) => {
+                                completed_order.map((data, index) => (
 
-                                    return (
                                         <TableRow key={index} style={{ backgroundColor: "white" }}>
                                             <TableCell>{a++}</TableCell>
 
@@ -1298,14 +1383,14 @@ const[subCategory,setSubcategory]=useState([])
                                             <TableCell><p>{data.price}</p></TableCell>
                                             <TableCell><p>{data.address}</p></TableCell>
                                             <TableCell><p>{data.number}</p></TableCell>
-                                            <TableCell style={{ textAlign: "center" }}><button onClick={handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
+                                            <TableCell style={{ textAlign: "center" }}><button onClick={()=>handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
                                         </TableRow>
-                                    )
+                                    
 
 
 
 
-                                })
+                                ))
                             }
                         </TableBody>
                     </Table>
@@ -1321,35 +1406,32 @@ const[subCategory,setSubcategory]=useState([])
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Work Done</TableCell>
-                                    <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Charges</TableCell>
+                                    <TableCell style={{ backgroundColor:'White',textAlign: "center", fontWeight: '600',border:'none' }}>Work Done</TableCell>
+                                    <TableCell style={{ backgroundColor:'White',textAlign: "center", fontWeight: '600',border:'none' }}>Charges</TableCell>
                                 </TableRow>
                             </TableHead>
 
                             <TableBody style={{width:'100%'}}>
 
-                            {completed_bill.map((data, index) => (
+                            {
+                            completedbill.map((data) => (
                                 data.workLists.map((Sub,secondindex)=>(
                                     //console.log(Sub.subCategory)
 
                                         <TableRow key={secondindex} >
-                                            <TableCell style={{ backgroundColor: "white" }}><p>{Sub.subCategory}</p></TableCell>
-                                            <TableCell style={{ backgroundColor: "white" }}><p>{Sub.price}</p></TableCell>
+                                            <TableCell style={{ backgroundColor: "white",border:'none' }}><p>{Sub.subCategory}</p></TableCell>
+                                            <TableCell style={{ backgroundColor: "white",border:'none',textAlign:'center' }}><p>{Sub.price}</p></TableCell>
                                         </TableRow>
-                                       
                                 ))
-                                
-                            
-                            ))}
+                            ))
+                            }
 
                             <TableRow>
-                                <TableCell style={{ backgroundColor: "white", display: 'flex', alignItems: 'center' }}><p style={{ margin: '0px' }}>Total</p></TableCell>
+                                <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center',border:'none' }}><p style={{ margin: '0px',fontWeight:'600',color:'white' }}>Total</p></TableCell>
                                 {
-                                    completed_bill.map((data,index)=>(
-                                        <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{margin:'0px'}}>{data.total}</p></TableCell>
-
+                                    completedbill.map((data,index)=>(
+                                        <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{margin:'0px',textAlign:'center'}}>{data.total}</p></TableCell>
                                     )
-
                                     )
                                 }
                             </TableRow>
@@ -1362,8 +1444,8 @@ const[subCategory,setSubcategory]=useState([])
                     </div>
                     <div style={{ display: "flex", gap: "5px" }}>
                         {
-                            completed_order.map((data,index)=>(
-                                <button hidden={data.paymentMethod==="onlinePayment"?false:true} className="Bill-btn1">Pay</button>
+                            completedbill.map((data,index)=>(
+                                <button hidden={data.paymentMethod==="onlinePayment"?false:true} onClick={()=>pay(data)} className="Bill-btn1">Pay</button>
                             ))
 
                         }

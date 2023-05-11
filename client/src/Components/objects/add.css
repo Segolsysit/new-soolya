@@ -260,6 +260,21 @@ margin-bottom: 0px;
 }
 
 
+
+@media only screen and (max-width: 1000px) {
+.Ad-count{
+    font-size: 25px;
+}
+.Ad-desc{
+    font-size: 20px;
+}
+
+}
+
+
+
+
+
 @media only screen and (max-width: 600px) {
     .Adblock{
         flex-direction: row;

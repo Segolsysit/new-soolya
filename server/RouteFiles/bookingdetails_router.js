@@ -70,9 +70,29 @@ bookingdetails_router.post("/Completed_orders/:id", async (req, res) => {
 
    await deatails.save();
     res.status(200).json({message:"Uploaded Successfully",deatails})
+})
 
+bookingdetails_router.patch("/edit_Completed_orders/:id", async (req, res) => {
+    const{workLists,total} = req.body;
+    const deatails = await CompletedOder_Model.findByIdAndUpdate(req.params.id)
+    deatails.vendor_email=req.body.vendor_email,
+    deatails.user_email=req.body.user_email,
+    deatails.address= req.body.address,
+    deatails.street= req.body.street,
+    deatails.city= req.body.city,
+    deatails.zip= req.body.zip,
+    deatails.person= req.body.person,
+    deatails.number= req.body.number,
+    deatails.Service= req.body.Service,
+    deatails.Category= req.body.Category,
+    deatails.price= req.body.price,
+    deatails.paymentMethod=req.body.paymentMethod,
+    deatails.workLists=workLists,
+    deatails.total=total
     
 
+   await deatails.save();
+    res.status(200).json({message:"File Updated",deatails})
 })
 
 bookingdetails_router.get("/pending_booking_data/:vendor_email",async(req,res)=>{
@@ -127,8 +147,8 @@ bookingdetails_router.get("/Completed_vendor_order/:vendor_email",async(req,res)
     res.json(item_by_id )
 })
 
-bookingdetails_router.get("/Completed_order/:id",async(req,res)=>{
-    const booking_data = await CompletedOder_Model.find(req.params.id)
+bookingdetails_router.get("/Completed_billing/:id",async(req,res)=>{
+    const booking_data = await CompletedOder_Model.findById(req.params.id)
     res.json(booking_data)
 })
 
