@@ -127,8 +127,8 @@ bookingdetails_router.get("/Completed_vendor_order/:vendor_email",async(req,res)
     res.json(item_by_id )
 })
 
-bookingdetails_router.get("/Completed_order/:id",async(req,res)=>{
-    const booking_data = await CompletedOder_Model.find(req.params.id)
+bookingdetails_router.get("/Completed_billing/:id",async(req,res)=>{
+    const booking_data = await CompletedOder_Model.findById(req.params.id)
     res.json(booking_data)
 })
 
