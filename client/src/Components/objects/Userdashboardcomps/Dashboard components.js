@@ -446,6 +446,7 @@ const VendorOrders = ({ State }) => {
     // const total = selected.reduce((acc,curr)=> acc + curr.Price, 0)
     if (State === 2) {
         return (
+            <div style={{ width: "100%" }}>
             <div className="container-fluid vendor-container">
                 <h1>Order Details</h1>
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
@@ -529,7 +530,7 @@ const VendorOrders = ({ State }) => {
                 </div>
 
             </div>
-
+    </div>
 
 
         )
@@ -595,6 +596,7 @@ const VendorOrders = ({ State }) => {
 
     else if (State === 5) {
         return (
+            <div style={{ width: "100%" }}>
             <div className="container-fluid">
                 <h1>Completed Orders</h1>
                 <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
@@ -634,7 +636,7 @@ const VendorOrders = ({ State }) => {
                     </TableBody>
                 </Table>
             </div>
-
+                        </div>
         )
     }
 
@@ -846,7 +848,8 @@ const PendingOrders = ({ State, setState }) => {
 
     if (State === 3) {
         return (
-            <div className="container-fluid vendor-container">
+            <div style={{ width: "100%" }}>
+            <div className="container-fluid">
                 <h1>Pending order Details</h1>
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
                     <Table className='table-cat' style={{ margin: "0px" }}>
@@ -894,16 +897,15 @@ const PendingOrders = ({ State, setState }) => {
                 </TableContainer>
 
             </div>
-
+</div>
 
 
         )
     }
     if (State === 4) {
         return (
+            <div style={{ width: "100%" }}>
             <div className="container-fluid vendor-container">
-
-
                 <div>
                     <Modal
                         open={open2}
@@ -989,6 +991,7 @@ const PendingOrders = ({ State, setState }) => {
                                
                             /> */}
 
+            </div>
             </div>
         )
     }
@@ -1168,6 +1171,8 @@ const[subCategory,setSubcategory]=useState([])
 
     if (State === 3) {
         return (
+            <div style={{ width: "100%" }}>
+
             <div className="container-fluid">
                 <h1>Pending Orders</h1>
                 <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
@@ -1207,12 +1212,14 @@ const[subCategory,setSubcategory]=useState([])
                     </TableBody>
                 </Table>
             </div>
+            </div>
 
         )
     }
 
     else if (State === 2) {
         return (
+            <div style={{ width: "100%" }}>
 
             <div className="container-fluid">
                 <h1>My Orders</h1>
@@ -1254,13 +1261,13 @@ const[subCategory,setSubcategory]=useState([])
                 </Table>
 
             </div>
-
+</div>
         )
     }
 
     else if (State === 4) {
         return (
-
+            <div style={{ width: "100%" }}>
             <div className="container-fluid">
                 <h1>Completed Orders</h1>
                 <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
@@ -1302,6 +1309,7 @@ const[subCategory,setSubcategory]=useState([])
                     </TableBody>
                 </Table>
 
+            </div>
             </div>
 
         )

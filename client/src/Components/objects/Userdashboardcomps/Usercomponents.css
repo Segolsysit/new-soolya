@@ -288,7 +288,7 @@
         display:flex;
         flex-direction: column;
         justify-content: center;
-        margin-left: 50px;
+        margin-left: 0px;
     }
     .User-sec1{
         display: flex;
@@ -324,8 +324,8 @@
     
 
     .vendor-container{
-        position: relative;
-        top:00px
+       
+        width: 100%;
     }
 
     .Vendor-sec1{
@@ -337,7 +337,6 @@
         border-radius: 10px;
         text-align: left;
         margin: 10px;
-        width: fit-content;
     }
 
     
@@ -345,14 +344,13 @@
     .vendor-sec2{
         display: flex;
         flex-direction: column;
-        margin: 20px;
+        margin: 10px;
         align-items: center;
         justify-content: center;
         border-radius: 10px;
         box-shadow: 0 0 20px;
         padding: 20px;
         background-color: rgb(253, 166, 26);
-        width: 20rem;
     }
     .Vendor-sec1Data{
         display: flex;
@@ -385,6 +383,7 @@
         background-color:rgb(252, 253, 253);
         transition-duration: 1s;
         width: fit-content;
+        text-align: left;
     }
     .Vendor-data{
         color: rgb(253, 252, 252);

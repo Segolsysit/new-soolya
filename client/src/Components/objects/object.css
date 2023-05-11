@@ -234,9 +234,9 @@
 }
 
 .Arrow-Left{
+    aspect-ratio: 1/1;
     padding: 10px;
     border-radius: 50%;
-    height: fit-content;
     position: absolute;
     left: 10px;
     background-color: rgb(217, 234, 246);
@@ -245,14 +245,15 @@
 }
 
 .Arrow-Right{
+    aspect-ratio: 1/1;
     padding: 10px;
     border-radius: 50%;
-    height: fit-content;
     background-color: rgb(217, 234, 246);
     border: none;
     z-index: 2;
     position: absolute;
     right: 10px;
+    width: fit-content;
 }
 
 
@@ -384,7 +385,7 @@
     font-weight: bolder;
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1400px) {
 
     .Store-btn{
         display: flex;
@@ -429,7 +430,45 @@
     }
 }
 
+@media only screen and (max-width: 1200px) {
+    .h4btn{
+        margin: 0px;
+        font-size: 10px;
+    }
+    .h2btn{
+        margin:0px;
+        font-size:20px;
+    
+    }
+    
+    .Store-img{
+        aspect-ratio: 1/1;
+        width: 20rem;
+        margin: 0px;
+    }
+    
+    
+    
+    .Store-h1{
+        font-size: 2rem;
+    }
+    
+    .Store-button{
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        gap: 1px;
+    }
+    }
 
+
+
+@media only screen and (max-width: 700px) {
+    .AdBlock{
+        padding: 20px;
+    }
+
+}
 
 
 @media only screen and (max-width: 600px) {
@@ -533,33 +572,3 @@
 }
 
 
-@media only screen and (max-width: 1200px) {
-.h4btn{
-    margin: 0px;
-    font-size: 10px;
-}
-.h2btn{
-    margin:0px;
-    font-size:20px;
-
-}
-
-.Store-img{
-    aspect-ratio: 1/1;
-    width: 20rem;
-    margin: 0px;
-}
-
-
-
-.Store-h1{
-    font-size: 2rem;
-}
-
-.Store-button{
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    gap: 1px;
-}
-}
