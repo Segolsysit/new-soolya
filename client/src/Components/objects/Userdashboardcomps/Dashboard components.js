@@ -996,6 +996,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     const [myorders, setMyorders] = useState([])
     const [pending_order, setpending_order] = useState([])
     const [completed_order, setCompleted_order] = useState([])
+    const [completed_bill, setCompleted_bill] = useState([])
 
 
     const token = cookies.jwt2;
@@ -1010,7 +1011,13 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     const handleClose4 = () => {
         setOpen4(true)
     }
-    const handleOpen4 = () => {
+    const handleOpen4 = (id) => {
+        // axios.get(`http://localhost:3001/booking_api/Completed_order/${id}`)
+        //     .then((res) => {
+        //         setCompleted_bill(res.data)
+        //         setSubcategory(res.data.workLists)
+        //         console.log(res.data);
+        //     })
         setOpen4(false)
         console.log(open4);
     }
@@ -1062,6 +1069,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                 setSubcategory(res.data.workLists)
                 console.log(res.data);
             })
+
     }, [myorders, useremail])
 
 const[subCategory,setSubcategory]=useState([])
@@ -1291,7 +1299,7 @@ const[subCategory,setSubcategory]=useState([])
                                             <TableCell><p>{data.price}</p></TableCell>
                                             <TableCell><p>{data.address}</p></TableCell>
                                             <TableCell><p>{data.number}</p></TableCell>
-                                            <TableCell style={{ textAlign: "center" }}><button onClick={handleOpen4} className="Pay-button">View Bill</button></TableCell>
+                                            <TableCell style={{ textAlign: "center" }}><button onClick={handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
                                         </TableRow>
                                     )
 
@@ -1321,7 +1329,7 @@ const[subCategory,setSubcategory]=useState([])
 
                             <TableBody style={{width:'100%'}}>
 
-                            {completed_order.map((data, index) => (
+                            {completed_bill.map((data, index) => (
                                 data.workLists.map((Sub,secondindex)=>(
                                     //console.log(Sub.subCategory)
 
@@ -1338,8 +1346,8 @@ const[subCategory,setSubcategory]=useState([])
                             <TableRow>
                                 <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center',border:'none' }}><p style={{ margin: '0px',fontWeight:'600',color:'white' }}>Total</p></TableCell>
                                 {
-                                    completed_order.map((data,index)=>(
-                                        <TableCell key={index} style={{ backgroundColor: "grey",border:'none' }}><p style={{margin:'0px',textAlign:'center',fontWeight:'600',color:'white'}}>{data.total}</p></TableCell>
+                                    completed_bill.map((data,index)=>(
+                                        <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{margin:'0px'}}>{data.total}</p></TableCell>
 
                                     )
 
