@@ -1003,12 +1003,12 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         setOpen4(true)
     }
     const handleOpen4 = (id) => {
-        axios.get(`http://localhost:3001/booking_api/Completed_order/${id}`)
-            .then((res) => {
-                setCompleted_bill(res.data)
-                setSubcategory(res.data.workLists)
-                console.log(res.data);
-            })
+        // axios.get(`http://localhost:3001/booking_api/Completed_order/${id}`)
+        //     .then((res) => {
+        //         setCompleted_bill(res.data)
+        //         setSubcategory(res.data.workLists)
+        //         console.log(res.data);
+        //     })
         setOpen4(false)
         console.log(open4);
     }
@@ -1060,6 +1060,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                 setSubcategory(res.data.workLists)
                 console.log(res.data);
             })
+
     }, [myorders, useremail])
 
 const[subCategory,setSubcategory]=useState([])
@@ -1278,7 +1279,7 @@ const[subCategory,setSubcategory]=useState([])
                         </TableHead>
                         <TableBody>
                             {
-                                completed_bill.map((data, index) => {
+                                completed_order.map((data, index) => {
 
                                     return (
                                         <TableRow key={index} style={{ backgroundColor: "white" }}>
