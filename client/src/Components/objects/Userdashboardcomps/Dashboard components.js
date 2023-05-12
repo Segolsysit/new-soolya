@@ -238,6 +238,11 @@ const VendorOrders = ({ State }) => {
     const [orders, setOrderId] = useState('');
     const [veriyfyOtp, setVerifyOtp] = useState('');
     const [open, setOpen] = useState(false);
+    const [completedbill, setCompletedbill] = useState([])
+    const [open4, setOpen4] = useState(true);
+    const { pathname } = useLocation();
+
+
 
     const [pending_order, setPendingorder] = useState([])
 
@@ -320,14 +325,17 @@ const VendorOrders = ({ State }) => {
 
         try {
 
-            console.log(order.number);
+            //console.log(order.number);
             const response = await axios.post('http://localhost:3001/OTP/sendotp', { phoneNumber: order.number }, { withCredentials: true })
             console.log(response.data.message);
+            
             setOrderId(order)
             handleOpen()
 
         } catch (err) {
+
             console.log(err.response.data.message);
+            
         }
 
 
@@ -359,7 +367,9 @@ const VendorOrders = ({ State }) => {
                 })
                 axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
                     .then(() => {
-                        alert("posted")
+                        toast.success("Successfully verified",{
+                            position:'top-center'
+                        })
                         getdata()
                         handleClose()
                     })
@@ -373,11 +383,34 @@ const VendorOrders = ({ State }) => {
         } catch (error) {
             console.log(error.response.data.message);
             // setError('Invalid or expired OTP');
+            toast.error(error.response.data.message,{
+                position:'top-center'
+            })
         }
 
     }
 
 
+    const handleOpen4 = (id) => {
+        axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
+            .then((res) => {
+                console.log(res.data);
+                setCompletedbill([res.data])
+            
+               // setSubcategory(res.data.workLists)
+                
+            })
+            .then(()=>{
+                    setOpen4(false)
+                
+            })
+            
+        console.log(open4);
+    }
+
+    const handleClose4 = () => {
+        setOpen4(true)
+    }
 
     const getdata = () => {
         axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
@@ -605,10 +638,11 @@ const VendorOrders = ({ State }) => {
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</StyledTableCell>
                             {/* <TableCell>Service</TableCell> */}
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</StyledTableCell>
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</StyledTableCell>
+                            {/* <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</StyledTableCell> */}
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</StyledTableCell>
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</StyledTableCell>
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</StyledTableCell>
+                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Bills</StyledTableCell>
 
 
 
@@ -624,10 +658,12 @@ const VendorOrders = ({ State }) => {
 
                                     {/* <TableCell><p>{data.Service}</p></TableCell> */}
                                     <StyledTableCell><p>{data.Category}</p> </StyledTableCell>
-                                    <StyledTableCell><p>{data.price}</p></StyledTableCell>
+                                    {/* <StyledTableCell><p>{data.price}</p></StyledTableCell> */}
                                     <StyledTableCell><p>{data.address}</p></StyledTableCell>
                                     <StyledTableCell><p>{data.number}</p></StyledTableCell>
                                     <StyledTableCell><p>{data.paymentMethod}</p></StyledTableCell>
+                                    <StyledTableCell style={{ textAlign: "center" }}><button onClick={()=>handleOpen4(data._id)} className="Pay-button">View Bill</button></StyledTableCell>
+
                                 </TableRow>
 
 
@@ -635,6 +671,56 @@ const VendorOrders = ({ State }) => {
                         }
                     </TableBody>
                 </Table>
+                <div className="Bill-modal" hidden={open4}>
+                    <h2 className="Bills-heading">Bill</h2>
+                    <div className="Bill-sec2">
+                    <div style={{height:"15rem",overflow:'scroll',width:'100%'}}>
+
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell style={{ backgroundColor:'White',textAlign: "center", fontWeight: '600',border:'none' }}>Work Done</TableCell>
+                                    <TableCell style={{ backgroundColor:'White',textAlign: "center", fontWeight: '600',border:'none' }}>Charges</TableCell>
+                                </TableRow>
+                            </TableHead>
+
+                            <TableBody style={{width:'100%'}}>
+
+                            {
+                            completedbill.map((data) => (
+                                data.workLists.map((Sub,secondindex)=>(
+                                    //console.log(Sub.subCategory)
+
+                                        <TableRow key={secondindex} >
+                                            <TableCell style={{ backgroundColor: "white",border:'none' }}><p>{Sub.subCategory}</p></TableCell>
+                                            <TableCell style={{ backgroundColor: "white",border:'none',textAlign:'center' }}><p>{Sub.price}</p></TableCell>
+                                        </TableRow>
+                                ))
+                            ))
+                            }
+
+                            <TableRow>
+                                <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center',border:'none' }}><p style={{ margin: '0px',fontWeight:'600',color:'white' }}>Total</p></TableCell>
+                                {
+                                    completedbill.map((data,index)=>(
+                                        <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{margin:'0px',textAlign:'center'}}>{data.total}</p></TableCell>
+                                    )
+                                    )
+                                }
+                            </TableRow>
+                            
+                            </TableBody>
+
+                        </Table>
+                        </div>
+
+                    </div>
+                    <div style={{ display: "flex", gap: "5px" }}>
+                        
+                        <button className="Bill-btn2" onClick={handleClose4}>Close</button>
+                    </div>
+
+                </div>
             </div>
                         </div>
         )
@@ -713,6 +799,7 @@ const PendingOrders = ({ State, setState }) => {
 
     const [vendorDetails, setVendorDetails] = useState([]);
     const [pendingorders, setPendingorders] = useState([]);
+    const [completePendingorders, setCompletePendingorders] = useState([]);
 
     const token = cookies.venjwt;
     const decodedToken = jwt_decode(token);
@@ -740,6 +827,9 @@ const PendingOrders = ({ State, setState }) => {
                 phoneNumber: Phonenumber
             });
             console.log(response.data.message);
+            toast.success(response.data.message,{
+                position:'top-center'
+            })
             handleOpen2()
             setOTPSent(true);
             setTimeRemaining(120);
@@ -749,6 +839,9 @@ const PendingOrders = ({ State, setState }) => {
         } catch (error) {
             console.log(error.response.data.message);
             //   setError(error.response.data.message);
+            toast.error(error.response.data.message,{
+                position:'top-center'
+            })
         }}
     }
     function get_vendor() {
@@ -789,7 +882,7 @@ const PendingOrders = ({ State, setState }) => {
         }
     }, [State])
 
-    const [visibility, setvisibility] = useState(true)
+    //const [visibility, setvisibility] = useState(true)
 
 
 
@@ -810,28 +903,30 @@ const PendingOrders = ({ State, setState }) => {
                 console.log(res.data.message);
                 handleClose2()
                 if (res.data.message === "OTP verified successfully") {
-
-                 axios.post(`http://localhost:3001/booking_api/Completed_orders/${pendingorders._id}`, {
+                 console.log(completePendingorders._id);
+                 axios.post(`http://localhost:3001/booking_api/Completed_orders/${completePendingorders._id}`, {
                     vendor_email: vendorDetails.Email,
-                    user_email: pendingorders.user_email,
-                    address: pendingorders.address,
-                    street: pendingorders.street,
-                    city: pendingorders.city,
-                    zip: pendingorders.zip,
-                    person: pendingorders.person,
-                    number: pendingorders.number,
-                    Service: pendingorders.Service,
-                    Category: pendingorders.Category,
-                    price: pendingorders.price,
-                    paymentMethod: pendingorders.paymentMethod,
-                    workLists: workListsData,
+                    user_email: completePendingorders.user_email,
+                    address: completePendingorders.address,
+                    street: completePendingorders.street,
+                    city: completePendingorders.city,
+                    zip: completePendingorders.zip,
+                    person: completePendingorders.person,
+                    number: completePendingorders.number,
+                    Service: completePendingorders.Service,
+                    Category: completePendingorders.Category,
+                    price: completePendingorders.price,
+                    paymentMethod: completePendingorders.paymentMethod,
+                    workLists:workListsData,
                     total:total
-
                 }).then(() => {
                     axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${pendingorders._id}`)
-                        alert("posted")
+                        toast.success("OTP verified",{
+                            position:'top-center'
+                        })
                         // getdata()
                         handleClose()
+                    
                     })
 
                 } else {
@@ -840,7 +935,10 @@ const PendingOrders = ({ State, setState }) => {
                 }
             })
             .catch((err) => {
-                console.log(err.response.data.message);
+                //console.log(err.response.data.message);
+                toast.error(err.response.data.message,{
+                    position:'top-center'
+                })
             })
 
 
@@ -871,10 +969,11 @@ const PendingOrders = ({ State, setState }) => {
                         </TableHead>
                         <TableBody>
                             {
-                                pendingorders.map((data, index) => (
+                               pendingorders.length > 0 ?( pendingorders.map((data, index) => (
 
-
+                                
                                     <StyledTableRow key={index}>
+                                     
                                         <StyledTableCell>{a++}</StyledTableCell>
 
                                         <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
@@ -885,12 +984,17 @@ const PendingOrders = ({ State, setState }) => {
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
                                         <StyledTableCell align="center"><button onClick={() => {
                                             setState(4)
-                                            setPhone(data.number); setPendingorders(data)
-                                        }} className="Action-btn">completed</button></StyledTableCell>
+                                            setPhone(data.number);
+                                            setCompletePendingorders(data)
+                                        }} className="Action-btn">completed </button></StyledTableCell>
                                     </StyledTableRow>
 
-
                                 ))
+                               ):(
+   
+
+    <p>No pending orders</p>
+  )
                             }
                         </TableBody>
                     </Table>
@@ -1357,7 +1461,7 @@ const[subCategory,setSubcategory]=useState([])
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
                                 {/* <TableCell>Service</TableCell> */}
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
-                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
+                                {/* <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell> */}
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Bill</TableCell>
@@ -1375,7 +1479,7 @@ const[subCategory,setSubcategory]=useState([])
 
                                             {/* <TableCell><p>{data.Service}</p></TableCell> */}
                                             <TableCell><p>{data.Category}</p> </TableCell>
-                                            <TableCell><p>{data.price}</p></TableCell>
+                                            {/* <TableCell><p>{data.price}</p></TableCell> */}
                                             <TableCell><p>{data.address}</p></TableCell>
                                             <TableCell><p>{data.number}</p></TableCell>
                                             <TableCell style={{ textAlign: "center" }}><button onClick={()=>handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
@@ -1444,7 +1548,7 @@ const[subCategory,setSubcategory]=useState([])
                             ))
 
                         }
-                        <button className="Bill-btn2" onClick={handleClose4}>Cancel</button>
+                        <button  className="Bill-btn2" onClick={handleClose4}>Cancel</button>
                     </div>
 
                 </div>

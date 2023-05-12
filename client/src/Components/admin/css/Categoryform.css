@@ -27,6 +27,10 @@
     margin: 10px;
     border-radius: 20px;
 }
+.Application-popup{
+    width: 400px;
+    background-color: dodgerblue;
+}
 
 .Table-subcat{
     width: 100%;

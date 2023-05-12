@@ -249,41 +249,7 @@ export const Admin = () => {
                                     </div>
                                 </div>
                             </li>
-                            <li className="nav-item">
-                                <div className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapsePages"
-                                    aria-expanded="true" aria-controls="collapsePages">
-                                    <i className="fas fa-fw fa-folder"></i>
-                                    <span>Pages</span>
-                                </div>
-                                <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-bs-parent="#accordionSidebar">
-                                    <div className="bg-white py-2 collapse-inner rounded">
-                                        <h6 className="collapse-header">Login Screens:</h6>
-                                        <a className="collapse-item" href="/login.js">Login</a>
-                                        <a className="collapse-item" href="register.js">Register</a>
-                                        <a className="collapse-item" href="forgot-password.js">Forgot Password</a>
-                                        <div className="collapse-divider"></div>
-                                        <h6 className="collapse-header">Other Pages:</h6>
-                                        <a className="collapse-item" href="err404.js">404 Page</a>
-                                        <a className="collapse-item" href="blank.js">Blank Page</a>
-                                    </div>
-                                </div>
-                            </li>
-
-                            {/* <!-- Nav Item - Charts --> */}
-                            <li className="nav-item">
-                                <a className="nav-link" href="/feedbacks">
-                                    <i className="fas fa-fw fa-chart-area"></i>
-                                    <span>FeedBacks</span></a>
-                            </li>
-
-                            {/* <!-- Nav Item - Tables --> */}
-                            <li className="nav-item">
-                                <a className="nav-link" href="tables.html">
-                                    <i className="fas fa-fw fa-table"></i>
-                                    <span>Tables</span></a>
-                            </li>
-
-                            {/* <!-- Divider --> */}
+                           
                             <hr className="sidebar-divider d-none d-md-block" />
 
                             {/* <!-- Sidebar Toggler (Sidebar) --> */}

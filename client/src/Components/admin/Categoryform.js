@@ -86,8 +86,8 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const servicemandata = () => {
         axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
             setserviceman(res.data)
-            console.log(res.data);
-            console.log(serviceman.Email)
+           // console.log(res.data);
+           // console.log(serviceman.Email)
         })
     }
 
@@ -256,10 +256,10 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const EditFun = (id) => {
         axios.get(`http://localhost:3001/api/fetch_items_id/${id}`).then((res) => {
             setgetbyid(res.data)
-            console.log(res.data)
+           // console.log(res.data)
         })
         handleOpen()
-        console.log(getbyid);
+       // console.log(getbyid);
     }
 
     const saveChange = () => {
@@ -656,7 +656,8 @@ const Rejected_list = ({ formNumber }) => {
         p: 4,
     };
 
-
+    const server="localhost:3001/"
+    
     const [rejected, setregected] = useState([])
     const [viewdata, setviewdata] = useState([]);
     const [open, setOpen1] = useState(false);
@@ -787,12 +788,13 @@ const Rejected_list = ({ formNumber }) => {
                         aria-labelledby="parent-modal-title"
                         aria-describedby="parent-modal-description"
                     >
-                        <Box sx={{ ...style1, width: 400 }}>
+                        <Box className="Application-popup" sx={{ ...style1 ,width: 400 }}>
                             <p><b>Name</b> : {viewdata.FirstName}</p>
                             <p>Email    : {viewdata.Email}</p>
                             <p>phone    : {viewdata.Phone}</p>
                             <p>Address  : {viewdata.Address}</p>
                             <p>Location : {viewdata.Location}</p>
+                            <img src={server+viewdata.filename} alt=''></img>
                             {/* <ChildModal close={setOpen1}/> */}
                             <Button onClick={handleOpenModel2}>hire</Button>
                             {/* <Button onClick={() => reject_data()}>Reject</Button> */}
