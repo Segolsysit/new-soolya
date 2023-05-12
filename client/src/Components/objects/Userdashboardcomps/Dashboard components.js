@@ -721,6 +721,7 @@ const PendingOrders = ({ State, setState }) => {
 
     const [vendorDetails, setVendorDetails] = useState([]);
     const [pendingorders, setPendingorders] = useState([]);
+    const [completePendingorders, setCompletePendingorders] = useState([]);
 
     const token = cookies.venjwt;
     const decodedToken = jwt_decode(token);
@@ -824,23 +825,22 @@ const PendingOrders = ({ State, setState }) => {
                 console.log(res.data.message);
                 handleClose2()
                 if (res.data.message === "OTP verified successfully") {
-
-                 axios.post(`http://localhost:3001/booking_api/Completed_orders/${pendingorders._id}`, {
+                 console.log(completePendingorders._id);
+                 axios.post(`http://localhost:3001/booking_api/Completed_orders/${completePendingorders._id}`, {
                     vendor_email: vendorDetails.Email,
-                    user_email: pendingorders.user_email,
-                    address: pendingorders.address,
-                    street: pendingorders.street,
-                    city: pendingorders.city,
-                    zip: pendingorders.zip,
-                    person: pendingorders.person,
-                    number: pendingorders.number,
-                    Service: pendingorders.Service,
-                    Category: pendingorders.Category,
-                    price: pendingorders.price,
-                    paymentMethod: pendingorders.paymentMethod,
-                    workLists: workListsData,
+                    user_email: completePendingorders.user_email,
+                    address: completePendingorders.address,
+                    street: completePendingorders.street,
+                    city: completePendingorders.city,
+                    zip: completePendingorders.zip,
+                    person: completePendingorders.person,
+                    number: completePendingorders.number,
+                    Service: completePendingorders.Service,
+                    Category: completePendingorders.Category,
+                    price: completePendingorders.price,
+                    paymentMethod: completePendingorders.paymentMethod,
+                    workLists:workListsData,
                     total:total
-
                 }).then(() => {
                     axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${pendingorders._id}`)
                         toast.success("OTP verified",{
@@ -891,10 +891,11 @@ const PendingOrders = ({ State, setState }) => {
                         </TableHead>
                         <TableBody>
                             {
-                                pendingorders.map((data, index) => (
+                               pendingorders.length > 0 ?( pendingorders.map((data, index) => (
 
-
+                                
                                     <StyledTableRow key={index}>
+                                     
                                         <StyledTableCell>{a++}</StyledTableCell>
 
                                         <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
@@ -905,12 +906,17 @@ const PendingOrders = ({ State, setState }) => {
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
                                         <StyledTableCell align="center"><button onClick={() => {
                                             setState(4)
-                                            setPhone(data.number); setPendingorders(data)
-                                        }} className="Action-btn">completed</button></StyledTableCell>
+                                            setPhone(data.number);
+                                            setCompletePendingorders(data)
+                                        }} className="Action-btn">completed </button></StyledTableCell>
                                     </StyledTableRow>
 
-
                                 ))
+                               ):(
+   
+
+    <p>No pending orders</p>
+  )
                             }
                         </TableBody>
                     </Table>
