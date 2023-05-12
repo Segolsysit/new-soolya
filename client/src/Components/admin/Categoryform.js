@@ -30,7 +30,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const [getbyid, setgetbyid] = useState('');
     const nav = useNavigate()
 
-    let aRef=useRef(null)
+    let aRef = useRef(null)
 
 
     const [Editservice, setEditservice] = useState('');
@@ -201,7 +201,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                 categorydata()
                 setCatagorySetup("")
                 setImg("")
-                aRef.current.value=null
+                aRef.current.value = null
 
 
             })
@@ -291,11 +291,11 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
                         <label className="Category-Label">Image</label>
                         <div className="Categoryfile-div">
-                            <input ref={aRef} type="file" className="Category-input" onChange={handleImgChange}/>
+                            <input ref={aRef} type="file" className="Category-input" onChange={handleImgChange} />
                         </div>
                         <button type="Submit" className="Category-button">Add</button>
                     </form>
-                    <img className="Category-Right" src="https://cdn.pixabay.com/photo/2018/07/25/15/52/design-3561661_1280.jpg" alt=""/>
+                    <img className="Category-Right" src="https://cdn.pixabay.com/photo/2018/07/25/15/52/design-3561661_1280.jpg" alt="" />
                 </div>
                 <div >
                     <TableContainer component={Paper} style={{ padding: "20px" }}>
@@ -419,7 +419,7 @@ const SubCategory = ({ formNumber }) => {
     const [Image, setImage] = useState("")
     const [Price, setPrice] = useState("")
 
-    let aRef=useRef(null)
+    let aRef = useRef(null)
 
     const [ErrCat, setErrCat] = useState("")
     const [ErrSub, setErrSub] = useState("")
@@ -482,7 +482,7 @@ const SubCategory = ({ formNumber }) => {
         '&:nth-of-type(odd)': {
             backgroundColor: theme.palette.action.hover,
         },
-        
+
     }));
 
     const AddSubCategory = (e) => {
@@ -507,7 +507,7 @@ const SubCategory = ({ formNumber }) => {
         else if (Image === "No file chosen" || Image === "" || Image === null) {
             setErrImg("Please select a file")
         }
-        
+
         else {
             const formData = new FormData();
             formData.append("Category", Category);
@@ -518,7 +518,7 @@ const SubCategory = ({ formNumber }) => {
             // console.log(Image.file.originalname);
             axios.post("http://localhost:3001/sub_api/new_subcategory", formData).then((res) => {
                 // console.log(category);
-               
+
                 toast.success(' uploaded Successed!', {
                     position: "top-right",
                     autoClose: 2000,
@@ -531,29 +531,29 @@ const SubCategory = ({ formNumber }) => {
 
                 })
                 setCount(count + 1)
-                aRef.current.value=null
+                aRef.current.value = null
 
-            
+
             })
 
-            
+
         }
     }
 
-    useEffect(()=>{
-    setCategory("Select");
-    setSubCategory("");
-    setDescription("");
-    setImage("");
-    setPrice("")
-    },[count])
+    useEffect(() => {
+        setCategory("Select");
+        setSubCategory("");
+        setDescription("");
+        setImage("");
+        setPrice("")
+    }, [count])
 
     if (formNumber === 11) {
         return (
             <div className="Subcategory-Outer">
                 <form className="SubCategory" onSubmit={AddSubCategory}>
                     <label className="Category-Label">Category</label>
-                    <select  className="Category-input" onChange={(e) => {
+                    <select className="Category-input" onChange={(e) => {
                         setCategory(e.target.value)
                         setErrCat("")
                     }} value={Category}>
@@ -568,25 +568,25 @@ const SubCategory = ({ formNumber }) => {
                     </select>
                     <p style={{ color: "red" }}>{ErrCat}</p>
                     <label className="Category-Label">Sub Category</label>
-                    <input className="Category-input"  onChange={(e) => {
+                    <input className="Category-input" onChange={(e) => {
                         setSubCategory(e.target.value)
                         setErrSub("")
-                    }} value={SubCategory}/>
+                    }} value={SubCategory} />
                     <p style={{ color: "red" }}>{ErrSub}</p>
                     <label className="Category-Label">Description</label>
-                    <textarea className="Category-input"  onChange={(e) => {
+                    <textarea className="Category-input" onChange={(e) => {
                         setDescription(e.target.value)
                         setErrDesc("")
-                    }} value={Description}/>
+                    }} value={Description} />
                     <p style={{ color: "red" }}>{ErrDesc}</p>
                     <label className="Category-Label">Price</label>
-                    <input className="Category-input"  type='number' onWheel={(e) => e.target.blur()} onChange={(e) => {
+                    <input className="Category-input" type='number' onWheel={(e) => e.target.blur()} onChange={(e) => {
                         setPrice(e.target.value)
                         setErrPrice("")
-                    }} value={Price}/>
+                    }} value={Price} />
                     <p style={{ color: "red" }}>{ErrPrice}</p>
                     <label className="Category-Label">Image</label>
-                    <input ref={aRef}className="Category-input" type="file" onChange={handleImgChange} />
+                    <input ref={aRef} className="Category-input" type="file" onChange={handleImgChange} />
                     <p style={{ color: "red" }}>{ErrImg}</p>
                     <button className="Category-button" type="submit">Add</button>
 
@@ -617,7 +617,7 @@ const SubCategory = ({ formNumber }) => {
                                             <StyledTableCell>{a++}</StyledTableCell>
 
                                             <StyledTableCell>{data.Category}</StyledTableCell>
-                                            <StyledTableCell><img src={localpath + data.filename}  style={{ width: "5em", height: "5em" }} alt=".........."></img> </StyledTableCell>
+                                            <StyledTableCell><img src={localpath + data.filename} style={{ width: "5em", height: "5em" }} alt=".........."></img> </StyledTableCell>
 
                                             <StyledTableCell>{data.Discription}</StyledTableCell>
                                             <StyledTableCell><p>{data.Price}</p></StyledTableCell>
@@ -656,7 +656,7 @@ const Rejected_list = ({ formNumber }) => {
         p: 4,
     };
 
-    
+
     const [rejected, setregected] = useState([])
     const [viewdata, setviewdata] = useState([]);
     const [open, setOpen1] = useState(false);
@@ -704,7 +704,7 @@ const Rejected_list = ({ formNumber }) => {
             }
             getrejected_list()
         })
-        
+
     }
 
     const handleClose = () => {
@@ -736,7 +736,7 @@ const Rejected_list = ({ formNumber }) => {
 
     useEffect(() => {
         getrejected_list()
-    },[])
+    }, [])
 
     const viewdeatils = (id) => {
         axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
@@ -763,22 +763,22 @@ const Rejected_list = ({ formNumber }) => {
 
                             {rejected.map((data, index) =>
                                 <StyledTableRow>
-                                <StyledTableCell>{serialNumber++}</StyledTableCell>
-                                <StyledTableCell>{data.FirstName}</StyledTableCell>
-                                <StyledTableCell>
-                                    {data.Email}
-                                </StyledTableCell>
-                                <StyledTableCell>
-                                    <Switch color="primary" /></StyledTableCell>
-                                <StyledTableCell>
-                                    
-                                    <Button type="button" onClick={() => deleteOpen(data._id)}><i class="fa-solid fa-trash"></i></Button>
-                                </StyledTableCell>
-                            </StyledTableRow >
-                        )}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                                    <StyledTableCell>{serialNumber++}</StyledTableCell>
+                                    <StyledTableCell>{data.FirstName}</StyledTableCell>
+                                    <StyledTableCell>
+                                        {data.Email}
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        <Switch color="primary" /></StyledTableCell>
+                                    <StyledTableCell>
+
+                                        <Button type="button" onClick={() => deleteOpen(data._id)}><i class="fa-solid fa-trash"></i></Button>
+                                    </StyledTableCell>
+                                </StyledTableRow >
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
                 <div>
 
                     <Modal
@@ -817,6 +817,9 @@ const Orders = ({ formNumber }) => {
     const [pending_orderdetails, setpending_orderdetails] = useState([])
     const aemail = localStorage.getItem("adminemail")
     const apassword = localStorage.getItem("adminpassword");
+    const [completedbill, setCompletedbill] = useState([])
+    const[subCategory,setSubcategory]=useState([])
+    const [open4, setOpen4] = useState(true);
     // const [notificationCount, setNotificationCount] = useState(0);
     const nav = useNavigate()
 
@@ -875,7 +878,28 @@ const Orders = ({ formNumber }) => {
         getdata()
         verify()
 
-    },[])
+    }, [])
+
+    const handleOpen4 = (id) => {
+        axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
+            .then((res) => {
+                console.log(res.data);
+                setCompletedbill([res.data])
+            
+                setSubcategory(res.data.workLists)
+                
+            })
+            .then(()=>{
+                    setOpen4(false)
+                
+            })
+            
+        console.log(open4);
+    }
+
+    const handleClose4 = () => {
+        setOpen4(true)
+    }
 
     // function resetNoti() {
     //     setNotificationCount("")
@@ -932,8 +956,8 @@ const Orders = ({ formNumber }) => {
 
         )
     }
-    else if(formNumber===12){
-        return(
+    else if (formNumber === 12) {
+        return (
             <div className="container-fluid">
                 <h1>Orders</h1>
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
@@ -981,8 +1005,8 @@ const Orders = ({ formNumber }) => {
         )
     }
 
-    else if(formNumber===13){
-        return(
+    else if (formNumber === 13) {
+        return (
             <div className="container-fluid">
                 <h1>Completed Orders</h1>
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
@@ -997,19 +1021,14 @@ const Orders = ({ formNumber }) => {
                                 <StyledTableCell align="center">Address</StyledTableCell>
                                 <StyledTableCell align="center">Number</StyledTableCell>
                                 <StyledTableCell align="center">paymentMethod</StyledTableCell>
-
-
-
+                                <StyledTableCell align="center">Bill</StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {
                                 completed_orderdetails.map((data, index) => (
-
-
                                     <StyledTableRow key={index}>
                                         <StyledTableCell>{a++}</StyledTableCell>
-
                                         <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
@@ -1017,14 +1036,62 @@ const Orders = ({ formNumber }) => {
                                         <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><button onClick={()=>handleOpen4(data._id)} className="Pay-button">View Bill</button></StyledTableCell>
                                     </StyledTableRow>
-
-
                                 ))
                             }
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <div className="Bill-modal" hidden={open4}>
+                    <h2 className="Bills-heading">Your bill</h2>
+                    <div className="Bill-sec2">
+                    <div style={{height:"15rem",overflow:'scroll',width:'100%'}}>
+
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell style={{ backgroundColor:'White',textAlign: "center", fontWeight: '600',border:'none' }}>Work Done</TableCell>
+                                    <TableCell style={{ backgroundColor:'White',textAlign: "center", fontWeight: '600',border:'none' }}>Charges</TableCell>
+                                </TableRow>
+                            </TableHead>
+
+                            <TableBody style={{width:'100%'}}>
+
+                            {
+                            completedbill.map((data) => (
+                                data.workLists.map((Sub,secondindex)=>(
+                                    //console.log(Sub.subCategory)
+
+                                        <TableRow key={secondindex} >
+                                            <TableCell style={{ backgroundColor: "white",border:'none' }}><p>{Sub.subCategory}</p></TableCell>
+                                            <TableCell style={{ backgroundColor: "white",border:'none',textAlign:'center' }}><p>{Sub.price}</p></TableCell>
+                                        </TableRow>
+                                ))
+                            ))
+                            }
+
+                            <TableRow>
+                                <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center',border:'none' }}><p style={{ margin: '0px',fontWeight:'600',color:'white' }}>Total</p></TableCell>
+                                {
+                                    completedbill.map((data,index)=>(
+                                        <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{margin:'0px',textAlign:'center'}}>{data.total}</p></TableCell>
+                                    )
+                                    )
+                                }
+                            </TableRow>
+                            
+                            </TableBody>
+
+                        </Table>
+                        </div>
+
+                    </div>
+                    <div style={{ display: "flex", gap: "5px" }}>
+                        <button className="Bill-btn2" onClick={handleClose4}>Cancel</button>
+                    </div>
+
+                </div>
 
             </div>
         )
