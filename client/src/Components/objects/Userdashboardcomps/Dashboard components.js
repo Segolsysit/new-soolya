@@ -320,14 +320,17 @@ const VendorOrders = ({ State }) => {
 
         try {
 
-            console.log(order.number);
+            //console.log(order.number);
             const response = await axios.post('http://localhost:3001/OTP/sendotp', { phoneNumber: order.number }, { withCredentials: true })
             console.log(response.data.message);
+            
             setOrderId(order)
             handleOpen()
 
         } catch (err) {
+
             console.log(err.response.data.message);
+            
         }
 
 
@@ -359,7 +362,9 @@ const VendorOrders = ({ State }) => {
                 })
                 axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
                     .then(() => {
-                        alert("posted")
+                        toast.success("Successfully verified",{
+                            position:'top-center'
+                        })
                         getdata()
                         handleClose()
                     })
@@ -373,6 +378,9 @@ const VendorOrders = ({ State }) => {
         } catch (error) {
             console.log(error.response.data.message);
             // setError('Invalid or expired OTP');
+            toast.error(error.response.data.message,{
+                position:'top-center'
+            })
         }
 
     }
@@ -741,6 +749,9 @@ const PendingOrders = ({ State, setState }) => {
                 phoneNumber: Phonenumber
             });
             console.log(response.data.message);
+            toast.success(response.data.message,{
+                position:'top-center'
+            })
             handleOpen2()
             setOTPSent(true);
             setTimeRemaining(120);
@@ -750,6 +761,9 @@ const PendingOrders = ({ State, setState }) => {
         } catch (error) {
             console.log(error.response.data.message);
             //   setError(error.response.data.message);
+            toast.error(error.response.data.message,{
+                position:'top-center'
+            })
         }}
     }
     function get_vendor() {
@@ -828,10 +842,13 @@ const PendingOrders = ({ State, setState }) => {
                     workLists:workListsData,
                     total:total
                 }).then(() => {
-                    axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${completePendingorders._id}`)
-                        alert("posted")
+                    axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${pendingorders._id}`)
+                        toast.success("OTP verified",{
+                            position:'top-center'
+                        })
                         // getdata()
                         handleClose()
+                    
                     })
 
                 } else {
@@ -840,7 +857,10 @@ const PendingOrders = ({ State, setState }) => {
                 }
             })
             .catch((err) => {
-                console.log(err.response.data.message);
+                //console.log(err.response.data.message);
+                toast.error(err.response.data.message,{
+                    position:'top-center'
+                })
             })
 
 
