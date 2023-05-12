@@ -16,8 +16,7 @@ import Swal from 'sweetalert2'
 
 
 const Header = () => {
-
-    
+   
 if(window.innerWidth>600){
     return (
         <div className="Header">
@@ -43,9 +42,6 @@ if(window.innerWidth>600){
 
         </div>
 
-
-
-
     )
 }
 else if(window.innerWidth<600){
@@ -59,9 +55,6 @@ else if(window.innerWidth<600){
             </div>
 
         </div>
-
-
-
 
     )
 }
@@ -175,11 +168,7 @@ const[Data,setData]=useState([])
         
     },[])
 
-
-
-    
-
-    
+  
     const localpath = "http://localhost:3001/";
 
     
@@ -208,6 +197,8 @@ const[Data,setData]=useState([])
 
     )
 }
+
+
 
 const CategoryHome = ({Cat,setCat}) => {
     //hello
@@ -1102,10 +1093,7 @@ const VendorDashboard=()=>{
 
 
 const AboutUs=()=>{
-
-
-
-    
+  
     return(
         <div>
         <Header />

@@ -153,6 +153,8 @@ const RecivedApplication = ({ formNumber }) => {
         getdata()
     },[])
 
+    const localpath='http://localhost:3001/'
+
     if (formNumber === 10) {
         return (
             <div>
@@ -204,13 +206,18 @@ const RecivedApplication = ({ formNumber }) => {
                         aria-labelledby="parent-modal-title"
                         aria-describedby="parent-modal-description"
                     >
-                        <Box sx={{ ...style, width: 400 }}>
+                        <Box sx={{ ...style, width: 450 }}>
+                            <div style={{display:'flex',gap:'10px',justifyContent:'space-between'}}>
+                            <div style={{width:'fit-content'}}>
                             <p><b>Name</b> : {viewdata.FirstName}</p>
                             <p>Email    : {viewdata.Email}</p>
                             <p>phone    : {viewdata.Phone}</p>
                             <p>Address  : {viewdata.Address}</p>
                             <p>Location : {viewdata.Location}</p>
                             <p>Category : {viewdata.Category}</p>
+                            </div>
+                            <img style={{aspectRatio:3/4,width:'100px',height:'50%'}} src={localpath+viewdata.filename} alt=''/>
+                            </div>
                             {/* <ChildModal close={setOpen1}/> */}
                             <Button onClick={handleOpenModel2}>hire</Button>
                             <Button onClick={reject_data}>Reject</Button>

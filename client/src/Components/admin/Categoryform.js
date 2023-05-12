@@ -656,6 +656,7 @@ const Rejected_list = ({ formNumber }) => {
         p: 4,
     };
 
+    const server="localhost:3001/"
     
     const [rejected, setregected] = useState([])
     const [viewdata, setviewdata] = useState([]);
@@ -787,12 +788,13 @@ const Rejected_list = ({ formNumber }) => {
                         aria-labelledby="parent-modal-title"
                         aria-describedby="parent-modal-description"
                     >
-                        <Box sx={{ ...style1, width: 400 }}>
+                        <Box className="Application-popup" sx={{ ...style1 ,width: 400 }}>
                             <p><b>Name</b> : {viewdata.FirstName}</p>
                             <p>Email    : {viewdata.Email}</p>
                             <p>phone    : {viewdata.Phone}</p>
                             <p>Address  : {viewdata.Address}</p>
                             <p>Location : {viewdata.Location}</p>
+                            <img src={server+viewdata.filename} alt=''></img>
                             {/* <ChildModal close={setOpen1}/> */}
                             <Button onClick={handleOpenModel2}>hire</Button>
                             {/* <Button onClick={() => reject_data()}>Reject</Button> */}
