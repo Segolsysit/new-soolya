@@ -238,6 +238,11 @@ const VendorOrders = ({ State }) => {
     const [orders, setOrderId] = useState('');
     const [veriyfyOtp, setVerifyOtp] = useState('');
     const [open, setOpen] = useState(false);
+    const [completedbill, setCompletedbill] = useState([])
+    const [open4, setOpen4] = useState(true);
+    const { pathname } = useLocation();
+
+
 
     const [pending_order, setPendingorder] = useState([])
 
@@ -386,6 +391,26 @@ const VendorOrders = ({ State }) => {
     }
 
 
+    const handleOpen4 = (id) => {
+        axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
+            .then((res) => {
+                console.log(res.data);
+                setCompletedbill([res.data])
+            
+               // setSubcategory(res.data.workLists)
+                
+            })
+            .then(()=>{
+                    setOpen4(false)
+                
+            })
+            
+        console.log(open4);
+    }
+
+    const handleClose4 = () => {
+        setOpen4(true)
+    }
 
     const getdata = () => {
         axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
@@ -617,6 +642,7 @@ const VendorOrders = ({ State }) => {
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</StyledTableCell>
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</StyledTableCell>
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</StyledTableCell>
+                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Bills</StyledTableCell>
 
 
 
@@ -636,6 +662,8 @@ const VendorOrders = ({ State }) => {
                                     <StyledTableCell><p>{data.address}</p></StyledTableCell>
                                     <StyledTableCell><p>{data.number}</p></StyledTableCell>
                                     <StyledTableCell><p>{data.paymentMethod}</p></StyledTableCell>
+                                    <StyledTableCell style={{ textAlign: "center" }}><button onClick={()=>handleOpen4(data._id)} className="Pay-button">View Bill</button></StyledTableCell>
+
                                 </TableRow>
 
 
@@ -643,6 +671,56 @@ const VendorOrders = ({ State }) => {
                         }
                     </TableBody>
                 </Table>
+                <div className="Bill-modal" hidden={open4}>
+                    <h2 className="Bills-heading">Bill</h2>
+                    <div className="Bill-sec2">
+                    <div style={{height:"15rem",overflow:'scroll',width:'100%'}}>
+
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell style={{ backgroundColor:'White',textAlign: "center", fontWeight: '600',border:'none' }}>Work Done</TableCell>
+                                    <TableCell style={{ backgroundColor:'White',textAlign: "center", fontWeight: '600',border:'none' }}>Charges</TableCell>
+                                </TableRow>
+                            </TableHead>
+
+                            <TableBody style={{width:'100%'}}>
+
+                            {
+                            completedbill.map((data) => (
+                                data.workLists.map((Sub,secondindex)=>(
+                                    //console.log(Sub.subCategory)
+
+                                        <TableRow key={secondindex} >
+                                            <TableCell style={{ backgroundColor: "white",border:'none' }}><p>{Sub.subCategory}</p></TableCell>
+                                            <TableCell style={{ backgroundColor: "white",border:'none',textAlign:'center' }}><p>{Sub.price}</p></TableCell>
+                                        </TableRow>
+                                ))
+                            ))
+                            }
+
+                            <TableRow>
+                                <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center',border:'none' }}><p style={{ margin: '0px',fontWeight:'600',color:'white' }}>Total</p></TableCell>
+                                {
+                                    completedbill.map((data,index)=>(
+                                        <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{margin:'0px',textAlign:'center'}}>{data.total}</p></TableCell>
+                                    )
+                                    )
+                                }
+                            </TableRow>
+                            
+                            </TableBody>
+
+                        </Table>
+                        </div>
+
+                    </div>
+                    <div style={{ display: "flex", gap: "5px" }}>
+                        
+                        <button className="Bill-btn2" onClick={handleClose4}>Close</button>
+                    </div>
+
+                </div>
             </div>
                         </div>
         )
@@ -804,7 +882,7 @@ const PendingOrders = ({ State, setState }) => {
         }
     }, [State])
 
-    const [visibility, setvisibility] = useState(true)
+    //const [visibility, setvisibility] = useState(true)
 
 
 
@@ -1469,7 +1547,7 @@ const[subCategory,setSubcategory]=useState([])
                             ))
 
                         }
-                        <button className="Bill-btn2" onClick={handleClose4}>Cancel</button>
+                        <button  className="Bill-btn2" onClick={handleClose4}>Cancel</button>
                     </div>
 
                 </div>

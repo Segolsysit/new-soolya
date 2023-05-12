@@ -1058,7 +1058,7 @@ const VendorDashboard=()=>{
     if(!loading){
         return(
             <div>
-                <h1>Welcome, {vendorName}</h1>
+                <h1 className="Welcome-block">Welcome, {vendorName}</h1>
                 <MenuBar/>
                 
                 <div className="Dashboard-body">

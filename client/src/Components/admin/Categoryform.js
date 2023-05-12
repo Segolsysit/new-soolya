@@ -86,8 +86,8 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const servicemandata = () => {
         axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
             setserviceman(res.data)
-            console.log(res.data);
-            console.log(serviceman.Email)
+           // console.log(res.data);
+           // console.log(serviceman.Email)
         })
     }
 
@@ -256,10 +256,10 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const EditFun = (id) => {
         axios.get(`http://localhost:3001/api/fetch_items_id/${id}`).then((res) => {
             setgetbyid(res.data)
-            console.log(res.data)
+           // console.log(res.data)
         })
         handleOpen()
-        console.log(getbyid);
+       // console.log(getbyid);
     }
 
     const saveChange = () => {
