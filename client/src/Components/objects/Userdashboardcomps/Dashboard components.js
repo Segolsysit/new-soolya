@@ -638,7 +638,7 @@ const VendorOrders = ({ State }) => {
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</StyledTableCell>
                             {/* <TableCell>Service</TableCell> */}
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</StyledTableCell>
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</StyledTableCell>
+                            {/* <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</StyledTableCell> */}
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</StyledTableCell>
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</StyledTableCell>
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</StyledTableCell>
@@ -658,7 +658,7 @@ const VendorOrders = ({ State }) => {
 
                                     {/* <TableCell><p>{data.Service}</p></TableCell> */}
                                     <StyledTableCell><p>{data.Category}</p> </StyledTableCell>
-                                    <StyledTableCell><p>{data.price}</p></StyledTableCell>
+                                    {/* <StyledTableCell><p>{data.price}</p></StyledTableCell> */}
                                     <StyledTableCell><p>{data.address}</p></StyledTableCell>
                                     <StyledTableCell><p>{data.number}</p></StyledTableCell>
                                     <StyledTableCell><p>{data.paymentMethod}</p></StyledTableCell>
@@ -1460,7 +1460,7 @@ const[subCategory,setSubcategory]=useState([])
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
                                 {/* <TableCell>Service</TableCell> */}
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
-                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
+                                {/* <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell> */}
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Bill</TableCell>
@@ -1478,7 +1478,7 @@ const[subCategory,setSubcategory]=useState([])
 
                                             {/* <TableCell><p>{data.Service}</p></TableCell> */}
                                             <TableCell><p>{data.Category}</p> </TableCell>
-                                            <TableCell><p>{data.price}</p></TableCell>
+                                            {/* <TableCell><p>{data.price}</p></TableCell> */}
                                             <TableCell><p>{data.address}</p></TableCell>
                                             <TableCell><p>{data.number}</p></TableCell>
                                             <TableCell style={{ textAlign: "center" }}><button onClick={()=>handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
