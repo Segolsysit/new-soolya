@@ -1161,6 +1161,7 @@ const Total = completedbill.map((data)=>data.total)
             "image": "img/logo.png",// COMPANY LOGO
             "handler": function (response) {
                 console.log(response);
+                completePayment()
                 // AFTER TRANSACTION IS COMPLETE YOU WILL GET THE RESPONSE HERE.
             },
             "prefill": {
@@ -1180,7 +1181,7 @@ const Total = completedbill.map((data)=>data.total)
         var propay = new Razorpay (options);
         propay.open()
         // .then(()=>{
-            
+         function completePayment(){   
             axios.patch(`http://localhost:3001/booking_api/edit_Completed_orders/${data._id}`, {
                     vendor_email: data.vendor_email,
                     user_email: data.user_email,
@@ -1197,7 +1198,7 @@ const Total = completedbill.map((data)=>data.total)
                     workLists: data.workLists,
                     total:data.total
 
-                })
+                })}
         // })
     }
 
