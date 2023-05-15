@@ -923,6 +923,7 @@ const Orders = ({ formNumber }) => {
                                 <StyledTableCell align="center">Address</StyledTableCell>
                                 <StyledTableCell align="center">Number</StyledTableCell>
                                 <StyledTableCell align="center">paymentMethod</StyledTableCell>
+                                <StyledTableCell align="center">Accepted By</StyledTableCell>
 
 
 
@@ -943,6 +944,7 @@ const Orders = ({ formNumber }) => {
                                         <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
                                     </StyledTableRow>
 
 
@@ -1023,6 +1025,7 @@ const Orders = ({ formNumber }) => {
                                 <StyledTableCell align="center">Address</StyledTableCell>
                                 <StyledTableCell align="center">Number</StyledTableCell>
                                 <StyledTableCell align="center">paymentMethod</StyledTableCell>
+                                <StyledTableCell align="center">Completed By</StyledTableCell>
                                 <StyledTableCell align="center">Bill</StyledTableCell>
                             </TableRow>
                         </TableHead>
@@ -1038,6 +1041,7 @@ const Orders = ({ formNumber }) => {
                                         <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
                                         <StyledTableCell align="center"><button onClick={()=>handleOpen4(data._id)} className="Pay-button">View Bill</button></StyledTableCell>
                                     </StyledTableRow>
                                 ))
