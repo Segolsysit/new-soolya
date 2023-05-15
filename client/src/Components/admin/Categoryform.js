@@ -28,6 +28,8 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const [img, setImg] = useState("");
     const [getData, setgetData] = useState([]);
     const [getbyid, setgetbyid] = useState('');
+    const[filter,setFilter]=useState("")
+
     const nav = useNavigate()
 
     let aRef = useRef(null)
@@ -83,6 +85,27 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     //         setorderdetails(res.data)
     //     })}
 
+    // useEffect(()=>{
+    //     console.log(filter);
+    //     if(filter!==""&&filter!==null&&filter!==NaN)
+    //     {axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor_bynum/${filter}`).then((res) => {
+    //         setserviceman(res.data)
+    //        // console.log(res.data);
+    //        // console.log(serviceman.Email)
+    //     })}
+    //     else if(filter===""&&filter===null&&filter===NaN){
+
+    //         axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
+    //         setserviceman(res.data)
+    //        // console.log(res.data);
+    //        // console.log(serviceman.Email)
+    //     })
+        
+        
+
+    //     }
+    // },[filter])
+
     const servicemandata = () => {
         axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
             setserviceman(res.data)
@@ -90,6 +113,8 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
            // console.log(serviceman.Email)
         })
     }
+
+    
 
     const deleteOpen1 = (_id) => {
         Swal.fire({
@@ -262,6 +287,14 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
        // console.log(getbyid);
     }
 
+    // const Filter=(phone)=>{
+    //     if(phone!==""||phone!==null){axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/`).then((res) => {
+    //         setserviceman(res.data)
+    //        // console.log(res.data);
+    //        // console.log(serviceman.Email)
+    //     })}
+    // }
+
     const saveChange = () => {
         const formdata = new FormData();
         formdata.append("catagorySetup", Editservice);
@@ -315,10 +348,9 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                             </TableHead>
                             <TableBody>
                                 {
-                                    getData.map((data, index) => (
+                                    getData.map((data, index) =>
 
-
-                                        <StyledTableRow key={index}>
+                                        (<StyledTableRow key={index}>
                                             <StyledTableCell>{a++}</StyledTableCell>
 
                                             <StyledTableCell><p>{data.catagorySetup}</p></StyledTableCell>
@@ -328,9 +360,9 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                             <StyledTableCell><Button data-bs-toggle="modal" onClick={() => EditFun(data._id)} data-bs-target="#EditCategory"><i class="fa-solid fa-pencil"></i></Button></StyledTableCell>
                                             <StyledTableCell><Button onClick={() => delete_item(data._id)}><i class="fa-regular fa-trash-can"></i></Button></StyledTableCell>
                                         </StyledTableRow>
+)
 
-
-                                    ))
+                                    )
                                 }
                             </TableBody>
                         </Table>
@@ -369,35 +401,62 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         return (
             <div >
                 <h1> Service Man List</h1>
-                <TableContainer component={Paper} style={{ padding: "20px" }}>
+                
+                
+                <TableContainer component={Paper} style={{ padding: "20px"}}>
+                    <div>
+                        <input className="Filter-box" placeholder="Search" style={{width:"100%"}} onChange={(e)=>setFilter(e.target.value)}/>
+                    </div>
+               
                     <Table className='table-cat'>
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell>SN</StyledTableCell>
                                 <StyledTableCell>Name</StyledTableCell>
-                                <StyledTableCell>Contact info</StyledTableCell>
+                                <StyledTableCell>Mail_id</StyledTableCell>
+                                <StyledTableCell>Phone</StyledTableCell>
                                 <StyledTableCell>Status</StyledTableCell>
                                 <StyledTableCell>Action</StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
 
-                            {serviceman.map((data) =>
-                                <StyledTableRow>
+                            {serviceman.map((data) =>{
+                            if(filter!==""&&filter!==null&&filter!==NaN)
+                                {
+                                    if(String(data.Phonenumber).match(filter)||String((data.Username).toLowerCase()).match(filter.toLowerCase()))
+                                    {
+                                        return (<StyledTableRow>
                                     <StyledTableCell>{a++}</StyledTableCell>
                                     <StyledTableCell>{data.Username}</StyledTableCell>
-                                    <StyledTableCell>
-                                        {data.Email}
-                                    </StyledTableCell>
+                                    <StyledTableCell>{data.Email}</StyledTableCell>
+                                   <StyledTableCell>{data.Phonenumber}</StyledTableCell>
+                                        
                                     <StyledTableCell>
                                         <Switch color="primary" /></StyledTableCell>
-                                    <StyledTableCell>
+                                    <StyledTableCell style={{width:'2%'}}>
                                         <Button><i class="fa-solid fa-pencil"></i></Button>
                                         <Button><i class="fa-solid fa-eye"></i></Button>
                                         <Button type="button" onClick={() => deleteOpen1(data._id)}><i class="fa-solid fa-trash"></i></Button>
                                     </StyledTableCell>
-                                </StyledTableRow >
-                            )}
+                                </StyledTableRow >)}
+                                }
+                                else{
+                                    return (<StyledTableRow>
+                                        <StyledTableCell>{a++}</StyledTableCell>
+                                        <StyledTableCell>{data.Username}</StyledTableCell>
+                                        <StyledTableCell>{data.Email}</StyledTableCell>
+                                   <StyledTableCell>{data.Phonenumber}</StyledTableCell>
+                                        <StyledTableCell>
+                                            <Switch color="primary" /></StyledTableCell>
+                                        <StyledTableCell style={{width:'2%'}}>
+                                            <Button><i class="fa-solid fa-pencil"></i></Button>
+                                            <Button><i class="fa-solid fa-eye"></i></Button>
+                                            <Button type="button" onClick={() => deleteOpen1(data._id)}><i class="fa-solid fa-trash"></i></Button>
+                                        </StyledTableCell>
+                                    </StyledTableRow >)
+                                }
+                            })}
                         </TableBody>
                     </Table>
                 </TableContainer>
