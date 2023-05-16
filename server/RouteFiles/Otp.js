@@ -21,7 +21,12 @@ OtpRoute.post('/sendotp', async (req, res) => {
     const expiryTime = new Date(Date.now() + 5 * 60 * 1000);
      // remove all non-digits and take the last 10 digits
 
-    if (data && data.expiresAt > new Date()) {
+     if (data && data.expiresAt > new Date()) {
+      return res.status(400).json({ message: 'OTP already sent, please wait for the previous OTP to expire' });
+    }
+
+
+    if (data) {
       // The user already has an OTP that is valid
       data.otp = otp;
       data.expiresAt = expiryTime;
