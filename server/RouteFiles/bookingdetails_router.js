@@ -123,7 +123,7 @@ bookingdetails_router.get("/booking_data",async(req,res)=>{
 })
 
 // bookingdetails_router.get("/booking_data/:id",async(req,res)=>{
-//     const booking_data = await bookingdetails_schema.find(req.params.id)
+//     const booking_data = await bookingdetails_Model.findById(req.params.id)
 //     res.json(booking_data)
 // })
 
