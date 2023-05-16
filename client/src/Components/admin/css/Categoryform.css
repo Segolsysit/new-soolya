@@ -36,6 +36,15 @@
     width: 100%;
 }
 
+.Filter-box{
+    border: 0.5px solid black;
+    border-radius: 8px;
+    padding: 3px;
+}
+.Filter-box:focus{
+    border: 2px solid dodgerblue;
+}
+
 .Subcategory-Outer{
     display: flex;
     flex-direction: column;

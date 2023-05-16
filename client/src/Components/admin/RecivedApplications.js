@@ -35,6 +35,7 @@ const RecivedApplication = ({ formNumber }) => {
     const [pwderr, setpwderr] = useState('');
     const [open, setOpen1] = useState(false);
     const [openModel2, setOpenModel2] = useState(false);
+    const[Phone,setPhone]=useState("")
 
 
     const handleOpen = (_id) => {
@@ -49,6 +50,7 @@ const RecivedApplication = ({ formNumber }) => {
         setOpenModel2(true)
         setVendorName(viewdata.FirstName)
         setVendorEmail(viewdata.Email)
+        setPhone(viewdata.Phone)
         setOpen1(false)
     }
     const handleClose = () => {
@@ -77,6 +79,7 @@ const RecivedApplication = ({ formNumber }) => {
                 Username: vendorName,
                 Email: vendorEmail,
                 Password: vendorPwd,
+                Phonenumber: Phone
             }, { withCredentials: true })
 
             if (response.data.status === 'error') {

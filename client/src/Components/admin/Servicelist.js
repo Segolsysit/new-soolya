@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Button, Table, TableBody, TableCell, TableRow, TableHead } from '@mui/material';
 import { toast } from "react-toastify"
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import {
     TextField,
     FormHelperText,
@@ -11,7 +11,7 @@ import {
     Select,
     MenuItem,
     
-    useStepContext,
+  //  useStepContext,
 } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -19,47 +19,47 @@ import Box from '@mui/material/Box';
 
 
 const ServiceList=({formNumber})=>{
-    const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    //const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
 
     // const [catagortSetup, setCatagortSetup] = useState("");
     // const [img, setImg] = useState("");
     const [getData, setgetData] = useState([]);
     let a = 1;
 
-    const aemail = localStorage.getItem("adminemail")
-    const apassword = localStorage.getItem("adminpassword")
-    const nav = useNavigate()
+    //const aemail = localStorage.getItem("adminemail")
+    // const apassword = localStorage.getItem("adminpassword")
+    // const nav = useNavigate()
 
 
-    const verify = ()=>{
-        if(aemail === null && apassword === null){
-            nav("/admin")
-        }
-    }
+    // const verify = ()=>{
+    //     if(aemail === null && apassword === null){
+    //         nav("/admin")
+    //     }
+    // }
 
-    const adminlogout = ()=>{
-        localStorage.removeItem("adminemail")
-        localStorage.removeItem("adminpassword")
-        nav("/admin")
-    }
+    // const adminlogout = ()=>{
+    //     localStorage.removeItem("adminemail")
+    //     localStorage.removeItem("adminpassword")
+    //     nav("/admin")
+    // }
 
-    const changeStyle = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
-        }
-        else {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-        }
-    }
+    // const changeStyle = () => {
+    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
+    //     }
+    //     else {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    //     }
+    // }
 
-    const changeStyle1 = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
-        }
-        else {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-        }
-    }
+    // const changeStyle1 = () => {
+    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
+    //     }
+    //     else {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    //     }
+    // }
 
     const getdata = ()=>{
         axios.get("http://localhost:3001/api/fetch_items").then((res) => {
@@ -67,17 +67,17 @@ const ServiceList=({formNumber})=>{
         })
     }
 
-    const [orderdetails, setorderdetails] = useState([])
+    // const [orderdetails, setorderdetails] = useState([])
 
 
-    const getdata2 = () => {
-        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
-            setorderdetails(res.data)
-        })}
+    // const getdata2 = () => {
+    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+    //         setorderdetails(res.data)
+    //     })}
  
     useEffect(() => {
-        getdata2()
-       verify()
+      //  getdata2()
+       //verify()
        getdata() 
     }, [])
 
@@ -145,8 +145,8 @@ const ServiceList=({formNumber})=>{
 }
 
 
-const Add_new_service=({formNumber})=>{
-    const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+const AddNewService=({formNumber})=>{
+  //  const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
     const [getData, setgetData] = useState([]);
 
     const [service, setservice] = useState("");
@@ -169,24 +169,24 @@ const Add_new_service=({formNumber})=>{
     const handleClose = () => setOpen(false);
     let a = 1;
 
-    const aemail = localStorage.getItem("adminemail")
-    const apassword = localStorage.getItem("adminpassword")
-    const nav = useNavigate()
+    // const aemail = localStorage.getItem("adminemail")
+    // const apassword = localStorage.getItem("adminpassword")
+    //const nav = useNavigate()
 
 
-    const verify = ()=>{
-        if(aemail === null && apassword === null){
-            nav("/admin")
-        }
-    }
+    // const verify = ()=>{
+    //     if(aemail === null && apassword === null){
+    //         nav("/admin")
+    //     }
+    // }
 
-    const [orderdetails, setorderdetails] = useState([])
+   // const [orderdetails, setorderdetails] = useState([])
 
 
-    const getdata2 = () => {
-        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
-            setorderdetails(res.data)
-        })}
+    // const getdata2 = () => {
+    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+    //         setorderdetails(res.data)
+    //     })}
 
 
     const handleImgChange = (e) => {
@@ -340,26 +340,26 @@ const Add_new_service=({formNumber})=>{
 
     }
 
-    const changeStyle = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
-        }
-        else {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-        }
-    }
+    // const changeStyle = () => {
+    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled")
+    //     }
+    //     else {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    //     }
+    // }
 
-    const changeStyle1 = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
-        }
-        else {
-            setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
-        }
-    }
+    // const changeStyle1 = () => {
+    //     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1")
+    //     }
+    //     else {
+    //         setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
+    //     }
+    // }
 
     useEffect(() => {
-        verify()
+       // verify()
         axios.get("http://localhost:3001/api/fetch_items").then((res) => {
             setgetData(res.data);
             // console.log(res.data);
@@ -374,7 +374,7 @@ const Add_new_service=({formNumber})=>{
             // console.log(servicelist);
 
         })
-     getdata2()
+    // getdata2()
     }, [servicelist])
 
     const delete_list = (id) => {
@@ -561,6 +561,6 @@ const Add_new_service=({formNumber})=>{
 }
 
 
-export {ServiceList,Add_new_service} 
+export {ServiceList,AddNewService} 
 
 
