@@ -123,8 +123,8 @@ OtpRoute.post('/verifyotp', async (req, res) => {
     }
 
     // If we reach this point, the OTP is valid and can be deleted
-    const result = await otpModel.deleteOne({ phoneNumber });
-    console.log(`Deleted ${result.deletedCount} OTP for ${phoneNumber}`);
+    // const result = await otpModel.deleteOne({ phoneNumber });
+    // console.log(`Deleted ${result.deletedCount} OTP for ${phoneNumber}`);
 
     res.json({ message: 'OTP verified successfully' });
   } catch (error) {
