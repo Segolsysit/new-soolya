@@ -300,13 +300,14 @@ export const Admin = () => {
 
                                         {/* <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}
                                         <li className="nav-item dropdown no-arrow d-sm-none">
-                                            <a className="nav-link dropdown-toggle" href="/" id="searchDropdown" role="button"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <a className="nav-link dropdown-toggle" id="searchDropdown" role="button"
+                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i className="fas fa-search fa-fw"></i>
                                             </a>
                                             {/* <!-- Dropdown - Messages --> */}
-                                            <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                            <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                                 aria-labelledby="searchDropdown">
+                                                    <div className="dropdown-item">
                                                 <form className="form-inline mr-auto w-100 navbar-search">
                                                     <div className="input-group">
                                                         <input type="text" className="form-control bg-light border-0 small"
@@ -319,19 +320,20 @@ export const Admin = () => {
                                                         </div>
                                                     </div>
                                                 </form>
+                                                </div>
                                             </div>
                                         </li>
 
                                         {/* <!-- Nav Item - Alerts --> */}
-                                        <li className="nav-item dropdown no-arrow mx-1">
-                                            {/* <a className="nav-link dropdown-toggle" href="/" id="alertsDropdown" role="button"
+                                        {/* <li className="nav-item dropdown no-arrow mx-1">
+                                            <a className="nav-link dropdown-toggle" href="/" id="alertsDropdown" role="button"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i className="fas fa-bell fa-fw"></i>
                                                 {/* <!-- Counter - Alerts --> */}
-                                                {/* <span className="badge badge-danger badge-counter">3+</span> */}
-                                            {/* </a> */} 
+                                                {/* <span className="badge badge-danger badge-counter">3+</span>
+                                            </a> */}
                                             {/* <!-- Dropdown - Alerts --> */}
-                                            <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                            {/* <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                                 aria-labelledby="alertsDropdown">
                                                 <h6 className="dropdown-header">
                                                     Alerts Center
@@ -371,18 +373,18 @@ export const Admin = () => {
                                                 </a>
                                                 <a className="dropdown-item text-center small text-gray-500" href="/">Show All Alerts</a>
                                             </div>
-                                        </li>
+                                        </li> */}
 
                                         {/* <!-- Nav Item - Messages --> */}
-                                        <li className="nav-item dropdown no-arrow mx-1">
-                                            {/* <a className="nav-link dropdown-toggle" href="/" id="messagesDropdown" role="button"
+                                        {/* <li className="nav-item dropdown no-arrow mx-1">
+                                            <a className="nav-link dropdown-toggle" href="/" id="messagesDropdown" role="button"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i className="fas fa-envelope fa-fw"></i> */}
                                                 {/* <!-- Counter - Messages --> */}
                                                 {/* <span className="badge badge-danger badge-counter">7</span>
-                                            </a> */}
+                                            </a> */} 
                                             {/* <!-- Dropdown - Messages --> */}
-                                            <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                            {/* <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                                 aria-labelledby="messagesDropdown">
                                                 <h6 className="dropdown-header">
                                                     Message Center
@@ -437,7 +439,7 @@ export const Admin = () => {
                                                 </a>
                                                 <a className="dropdown-item text-center small text-gray-500" href="/">Read More Messages</a>
                                             </div>
-                                        </li>
+                                        </li> */}
 
                                         <div className="topbar-divider d-none d-sm-block"></div>
 

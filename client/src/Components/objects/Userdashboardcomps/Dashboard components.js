@@ -304,10 +304,15 @@ const VendorOrders = ({ State }) => {
                 axios.get(`http://localhost:3001/booking_api/Completed_vendor_order/${res.data.Email}`)
                     .then((res) => {
                         setcompletedOrderdetails(res.data)
+                        console.log(res.data);
+                        const totalearnings = completedOrderdetails.reduce((acc,curr)=> acc + parseInt(curr.total), 0)
+                        // console.log(total);
                     })
             })
     }
     // const Vemail = vendorDetails.Email
+
+    const totalearnings = completedOrderdetails.reduce((acc,curr)=> acc + parseInt(curr.total), 0)
 
     const handleOpen = () => {
         setOpen(true)
@@ -373,6 +378,7 @@ const VendorOrders = ({ State }) => {
                         })
                         getdata()
                         handleClose()
+                        get_vendor()
                     })
 
             } else {
@@ -388,7 +394,6 @@ const VendorOrders = ({ State }) => {
                 position:'top-center'
             })
         }
-
     }
 
 
@@ -632,7 +637,11 @@ const VendorOrders = ({ State }) => {
         return (
             <div style={{ width: "100%" }}>
             <div className="container-fluid">
-                <h1>Completed Orders</h1>
+                <h1>Completed Orders</h1><br/>
+                <div className="Earnings">
+                    <h3>Total Earnings : <span className="Pay-button">{totalearnings}</span></h3><br/>
+                    <h3>Total Orders : {completedOrderdetails.length}</h3>
+                </div>
                 <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
                     <TableHead>
                         <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
@@ -930,7 +939,7 @@ const PendingOrders = ({ State, setState }) => {
                         })
                         // getdata()
                         handleClose()
-                    
+                        vendor_orders()
                     })
 
                 } else {
