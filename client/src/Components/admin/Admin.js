@@ -2,10 +2,10 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Admin.css"
-import { CategoryForm, Rejected_list, Orders, SubCategory } from './Categoryform';
+import { CategoryForm, RejectedList, Orders, SubCategory } from './Categoryform';
 import DashBoard from './Dashboard';
 import RecivedApplication from './RecivedApplications';
-import { Add_new_service, ServiceList } from './Servicelist';
+import { AddNewService, ServiceList } from './Servicelist';
 
 export const Admin = () => {
     const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
@@ -17,7 +17,7 @@ export const Admin = () => {
 
 
     const [state, setState] = useState(false)
-    const [Formnum, setFormnum] = useState(0)
+    const [FormNum, setFormnum] = useState(0)
     const [not, setnot] = useState(0)
     
     const [Visible,setVisible]=useState(false)
@@ -122,10 +122,10 @@ export const Admin = () => {
 
                             {/* <!-- Nav Item - Dashboard --> */}
                             <li className="nav-item active  " onClick={() => {
-                                {
+                                
                                     setState(true)
                                     setFormnum(3)
-                                }
+                                
                             }}>
                                 <div className="nav-link">
                                     <i className="fas fa-fw fa-tachometer-alt"></i>
@@ -379,7 +379,7 @@ export const Admin = () => {
                                         {/* <li className="nav-item dropdown no-arrow mx-1">
                                             <a className="nav-link dropdown-toggle" href="/" id="messagesDropdown" role="button"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i className="fas fa-envelope fa-fw"></i>
+                                                <i className="fas fa-envelope fa-fw"></i> */}
                                                 {/* <!-- Counter - Messages --> */}
                                                 {/* <span className="badge badge-danger badge-counter">7</span>
                                             </a> */} 
@@ -480,14 +480,14 @@ export const Admin = () => {
                                 </nav>
                                 {/* <!-- End of Topbar --> */}
 
-                                <CategoryForm open={state} close={setState} FormNumber={Formnum} setNumber={setFormnum} />
-                                <DashBoard open={state} close={setState} formNumber={Formnum} />
-                                <Rejected_list formNumber={Formnum} />
-                                <Orders formNumber={Formnum} />
-                                <ServiceList formNumber={Formnum} />
-                                <Add_new_service formNumber={Formnum} />
-                                <RecivedApplication formNumber={Formnum} />
-                                <SubCategory formNumber={Formnum} />
+                                <CategoryForm open={state} close={setState} FormNumber={FormNum} setNumber={setFormnum} />
+                                <DashBoard open={state} close={setState} formNumber={FormNum} />
+                                <RejectedList formNumber={FormNum} />
+                                <Orders formNumber={FormNum} />
+                                <ServiceList formNumber={FormNum} />
+                                <AddNewService formNumber={FormNum} />
+                                <RecivedApplication formNumber={FormNum} />
+                                <SubCategory formNumber={FormNum} />
 
                             </div>
                             {/* <!-- End of Main Content --> */}

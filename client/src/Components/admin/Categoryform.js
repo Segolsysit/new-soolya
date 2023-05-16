@@ -15,8 +15,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { toast } from "react-toastify";
 import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import Switch from '@mui/material/Switch';
 import Swal from "sweetalert2";
 
@@ -30,7 +29,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const [getbyid, setgetbyid] = useState('');
     const [filter, setFilter] = useState("")
 
-    const nav = useNavigate()
+   // const nav = useNavigate()
 
     let aRef = useRef(null)
 
@@ -43,19 +42,19 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
     const [serviceman, setserviceman] = useState([])
 
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    // const [open, setOpen] = useState(false);
+    // const handleOpen = () => setOpen(true);
+    // const handleClose = () => setOpen(false);
     let a = 1;
 
-    const aemail = localStorage.getItem("adminemail")
-    const apassword = localStorage.getItem("adminpassword")
+    // const aemail = localStorage.getItem("adminemail")
+    // const apassword = localStorage.getItem("adminpassword")
 
-    const verify = () => {
-        if (aemail === null && apassword === null) {
-            nav("/admin")
-        }
-    }
+    // const verify = () => {
+    //     if (aemail === null && apassword === null) {
+    //         nav("/admin")
+    //     }
+    // }
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -138,10 +137,17 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         })
     }
 
+    // const verify = () => {
+    //     if (aemail === null && apassword === null) {
+    //         nav("/admin")
+    //     }
+    // }
+
     useEffect(() => {
         // getdata2()
         categorydata()
-        verify()
+       
+       // verify()
         servicemandata()
     }, [])
 
@@ -284,8 +290,8 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             setgetbyid(res.data)
             // console.log(res.data)
         })
-        handleOpen()
-        // console.log(getbyid);
+       handleOpen()
+       // console.log(getbyid);
     }
 
     // const Filter=(phone)=>{
@@ -306,7 +312,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             categorydata();
         })
         // console.log(formdata);
-        handleClose();
+       // handleClose();
     }
 
 
@@ -458,9 +464,11 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                         </TableHead>
                         <TableBody>
 
-                            {serviceman.map((data) => {
-                                if (filter !== "" && filter !== null && filter !== NaN) {
-                                    if (String(data.Phonenumber).match(filter) || String((data.Username).toLowerCase()).match(filter.toLowerCase())) {
+                            {serviceman.map((data) =>{
+                            if(filter!==""&&filter!==null&&isNaN(filter))
+                                {
+                                    if(String(data.Phonenumber).match(filter)||String((data.Username).toLowerCase()).match(filter.toLowerCase()))
+                                    {
                                         return (<StyledTableRow>
                                             <StyledTableCell>{a++}</StyledTableCell>
                                             <StyledTableCell>{data.Username}</StyledTableCell>
@@ -735,28 +743,28 @@ const SubCategory = ({ formNumber }) => {
 }
 
 
-const Rejected_list = ({ formNumber }) => {
+const RejectedList = ({ formNumber }) => {
 
     let serialNumber = 1;
 
-    const style1 = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-    };
+    // const style1 = {
+    //     position: 'absolute',
+    //     top: '50%',
+    //     left: '50%',
+    //     transform: 'translate(-50%, -50%)',
+    //     width: 400,
+    //     bgcolor: 'background.paper',
+    //     border: '2px solid #000',
+    //     boxShadow: 24,
+    //     p: 4,
+    // };
 
-    const server = "localhost:3001/"
-
+    //const server="localhost:3001/"
+    
     const [rejected, setregected] = useState([])
-    const [viewdata, setviewdata] = useState([]);
+    //const [viewdata, setviewdata] = useState([]);
     const [open, setOpen1] = useState(false);
-    const [openModel2, setOpenModel2] = useState(false);
+    //const [openModel2, setOpenModel2] = useState(false);
 
     // const aemail = localStorage.getItem("adminemail")
     // const apassword = localStorage.getItem("adminpassword")
@@ -778,7 +786,7 @@ const Rejected_list = ({ formNumber }) => {
     //         console.log(response.data);
     //     })
     //     setOpen1(true);
-    // };
+    // }; 
 
     const deleteOpen = (_id) => {
         Swal.fire({
@@ -805,13 +813,13 @@ const Rejected_list = ({ formNumber }) => {
 
     const handleClose = () => {
         setOpen1(false);
-        setOpenModel2(false)
+     //  setOpenModel2(false)
     };
 
-    const handleOpenModel2 = () => {
-        setOpenModel2(true)
-        setOpen1(false)
-    }
+    // const handleOpenModel2 = () => {
+    //     setOpenModel2(true)
+    //     setOpen1(false)
+    // }
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
         '&:nth-of-type(odd)': {
             backgroundColor: theme.palette.action.hover,
@@ -834,12 +842,12 @@ const Rejected_list = ({ formNumber }) => {
         getrejected_list()
     }, [])
 
-    const viewdeatils = (id) => {
-        axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
-            setviewdata(response.data);
-            console.log(response.data);
-        })
-    }
+    // const viewdeatils = (id) => {
+    //     axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
+    //         setviewdata(response.data);
+    //         console.log(response.data);
+    //     })
+    // }
     if (formNumber === 4) {
         return (
             <div className="container-fluid">
@@ -883,7 +891,7 @@ const Rejected_list = ({ formNumber }) => {
                         aria-labelledby="parent-modal-title"
                         aria-describedby="parent-modal-description"
                     >
-                        <Box className="Application-popup" sx={{ ...style1, width: 400 }}>
+                        {/* <Box className="Application-popup" sx={{ ...style1 ,width: 400 }}>
                             <p><b>Name</b> : {viewdata.FirstName}</p>
                             <p>Email    : {viewdata.Email}</p>
                             <p>phone    : {viewdata.Phone}</p>
@@ -891,11 +899,11 @@ const Rejected_list = ({ formNumber }) => {
                             <p>Location : {viewdata.Location}</p>
                             <img src={server + viewdata.filename} alt=''></img>
                             {/* <ChildModal close={setOpen1}/> */}
-                            <Button onClick={handleOpenModel2}>hire</Button>
+                            {/* </Modal><Button onClick={handleOpenModel2}>hire</Button> */}
                             {/* <Button onClick={() => reject_data()}>Reject</Button> */}
 
                             {/* <ChildModal /> */}
-                        </Box>
+                        {/* </Box> */} 
                     </Modal>
                 </div>
 
@@ -912,13 +920,13 @@ const Orders = ({ formNumber }) => {
     const [orderdetails, setorderdetails] = useState([])
     const [completed_orderdetails, setcompleted_orderdetails] = useState([])
     const [pending_orderdetails, setpending_orderdetails] = useState([])
-    const aemail = localStorage.getItem("adminemail")
-    const apassword = localStorage.getItem("adminpassword");
+    //const aemail = localStorage.getItem("adminemail")
+    //const apassword = localStorage.getItem("adminpassword");
     const [completedbill, setCompletedbill] = useState([])
-    const [subCategory, setSubcategory] = useState([])
+    //const[subCategory,setSubcategory]=useState([])
     const [open4, setOpen4] = useState(true);
     // const [notificationCount, setNotificationCount] = useState(0);
-    const nav = useNavigate()
+   // const nav = useNavigate()
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -948,11 +956,11 @@ const Orders = ({ formNumber }) => {
     }, [formNumber])
 
 
-    const verify = () => {
-        if (aemail === null || apassword === null) {
-            nav("/admin")
-        }
-    }
+    // const verify = () => {
+    //     if (aemail === null || apassword === null) {
+    //         nav("/admin")
+    //     }
+    // }
 
 
 
@@ -973,7 +981,7 @@ const Orders = ({ formNumber }) => {
 
     useEffect(() => {
         getdata()
-        verify()
+       // verify()
 
     }, [])
 
@@ -982,9 +990,9 @@ const Orders = ({ formNumber }) => {
             .then((res) => {
                 console.log(res.data);
                 setCompletedbill([res.data])
-
-                setSubcategory(res.data.workLists)
-
+            
+                //setSubcategory(res.data.workLists)
+                
             })
             .then(() => {
                 setOpen4(false)
@@ -1203,4 +1211,4 @@ const Orders = ({ formNumber }) => {
 
 
 
-export { CategoryForm, Rejected_list, Orders, SubCategory } 
+export { CategoryForm, RejectedList, Orders, SubCategory } 

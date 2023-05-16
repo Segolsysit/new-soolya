@@ -40,7 +40,18 @@ const Page1 = ({ Page, setPage }) => {
     const [err5, setErr5] = useState(true)
     const [err6, setErr6] = useState(true)
 
-
+    const maxNumber = 10;
+    const [selectedNumber, setSelectedNumber] = useState(1);
+    const numberOptions = [];
+    for (let i = 1; i <= maxNumber; i++) {
+      numberOptions.push(<option key={i} value={i}>{i}</option>);
+    }
+    const handleNumberChange = (event) => {
+        const selectedNumber = parseInt(event.target.value);
+        console.log(selectedNumber);
+        setSelectedNumber(selectedNumber);
+       
+      };
 
     const SubmitForm = (e) => {
         e.preventDefault()
@@ -137,12 +148,14 @@ const Page1 = ({ Page, setPage }) => {
             localStorage.setItem("Post", Post)
             localStorage.setItem("Street", Street)
             localStorage.setItem("City", city)
+            localStorage.setItem("NumberOfService", selectedNumber)
             setPage(2)
         }
 
 
     }
 
+    
     return (
         <div className="Form-outerdiv">
             <div className="Form1">
@@ -191,6 +204,12 @@ const Page1 = ({ Page, setPage }) => {
                         }} />
                     <p style={{ color: "red" }}><i class="fa-solid fa-circle-exclamation" hidden={err6} />{ErrPhone}</p>
                 </div>
+                <div className="Form1-textdiv">
+                <label className="Form1-subheading">numberOfServices</label>
+                <select className="Form1-textbox" value={selectedNumber} onChange={handleNumberChange}>
+                    {numberOptions}
+                </select>
+                </div>
 
             </div>
             <button className="Form1-btn" onClick={SubmitForm}>Next</button>
@@ -216,7 +235,10 @@ const Page2 = () => {
     const Name = localStorage.getItem("Name")
     const Number = localStorage.getItem("Phone")
     const Address = localStorage.getItem("Address")
-    
+    const selectedNumber = localStorage.getItem("NumberOfService")
+
+    const Price = selectedNumber*Data.Price
+    console.log(Price);
 
     
     // console.log(Data.Desc);
@@ -228,7 +250,7 @@ const Page2 = () => {
                     <div className="Form2-contactdiv">
                             <div className="Purchase-data">
                                 <p className="Bill-data">Item:<p style={{color:"grey",fontWeight:"400",margin:"0px"}}>{Data.Subcategory}</p></p>
-                                <p className="Bill-data">Price:<p style={{color:"grey",fontWeight:"400",margin:"0px"}}>${Data.Price}</p></p>
+                                <p className="Bill-data">Price:<p style={{color:"grey",fontWeight:"400",margin:"0px"}}>${Price}</p></p>
                                 </div>
                         <ul className="Form2-ul">
                             <li className="Form2-li"><i class="fa-solid fa-user"></i><p>{Name}</p></li>
@@ -268,7 +290,7 @@ const Page3 = ({ Page, setPage }) => {
   
   const Name = localStorage.getItem("Name")
   const Number = localStorage.getItem("Phone")
-  const Address = localStorage.getItem("Address")
+  const NumberOfService = localStorage.getItem("NumberOfService")
 
   
   const handleSubmit = (event) => {
@@ -291,7 +313,7 @@ const Page3 = ({ Page, setPage }) => {
           <h4>Payment Options</h4>
         </Card.Header>
         <Card.Body className="Form3-outerbody">
-       <p>Amount Payable: ₹ {Data.Price}</p>
+       <p>Amount Payable: ₹ {Data.Price*NumberOfService}</p>
           <Form onSubmit={handleSubmit} className="Form3-body">
             <Form.Check
               type="radio"
