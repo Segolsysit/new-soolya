@@ -353,6 +353,7 @@ const VendorOrders = ({ State }) => {
 
                 await axios.post(`http://localhost:3001/booking_api/pending_orders/${orders._id}`, {
                     vendor_email: vendorDetails.Email,
+                    vendor_name:vendorDetails.Username,
                     user_email: orders.user_email,
                     address: orders.address,
                     street: orders.street,
@@ -638,7 +639,7 @@ const VendorOrders = ({ State }) => {
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</StyledTableCell>
                             {/* <TableCell>Service</TableCell> */}
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</StyledTableCell>
-                            {/* <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</StyledTableCell> */}
+                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Completed By</StyledTableCell>
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</StyledTableCell>
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</StyledTableCell>
                             <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</StyledTableCell>
@@ -658,7 +659,7 @@ const VendorOrders = ({ State }) => {
 
                                     {/* <TableCell><p>{data.Service}</p></TableCell> */}
                                     <StyledTableCell><p>{data.Category}</p> </StyledTableCell>
-                                    {/* <StyledTableCell><p>{data.price}</p></StyledTableCell> */}
+                                    <StyledTableCell><p>{data.vendor_name}</p></StyledTableCell>
                                     <StyledTableCell><p>{data.address}</p></StyledTableCell>
                                     <StyledTableCell><p>{data.number}</p></StyledTableCell>
                                     <StyledTableCell><p>{data.paymentMethod}</p></StyledTableCell>
@@ -848,6 +849,7 @@ const PendingOrders = ({ State, setState }) => {
         axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${vendorId}`)
             .then((res) => {
                 setVendorDetails(res.data)
+                console.log(res.data);
             })
     }
     function vendor_orders() {
@@ -884,6 +886,7 @@ const PendingOrders = ({ State, setState }) => {
 
     //const [visibility, setvisibility] = useState(true)
 
+    console.log(vendorDetails);
 
 
     //confirmation otp api
@@ -906,6 +909,7 @@ const PendingOrders = ({ State, setState }) => {
                  console.log(completePendingorders._id);
                  axios.post(`http://localhost:3001/booking_api/Completed_orders/${completePendingorders._id}`, {
                     vendor_email: vendorDetails.Email,
+                    vendor_name: vendorDetails.Username,
                     user_email: completePendingorders.user_email,
                     address: completePendingorders.address,
                     street: completePendingorders.street,
@@ -920,7 +924,7 @@ const PendingOrders = ({ State, setState }) => {
                     workLists:workListsData,
                     total:total
                 }).then(() => {
-                    axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${pendingorders._id}`)
+                    axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${completePendingorders._id}`)
                         toast.success("OTP verified",{
                             position:'top-center'
                         })
@@ -955,7 +959,7 @@ const PendingOrders = ({ State, setState }) => {
                             <TableRow>
                                 <StyledTableCell align="center">SN</StyledTableCell>
                                 <StyledTableCell align="center">Name</StyledTableCell>
-                                {/* <StyledTableCell align="center">Email</StyledTableCell> */}
+                                <StyledTableCell align="center">Accepted By</StyledTableCell>
                                 <StyledTableCell align="center">Category</StyledTableCell>
                                 <StyledTableCell align="center">Price</StyledTableCell>
                                 <StyledTableCell align="center">Address</StyledTableCell>
@@ -977,6 +981,7 @@ const PendingOrders = ({ State, setState }) => {
                                         <StyledTableCell>{a++}</StyledTableCell>
 
                                         <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
@@ -1184,6 +1189,7 @@ const Total = completedbill.map((data)=>data.total)
          function completePayment(){   
             axios.patch(`http://localhost:3001/booking_api/edit_Completed_orders/${data._id}`, {
                     vendor_email: data.vendor_email,
+                    vendor_name: data.vendor_name,
                     user_email: data.user_email,
                     address: data.address,
                     street: data.street,
@@ -1313,6 +1319,7 @@ const[subCategory,setSubcategory]=useState([])
                             <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
                             {/* <TableCell>Service</TableCell> */}
                             <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Accepted By</TableCell>
                             <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
                             <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
                             <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
@@ -1332,6 +1339,7 @@ const[subCategory,setSubcategory]=useState([])
 
                                     {/* <TableCell><p>{data.Service}</p></TableCell> */}
                                     <TableCell><p>{data.Category}</p> </TableCell>
+                                    <TableCell><p>{data.vendor_name}</p> </TableCell>
                                     <TableCell><p>{data.price}</p></TableCell>
                                     <TableCell><p>{data.address}</p></TableCell>
                                     <TableCell><p>{data.number}</p></TableCell>
@@ -1408,6 +1416,7 @@ const[subCategory,setSubcategory]=useState([])
                             <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
                             {/* <TableCell>Service</TableCell> */}
                             <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
+                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Completed By</TableCell>
                             <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
                             <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
                             <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
@@ -1427,6 +1436,7 @@ const[subCategory,setSubcategory]=useState([])
 
                                         {/* <TableCell><p>{data.Service}</p></TableCell> */}
                                         <TableCell><p>{data.Category}</p> </TableCell>
+                                        <TableCell><p>{data.vendor_name}</p> </TableCell>
                                         <TableCell><p>{data.price}</p></TableCell>
                                         <TableCell><p>{data.address}</p></TableCell>
                                         <TableCell><p>{data.number}</p></TableCell>
@@ -1464,6 +1474,7 @@ const[subCategory,setSubcategory]=useState([])
                                 {/* <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell> */}
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Completed By</TableCell>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Bill</TableCell>
 
 
@@ -1482,6 +1493,7 @@ const[subCategory,setSubcategory]=useState([])
                                             {/* <TableCell><p>{data.price}</p></TableCell> */}
                                             <TableCell><p>{data.address}</p></TableCell>
                                             <TableCell><p>{data.number}</p></TableCell>
+                                            <TableCell><p>{data.vendor_name}</p></TableCell>
                                             <TableCell style={{ textAlign: "center" }}><button onClick={()=>handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
                                         </TableRow>
                                     
