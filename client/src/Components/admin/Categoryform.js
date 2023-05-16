@@ -28,7 +28,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const [img, setImg] = useState("");
     const [getData, setgetData] = useState([]);
     const [getbyid, setgetbyid] = useState('');
-    const[filter,setFilter]=useState("")
+    const [filter, setFilter] = useState("")
 
     const nav = useNavigate()
 
@@ -100,8 +100,8 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     //        // console.log(res.data);
     //        // console.log(serviceman.Email)
     //     })
-        
-        
+
+
 
     //     }
     // },[filter])
@@ -109,12 +109,12 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const servicemandata = () => {
         axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
             setserviceman(res.data)
-           // console.log(res.data);
-           // console.log(serviceman.Email)
+            // console.log(res.data);
+            // console.log(serviceman.Email)
         })
     }
 
-    
+
 
     const deleteOpen1 = (_id) => {
         Swal.fire({
@@ -133,6 +133,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                     'Your file has been deleted.',
                     'success'
                 )
+                servicemandata()
             }
         })
     }
@@ -227,7 +228,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                 setCatagorySetup("")
                 setImg("")
                 aRef.current.value = null
-
+                categorydata()
 
             })
         }
@@ -281,10 +282,10 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const EditFun = (id) => {
         axios.get(`http://localhost:3001/api/fetch_items_id/${id}`).then((res) => {
             setgetbyid(res.data)
-           // console.log(res.data)
+            // console.log(res.data)
         })
         handleOpen()
-       // console.log(getbyid);
+        // console.log(getbyid);
     }
 
     // const Filter=(phone)=>{
@@ -350,17 +351,17 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                 {
                                     getData.map((data, index) =>
 
-                                        (<StyledTableRow key={index}>
-                                            <StyledTableCell>{a++}</StyledTableCell>
+                                    (<StyledTableRow key={index}>
+                                        <StyledTableCell>{a++}</StyledTableCell>
 
-                                            <StyledTableCell><p>{data.catagorySetup}</p></StyledTableCell>
-                                            <StyledTableCell><img src={localpath + data.filename} style={{ width: "5em", height: "5em" }} alt=".........."></img> </StyledTableCell>
+                                        <StyledTableCell><p>{data.catagorySetup}</p></StyledTableCell>
+                                        <StyledTableCell><img src={localpath + data.filename} style={{ width: "5em", height: "5em" }} alt=".........."></img> </StyledTableCell>
 
 
-                                            <StyledTableCell><Button data-bs-toggle="modal" onClick={() => EditFun(data._id)} data-bs-target="#EditCategory"><i class="fa-solid fa-pencil"></i></Button></StyledTableCell>
-                                            <StyledTableCell><Button onClick={() => delete_item(data._id)}><i class="fa-regular fa-trash-can"></i></Button></StyledTableCell>
-                                        </StyledTableRow>
-)
+                                        <StyledTableCell><Button data-bs-toggle="modal" onClick={() => EditFun(data._id)} data-bs-target="#EditCategory"><i class="fa-solid fa-pencil"></i></Button></StyledTableCell>
+                                        <StyledTableCell><Button onClick={() => delete_item(data._id)}><i class="fa-regular fa-trash-can"></i></Button></StyledTableCell>
+                                    </StyledTableRow>
+                                    )
 
                                     )
                                 }
@@ -401,13 +402,49 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         return (
             <div >
                 <h1> Service Man List</h1>
-                
-                
-                <TableContainer component={Paper} style={{ padding: "20px"}}>
-                    <div>
-                        <input className="Filter-box" placeholder="Search" style={{width:"100%"}} onChange={(e)=>setFilter(e.target.value)}/>
-                    </div>
-               
+
+
+                <TableContainer component={Paper} style={{ padding: "20px" }}>
+                    <form
+                        className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 w-75 navbar-search">
+                        <div className="input-group">
+                            <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2" onChange={(e) => setFilter(e.target.value)} />
+                            <div className="input-group-append">
+                                <button className="btn btn-primary" type="button">
+                                    <i className="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    {/* <!-- Topbar Navbar --> */}
+                    <ul className="navbar-nav ml-auto">
+
+                        {/* <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}
+                        <li className="nav-item dropdown no-arrow d-sm-none">
+                            <a className="nav-link dropdown-toggle" href="/" id="searchDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i className="fas fa-search fa-fw"></i>
+                            </a>
+                            {/* <!-- Dropdown - Messages --> */}
+                            <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form className="form-inline mr-auto w-100 navbar-search">
+                                    <div className="input-group">
+                                        <input type="text" className="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2" onChange={(e) => setFilter(e.target.value)} />
+                                        <div className="input-group-append">
+                                            <button className="btn btn-primary" type="button">
+                                                <i className="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
                     <Table className='table-cat'>
                         <TableHead>
                             <TableRow>
@@ -421,35 +458,34 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                         </TableHead>
                         <TableBody>
 
-                            {serviceman.map((data) =>{
-                            if(filter!==""&&filter!==null&&filter!==NaN)
-                                {
-                                    if(String(data.Phonenumber).match(filter)||String((data.Username).toLowerCase()).match(filter.toLowerCase()))
-                                    {
+                            {serviceman.map((data) => {
+                                if (filter !== "" && filter !== null && filter !== NaN) {
+                                    if (String(data.Phonenumber).match(filter) || String((data.Username).toLowerCase()).match(filter.toLowerCase())) {
                                         return (<StyledTableRow>
-                                    <StyledTableCell>{a++}</StyledTableCell>
-                                    <StyledTableCell>{data.Username}</StyledTableCell>
-                                    <StyledTableCell>{data.Email}</StyledTableCell>
-                                   <StyledTableCell>{data.Phonenumber}</StyledTableCell>
-                                        
-                                    <StyledTableCell>
-                                        <Switch color="primary" /></StyledTableCell>
-                                    <StyledTableCell style={{width:'2%'}}>
-                                        <Button><i class="fa-solid fa-pencil"></i></Button>
-                                        <Button><i class="fa-solid fa-eye"></i></Button>
-                                        <Button type="button" onClick={() => deleteOpen1(data._id)}><i class="fa-solid fa-trash"></i></Button>
-                                    </StyledTableCell>
-                                </StyledTableRow >)}
+                                            <StyledTableCell>{a++}</StyledTableCell>
+                                            <StyledTableCell>{data.Username}</StyledTableCell>
+                                            <StyledTableCell>{data.Email}</StyledTableCell>
+                                            <StyledTableCell>{data.Phonenumber}</StyledTableCell>
+
+                                            <StyledTableCell>
+                                                <Switch color="primary" /></StyledTableCell>
+                                            <StyledTableCell style={{ width: '2%' }}>
+                                                <Button><i class="fa-solid fa-pencil"></i></Button>
+                                                <Button><i class="fa-solid fa-eye"></i></Button>
+                                                <Button type="button" onClick={() => deleteOpen1(data._id)}><i class="fa-solid fa-trash"></i></Button>
+                                            </StyledTableCell>
+                                        </StyledTableRow >)
+                                    }
                                 }
-                                else{
+                                else {
                                     return (<StyledTableRow>
                                         <StyledTableCell>{a++}</StyledTableCell>
                                         <StyledTableCell>{data.Username}</StyledTableCell>
                                         <StyledTableCell>{data.Email}</StyledTableCell>
-                                   <StyledTableCell>{data.Phonenumber}</StyledTableCell>
+                                        <StyledTableCell>{data.Phonenumber}</StyledTableCell>
                                         <StyledTableCell>
                                             <Switch color="primary" /></StyledTableCell>
-                                        <StyledTableCell style={{width:'2%'}}>
+                                        <StyledTableCell style={{ width: '2%' }}>
                                             <Button><i class="fa-solid fa-pencil"></i></Button>
                                             <Button><i class="fa-solid fa-eye"></i></Button>
                                             <Button type="button" onClick={() => deleteOpen1(data._id)}><i class="fa-solid fa-trash"></i></Button>
@@ -715,8 +751,8 @@ const Rejected_list = ({ formNumber }) => {
         p: 4,
     };
 
-    const server="localhost:3001/"
-    
+    const server = "localhost:3001/"
+
     const [rejected, setregected] = useState([])
     const [viewdata, setviewdata] = useState([]);
     const [open, setOpen1] = useState(false);
@@ -847,13 +883,13 @@ const Rejected_list = ({ formNumber }) => {
                         aria-labelledby="parent-modal-title"
                         aria-describedby="parent-modal-description"
                     >
-                        <Box className="Application-popup" sx={{ ...style1 ,width: 400 }}>
+                        <Box className="Application-popup" sx={{ ...style1, width: 400 }}>
                             <p><b>Name</b> : {viewdata.FirstName}</p>
                             <p>Email    : {viewdata.Email}</p>
                             <p>phone    : {viewdata.Phone}</p>
                             <p>Address  : {viewdata.Address}</p>
                             <p>Location : {viewdata.Location}</p>
-                            <img src={server+viewdata.filename} alt=''></img>
+                            <img src={server + viewdata.filename} alt=''></img>
                             {/* <ChildModal close={setOpen1}/> */}
                             <Button onClick={handleOpenModel2}>hire</Button>
                             {/* <Button onClick={() => reject_data()}>Reject</Button> */}
@@ -879,7 +915,7 @@ const Orders = ({ formNumber }) => {
     const aemail = localStorage.getItem("adminemail")
     const apassword = localStorage.getItem("adminpassword");
     const [completedbill, setCompletedbill] = useState([])
-    const[subCategory,setSubcategory]=useState([])
+    const [subCategory, setSubcategory] = useState([])
     const [open4, setOpen4] = useState(true);
     // const [notificationCount, setNotificationCount] = useState(0);
     const nav = useNavigate()
@@ -946,15 +982,15 @@ const Orders = ({ formNumber }) => {
             .then((res) => {
                 console.log(res.data);
                 setCompletedbill([res.data])
-            
+
                 setSubcategory(res.data.workLists)
-                
+
             })
-            .then(()=>{
-                    setOpen4(false)
-                
+            .then(() => {
+                setOpen4(false)
+
             })
-            
+
         console.log(open4);
     }
 
@@ -1101,7 +1137,7 @@ const Orders = ({ formNumber }) => {
                                         <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><button onClick={()=>handleOpen4(data._id)} className="Pay-button">View Bill</button></StyledTableCell>
+                                        <StyledTableCell align="center"><button onClick={() => handleOpen4(data._id)} className="Pay-button">View Bill</button></StyledTableCell>
                                     </StyledTableRow>
                                 ))
                             }
@@ -1111,44 +1147,44 @@ const Orders = ({ formNumber }) => {
                 <div className="Bill-modal" hidden={open4}>
                     <h2 className="Bills-heading">Your bill</h2>
                     <div className="Bill-sec2">
-                    <div style={{height:"15rem",overflow:'scroll',width:'100%'}}>
+                        <div style={{ height: "15rem", overflow: 'scroll', width: '100%' }}>
 
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell style={{ backgroundColor:'White',textAlign: "center", fontWeight: '600',border:'none' }}>Work Done</TableCell>
-                                    <TableCell style={{ backgroundColor:'White',textAlign: "center", fontWeight: '600',border:'none' }}>Charges</TableCell>
-                                </TableRow>
-                            </TableHead>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell style={{ backgroundColor: 'White', textAlign: "center", fontWeight: '600', border: 'none' }}>Work Done</TableCell>
+                                        <TableCell style={{ backgroundColor: 'White', textAlign: "center", fontWeight: '600', border: 'none' }}>Charges</TableCell>
+                                    </TableRow>
+                                </TableHead>
 
-                            <TableBody style={{width:'100%'}}>
+                                <TableBody style={{ width: '100%' }}>
 
-                            {
-                            completedbill.map((data) => (
-                                data.workLists.map((Sub,secondindex)=>(
-                                    //console.log(Sub.subCategory)
+                                    {
+                                        completedbill.map((data) => (
+                                            data.workLists.map((Sub, secondindex) => (
+                                                //console.log(Sub.subCategory)
 
-                                        <TableRow key={secondindex} >
-                                            <TableCell style={{ backgroundColor: "white",border:'none' }}><p>{Sub.subCategory}</p></TableCell>
-                                            <TableCell style={{ backgroundColor: "white",border:'none',textAlign:'center' }}><p>{Sub.price}</p></TableCell>
-                                        </TableRow>
-                                ))
-                            ))
-                            }
+                                                <TableRow key={secondindex} >
+                                                    <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{Sub.subCategory}</p></TableCell>
+                                                    <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{Sub.price}</p></TableCell>
+                                                </TableRow>
+                                            ))
+                                        ))
+                                    }
 
-                            <TableRow>
-                                <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center',border:'none' }}><p style={{ margin: '0px',fontWeight:'600',color:'white' }}>Total</p></TableCell>
-                                {
-                                    completedbill.map((data,index)=>(
-                                        <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{margin:'0px',textAlign:'center'}}>{data.total}</p></TableCell>
-                                    )
-                                    )
-                                }
-                            </TableRow>
-                            
-                            </TableBody>
+                                    <TableRow>
+                                        <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
+                                        {
+                                            completedbill.map((data, index) => (
+                                                <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{data.total}</p></TableCell>
+                                            )
+                                            )
+                                        }
+                                    </TableRow>
 
-                        </Table>
+                                </TableBody>
+
+                            </Table>
                         </div>
 
                     </div>
