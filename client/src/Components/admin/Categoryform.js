@@ -290,7 +290,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             setgetbyid(res.data)
             // console.log(res.data)
         })
-       handleOpen()
+    //    handleOpen()
        // console.log(getbyid);
     }
 
