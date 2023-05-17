@@ -228,9 +228,10 @@ const Page2 = () => {
     }
     useEffect(()=>{
          get()
-        // console.log(Data);
     // console.log(da;
     },[])
+    console.log(Data);
+
     
     const Name = localStorage.getItem("Name")
     const Number = localStorage.getItem("Phone")
@@ -243,23 +244,34 @@ const Page2 = () => {
     
     // console.log(Data.Desc);
         return (
-            <div className="Form-outerdiv">
-                <div className="Form2">
-                    
-                    <h2 className="Form2-heading">Billing Summary</h2>
-                    <div className="Form2-contactdiv">
-                            <div className="Purchase-data">
-                                <p className="Bill-data">Item:<p style={{color:"grey",fontWeight:"400",margin:"0px"}}>{Data.Subcategory}</p></p>
-                                <p className="Bill-data">Price:<p style={{color:"grey",fontWeight:"400",margin:"0px"}}>${Price}</p></p>
-                                </div>
-                        <ul className="Form2-ul">
-                            <li className="Form2-li"><i class="fa-solid fa-user"></i><p>{Name}</p></li>
-                            <li className="Form2-li"><i class="fa-solid fa-phone"></i><p>{Number}</p></li>
-                            <li className="Form2-li"><i class="fa-solid fa-location-dot"></i><p>{Address}</p></li>
-                        </ul>
+                <div className="Bill-div" style={{width:'100%'}}>
+                    <div className="Bill-sec1">
+                        <div style={{textAlign:'left'}}>
+                        <h1 className="Bill-Name">{Name}</h1>
+                        <p className="Billp-tag" style={{margin:'0px'}}>{Address}</p>
+                        <p className="Billp-tag">{Number}</p>
+                        </div>
+                    </div>
+                    <div className="Table-div">
+                        <table className="Table-body">
+                            <tbody >
+                                
+                                <tr>
+                                    <td className="Billtable-Desc">Service</td>
+                                    <td className="Billtable-Content">{Data.Category}</td>
+                                </tr>
+                                <tr>
+                                    <td className="Billtable-Desc">Qty</td>
+                                    <td className="Billtable-Content">{selectedNumber}</td>
+                                </tr>
+                                <tr>
+                                    <td className="Billtable-Desc">Total</td>
+                                    <td className="Billtable-Content">₹{Price}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>
         )
     }
 
