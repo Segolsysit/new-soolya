@@ -244,8 +244,10 @@
 
 .Bill-sec1{
     display: flex;
-    width: 50%;
+    width: 100%;
     justify-content: flex-end;
+    /* border: 1px solid rgb(184, 212, 241); */
+    margin-bottom: 5px;
 }
 
 .Bill-Name {
@@ -260,7 +262,7 @@
 .Billp-tag{
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
-
+    margin: 0px;
 }
 
 .Table-div{
