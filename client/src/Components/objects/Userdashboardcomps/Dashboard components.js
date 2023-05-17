@@ -239,6 +239,7 @@ const VendorOrders = ({ State }) => {
     const [veriyfyOtp, setVerifyOtp] = useState('');
     const [open, setOpen] = useState(false);
     const [completedbill, setCompletedbill] = useState([])
+    const [confirm, setconfirm] = useState([])
     const [open4, setOpen4] = useState(true);
     const { pathname } = useLocation();
 
@@ -327,9 +328,17 @@ const VendorOrders = ({ State }) => {
     //     setOpen2(false)
     // }
     const acceptOrder = async (order) => {
-
+      
         try {
-
+            try{
+                const respons = axios.get(`http://localhost:3001/booking_api/booking_data/${order._id}`).then((res)=>{
+                    setconfirm(res.data)
+                    console.log(res.data._id);
+                })
+            }catch(err){
+console.log(err.response.data);
+            }
+           
             //console.log(order.number);
             const response = await axios.post('http://localhost:3001/OTP/sendotp', { phoneNumber: order.number }, { withCredentials: true })
             console.log(response.data.message);
