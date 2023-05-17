@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./css/dashboard.css";
-
+import axios from 'axios';
 
 
 
@@ -9,6 +9,8 @@ function DashBoard({open,close,formNumber}){
 
 
     const [amount, setAmount] = useState("");
+    const [completed_orderdetails, setcompleted_orderdetails] = useState([])
+
     const handlePayment = (e)=>{
           e.preventDefault();
 
@@ -50,10 +52,16 @@ function DashBoard({open,close,formNumber}){
 
 
     // demo
+useEffect(()=>{
+  axios.get("http://localhost:3001/booking_api/completed_booking_data").then((res) => {
+            setcompleted_orderdetails(res.data)
+        })
 
+},[])
 
     const counters = document.querySelectorAll(".count");
     const speed = 200;
+    const totalearnings = completed_orderdetails.reduce((acc,curr)=> acc + parseInt(curr.total), 0)
     
     counters.forEach((counter) => {
       const updateCount = () => {
@@ -61,6 +69,7 @@ function DashBoard({open,close,formNumber}){
         const count = parseInt(+counter.innerText);
         const increment = Math.trunc(target / speed);
         //console.log(increment);
+        
     
         if (count < target) {
           counter.innerText = count + increment;
@@ -104,19 +113,19 @@ if(!open) return null
         <div class="counter-container">
           <div class="counter">
             <img src="https://raw.githubusercontent.com/nemo0/animated-counter/29e12c0cb15e90c27faaef0d83fb2618126067db/icons/iconmonstr-time-19.svg" alt="timer" srcset="" class="icon"></img>
-            <h3 data-target="15000" class="count">0</h3>
-            <h6>Work Hours</h6>
+            <h3>{completed_orderdetails.length}</h3>
+            <h6>Total Orders</h6>
           </div>
           <div class="counter">
             <img src="https://raw.githubusercontent.com/nemo0/animated-counter/29e12c0cb15e90c27faaef0d83fb2618126067db/icons/iconmonstr-coffee-11.svg" alt="Coffee" srcset="" class="icon"></img>
-            <h3 data-target="1200" class="count">0</h3>
-            <h6>Cups of Coffee</h6>
+            <h3>{totalearnings}</h3>
+            <h6>Total Earnings</h6>
           </div>
-          <div class="counter">
+          {/* <div class="counter">
             <img src="https://raw.githubusercontent.com/nemo0/animated-counter/29e12c0cb15e90c27faaef0d83fb2618126067db/icons/iconmonstr-weather-112.svg" alt="night" srcset="" class="icon"></img>
             <h3 data-target="500" class="count">0</h3>
             <h6>Sleepless Nights</h6>
-          </div>
+          </div> */}
         </div>
       </div>
       

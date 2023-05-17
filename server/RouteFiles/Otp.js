@@ -112,6 +112,7 @@ OtpRoute.post('/verifyotp', async (req, res) => {
   const { phoneNumber, otp } = req.body;
   
   try {
+    const expiryTime = new Date(Date.now() + 5 * 60 * 1000);
 
     let data = await otpModel.findOne({ phoneNumber });
     if (!data || data.expiresAt < new Date()) {
