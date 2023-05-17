@@ -125,7 +125,7 @@ bookingdetails_router.get("/booking_data",async(req,res)=>{
     res.json(booking_data)
 })
 
-bookingdetails_router.get("/booking_data/:_id",async(req,res)=>{
+bookingdetails_router.get("/booking/:_id",async(req,res)=>{
     try{
         const booking_data = await bookingdetails_Model.findById(req.params._id)
         res.json(booking_data)

@@ -13,8 +13,8 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Multiselect from 'multiselect-react-dropdown';
-import {toast} from 'react-toastify';
-import useRazorpay, {Razorpay} from 'react-razorpay'
+import { toast } from 'react-toastify';
+import useRazorpay, { Razorpay } from 'react-razorpay'
 
 
 
@@ -279,6 +279,8 @@ const VendorOrders = ({ State }) => {
     const decodedToken = jwt_decode(token);
     const vendorId = decodedToken.id;
 
+    console.log(confirm);
+
     // const [options2, setoptions2] = useState([]);
     // const [selected, setSelected] = useState([]);
 
@@ -306,14 +308,14 @@ const VendorOrders = ({ State }) => {
                     .then((res) => {
                         setcompletedOrderdetails(res.data)
                         console.log(res.data);
-                        const totalearnings = completedOrderdetails.reduce((acc,curr)=> acc + parseInt(curr.total), 0)
+                        const totalearnings = completedOrderdetails.reduce((acc, curr) => acc + parseInt(curr.total), 0)
                         // console.log(total);
                     })
             })
     }
     // const Vemail = vendorDetails.Email
 
-    const totalearnings = completedOrderdetails.reduce((acc,curr)=> acc + parseInt(curr.total), 0)
+    const totalearnings = completedOrderdetails.reduce((acc, curr) => acc + parseInt(curr.total), 0)
 
     const handleOpen = () => {
         setOpen(true)
@@ -328,28 +330,29 @@ const VendorOrders = ({ State }) => {
     //     setOpen2(false)
     // }
     const acceptOrder = async (order) => {
-      
+
         try {
-            try{
-                const respons = axios.get(`http://localhost:3001/booking_api/booking_data/${order._id}`).then((res)=>{
+            try {
+                setconfirm( axios.get(`http://localhost:3001/booking_api/booking/${order._id}`)).then((res) => {
                     setconfirm(res.data)
-                    console.log(res.data._id);
+                    console.log(confirm);
+
                 })
-            }catch(err){
-console.log(err.response.data);
+            } catch (err) {
+                console.log(err.response.data);
             }
-           
+
             //console.log(order.number);
             const response = await axios.post('http://localhost:3001/OTP/sendotp', { phoneNumber: order.number }, { withCredentials: true })
             console.log(response.data.message);
-            
+
             setOrderId(order)
             handleOpen()
 
         } catch (err) {
 
             console.log(err.response.data.message);
-            
+
         }
 
 
@@ -367,7 +370,7 @@ console.log(err.response.data);
 
                 await axios.post(`http://localhost:3001/booking_api/pending_orders/${orders._id}`, {
                     vendor_email: vendorDetails.Email,
-                    vendor_name:vendorDetails.Username,
+                    vendor_name: vendorDetails.Username,
                     user_email: orders.user_email,
                     address: orders.address,
                     street: orders.street,
@@ -382,8 +385,8 @@ console.log(err.response.data);
                 })
                 axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
                     .then(() => {
-                        toast.success("Successfully verified",{
-                            position:'top-center'
+                        toast.success("Successfully verified", {
+                            position: 'top-center'
                         })
                         getdata()
                         handleClose()
@@ -399,8 +402,8 @@ console.log(err.response.data);
         } catch (error) {
             console.log(error.response.data.message);
             // setError('Invalid or expired OTP');
-            toast.error(error.response.data.message,{
-                position:'top-center'
+            toast.error(error.response.data.message, {
+                position: 'top-center'
             })
         }
     }
@@ -411,15 +414,15 @@ console.log(err.response.data);
             .then((res) => {
                 console.log(res.data);
                 setCompletedbill([res.data])
-            
-               // setSubcategory(res.data.workLists)
-                
+
+                // setSubcategory(res.data.workLists)
+
             })
-            .then(()=>{
-                    setOpen4(false)
-                
+            .then(() => {
+                setOpen4(false)
+
             })
-            
+
         console.log(open4);
     }
 
@@ -495,90 +498,90 @@ console.log(err.response.data);
     if (State === 2) {
         return (
             <div style={{ width: "100%" }}>
-            <div className="container-fluid vendor-container">
-                <h1>Order Details</h1>
-                <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
-                    <Table className='table-cat' style={{ margin: "0px" }}>
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="center">SN</StyledTableCell>
-                                <StyledTableCell align="center">Name</StyledTableCell>
-                                <StyledTableCell align="center">Email</StyledTableCell>
-                                <StyledTableCell align="center">Category</StyledTableCell>
-                                <StyledTableCell align="center">Price</StyledTableCell>
-                                <StyledTableCell align="center">Address</StyledTableCell>
-                                <StyledTableCell align="center">Number</StyledTableCell>
-                                <StyledTableCell align="center">paymentMethod</StyledTableCell>
-                                <StyledTableCell align="center">Action</StyledTableCell>
+                <div className="container-fluid vendor-container">
+                    <h1>Order Details</h1>
+                    <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                        <Table className='table-cat' style={{ margin: "0px" }}>
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="center">SN</StyledTableCell>
+                                    <StyledTableCell align="center">Name</StyledTableCell>
+                                    <StyledTableCell align="center">Email</StyledTableCell>
+                                    <StyledTableCell align="center">Category</StyledTableCell>
+                                    <StyledTableCell align="center">Price</StyledTableCell>
+                                    <StyledTableCell align="center">Address</StyledTableCell>
+                                    <StyledTableCell align="center">Number</StyledTableCell>
+                                    <StyledTableCell align="center">paymentMethod</StyledTableCell>
+                                    <StyledTableCell align="center">Action</StyledTableCell>
 
 
 
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                orderdetails.map((data, index) => (
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {
+                                    orderdetails.map((data, index) => (
 
 
-                                    <StyledTableRow key={index}>
-                                        <StyledTableCell>{a++}</StyledTableCell>
+                                        <StyledTableRow key={index}>
+                                            <StyledTableCell>{a++}</StyledTableCell>
 
-                                        <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><button className="Action-btn" onClick={() => acceptOrder(data)}>Accept</button></StyledTableCell>
-                                    </StyledTableRow>
-
-
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-
-                <div>
-                    <Modal
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="child-modal-title"
-                        aria-describedby="child-modal-description"
-                    >
-                        <Box sx={{ ...style, width: 400 }}>
-
-                            <form onSubmit={handleVerifyOtp}>
-
-                                <div >
-                                    <TextField
-                                        type='text'
-                                        id="outlined-basic"
-                                        label="otp"
-                                        value={veriyfyOtp}
-                                        variant="outlined"
-                                        autoComplete="off"
-                                        onChange={e => setVerifyOtp(e.target.value)}
-                                    /><br /><br />
-
-                                    <Button type="submit">verifyOtp</Button>
-                                    <Button type="submit" onClick={handleClose}>cancel</Button>
-
-                                </div>
+                                            <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><button className="Action-btn" onClick={() => acceptOrder(data)}>Accept</button></StyledTableCell>
+                                        </StyledTableRow>
 
 
+                                    ))
+                                }
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
 
-                            </form>
+                    <div>
+                        <Modal
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="child-modal-title"
+                            aria-describedby="child-modal-description"
+                        >
+                            <Box sx={{ ...style, width: 400 }}>
+
+                                <form onSubmit={handleVerifyOtp}>
+
+                                    <div >
+                                        <TextField
+                                            type='text'
+                                            id="outlined-basic"
+                                            label="otp"
+                                            value={veriyfyOtp}
+                                            variant="outlined"
+                                            autoComplete="off"
+                                            onChange={e => setVerifyOtp(e.target.value)}
+                                        /><br /><br />
+
+                                        <Button type="submit">verifyOtp</Button>
+                                        <Button type="submit" onClick={handleClose}>cancel</Button>
+
+                                    </div>
 
 
-                            {/* <ChildModal /> */}
-                        </Box>
-                    </Modal>
+
+                                </form>
+
+
+                                {/* <ChildModal /> */}
+                            </Box>
+                        </Modal>
+                    </div>
+
                 </div>
-
             </div>
-    </div>
 
 
         )
@@ -645,103 +648,103 @@ console.log(err.response.data);
     else if (State === 5) {
         return (
             <div style={{ width: "100%" }}>
-            <div className="container-fluid">
-                <h1>Completed Orders</h1><br/>
-                <div className="Earnings">
-                    <h3>Total Earnings : <span className="Pay-button">{totalearnings}</span></h3><br/>
-                    <h3>Total Orders : {completedOrderdetails.length}</h3>
-                </div>
-                <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
-                    <TableHead>
-                        <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</StyledTableCell>
-                            {/* <TableCell>Service</TableCell> */}
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</StyledTableCell>
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Completed By</StyledTableCell>
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</StyledTableCell>
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</StyledTableCell>
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</StyledTableCell>
-                            <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Bills</StyledTableCell>
+                <div className="container-fluid">
+                    <h1>Completed Orders</h1><br />
+                    <div className="Earnings">
+                        <h3>Total Earnings : <span className="Pay-button">{totalearnings}</span></h3><br />
+                        <h3>Total Orders : {completedOrderdetails.length}</h3>
+                    </div>
+                    <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
+                        <TableHead>
+                            <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
+                                <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</StyledTableCell>
+                                {/* <TableCell>Service</TableCell> */}
+                                <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</StyledTableCell>
+                                <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Completed By</StyledTableCell>
+                                <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</StyledTableCell>
+                                <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</StyledTableCell>
+                                <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</StyledTableCell>
+                                <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Bills</StyledTableCell>
 
 
 
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            completedOrderdetails.map((data, index) => (
-
-
-                                <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                    <StyledTableCell>{a++}</StyledTableCell>
-
-                                    {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                    <StyledTableCell><p>{data.Category}</p> </StyledTableCell>
-                                    <StyledTableCell><p>{data.vendor_name}</p></StyledTableCell>
-                                    <StyledTableCell><p>{data.address}</p></StyledTableCell>
-                                    <StyledTableCell><p>{data.number}</p></StyledTableCell>
-                                    <StyledTableCell><p>{data.paymentMethod}</p></StyledTableCell>
-                                    <StyledTableCell style={{ textAlign: "center" }}><button onClick={()=>handleOpen4(data._id)} className="Pay-button">View Bill</button></StyledTableCell>
-
-                                </TableRow>
-
-
-                            ))
-                        }
-                    </TableBody>
-                </Table>
-                <div className="Bill-modal" hidden={open4}>
-                    <h2 className="Bills-heading">Bill</h2>
-                    <div className="Bill-sec2">
-                    <div style={{height:"15rem",overflow:'scroll',width:'100%'}}>
-
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell style={{ backgroundColor:'White',textAlign: "center", fontWeight: '600',border:'none' }}>Work Done</TableCell>
-                                    <TableCell style={{ backgroundColor:'White',textAlign: "center", fontWeight: '600',border:'none' }}>Charges</TableCell>
-                                </TableRow>
-                            </TableHead>
-
-                            <TableBody style={{width:'100%'}}>
-
-                            {
-                            completedbill.map((data) => (
-                                data.workLists.map((Sub,secondindex)=>(
-                                    //console.log(Sub.subCategory)
-
-                                        <TableRow key={secondindex} >
-                                            <TableCell style={{ backgroundColor: "white",border:'none' }}><p>{Sub.subCategory}</p></TableCell>
-                                            <TableCell style={{ backgroundColor: "white",border:'none',textAlign:'center' }}><p>{Sub.price}</p></TableCell>
-                                        </TableRow>
-                                ))
-                            ))
-                            }
-
-                            <TableRow>
-                                <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center',border:'none' }}><p style={{ margin: '0px',fontWeight:'600',color:'white' }}>Total</p></TableCell>
-                                {
-                                    completedbill.map((data,index)=>(
-                                        <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{margin:'0px',textAlign:'center'}}>{data.total}</p></TableCell>
-                                    )
-                                    )
-                                }
                             </TableRow>
-                            
-                            </TableBody>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                completedOrderdetails.map((data, index) => (
 
-                        </Table>
+
+                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                        <StyledTableCell>{a++}</StyledTableCell>
+
+                                        {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                        <StyledTableCell><p>{data.Category}</p> </StyledTableCell>
+                                        <StyledTableCell><p>{data.vendor_name}</p></StyledTableCell>
+                                        <StyledTableCell><p>{data.address}</p></StyledTableCell>
+                                        <StyledTableCell><p>{data.number}</p></StyledTableCell>
+                                        <StyledTableCell><p>{data.paymentMethod}</p></StyledTableCell>
+                                        <StyledTableCell style={{ textAlign: "center" }}><button onClick={() => handleOpen4(data._id)} className="Pay-button">View Bill</button></StyledTableCell>
+
+                                    </TableRow>
+
+
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                    <div className="Bill-modal" hidden={open4}>
+                        <h2 className="Bills-heading">Bill</h2>
+                        <div className="Bill-sec2">
+                            <div style={{ height: "15rem", overflow: 'scroll', width: '100%' }}>
+
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell style={{ backgroundColor: 'White', textAlign: "center", fontWeight: '600', border: 'none' }}>Work Done</TableCell>
+                                            <TableCell style={{ backgroundColor: 'White', textAlign: "center", fontWeight: '600', border: 'none' }}>Charges</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+
+                                    <TableBody style={{ width: '100%' }}>
+
+                                        {
+                                            completedbill.map((data) => (
+                                                data.workLists.map((Sub, secondindex) => (
+                                                    //console.log(Sub.subCategory)
+
+                                                    <TableRow key={secondindex} >
+                                                        <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{Sub.subCategory}</p></TableCell>
+                                                        <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{Sub.price}</p></TableCell>
+                                                    </TableRow>
+                                                ))
+                                            ))
+                                        }
+
+                                        <TableRow>
+                                            <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
+                                            {
+                                                completedbill.map((data, index) => (
+                                                    <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{data.total}</p></TableCell>
+                                                )
+                                                )
+                                            }
+                                        </TableRow>
+
+                                    </TableBody>
+
+                                </Table>
+                            </div>
+
+                        </div>
+                        <div style={{ display: "flex", gap: "5px" }}>
+
+                            <button className="Bill-btn2" onClick={handleClose4}>Close</button>
                         </div>
 
                     </div>
-                    <div style={{ display: "flex", gap: "5px" }}>
-                        
-                        <button className="Bill-btn2" onClick={handleClose4}>Close</button>
-                    </div>
-
                 </div>
             </div>
-                        </div>
         )
     }
 
@@ -831,37 +834,38 @@ const PendingOrders = ({ State, setState }) => {
         setOpen2(true)
     }
     const completeOtp = async () => {
-        if(selected.length===0){
-            toast.error("Select the work done",{
-                position:'top-center'
+        if (selected.length === 0) {
+            toast.error("Select the work done", {
+                position: 'top-center'
             })
         }
-        else{
-        setResendOTP(false);
-        clearInterval(timer);
-        console.log(selected);
-        try {
-            // console.log(orders.number);
-            const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
-                phoneNumber: Phonenumber
-            });
-            console.log(response.data.message);
-            toast.success(response.data.message,{
-                position:'top-center'
-            })
-            handleOpen2()
-            setOTPSent(true);
-            setTimeRemaining(120);
-            setTimer(setInterval(() => {
-                setTimeRemaining(prevTime => prevTime - 1);
-            }, 1000));
-        } catch (error) {
-            console.log(error.response.data.message);
-            //   setError(error.response.data.message);
-            toast.error(error.response.data.message,{
-                position:'top-center'
-            })
-        }}
+        else {
+            setResendOTP(false);
+            clearInterval(timer);
+            console.log(selected);
+            try {
+                // console.log(orders.number);
+                const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
+                    phoneNumber: Phonenumber
+                });
+                console.log(response.data.message);
+                toast.success(response.data.message, {
+                    position: 'top-center'
+                })
+                handleOpen2()
+                setOTPSent(true);
+                setTimeRemaining(120);
+                setTimer(setInterval(() => {
+                    setTimeRemaining(prevTime => prevTime - 1);
+                }, 1000));
+            } catch (error) {
+                console.log(error.response.data.message);
+                //   setError(error.response.data.message);
+                toast.error(error.response.data.message, {
+                    position: 'top-center'
+                })
+            }
+        }
     }
     function get_vendor() {
         axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${vendorId}`)
@@ -914,7 +918,7 @@ const PendingOrders = ({ State, setState }) => {
         const workListsData = selected.map((data) => ({
             subCategory: data.Subcategory,
             price: data.Price
-          }));
+        }));
         axios.post("http://localhost:3001/doneOtp/verifyotp", {
             phoneNumber: Phonenumber,
             otp: OTP
@@ -924,27 +928,27 @@ const PendingOrders = ({ State, setState }) => {
                 console.log(res.data.message);
                 handleClose2()
                 if (res.data.message === "OTP verified successfully") {
-                 console.log(completePendingorders._id);
-                 axios.post(`http://localhost:3001/booking_api/Completed_orders/${completePendingorders._id}`, {
-                    vendor_email: vendorDetails.Email,
-                    vendor_name: vendorDetails.Username,
-                    user_email: completePendingorders.user_email,
-                    address: completePendingorders.address,
-                    street: completePendingorders.street,
-                    city: completePendingorders.city,
-                    zip: completePendingorders.zip,
-                    person: completePendingorders.person,
-                    number: completePendingorders.number,
-                    Service: completePendingorders.Service,
-                    Category: completePendingorders.Category,
-                    price: completePendingorders.price,
-                    paymentMethod: completePendingorders.paymentMethod,
-                    workLists:workListsData,
-                    total:total
-                }).then(() => {
-                    axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${completePendingorders._id}`)
-                        toast.success("OTP verified",{
-                            position:'top-center'
+                    console.log(completePendingorders._id);
+                    axios.post(`http://localhost:3001/booking_api/Completed_orders/${completePendingorders._id}`, {
+                        vendor_email: vendorDetails.Email,
+                        vendor_name: vendorDetails.Username,
+                        user_email: completePendingorders.user_email,
+                        address: completePendingorders.address,
+                        street: completePendingorders.street,
+                        city: completePendingorders.city,
+                        zip: completePendingorders.zip,
+                        person: completePendingorders.person,
+                        number: completePendingorders.number,
+                        Service: completePendingorders.Service,
+                        Category: completePendingorders.Category,
+                        price: completePendingorders.price,
+                        paymentMethod: completePendingorders.paymentMethod,
+                        workLists: workListsData,
+                        total: total
+                    }).then(() => {
+                        axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${completePendingorders._id}`)
+                        toast.success("OTP verified", {
+                            position: 'top-center'
                         })
                         // getdata()
                         handleClose()
@@ -958,8 +962,8 @@ const PendingOrders = ({ State, setState }) => {
             })
             .catch((err) => {
                 //console.log(err.response.data.message);
-                toast.error(err.response.data.message,{
-                    position:'top-center'
+                toast.error(err.response.data.message, {
+                    position: 'top-center'
                 })
             })
 
@@ -969,62 +973,62 @@ const PendingOrders = ({ State, setState }) => {
     if (State === 3) {
         return (
             <div style={{ width: "100%" }}>
-            <div className="container-fluid">
-                <h1>Pending order Details</h1>
-                <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
-                    <Table className='table-cat' style={{ margin: "0px" }}>
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="center">SN</StyledTableCell>
-                                <StyledTableCell align="center">Name</StyledTableCell>
-                                <StyledTableCell align="center">Accepted By</StyledTableCell>
-                                <StyledTableCell align="center">Category</StyledTableCell>
-                                <StyledTableCell align="center">Price</StyledTableCell>
-                                <StyledTableCell align="center">Address</StyledTableCell>
-                                <StyledTableCell align="center">Number</StyledTableCell>
-                                <StyledTableCell align="center">paymentMethod</StyledTableCell>
-                                <StyledTableCell align="center">Action</StyledTableCell>
+                <div className="container-fluid">
+                    <h1>Pending order Details</h1>
+                    <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                        <Table className='table-cat' style={{ margin: "0px" }}>
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="center">SN</StyledTableCell>
+                                    <StyledTableCell align="center">Name</StyledTableCell>
+                                    <StyledTableCell align="center">Accepted By</StyledTableCell>
+                                    <StyledTableCell align="center">Category</StyledTableCell>
+                                    <StyledTableCell align="center">Price</StyledTableCell>
+                                    <StyledTableCell align="center">Address</StyledTableCell>
+                                    <StyledTableCell align="center">Number</StyledTableCell>
+                                    <StyledTableCell align="center">paymentMethod</StyledTableCell>
+                                    <StyledTableCell align="center">Action</StyledTableCell>
 
 
 
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                               pendingorders.length > 0 ?( pendingorders.map((data, index) => (
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {
+                                    pendingorders.length > 0 ? (pendingorders.map((data, index) => (
 
-                                
-                                    <StyledTableRow key={index}>
-                                     
-                                        <StyledTableCell>{a++}</StyledTableCell>
 
-                                        <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><button onClick={() => {
-                                            setState(4)
-                                            setPhone(data.number);
-                                            setCompletePendingorders(data)
-                                        }} className="Action-btn">completed </button></StyledTableCell>
-                                    </StyledTableRow>
+                                        <StyledTableRow key={index}>
 
-                                ))
-                               ):(
-   
+                                            <StyledTableCell>{a++}</StyledTableCell>
 
-    <p>No pending orders</p>
-  )
-                            }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                                            <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><button onClick={() => {
+                                                setState(4)
+                                                setPhone(data.number);
+                                                setCompletePendingorders(data)
+                                            }} className="Action-btn">completed </button></StyledTableCell>
+                                        </StyledTableRow>
 
+                                    ))
+                                    ) : (
+
+
+                                        <p>No pending orders</p>
+                                    )
+                                }
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+
+                </div>
             </div>
-</div>
 
 
         )
@@ -1032,83 +1036,83 @@ const PendingOrders = ({ State, setState }) => {
     if (State === 4) {
         return (
             <div style={{ width: "100%" }}>
-            <div className="container-fluid vendor-container">
-                <div>
-                    <Modal
-                        open={open2}
-                        onClose={handleClose2}
-                        aria-labelledby="child-modal-title"
-                        aria-describedby="child-modal-description"
-                    >
-                        <Box sx={{ ...style, width: 400 }}>
+                <div className="container-fluid vendor-container">
+                    <div>
+                        <Modal
+                            open={open2}
+                            onClose={handleClose2}
+                            aria-labelledby="child-modal-title"
+                            aria-describedby="child-modal-description"
+                        >
+                            <Box sx={{ ...style, width: 400 }}>
 
-                            <form onSubmit={VerifiyOTP}>
+                                <form onSubmit={VerifiyOTP}>
 
-                                <div >
-                                    <TextField
-                                        type='text'
-                                        id="outlined-basic"
-                                        label="otp"
-                                        value={OTP}
-                                        variant="outlined"
-                                        autoComplete="off"
-                                        onChange={e => setOTP(e.target.value)}
-                                    /><br /><br />
+                                    <div >
+                                        <TextField
+                                            type='text'
+                                            id="outlined-basic"
+                                            label="otp"
+                                            value={OTP}
+                                            variant="outlined"
+                                            autoComplete="off"
+                                            onChange={e => setOTP(e.target.value)}
+                                        /><br /><br />
 
-                                    <Button type="submit">verifyOtp</Button>
-                                    <Button type="submit" onClick={handleClose2}>cancel</Button>
+                                        <Button type="submit">verifyOtp</Button>
+                                        <Button type="submit" onClick={handleClose2}>cancel</Button>
 
-                                </div>
-
-
-
-                            </form>
+                                    </div>
 
 
-                            {/* <ChildModal /> */}
-                        </Box>
-                    </Modal>
-                </div>
-                <h1>List of Works</h1>
-                <div>
-                    <Multiselect
-                        options={options2} // Options to display in the dropdown
-                        // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
-                        onSelect={onSelect1} // Function will trigger on select event
-                        onRemove={onRemove} // Function will trigger on remove event
-                        displayValue={"Subcategory"} // Property name to display in the dropdown options
-                    // displayValue={"Price"}
-                    />
-                </div>
 
-                <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
-                    <Table className='table-cat' style={{ margin: "0px" }}>
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="center">SN</StyledTableCell>
-                                <StyledTableCell align="center">Work</StyledTableCell>
-                                <StyledTableCell align="center">Price</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {selected.map((data, index) => (
-                                <StyledTableRow key={index}>
-                                    <StyledTableCell align="center">{a++}</StyledTableCell>
+                                </form>
 
-                                    <StyledTableCell align="center"><p>{data.Subcategory}</p></StyledTableCell>
-                                    <StyledTableCell align="center"><p>{data.Price}</p></StyledTableCell>
+
+                                {/* <ChildModal /> */}
+                            </Box>
+                        </Modal>
+                    </div>
+                    <h1>List of Works</h1>
+                    <div>
+                        <Multiselect
+                            options={options2} // Options to display in the dropdown
+                            // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
+                            onSelect={onSelect1} // Function will trigger on select event
+                            onRemove={onRemove} // Function will trigger on remove event
+                            displayValue={"Subcategory"} // Property name to display in the dropdown options
+                        // displayValue={"Price"}
+                        />
+                    </div>
+
+                    <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                        <Table className='table-cat' style={{ margin: "0px" }}>
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="center">SN</StyledTableCell>
+                                    <StyledTableCell align="center">Work</StyledTableCell>
+                                    <StyledTableCell align="center">Price</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {selected.map((data, index) => (
+                                    <StyledTableRow key={index}>
+                                        <StyledTableCell align="center">{a++}</StyledTableCell>
+
+                                        <StyledTableCell align="center"><p>{data.Subcategory}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{data.Price}</p></StyledTableCell>
+                                    </StyledTableRow>
+                                ))
+                                }
+                                <StyledTableRow>
+                                    <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
+                                    <StyledTableCell align="center">{total}<br /><button onClick={() => { completeOtp() }}>confirm</button></StyledTableCell>
                                 </StyledTableRow>
-                            ))
-                            }
-                            <StyledTableRow>
-                                <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
-                                <StyledTableCell align="center">{total}<br /><button onClick={() => {completeOtp()}}>confirm</button></StyledTableCell>
-                            </StyledTableRow>
 
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                {/*                    
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    {/*                    
                                 <MultiSelect
                                  {...options2.map((data)=>(
                                 options={data.Subcategory} ))}
@@ -1118,7 +1122,7 @@ const PendingOrders = ({ State, setState }) => {
                                
                             /> */}
 
-            </div>
+                </div>
             </div>
         )
     }
@@ -1133,7 +1137,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     const [completed_order, setCompleted_order] = useState([])
     const [completedbill, setCompletedbill] = useState([])
 
-    
+
     // const workListsData = completedbill.map((data) => (
     //      data.workLists.map((data)=>{
     //         subCategory = data.subCategory,
@@ -1158,26 +1162,26 @@ const UserOrders = ({ State, Loader, setLoader }) => {
             .then((res) => {
                 console.log(res.data);
                 setCompletedbill([res.data])
-            
+
                 setSubcategory(res.data.workLists)
-                
+
             })
-            .then(()=>{
-                    setOpen4(false)
-                
+            .then(() => {
+                setOpen4(false)
+
             })
-            
+
         console.log(open4);
     }
-const Razorpay = useRazorpay()
-const Total = completedbill.map((data)=>data.total)
-    function pay(data){
+    const Razorpay = useRazorpay()
+    const Total = completedbill.map((data) => data.total)
+    function pay(data) {
 
         var amount = parseInt(Total);
-    
+
         var options = {
-            key:"rzp_test_1SnQnLm783h5Op",
-            key_secret:"W3x1XiUXiyqIKQJrSBqaXGmE",
+            key: "rzp_test_1SnQnLm783h5Op",
+            key_secret: "W3x1XiUXiyqIKQJrSBqaXGmE",
             "amount": amount * 100, // Example: 2000 paise = INR 20
             "name": "MERCHANT name",
             "description": "description",
@@ -1201,28 +1205,29 @@ const Total = completedbill.map((data)=>data.total)
         };
         console.log(options);
         console.log((data._id));
-        var propay = new Razorpay (options);
+        var propay = new Razorpay(options);
         propay.open()
         // .then(()=>{
-         function completePayment(){   
+        function completePayment() {
             axios.patch(`http://localhost:3001/booking_api/edit_Completed_orders/${data._id}`, {
-                    vendor_email: data.vendor_email,
-                    vendor_name: data.vendor_name,
-                    user_email: data.user_email,
-                    address: data.address,
-                    street: data.street,
-                    city: data.city,
-                    zip: data.zip,
-                    person: data.person,
-                    number: data.number,
-                    Service: data.Service,
-                    Category: data.Category,
-                    price: data.price,
-                    paymentMethod: 'Payment Completed',
-                    workLists: data.workLists,
-                    total:data.total
+                vendor_email: data.vendor_email,
+                vendor_name: data.vendor_name,
+                user_email: data.user_email,
+                address: data.address,
+                street: data.street,
+                city: data.city,
+                zip: data.zip,
+                person: data.person,
+                number: data.number,
+                Service: data.Service,
+                Category: data.Category,
+                price: data.price,
+                paymentMethod: 'Payment Completed',
+                workLists: data.workLists,
+                total: data.total
 
-                })}
+            })
+        }
         // })
     }
 
@@ -1275,7 +1280,7 @@ const Total = completedbill.map((data)=>data.total)
 
     }, [useremail])
 
-const[subCategory,setSubcategory]=useState([])
+    const [subCategory, setSubcategory] = useState([])
 
 
 
@@ -1329,126 +1334,29 @@ const[subCategory,setSubcategory]=useState([])
         return (
             <div style={{ width: "100%" }}>
 
-            <div className="container-fluid">
-                <h1>Pending Orders</h1>
-                <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
-                    <TableHead>
-                        <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
-                            {/* <TableCell>Service</TableCell> */}
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Accepted By</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
+                <div className="container-fluid">
+                    <h1>Pending Orders</h1>
+                    <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
+                        <TableHead>
+                            <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
+                                {/* <TableCell>Service</TableCell> */}
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Accepted By</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
 
 
 
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            pending_order.map((data, index) => (
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                pending_order.map((data, index) => (
 
 
-                                <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                    <TableCell>{a++}</TableCell>
-
-                                    {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                    <TableCell><p>{data.Category}</p> </TableCell>
-                                    <TableCell><p>{data.vendor_name}</p> </TableCell>
-                                    <TableCell><p>{data.price}</p></TableCell>
-                                    <TableCell><p>{data.address}</p></TableCell>
-                                    <TableCell><p>{data.number}</p></TableCell>
-                                    <TableCell><p>{data.paymentMethod}</p></TableCell>
-                                </TableRow>
-
-
-                            ))
-                        }
-                    </TableBody>
-                </Table>
-            </div>
-            </div>
-
-        )
-    }
-
-    else if (State === 2) {
-        return (
-            <div style={{ width: "100%" }}>
-
-            <div className="container-fluid">
-                <h1>My Orders</h1>
-                <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
-                    <TableHead>
-                        <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
-                            {/* <TableCell>Service</TableCell> */}
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
-
-
-
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            orderdetails.map((data, index) => (
-
-
-                                <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                    <TableCell>{a++}</TableCell>
-
-                                    {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                    <TableCell><p>{data.Category}</p> </TableCell>
-                                    <TableCell><p>{data.price}</p></TableCell>
-                                    <TableCell><p>{data.address}</p></TableCell>
-                                    <TableCell><p>{data.number}</p></TableCell>
-                                    <TableCell><p>{data.paymentMethod}</p></TableCell>
-                                </TableRow>
-
-
-                            ))
-                        }
-                    </TableBody>
-                </Table>
-
-            </div>
-</div>
-        )
-    }
-
-    else if (State === 4) {
-        return (
-            <div style={{ width: "100%" }}>
-            <div className="container-fluid">
-                <h1>Completed Orders</h1>
-                <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
-                    <TableHead>
-                        <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
-                            {/* <TableCell>Service</TableCell> */}
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Completed By</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
-                            <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
-
-
-
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            completed_order.map((data, index) => {
-
-                                return (
                                     <TableRow key={index} style={{ backgroundColor: "white" }}>
                                         <TableCell>{a++}</TableCell>
 
@@ -1460,16 +1368,113 @@ const[subCategory,setSubcategory]=useState([])
                                         <TableCell><p>{data.number}</p></TableCell>
                                         <TableCell><p>{data.paymentMethod}</p></TableCell>
                                     </TableRow>
-                                )
 
 
-
-                            })
-                        }
-                    </TableBody>
-                </Table>
-
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </div>
             </div>
+
+        )
+    }
+
+    else if (State === 2) {
+        return (
+            <div style={{ width: "100%" }}>
+
+                <div className="container-fluid">
+                    <h1>My Orders</h1>
+                    <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
+                        <TableHead>
+                            <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
+                                {/* <TableCell>Service</TableCell> */}
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
+
+
+
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                orderdetails.map((data, index) => (
+
+
+                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                        <TableCell>{a++}</TableCell>
+
+                                        {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                        <TableCell><p>{data.Category}</p> </TableCell>
+                                        <TableCell><p>{data.price}</p></TableCell>
+                                        <TableCell><p>{data.address}</p></TableCell>
+                                        <TableCell><p>{data.number}</p></TableCell>
+                                        <TableCell><p>{data.paymentMethod}</p></TableCell>
+                                    </TableRow>
+
+
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+
+                </div>
+            </div>
+        )
+    }
+
+    else if (State === 4) {
+        return (
+            <div style={{ width: "100%" }}>
+                <div className="container-fluid">
+                    <h1>Completed Orders</h1>
+                    <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
+                        <TableHead>
+                            <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
+                                {/* <TableCell>Service</TableCell> */}
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Completed By</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>paymentMethod</TableCell>
+
+
+
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                completed_order.map((data, index) => {
+
+                                    return (
+                                        <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                            <TableCell>{a++}</TableCell>
+
+                                            {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                            <TableCell><p>{data.Category}</p> </TableCell>
+                                            <TableCell><p>{data.vendor_name}</p> </TableCell>
+                                            <TableCell><p>{data.price}</p></TableCell>
+                                            <TableCell><p>{data.address}</p></TableCell>
+                                            <TableCell><p>{data.number}</p></TableCell>
+                                            <TableCell><p>{data.paymentMethod}</p></TableCell>
+                                        </TableRow>
+                                    )
+
+
+
+                                })
+                            }
+                        </TableBody>
+                    </Table>
+
+                </div>
             </div>
 
         )
@@ -1503,18 +1508,18 @@ const[subCategory,setSubcategory]=useState([])
                             {
                                 completed_order.map((data, index) => (
 
-                                        <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                            <TableCell>{a++}</TableCell>
+                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                        <TableCell>{a++}</TableCell>
 
-                                            {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                            <TableCell><p>{data.Category}</p> </TableCell>
-                                            {/* <TableCell><p>{data.price}</p></TableCell> */}
-                                            <TableCell><p>{data.address}</p></TableCell>
-                                            <TableCell><p>{data.number}</p></TableCell>
-                                            <TableCell><p>{data.vendor_name}</p></TableCell>
-                                            <TableCell style={{ textAlign: "center" }}><button onClick={()=>handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
-                                        </TableRow>
-                                    
+                                        {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                        <TableCell><p>{data.Category}</p> </TableCell>
+                                        {/* <TableCell><p>{data.price}</p></TableCell> */}
+                                        <TableCell><p>{data.address}</p></TableCell>
+                                        <TableCell><p>{data.number}</p></TableCell>
+                                        <TableCell><p>{data.vendor_name}</p></TableCell>
+                                        <TableCell style={{ textAlign: "center" }}><button onClick={() => handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
+                                    </TableRow>
+
 
 
 
@@ -1530,55 +1535,55 @@ const[subCategory,setSubcategory]=useState([])
                 <div className="Bill-modal" hidden={open4}>
                     <h2 className="Bills-heading">Your bill</h2>
                     <div className="Bill-sec2">
-                    <div style={{height:"15rem",overflow:'scroll',width:'100%'}}>
+                        <div style={{ height: "15rem", overflow: 'scroll', width: '100%' }}>
 
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell style={{ backgroundColor:'White',textAlign: "center", fontWeight: '600',border:'none' }}>Work Done</TableCell>
-                                    <TableCell style={{ backgroundColor:'White',textAlign: "center", fontWeight: '600',border:'none' }}>Charges</TableCell>
-                                </TableRow>
-                            </TableHead>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell style={{ backgroundColor: 'White', textAlign: "center", fontWeight: '600', border: 'none' }}>Work Done</TableCell>
+                                        <TableCell style={{ backgroundColor: 'White', textAlign: "center", fontWeight: '600', border: 'none' }}>Charges</TableCell>
+                                    </TableRow>
+                                </TableHead>
 
-                            <TableBody style={{width:'100%'}}>
+                                <TableBody style={{ width: '100%' }}>
 
-                            {
-                            completedbill.map((data) => (
-                                data.workLists.map((Sub,secondindex)=>(
-                                    //console.log(Sub.subCategory)
+                                    {
+                                        completedbill.map((data) => (
+                                            data.workLists.map((Sub, secondindex) => (
+                                                //console.log(Sub.subCategory)
 
-                                        <TableRow key={secondindex} >
-                                            <TableCell style={{ backgroundColor: "white",border:'none' }}><p>{Sub.subCategory}</p></TableCell>
-                                            <TableCell style={{ backgroundColor: "white",border:'none',textAlign:'center' }}><p>{Sub.price}</p></TableCell>
-                                        </TableRow>
-                                ))
-                            ))
-                            }
+                                                <TableRow key={secondindex} >
+                                                    <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{Sub.subCategory}</p></TableCell>
+                                                    <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{Sub.price}</p></TableCell>
+                                                </TableRow>
+                                            ))
+                                        ))
+                                    }
 
-                            <TableRow>
-                                <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center',border:'none' }}><p style={{ margin: '0px',fontWeight:'600',color:'white' }}>Total</p></TableCell>
-                                {
-                                    completedbill.map((data,index)=>(
-                                        <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{margin:'0px',textAlign:'center'}}>{data.total}</p></TableCell>
-                                    )
-                                    )
-                                }
-                            </TableRow>
-                            
-                            </TableBody>
+                                    <TableRow>
+                                        <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
+                                        {
+                                            completedbill.map((data, index) => (
+                                                <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{data.total}</p></TableCell>
+                                            )
+                                            )
+                                        }
+                                    </TableRow>
 
-                        </Table>
+                                </TableBody>
+
+                            </Table>
                         </div>
 
                     </div>
                     <div style={{ display: "flex", gap: "5px" }}>
                         {
-                            completedbill.map((data,index)=>(
-                                <button hidden={data.paymentMethod==="onlinePayment"?false:true} onClick={()=>pay(data)} className="Bill-btn1">Pay</button>
+                            completedbill.map((data, index) => (
+                                <button hidden={data.paymentMethod === "onlinePayment" ? false : true} onClick={() => pay(data)} className="Bill-btn1">Pay</button>
                             ))
 
                         }
-                        <button  className="Bill-btn2" onClick={handleClose4}>Cancel</button>
+                        <button className="Bill-btn2" onClick={handleClose4}>Cancel</button>
                     </div>
 
                 </div>
