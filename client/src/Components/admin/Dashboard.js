@@ -26,7 +26,7 @@ function DashBoard({open,close,formNumber}){
             //     name:"SOOLYA",
             //     description:"Payment here",
             //     handler:function(res){
-            //         console.log(res);
+            //         ////console.log(res);
             //         alert(res.razorpay_payment_id);
             //     },
             //     prefill:{
@@ -60,7 +60,7 @@ function DashBoard({open,close,formNumber}){
         const target = parseInt(+counter.getAttribute("data-target"));
         const count = parseInt(+counter.innerText);
         const increment = Math.trunc(target / speed);
-        console.log(increment);
+        //console.log(increment);
     
         if (count < target) {
           counter.innerText = count + increment;

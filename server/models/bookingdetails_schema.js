@@ -41,6 +41,9 @@ const pendingOderSchema = new mongoose.Schema({
     vendor_email: {
         type: String
     },
+    vendor_name:{
+        type: String
+    },
     user_email: {
         type: String
     },
@@ -79,6 +82,9 @@ const pendingOderSchema = new mongoose.Schema({
 
 const CompletedOderSchema = new mongoose.Schema({
     vendor_email: {
+        type: String
+    },
+    vendor_name:{
         type: String
     },
     user_email: {

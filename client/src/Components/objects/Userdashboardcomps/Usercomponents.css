@@ -5,6 +5,15 @@
     justify-content: left;
 }
 
+.Earnings{
+    display: flex;
+    height: -moz-fit-content;
+    height: fit-content;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 8%;
+}
+
 .User-sec1Data{
     display: flex;
     gap: 10px;
@@ -198,6 +207,7 @@
     border-radius: 10px;
     box-shadow: 0 0 10px;
     animation: dropdown 1s ease-in-out;
+    z-index: 3;
 }
 
 @keyframes dropdown {
@@ -216,6 +226,11 @@
     background-color: rgb(5, 199, 5);
     color: white;
     font-weight: 600;
+}
+.Welcome-block{
+    display: block;
+    z-index: 6;
+    padding: 10px;
 }
 
 .Bill-btn2{

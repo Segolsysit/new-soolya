@@ -39,7 +39,7 @@ VendorAuthRoute.get('/',  (req, res) => {
 VendorAuthRoute.post("/register", async (req, res, next) => {
 
   try {
-  const {Username , Email, Password } = req.body;
+  const {Username , Email, Password,Phonenumber } = req.body;
 
   const hashedPassword = await bcrypt.hash(Password, 10);
   const isEmail = await VendorAuth.findOne({Email});
@@ -50,7 +50,8 @@ VendorAuthRoute.post("/register", async (req, res, next) => {
     const user = await VendorAuth.create({
       Username,
       Email,
-      Password: hashedPassword
+      Password: hashedPassword,
+      Phonenumber
     })
     user.save()
     res.json({ status: "success", message: "signup successfull" });
@@ -104,6 +105,18 @@ VendorAuthRoute.get("/fetch_vendor/:id",async(req,res) => {
     const getbyid = await VendorAuth.findById(req.params.id)
     res.json(getbyid)
   })
+
+  // VendorAuthRoute.get("/fetch_vendor_bynum/:Phonenumber",async(req,res) => {
+  //   const Phonenumber=parseInt(req.params.Phonenumber)
+  //   const getbyNum = await VendorAuth.find({"Phonenumber":Phonenumber})
+  //   res.json(getbyNum)
+  // })
+
+  VendorAuthRoute.get("/fetch_vendor/search",async(req,res) => {
+    const getbyid = await VendorAuth.find()
+    res.json(getbyid)
+  })
+  
 
   VendorAuthRoute.delete("/delete_item/:id",async(req,res)=>{
     await VendorAuth.findByIdAndDelete(req.params.id)

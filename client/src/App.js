@@ -13,8 +13,7 @@ import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
 // import Servicemanlist from './Components/admin/Servicemanlist';
 import { UserDashboard,VendorDashboard,AboutUs } from './Components/objects/objects';
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+
 import Contact from './Components/objects/contactpage/contact';
 
 

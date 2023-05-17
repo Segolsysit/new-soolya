@@ -29,6 +29,7 @@ bookingdetails_router.post("/pending_orders/:id", async (req, res) => {
     
     const deatails = new pendingOrders_Model({
         vendor_email:req.body.vendor_email,
+        vendor_name:req.body.vendor_name,
         user_email:req.body.user_email,
         address: req.body.address,
         street: req.body.street,
@@ -53,6 +54,7 @@ bookingdetails_router.post("/Completed_orders/:id", async (req, res) => {
     const{workLists,total} = req.body;
     const deatails = new CompletedOder_Model({
         vendor_email:req.body.vendor_email,
+        vendor_name:req.body.vendor_name,
         user_email:req.body.user_email,
         address: req.body.address,
         street: req.body.street,
@@ -76,6 +78,7 @@ bookingdetails_router.patch("/edit_Completed_orders/:id", async (req, res) => {
     const{workLists,total} = req.body;
     const deatails = await CompletedOder_Model.findByIdAndUpdate(req.params.id)
     deatails.vendor_email=req.body.vendor_email,
+    deatails.vendor_name=req.body.vendor_name,
     deatails.user_email=req.body.user_email,
     deatails.address= req.body.address,
     deatails.street= req.body.street,
@@ -123,7 +126,7 @@ bookingdetails_router.get("/booking_data",async(req,res)=>{
 })
 
 // bookingdetails_router.get("/booking_data/:id",async(req,res)=>{
-//     const booking_data = await bookingdetails_schema.find(req.params.id)
+//     const booking_data = await bookingdetails_Model.findById(req.params.id)
 //     res.json(booking_data)
 // })
 

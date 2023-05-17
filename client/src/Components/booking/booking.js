@@ -19,7 +19,10 @@ const BookingPage = () => {
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
 
+    const selectedNumber = localStorage.getItem("NumberOfService")
 
+    const Price = selectedNumber*booking_service.Price
+    // console.log(Price);
 
     useEffect(() => {
         orders()
@@ -27,7 +30,7 @@ const BookingPage = () => {
     }, [])
 
     const orders = () => {
-        console.log(userId);
+        // console.log(userId);
         axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
             .then((res) => {
                 console.log(res.data);
@@ -79,7 +82,7 @@ const BookingPage = () => {
             number,
             // Service:booking_service.Service,
             Category: booking_service.Subcategory,
-            price: booking_service.Price,
+            price:Price,
             paymentMethod: localStorage.getItem("paymentType")
         }
         ).then(() => {
@@ -93,7 +96,7 @@ const BookingPage = () => {
                 number,
                 // Service:booking_service.Service,
                 Category: booking_service.Subcategory,
-                price: booking_service.Price,
+                price: Price,
                 paymentMethod: localStorage.getItem("paymentType")
             })
         })

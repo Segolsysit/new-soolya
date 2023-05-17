@@ -2,10 +2,10 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Admin.css"
-import { CategoryForm, Rejected_list, Orders, SubCategory } from './Categoryform';
+import { CategoryForm, RejectedList, Orders, SubCategory } from './Categoryform';
 import DashBoard from './Dashboard';
 import RecivedApplication from './RecivedApplications';
-import { Add_new_service, ServiceList } from './Servicelist';
+import { AddNewService, ServiceList } from './Servicelist';
 
 export const Admin = () => {
     const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
@@ -17,7 +17,7 @@ export const Admin = () => {
 
 
     const [state, setState] = useState(false)
-    const [Formnum, setFormnum] = useState(0)
+    const [FormNum, setFormnum] = useState(0)
     const [not, setnot] = useState(0)
     
     const [Visible,setVisible]=useState(false)
@@ -122,10 +122,10 @@ export const Admin = () => {
 
                             {/* <!-- Nav Item - Dashboard --> */}
                             <li className="nav-item active  " onClick={() => {
-                                {
+                                
                                     setState(true)
                                     setFormnum(3)
-                                }
+                                
                             }}>
                                 <div className="nav-link">
                                     <i className="fas fa-fw fa-tachometer-alt"></i>
@@ -249,41 +249,7 @@ export const Admin = () => {
                                     </div>
                                 </div>
                             </li>
-                            <li className="nav-item">
-                                <div className="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapsePages"
-                                    aria-expanded="true" aria-controls="collapsePages">
-                                    <i className="fas fa-fw fa-folder"></i>
-                                    <span>Pages</span>
-                                </div>
-                                <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-bs-parent="#accordionSidebar">
-                                    <div className="bg-white py-2 collapse-inner rounded">
-                                        <h6 className="collapse-header">Login Screens:</h6>
-                                        <a className="collapse-item" href="/login.js">Login</a>
-                                        <a className="collapse-item" href="register.js">Register</a>
-                                        <a className="collapse-item" href="forgot-password.js">Forgot Password</a>
-                                        <div className="collapse-divider"></div>
-                                        <h6 className="collapse-header">Other Pages:</h6>
-                                        <a className="collapse-item" href="err404.js">404 Page</a>
-                                        <a className="collapse-item" href="blank.js">Blank Page</a>
-                                    </div>
-                                </div>
-                            </li>
-
-                            {/* <!-- Nav Item - Charts --> */}
-                            <li className="nav-item">
-                                <a className="nav-link" href="/feedbacks">
-                                    <i className="fas fa-fw fa-chart-area"></i>
-                                    <span>FeedBacks</span></a>
-                            </li>
-
-                            {/* <!-- Nav Item - Tables --> */}
-                            <li className="nav-item">
-                                <a className="nav-link" href="tables.html">
-                                    <i className="fas fa-fw fa-table"></i>
-                                    <span>Tables</span></a>
-                            </li>
-
-                            {/* <!-- Divider --> */}
+                           
                             <hr className="sidebar-divider d-none d-md-block" />
 
                             {/* <!-- Sidebar Toggler (Sidebar) --> */}
@@ -334,13 +300,14 @@ export const Admin = () => {
 
                                         {/* <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}
                                         <li className="nav-item dropdown no-arrow d-sm-none">
-                                            <a className="nav-link dropdown-toggle" href="/" id="searchDropdown" role="button"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <a className="nav-link dropdown-toggle" id="searchDropdown" role="button"
+                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i className="fas fa-search fa-fw"></i>
                                             </a>
                                             {/* <!-- Dropdown - Messages --> */}
-                                            <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                            <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                                 aria-labelledby="searchDropdown">
+                                                    <div className="dropdown-item">
                                                 <form className="form-inline mr-auto w-100 navbar-search">
                                                     <div className="input-group">
                                                         <input type="text" className="form-control bg-light border-0 small"
@@ -353,19 +320,20 @@ export const Admin = () => {
                                                         </div>
                                                     </div>
                                                 </form>
+                                                </div>
                                             </div>
                                         </li>
 
                                         {/* <!-- Nav Item - Alerts --> */}
-                                        <li className="nav-item dropdown no-arrow mx-1">
+                                        {/* <li className="nav-item dropdown no-arrow mx-1">
                                             <a className="nav-link dropdown-toggle" href="/" id="alertsDropdown" role="button"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i className="fas fa-bell fa-fw"></i>
                                                 {/* <!-- Counter - Alerts --> */}
-                                                <span className="badge badge-danger badge-counter">3+</span>
-                                            </a>
+                                                {/* <span className="badge badge-danger badge-counter">3+</span>
+                                            </a> */}
                                             {/* <!-- Dropdown - Alerts --> */}
-                                            <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                            {/* <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                                 aria-labelledby="alertsDropdown">
                                                 <h6 className="dropdown-header">
                                                     Alerts Center
@@ -405,18 +373,18 @@ export const Admin = () => {
                                                 </a>
                                                 <a className="dropdown-item text-center small text-gray-500" href="/">Show All Alerts</a>
                                             </div>
-                                        </li>
+                                        </li> */}
 
                                         {/* <!-- Nav Item - Messages --> */}
-                                        <li className="nav-item dropdown no-arrow mx-1">
+                                        {/* <li className="nav-item dropdown no-arrow mx-1">
                                             <a className="nav-link dropdown-toggle" href="/" id="messagesDropdown" role="button"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i className="fas fa-envelope fa-fw"></i>
+                                                <i className="fas fa-envelope fa-fw"></i> */}
                                                 {/* <!-- Counter - Messages --> */}
-                                                <span className="badge badge-danger badge-counter">7</span>
-                                            </a>
+                                                {/* <span className="badge badge-danger badge-counter">7</span>
+                                            </a> */} 
                                             {/* <!-- Dropdown - Messages --> */}
-                                            <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                            {/* <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                                 aria-labelledby="messagesDropdown">
                                                 <h6 className="dropdown-header">
                                                     Message Center
@@ -471,7 +439,7 @@ export const Admin = () => {
                                                 </a>
                                                 <a className="dropdown-item text-center small text-gray-500" href="/">Read More Messages</a>
                                             </div>
-                                        </li>
+                                        </li> */}
 
                                         <div className="topbar-divider d-none d-sm-block"></div>
 
@@ -512,14 +480,14 @@ export const Admin = () => {
                                 </nav>
                                 {/* <!-- End of Topbar --> */}
 
-                                <CategoryForm open={state} close={setState} FormNumber={Formnum} setNumber={setFormnum} />
-                                <DashBoard open={state} close={setState} formNumber={Formnum} />
-                                <Rejected_list formNumber={Formnum} />
-                                <Orders formNumber={Formnum} />
-                                <ServiceList formNumber={Formnum} />
-                                <Add_new_service formNumber={Formnum} />
-                                <RecivedApplication formNumber={Formnum} />
-                                <SubCategory formNumber={Formnum} />
+                                <CategoryForm open={state} close={setState} FormNumber={FormNum} setNumber={setFormnum} />
+                                <DashBoard open={state} close={setState} formNumber={FormNum} />
+                                <RejectedList formNumber={FormNum} />
+                                <Orders formNumber={FormNum} />
+                                <ServiceList formNumber={FormNum} />
+                                <AddNewService formNumber={FormNum} />
+                                <RecivedApplication formNumber={FormNum} />
+                                <SubCategory formNumber={FormNum} />
 
                             </div>
                             {/* <!-- End of Main Content --> */}
