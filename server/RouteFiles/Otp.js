@@ -110,8 +110,9 @@ OtpRoute.post('/sendotp', async (req, res) => {
 
 OtpRoute.post('/verifyotp', async (req, res) => {
   const { phoneNumber, otp } = req.body;
-  
+  const formattedPhoneNumber = phoneNumber.toString().replace(/\D/g, '').slice(-10);
   try {
+    const expiryTime = new Date(Date.now() + 5 * 60 * 1000);
 
     let data = await otpModel.findOne({ phoneNumber });
     if (!data || data.expiresAt < new Date()) {
