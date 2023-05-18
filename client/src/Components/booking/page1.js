@@ -44,14 +44,14 @@ const Page1 = ({ Page, setPage }) => {
     const [selectedNumber, setSelectedNumber] = useState(1);
     const numberOptions = [];
     for (let i = 1; i <= maxNumber; i++) {
-      numberOptions.push(<option key={i} value={i}>{i}</option>);
+        numberOptions.push(<option key={i} value={i}>{i}</option>);
     }
     const handleNumberChange = (event) => {
         const selectedNumber = parseInt(event.target.value);
         console.log(selectedNumber);
         setSelectedNumber(selectedNumber);
-       
-      };
+
+    };
 
     const SubmitForm = (e) => {
         e.preventDefault()
@@ -155,60 +155,70 @@ const Page1 = ({ Page, setPage }) => {
 
     }
 
-    
+
     return (
         <div className="Form-outerdiv">
             <div className="Form1">
                 <h1 className="Form1-heading">Billing Address</h1>
                 <div className="Form1-textdiv">
                     <label className="Form1-subheading">Service Address</label>
-                    <input className="Form1-textbox" onChange={(e) => {setAddress(e.target.value)
-                            setErrAddress("")
-                            setErr1(true)}} defaultValue={defaultAddress} />
+                    <input className="Form1-textbox" onChange={(e) => {
+                        setAddress(e.target.value)
+                        setErrAddress("")
+                        setErr1(true)
+                    }} defaultValue={defaultAddress} />
                     <p style={{ color: "red" }}><i class="fa-solid fa-circle-exclamation" hidden={Err1} />{ErrAddress}</p>
                 </div>
                 <div className="Form1-textdiv">
                     <label className="Form1-subheading" >Street</label>
-                    <input className="Form1-textbox" defaultValue={Street} onChange={(e) => {setStreet(e.target.value)
-                            setErrStreet("")
-                            setErr2(true)
-                        }} />
+                    <input className="Form1-textbox" defaultValue={Street} onChange={(e) => {
+                        setStreet(e.target.value)
+                        setErrStreet("")
+                        setErr2(true)
+                    }} />
                     <p style={{ color: "red" }}><i class="fa-solid fa-circle-exclamation" hidden={err2} />{ErrStreet}</p>
                 </div>
                 <div className="Form1-textdiv">
                     <label className="Form1-subheading">City</label>
-                    <input className="Form1-textbox" defaultValue={city} onChange={(e) => {setCity(e.target.value)
-                    setErrCity("")
-                    setErr3(true)}} />
+                    <input className="Form1-textbox" defaultValue={city} onChange={(e) => {
+                        setCity(e.target.value)
+                        setErrCity("")
+                        setErr3(true)
+                    }} />
                     <p style={{ color: "red" }}><i class="fa-solid fa-circle-exclamation" hidden={err3} />{ErrCity}</p>
                 </div>
                 <div className="Form1-textdiv">
                     <label className="Form1-subheading">Postal Code</label>
-                    <input className="Form1-textbox" type='number' defaultValue={Post} onChange={(e) => {setPost(e.target.value)
-                    setErrPost("")
-                    setErr4(true)}} />
+                    <input className="Form1-textbox" type='number' defaultValue={Post} onChange={(e) => {
+                        setPost(e.target.value)
+                        setErrPost("")
+                        setErr4(true)
+                    }} />
                     <p style={{ color: "red" }}><i class="fa-solid fa-circle-exclamation" hidden={err4} />{ErrPost}</p>
                 </div>
                 <div className="Form1-textdiv">
                     <label className="Form1-subheading">Contact Person</label>
-                    <input className="Form1-textbox " defaultValue={defaultName} onChange={(e) => {setName(e.target.value)
-                    setErrName("")
-                    setErr5(true)}} />
+                    <input className="Form1-textbox " defaultValue={defaultName} onChange={(e) => {
+                        setName(e.target.value)
+                        setErrName("")
+                        setErr5(true)
+                    }} />
                     <p style={{ color: "red" }}><i class="fa-solid fa-circle-exclamation" hidden={err5} />{ErrName}</p>
                 </div>
                 <div className="Form1-textdiv">
                     <label className="Form1-subheading">Phone Number</label>
-                    <input type='number' className="Form1-textbox" defaultValue={defaultPhone} onChange={(e) => {setPhone(e.target.value)
-                            setErrPhone("")
-                            setErr6(true)
-                        }} />
+                    <input type='number' className="Form1-textbox" defaultValue={defaultPhone} onChange={(e) => {
+                        setPhone(e.target.value)
+                        setErrPhone("")
+                        setErr6(true)
+                    }} />
                     <p style={{ color: "red" }}><i class="fa-solid fa-circle-exclamation" hidden={err6} />{ErrPhone}</p>
                 </div>
                 <div className="Form1-textdiv">
-                <label className="Form1-subheading">numberOfServices</label>
-                <select className="Form1-textbox" value={selectedNumber} onChange={handleNumberChange}>
-                    {numberOptions}
-                </select>
+                    <label className="Form1-subheading">numberOfServices</label>
+                    <select className="Form1-textbox" value={selectedNumber} onChange={handleNumberChange}>
+                        {numberOptions}
+                    </select>
                 </div>
 
             </div>
@@ -219,148 +229,173 @@ const Page1 = ({ Page, setPage }) => {
 
 
 const Page2 = () => {
-    const [Data,setData]=useState([])
-    const id=localStorage.getItem("order_id")
+    const [Data, setData] = useState([])
+    const id = localStorage.getItem("order_id")
 
-    function get(){
+    function get() {
         axios.get(`http://localhost:3001/sub_api/Book_new_fetch_items/${id}`)
-        .then((data)=>setData(data.data))
+            .then((data) => setData(data.data))
     }
-    useEffect(()=>{
-         get()
-        // console.log(Data);
-    // console.log(da;
-    },[])
-    
+    useEffect(() => {
+        get()
+        // console.log(da;
+    }, [])
+    console.log(Data);
+
+
     const Name = localStorage.getItem("Name")
     const Number = localStorage.getItem("Phone")
     const Address = localStorage.getItem("Address")
     const selectedNumber = localStorage.getItem("NumberOfService")
 
-    const Price = selectedNumber*Data.Price
+    const Price = selectedNumber * Data.Price
     console.log(Price);
 
-    
+
     // console.log(Data.Desc);
-        return (
-            <div className="Form-outerdiv">
-                <div className="Form2">
-                    
-                    <h2 className="Form2-heading">Billing Summary</h2>
-                    <div className="Form2-contactdiv">
-                            <div className="Purchase-data">
-                                <p className="Bill-data">Item:<p style={{color:"grey",fontWeight:"400",margin:"0px"}}>{Data.Subcategory}</p></p>
-                                <p className="Bill-data">Price:<p style={{color:"grey",fontWeight:"400",margin:"0px"}}>${Price}</p></p>
-                                </div>
-                        <ul className="Form2-ul">
-                            <li className="Form2-li"><i class="fa-solid fa-user"></i><p>{Name}</p></li>
-                            <li className="Form2-li"><i class="fa-solid fa-phone"></i><p>{Number}</p></li>
-                            <li className="Form2-li"><i class="fa-solid fa-location-dot"></i><p>{Address}</p></li>
-                        </ul>
+    return (
+        <div className="Bill-div" style={{ width: '100%' }}>
+            <div className="Bill-sec1">
+                <div style={{display:'flex',flexDirection:'row',gap:'15px', padding:'5px', textAlign: 'left', width: '100%' }}>
+                    <div style={{ display: 'flex', flexDirection:'column' }}>
+                        <h1 className="Bill-Name">Name:</h1>
+                        <h1 className="Bill-Name">Address:</h1>
+                        <h1 className="Bill-Name">Phone:</h1>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection:'column' }}>
+                        
+                        <h1 className="Bill-Name" style={{color:'grey'}}>{Name}</h1>
+                        <p className="Billp-tag">{Address}</p>
+                        <p className="Billp-tag">{Number}</p>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        
+
+                        
                     </div>
                 </div>
             </div>
-        )
-    }
+            <div className="Table-div">
+                <table className="Table-body">
+                    <tbody >
 
-    
+                        <tr>
+                            <td className="Billtable-Desc">Service</td>
+                            <td className="Billtable-Content">{Data.Category}</td>
+                        </tr>
+                        <tr>
+                            <td className="Billtable-Desc">Qty</td>
+                            <td className="Billtable-Content">{selectedNumber}</td>
+                        </tr>
+                        <tr>
+                            <td className="Billtable-Desc">Total</td>
+                            <td className="Billtable-Content">₹{Price}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    )
+}
+
+
 
 
 
 const Page3 = ({ Page, setPage }) => {
     const [selectedOption, setSelectedOption] = useState("");
-  const [bookingdata, setbookingdata] = useState({})
+    const [bookingdata, setbookingdata] = useState({})
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
+    const handleOptionChange = (event) => {
+        setSelectedOption(event.target.value);
+    };
 
-  const [Data,setData]=useState([])
-  const Orderid=localStorage.getItem("order_id")
+    const [Data, setData] = useState([])
+    const Orderid = localStorage.getItem("order_id")
 
-  function get(){
-    axios.get(`http://localhost:3001/sub_api/Book_new_fetch_items/${Orderid}`)
-    .then((data)=>setData(data.data))
-  }
-  useEffect(()=>{
-       get()
-      // console.log(Data);
-  // console.log(da;
-  },[])
-  
-  const Name = localStorage.getItem("Name")
-  const Number = localStorage.getItem("Phone")
-  const NumberOfService = localStorage.getItem("NumberOfService")
-
-  
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    if(selectedOption === "cashOnDelivery"){
-      localStorage.setItem("paymentType",selectedOption)
+    function get() {
+        axios.get(`http://localhost:3001/sub_api/Book_new_fetch_items/${Orderid}`)
+            .then((data) => setData(data.data))
     }
-    else{
-      localStorage.setItem("paymentType",selectedOption);
-    }
-    console.log(selectedOption);
-    // handle payment based on selected option
-    return setPage((currentpage) => currentpage + 1)
-  };
-  const id = localStorage.getItem("service_id")
+    useEffect(() => {
+        get()
+        // console.log(Data);
+        // console.log(da;
+    }, [])
+
+    const Name = localStorage.getItem("Name")
+    const Number = localStorage.getItem("Phone")
+    const NumberOfService = localStorage.getItem("NumberOfService")
+
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        if (selectedOption === "cashOnDelivery") {
+            localStorage.setItem("paymentType", selectedOption)
+        }
+        else {
+            localStorage.setItem("paymentType", selectedOption);
+        }
+        console.log(selectedOption);
+        // handle payment based on selected option
+        return setPage((currentpage) => currentpage + 1)
+    };
+    const id = localStorage.getItem("service_id")
     return (
         <Card className="Card-form3">
-        <Card.Header className=".Form3-heading">
-          <h4>Payment Options</h4>
-        </Card.Header>
-        <Card.Body className="Form3-outerbody">
-       <p>Amount Payable: ₹ {Data.Price*NumberOfService}</p>
-          <Form onSubmit={handleSubmit} className="Form3-body">
-            <Form.Check
-              type="radio"
-              id="cashOnDelivery"
-              label="Cash on Delivery"
-              value="cashOnDelivery"
-              checked={selectedOption === "cashOnDelivery"}
-              onChange={handleOptionChange}
-            />
-            <Form.Check
-              type="radio"
-              id="onlinePayment"
-              label="Online Payment"
-              value="onlinePayment"
-              checked={selectedOption === "onlinePayment"}
-              onChange={handleOptionChange}
-            />
-            {selectedOption === "onlinePayment" && (
-              <div>
-                 <input type="button" name="next" onClick={handleSubmit}
-           value="Continue Booking" className="Form3-btn"/>
-              </div>
-            )
-            }
-             {selectedOption === "cashOnDelivery" && (
-              <div>
-                <input type="button" name="next" onClick={handleSubmit}
-          class="next action-button" value="Continue Booking"className="Form3-btn" />
-              </div>
-            )
-            }
-           
-           
-          </Form>
-        </Card.Body>
-      </Card>
+            <Card.Header className=".Form3-heading">
+                <h4>Payment Options</h4>
+            </Card.Header>
+            <Card.Body className="Form3-outerbody">
+                <p>Amount Payable: ₹ {Data.Price * NumberOfService}</p>
+                <Form onSubmit={handleSubmit} className="Form3-body">
+                    <Form.Check
+                        type="radio"
+                        id="cashOnDelivery"
+                        label="Cash on Delivery"
+                        value="cashOnDelivery"
+                        checked={selectedOption === "cashOnDelivery"}
+                        onChange={handleOptionChange}
+                    />
+                    <Form.Check
+                        type="radio"
+                        id="onlinePayment"
+                        label="Online Payment"
+                        value="onlinePayment"
+                        checked={selectedOption === "onlinePayment"}
+                        onChange={handleOptionChange}
+                    />
+                    {selectedOption === "onlinePayment" && (
+                        <div>
+                            <input type="button" name="next" onClick={handleSubmit}
+                                value="Continue Booking" className="Form3-btn" />
+                        </div>
+                    )
+                    }
+                    {selectedOption === "cashOnDelivery" && (
+                        <div>
+                            <input type="button" name="next" onClick={handleSubmit}
+                                class="next action-button" value="Continue Booking" className="Form3-btn" />
+                        </div>
+                    )
+                    }
+
+
+                </Form>
+            </Card.Body>
+        </Card>
     )
 }
 
-const Page4 = ({ Page, setPage ,Bookstate,setBookState}) => {
-    const[state,setState]=useState(false)
+const Page4 = ({ Page, setPage, Bookstate, setBookState }) => {
+    const [state, setState] = useState(false)
     const onChange = (value) => {
         localStorage.setItem("captcha", value)
-        if(value!==null){
+        if (value !== null) {
             setBookState(true)
         }
-        else{
+        else {
             setBookState(false)
         }
     }
@@ -370,10 +405,10 @@ const Page4 = ({ Page, setPage ,Bookstate,setBookState}) => {
                 <h2 className="Form2-heading">Confirm here</h2>
                 <center>
                     <ReCAPTCHA
-                                    sitekey="6LdyhYIkAAAAAJj04Umnf4rQ427h49pItJtiBJ_l"
-                                    onChange={onChange}
-                                />
-                                </center>
+                        sitekey="6LdyhYIkAAAAAJj04Umnf4rQ427h49pItJtiBJ_l"
+                        onChange={onChange}
+                    />
+                </center>
             </div>
         </div>
     )
