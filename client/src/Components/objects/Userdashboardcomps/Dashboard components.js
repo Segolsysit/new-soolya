@@ -227,6 +227,7 @@ const VendorProfile = ({ State }) => {
 }
 
 
+
 const VendorOrders = ({ State }) => {
     // const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
     const [orderdetails, setorderdetails] = useState([])
@@ -1175,6 +1176,8 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     }
     const Razorpay = useRazorpay()
     const Total = completedbill.map((data) => data.total)
+    
+    
     function pay(data) {
 
         var amount = parseInt(Total);

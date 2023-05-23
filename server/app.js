@@ -61,6 +61,7 @@ app.use(express.static(path.join(__dirname, "js")));
 app.use(express.static(path.join(__dirname, "files&img")));
 
 
+
 mongoose.set('strictQuery', true);
 mongoose.connect(dburl,(err)=>{
     if(err){
