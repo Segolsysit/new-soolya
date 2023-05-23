@@ -280,8 +280,6 @@ const VendorOrders = ({ State }) => {
     const decodedToken = jwt_decode(token);
     const vendorId = decodedToken.id;
 
-    console.log(confirm);
-
     // const [options2, setoptions2] = useState([]);
     // const [selected, setSelected] = useState([]);
 
@@ -332,32 +330,48 @@ const VendorOrders = ({ State }) => {
     // }
     const acceptOrder = async (order) => {
 
-        try {
+       
             try {
-                setconfirm( axios.get(`http://localhost:3001/booking_api/booking/${order._id}`)).then((res) => {
+                 axios.get(`http://localhost:3001/booking_api/booking/${order._id}`).then((res) => {
                     setconfirm(res.data)
+                    // console.log(res.data._id);
+                }).then(async()=>{
                     console.log(confirm);
-
-                })
-            } catch (err) {
+                    if(Array.isArray(confirm)&&
+                     confirm.length==0){
+                        toast.error("Order was already accepted", {
+                            position: 'top-center'
+                        })
+                        getdata()
+                    }
+                    else{
+                        try {
+                            //console.log(order.number);
+                            const response = await axios.post('http://localhost:3001/OTP/sendotp', { phoneNumber: order.number }, { withCredentials: true })
+                            console.log(response.data.message);
+                
+                            setOrderId(order)
+                            handleOpen()
+                
+                        } catch (err) {
+                
+                            console.log(err.response.data.message);
+                
+                        }}
+                    })
+                }
+             catch (err) {
                 console.log(err.response.data);
             }
-
-            //console.log(order.number);
-            const response = await axios.post('http://localhost:3001/OTP/sendotp', { phoneNumber: order.number }, { withCredentials: true })
-            console.log(response.data.message);
-
-            setOrderId(order)
-            handleOpen()
-
-        } catch (err) {
-
-            console.log(err.response.data.message);
-
-        }
+   
 
 
     }
+    const Buttonclick=()=>{
+        
+    }
+
+
 
 
 
