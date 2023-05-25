@@ -261,61 +261,22 @@ const CategoryHome = ({Cat,setCat}) => {
 const Carosel = () => {
     const [pos, setPos] = useState(0)
     const [Name, setName] = useState()
-    const Screenwidth = window.innerWidth
-    const data = [
-        {
-            "mainImage": "https://images.pexels.com/photos/4099471/pexels-photo-4099471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-            "Category": "Cleaning",
-            "Price": "$10",
-            "desc": "Clean your households from our experts",
-            "dp": "https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-            "Name": "Gilbert"
+    const Screenwidth = window.innerWidth;
+    const[Data,setData]=useState([])
+    const [cookies, setCookie] = useCookies(['cookie-name']);
 
-        },
-        {
-            "mainImage": "https://images.pexels.com/photos/8486972/pexels-photo-8486972.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-            "Category": "Plumbing",
-            "Price": "$12",
-            "desc": "Grow your business from us with ladies working as team",
-            "dp": "https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-            "Name": "Gilbert"
-
-        },
-        {
-            "mainImage": "https://images.pexels.com/photos/3356170/pexels-photo-3356170.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-            "Category": "AC Repair",
-            "Price": "$8",
-            "desc": "Hair cutting Service at reasonable price",
-            "dp": "https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-            "Name": "Gilbert"
-
-        },
-        {
-            "mainImage": "https://images.pexels.com/photos/5798978/pexels-photo-5798978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-            "Category": "Painting",
-            "Price": "$12",
-            "desc": "Our cool painting service only for you",
-            "dp": "https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-            "Name": "Gilbert"
-
-        },
-        {
-            "mainImage": "https://clareservices.com/wp-content/uploads/2021/05/technician-service-removing-air-filter-air-conditioner-cleaning_35076-3617-640x426.jpg",
-            "Category": "AC Repair",
-            "Price": "$20",
-            "desc": "Winter AC master cleaning and service",
-            "dp": "https://images.pexels.com/photos/3824771/pexels-photo-3824771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-            "Name": "Gilbert"
-
-        },
-    ]
+    useEffect(()=>{
+        axios.get("http://localhost:3001/sub_api//new_fetch_items_limits")
+        .then((res)=>setData(res.data))
+        console.log(Data);
+    },[])
 
     useEffect(() => {
         localStorage.removeItem("Category")
         localStorage.setItem("Category", Name)
         console.log(Name);
         if (localStorage.getItem("Category") !=="" && localStorage.getItem("Category") !== "undefined") {
-            window.location.href = "/ServiceDetails"
+            window.location.href = "/service"
         }
     }, [Name])
 
@@ -363,28 +324,38 @@ const Carosel = () => {
 
     }
 
+    const Booking=(id)=>{
+        localStorage.setItem("order_id",id)
+        if(cookies.jwt2){
+            window.location.href="/booking"
+        }
+        else{
+            window.location.href="/Login"
+        }
+    }
+
+    const localpath = "http://localhost:3001/";
+
+    // const localpath="https://localhost:3001/"
 
     return (
         <div className="Carosel-block">
             <button className="Arrow-Left" onClick={CaroselLeft} >&larr;</button>
             <div className="Caroselcard-block" style={{ transform: `translateX(${pos}rem)` }} >
-                {data.map((item,index)=> {
+                { Array.isArray(Data) && Data.map((item,index)=> {
                     return (
                         <div className="Carosel-card" onClick={(e) => { setName(item.desc) }} key={index}>
-                            <img className="Carosel-img" src={item.mainImage} alt=""/>
+                            <div>
+                            <img className="Carosel-img" src={localpath +item.filename} alt="fghh"/>
+                            </div>
                             <div className="Card-body">
                                 <div className="Carosel-sec">
                                     <p className="Category-carosel">{item.Category}</p>
                                     <h2 className="Carosel-price">{item.Price}</h2>
                                 </div>
-                                <h1 className="Carosel-desc">{item.desc}</h1>
-                                <div className="Carosel-third">
-                                    <div className="Profile">
-                                        <img className="profile-img" src={item.dp} alt=""/>
-                                        <p className="Profile-Name">{item.Name}</p>
-                                    </div>
-                                </div>
-                                <button className="Carosel-btn">Book Now</button>
+                                <h1 className="Carosel-desc">{item.Subcategory}</h1>
+                                
+                                <button className="Carosel-btn" onClick={()=>Booking(item._id)}>Book Now</button>
                             </div>
                         </div>
 

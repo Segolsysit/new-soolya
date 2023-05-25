@@ -144,7 +144,7 @@
 }
 
 .Carosel-card{
-    width: 30%;
+    width: 25rem;
     display: flex;
     flex-direction: column;
     background-color: rgb(231, 240, 247);
@@ -191,6 +191,7 @@
     width: 100%;
     border-radius: 5px 5px 0px 0px;
     transition-duration: 1s;
+    
 }
 .Card-body{
     margin: 20px;
