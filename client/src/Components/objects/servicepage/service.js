@@ -30,7 +30,7 @@ const[Service,setService]=useState("Select")
 const[PriceRange,setPricerange]=useState("")
 
 useEffect(()=>{
-    axios.get("http://localhost:3001/api/fetch_items")
+    axios.get("http://backend.kooblu.com/api/fetch_items")
     .then((data)=>{
         setData(data.data)
     })

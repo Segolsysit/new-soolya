@@ -25,7 +25,7 @@ function Servicemanlist() {
 
 
     // const getdata2 = () => {
-    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+    //     axios.get("http://backend.kooblu.com/booking_api/booking_data").then((res) => {
     //         setorderdetails(res.data)
     //     })}
 

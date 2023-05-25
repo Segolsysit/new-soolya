@@ -56,7 +56,7 @@ const Login = () => {
         }
         else{
             const { data } = await axios.post(
-                "http://localhost:3001/authUser/login",
+                "http://backend.kooblu.com/authUser/login",
                 {
                  email:LoginId,
                  password:Password
@@ -180,7 +180,7 @@ const VendorLogin = () => {
         }
         else{
             const response = await axios.post(
-                "http://localhost:3001/vendor_Auth/login",
+                "http://backend.kooblu.com/vendor_Auth/login",
                 {
                  Email:LoginId,
                  Password:Password
@@ -339,7 +339,7 @@ const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
     else{
 
         const { data } = await axios.post(
-            "http://localhost:3001/authUser/register",
+            "http://backend.kooblu.com/authUser/register",
             {
               firstName:First,
               lastName:Last,
@@ -668,7 +668,7 @@ const Form3=(e)=>{
         formdata.append("Location",Location)
         formdata.append("Address",Address)
         formdata.append("Category",Category)
-        axios.post("http://localhost:3001/vendor_Applications/Applications",formdata)
+        axios.post("http://backend.kooblu.com/vendor_Applications/Applications",formdata)
         .then(()=>{
             Swal.fire({
                 title: 'Your Application is recived We will contact you soon...',
@@ -862,7 +862,7 @@ const ForgetPwd=(event)=>{
         }  
       
 
-    axios.post("http://localhost:3001/authUser/forgot_password",{
+    axios.post("http://backend.kooblu.com/authUser/forgot_password",{
         email: ForgetEmail
      },{
          method:"POST",
@@ -946,7 +946,7 @@ const ForgetPasswordVendor=()=>{
             }  
           
     
-        axios.post("http://localhost:3001/vendor_Auth/forgot_password",{
+        axios.post("http://backend.kooblu.com/vendor_Auth/forgot_password",{
             Email: Email
          },{
              method:"POST",

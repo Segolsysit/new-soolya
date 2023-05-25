@@ -30,7 +30,7 @@ const[Category,setCategory]=useState("")
 useEffect(()=>{
     setCategory(localStorage.getItem("SubCategory"))
     if((Category!==""&&(Category!==null||Category!==undefined))&&(service==="Select"||service===null||service===undefined)&&count<1){
-        axios.get(`http://localhost:3001/sub_api/new_fetch_items/${Category}`)
+        axios.get(`http://backend.kooblu.com/sub_api/new_fetch_items/${Category}`)
         .then((data)=>{
                 setData(data.data)
         setCount(count+1)
@@ -47,7 +47,7 @@ useEffect(()=>{
     // console.log(pathname);
 useEffect(()=>{
     if(service!=="Select" &&service!==null) {
-        axios.get(`http://localhost:3001/sub_api/new_fetch_items/${service}`)
+        axios.get(`http://backend.kooblu.com/sub_api/new_fetch_items/${service}`)
         .then((data)=>{
             
                 setData(data.data)
@@ -105,7 +105,7 @@ useEffect(()=>{
 
 
 
-const localpath = "http://localhost:3001/";
+const localpath = "http://backend.kooblu.com/";
 
 
 
