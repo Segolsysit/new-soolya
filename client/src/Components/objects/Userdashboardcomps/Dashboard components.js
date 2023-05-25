@@ -331,13 +331,9 @@ const VendorOrders = ({ State }) => {
 
        
             try {
-                 axios.get(`http://localhost:3001/booking_api/booking/${order._id}`).then((res) => {
-                    setconfirm(res.data)
-                    // console.log(res.data._id);
-                }).then(async()=>{
+                 axios.get(`http://localhost:3001/booking_api/booking/${order._id}`).then(async(res)=>{
                     console.log(confirm);
-                    if(Array.isArray(confirm)&&
-                     confirm.length==0){
+                    if(res.data === null){
                         toast.error("Order was already accepted", {
                             position: 'top-center'
                         })
@@ -355,6 +351,9 @@ const VendorOrders = ({ State }) => {
                         } catch (err) {
                 
                             console.log(err.response.data.message);
+                            toast.error(err.response.data.message , {
+                                position: 'top-center'
+                            })
                 
                         }}
                     })

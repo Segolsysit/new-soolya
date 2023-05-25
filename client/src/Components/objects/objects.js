@@ -204,7 +204,7 @@ const CategoryHome = ({Cat,setCat}) => {
     //hello
     const[Data,setData]=useState([])
         useEffect(()=>{
-            axios.get(`http://localhost:3001/api/fetch_items`)
+            axios.get(`http://backend.kooblu.com/api/fetch_items`)
             .then((data)=>{
             setData(data.data)
         })},[])
@@ -214,7 +214,7 @@ const CategoryHome = ({Cat,setCat}) => {
             setIndex(null)
             setCat("Select")
         }
-        const localpath = "http://localhost:3001/";
+        const localpath = "http://backend.kooblu.com/";
 
         const[Selectindex,setIndex]=useState(null)
 
