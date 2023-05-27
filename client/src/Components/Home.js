@@ -4,12 +4,15 @@ import { Carosel, Ad, Popular, Join, Store, Subscribe, Footer, End, MenuList, He
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useCookies } from "react-cookie";
+
 
 const Home = () => {
     // console.log(window.innerWidth);
     const [count0, setCount0] = useState(0)
     const [Data, setData] = useState([])
     const Navigate = useNavigate()
+    const [cookies,setCookies]=useCookies(['hello'])
 
 
     useEffect(() => {
@@ -59,7 +62,7 @@ const Home = () => {
             })
 
     }, [])
-
+console.log(cookies.jwt2);
     return (
         <div>
 
