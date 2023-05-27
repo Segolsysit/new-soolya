@@ -53,7 +53,7 @@ function DashBoard({open,close,formNumber}){
 
     // demo
 useEffect(()=>{
-  axios.get("http://backend.kooblu.com/booking_api/completed_booking_data").then((res) => {
+  axios.get("https://backend.kooblu.com/booking_api/completed_booking_data").then((res) => {
             setcompleted_orderdetails(res.data)
         })
 

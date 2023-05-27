@@ -233,7 +233,7 @@ const Page2 = () => {
     const id = localStorage.getItem("order_id")
 
     function get() {
-        axios.get(`http://backend.kooblu.com/sub_api/Book_new_fetch_items/${id}`)
+        axios.get(`https://backend.kooblu.com/sub_api/Book_new_fetch_items/${id}`)
             .then((data) => setData(data.data))
     }
     useEffect(() => {
@@ -314,7 +314,7 @@ const Page3 = ({ Page, setPage }) => {
     const Orderid = localStorage.getItem("order_id")
 
     function get() {
-        axios.get(`http://backend.kooblu.com/sub_api/Book_new_fetch_items/${Orderid}`)
+        axios.get(`https://backend.kooblu.com/sub_api/Book_new_fetch_items/${Orderid}`)
             .then((data) => setData(data.data))
     }
     useEffect(() => {
@@ -403,12 +403,14 @@ const Page4 = ({ Page, setPage, Bookstate, setBookState }) => {
         <div className="Form-outerdiv">
             <div className="Form1">
                 <h2 className="Form2-heading">Confirm here</h2>
-                <center>
+                {/* <center>
                     <ReCAPTCHA
-                        sitekey="6LdyhYIkAAAAAJj04Umnf4rQ427h49pItJtiBJ_l"
+                        sitekey="6Ld64D8mAAAAAM60bbSUvkDEq7m5GkihsbOdwsni"
                         onChange={onChange}
                     />
-                </center>
+                </center> */}
+
+                
             </div>
         </div>
     )

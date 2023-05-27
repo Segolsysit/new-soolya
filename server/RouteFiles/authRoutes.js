@@ -104,7 +104,7 @@ auth_router.post("/", (req, res, next) => {
       const user = await User.login(email, password);
       const token = createToken2(user._id);
       res.cookie("jwt2", token, { httpOnly: false, maxAge: maxAge * 1000 });
-      res.status(200).json({ user: user._id, status: true });
+      res.status(200).json({ user: user._id, status: true, token:token });
     } catch (err) {
       const errors = handleErrors(err);
       res.json({ errors, status: false });

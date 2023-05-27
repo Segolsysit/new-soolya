@@ -15,7 +15,9 @@ const BookingPage = () => {
     const id = localStorage.getItem("order_id")
     const { pathname } = useLocation();
 
-    const token = cookies.jwt2;
+    // const token = cookies.jwt2;
+    const token = localStorage.getItem("ty");
+    
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
 
@@ -31,7 +33,7 @@ const BookingPage = () => {
 
     const orders = () => {
         // console.log(userId);
-        axios.get(`http://backend.kooblu.com/authUser/fetch_email/${userId}`)
+        axios.get(`https://backend.kooblu.com/authUser/fetch_email/${userId}`)
             .then((res) => {
                 console.log(res.data);
                 setMyorders(res.data)
@@ -39,7 +41,7 @@ const BookingPage = () => {
     }
 
     function get() {
-        axios.get(`http://backend.kooblu.com/sub_api/Book_new_fetch_items/${id}`)
+        axios.get(`https://backend.kooblu.com/sub_api/Book_new_fetch_items/${id}`)
             .then((res) => setbooking_service(res.data))
     }
 
@@ -72,7 +74,7 @@ const BookingPage = () => {
 
 
         // console.log(Time);
-        axios.post("http://backend.kooblu.com/booking_api/new_booking", {
+        axios.post("https://backend.kooblu.com/booking_api/new_booking", {
             user_email: myorders.email,
             address,
             street,
@@ -86,7 +88,7 @@ const BookingPage = () => {
             paymentMethod: localStorage.getItem("paymentType")
         }
         ).then(() => {
-            axios.post("http://backend.kooblu.com/vendororder_api/new_booking", {
+            axios.post("https://backend.kooblu.com/vendororder_api/new_booking", {
                 user_email: myorders.email,
                 address,
                 street,
@@ -135,7 +137,7 @@ const BookingPage = () => {
                 <div className="Button-divform">
                     <button className={Page !== 1 ? "PreBookingForm-btn" : "BookingForm-btnhide"} onClick={PreviousPage}>Previous</button>
                     <button className={Page === 2 ? "BookingForm-btn" : "BookingForm-btnhide"} onClick={nextPage}>Next</button>
-                    <button className={Page === 4 && Bookstate !== false ? "BookingForm-btn" : "BookingForm-btnhide"} onClick={ConfirmBooking}>Confirm Booking</button>
+                    <button className={Page === 4 ? "BookingForm-btn" : "BookingForm-btnhide"} onClick={ConfirmBooking}>Confirm Booking</button>
 
                 </div>
             </div>

@@ -4,13 +4,22 @@ import { Carosel, Ad, Popular, Join, Store, Subscribe, Footer, End, MenuList, He
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useCookies } from "react-cookie";
+import Cookies from 'universal-cookie';
+
+axios.defaults.baseURL = 'https://backend.kooblu.com';
+axios.defaults.withCredentials = true;
 
 const Home = () => {
     // console.log(window.innerWidth);
     const [count0, setCount0] = useState(0)
     const [Data, setData] = useState([])
     const Navigate = useNavigate()
+    // const [cookies, setCookie, removeCookie] = useCookies(['name']);
+    const cookies = new Cookies();
 
+ 
+    // const tok = cookies.jwt2;
 
     useEffect(() => {
         if (count0 < 1000) {
@@ -53,11 +62,12 @@ const Home = () => {
     }
 
     useEffect(() => {
-        axios.get("http://backend.kooblu.com/api/fetch_items")
+        axios.get("https://backend.kooblu.com/api/fetch_items")
             .then((data) => {
                 setData(data.data)
             })
-
+//    console.log(cookies.jwt2);
+console.log(cookies.get('jwt2'));
     }, [])
 
     return (
