@@ -8,7 +8,7 @@ import { useCookies } from "react-cookie";
 const Myorder = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
 
-    if(cookies.jwt2){
+    if(localStorage.getItem("ty") || localStorage.getItem("ty") !== null){
         return (
             <div >
                 <MenuBar />

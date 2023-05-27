@@ -30,7 +30,7 @@ const[Category,setCategory]=useState("")
 useEffect(()=>{
     setCategory(localStorage.getItem("SubCategory"))
     if((Category!==""&&(Category!==null||Category!==undefined))&&(service==="Select"||service===null||service===undefined)&&count<1){
-        axios.get(`http://localhost:3001/sub_api/new_fetch_items/${Category}`)
+        axios.get(`https://backend.kooblu.com/sub_api/new_fetch_items/${Category}`)
         .then((data)=>{
                 setData(data.data)
         setCount(count+1)
@@ -47,7 +47,7 @@ useEffect(()=>{
     // console.log(pathname);
 useEffect(()=>{
     if(service!=="Select" &&service!==null) {
-        axios.get(`http://localhost:3001/sub_api/new_fetch_items/${service}`)
+        axios.get(`https://backend.kooblu.com/sub_api/new_fetch_items/${service}`)
         .then((data)=>{
             
                 setData(data.data)
@@ -80,7 +80,7 @@ const Firstpost=Lastpost-postPer
 
 const Booking=(_id)=>{
     localStorage.setItem("order_id",_id)
-    if(cookies.jwt2){
+    if(localStorage.getItem("ty")){
         window.location.href="/booking"
     }
     else{
@@ -105,7 +105,7 @@ useEffect(()=>{
 
 
 
-const localpath = "http://localhost:3001/";
+const localpath = "https://backend.kooblu.com/";
 
 
 

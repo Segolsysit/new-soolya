@@ -62,7 +62,7 @@ const ServiceList=({formNumber})=>{
     // }
 
     const getdata = ()=>{
-        axios.get("http://localhost:3001/api/fetch_items").then((res) => {
+        axios.get("https://backend.kooblu.com/api/fetch_items").then((res) => {
             setgetData(res.data);
         })
     }
@@ -71,7 +71,7 @@ const ServiceList=({formNumber})=>{
 
 
     // const getdata2 = () => {
-    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+    //     axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res) => {
     //         setorderdetails(res.data)
     //     })}
  
@@ -82,7 +82,7 @@ const ServiceList=({formNumber})=>{
     }, [])
 
     const delete_item = (id) => {
-        axios.delete(`http://localhost:3001/api/delete_item/${id}`).then(() => {
+        axios.delete(`https://backend.kooblu.com/api/delete_item/${id}`).then(() => {
             toast.error('😈 Deleted Successed!', {
                 position: "top-right",
                 autoClose: 2000,
@@ -97,7 +97,7 @@ const ServiceList=({formNumber})=>{
         })
     }
 
-    const localpath = "http://localhost:3001/"
+    const localpath = "https://backend.kooblu.com/"
     if(formNumber===6){
         return(
             <div className="container-fluid" >
@@ -184,7 +184,7 @@ const AddNewService=({formNumber})=>{
 
 
     // const getdata2 = () => {
-    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+    //     axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res) => {
     //         setorderdetails(res.data)
     //     })}
 
@@ -290,7 +290,7 @@ const AddNewService=({formNumber})=>{
             formdata.append("Discription", discription);
             formdata.append("price", price);
             formdata.append("file", img)
-            axios.post("http://localhost:3001/service_api/new_service/", formdata).then((res) => {
+            axios.post("https://backend.kooblu.com/service_api/new_service/", formdata).then((res) => {
 
                 toast.success(' uploaded Successed!', {
                     position: "top-right",
@@ -317,7 +317,7 @@ const AddNewService=({formNumber})=>{
 
     const EditList = (id) => {
         handleOpen()
-        axios.get(`http://localhost:3001/service_api/new_fetch_service_items/${id}`).then((res) => {
+        axios.get(`https://backend.kooblu.com/service_api/new_fetch_service_items/${id}`).then((res) => {
             setgetByIdList(res.data)
             console.log(res.data);
         })
@@ -332,7 +332,7 @@ const AddNewService=({formNumber})=>{
         formData.append("price", Editprice)
         formData.append("file", Editimg)
 
-        axios.patch(`http://localhost:3001/service_api/update_service/${getByIdList._id}`, formData).then(() => {
+        axios.patch(`https://backend.kooblu.com/service_api/update_service/${getByIdList._id}`, formData).then(() => {
             alert("ListUpdated")
         })
 
@@ -360,16 +360,16 @@ const AddNewService=({formNumber})=>{
 
     useEffect(() => {
        // verify()
-        axios.get("http://localhost:3001/api/fetch_items").then((res) => {
+        axios.get("https://backend.kooblu.com/api/fetch_items").then((res) => {
             setgetData(res.data);
             // console.log(res.data);
         })
-        axios.get("http://localhost:3001/sub_api/new_fetch_items").then((res) => {
+        axios.get("https://backend.kooblu.com/sub_api/new_fetch_items").then((res) => {
             setsubcatlist(res.data);
             // console.log(res.data);
         })
 
-        axios.get("http://localhost:3001/service_api/new_fetch_service_items").then((res) => {
+        axios.get("https://backend.kooblu.com/service_api/new_fetch_service_items").then((res) => {
             setServicelist(res.data)
             // console.log(servicelist);
 
@@ -378,7 +378,7 @@ const AddNewService=({formNumber})=>{
     }, [servicelist])
 
     const delete_list = (id) => {
-        axios.delete(`http://localhost:3001/service_api/delete_item/${id}`).then(() => {
+        axios.delete(`https://backend.kooblu.com/service_api/delete_item/${id}`).then(() => {
 
             toast.error('😈 Deleted Successed!', {
                 position: "top-right",
@@ -396,7 +396,7 @@ const AddNewService=({formNumber})=>{
         })
     }
 
-    const localpath = "http://localhost:3001/"
+    const localpath = "https://backend.kooblu.com/"
 
     if(formNumber===7){
         return(

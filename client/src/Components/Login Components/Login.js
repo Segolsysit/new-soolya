@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
 import Swal from "sweetalert2";
 import 'animate.css';
+axios.defaults.baseURL = 'https://backend.kooblu.com';
+axios.defaults.withCredentials = true;
 
 const Login = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
@@ -56,7 +58,7 @@ const Login = () => {
         }
         else{
             const { data } = await axios.post(
-                "http://localhost:3001/authUser/login",
+                "https://backend.kooblu.com/authUser/login",
                 {
                  email:LoginId,
                  password:Password
@@ -72,12 +74,14 @@ const Login = () => {
                     toast.info("successfully loggedin", {
                         position: "top-center",
                       });
+                      localStorage.setItem("ty",data.token)
                       Navigate("/");
+                    console.log(cookies.jwt2);
                 }
               }
         }
     }
-    if(cookies.jwt2||cookies.venjwt){
+    if(localStorage.getItem("ty")||localStorage.getItem("vendor")){
         alert("Already Logged in to user account or vendor account")
         window.location.href="/"
     }
@@ -179,16 +183,16 @@ const VendorLogin = () => {
             seterrPwd("Please enter your Password")
         }
         else{
-            const response = await axios.post(
-                "http://localhost:3001/vendor_Auth/login",
+            const {response} = await axios.post(
+                "https://backend.kooblu.com/vendor_Auth/login",
                 {
                  Email:LoginId,
                  Password:Password
                 },
                 { withCredentials: true }
               );
-              if (response.data.status === 'error') {
-                toast.error(response.data.message, {
+              if (response.status === 'error') {
+                toast.error(response.message, {
                     position: "top-center",
                     autoClose: 1500,
                     hideProgressBar: true,
@@ -201,14 +205,17 @@ const VendorLogin = () => {
                
               }
               else{
-                window.location.href = "VendorDashboard"; // redirect to dashboard
+                localStorage.setItem("vendor",response.token)
+                console.log(response.token);
+                console.log(response.data.token);
+                // window.location.href = "VendorDashboard"; // redirect to dashboard
               }
              
              
         }
     }
    
-if(cookies.jwt2||cookies.venjwt){
+if(localStorage.getItem("ty")||localStorage.getItem("vendor")){
     alert("Already Logged in to user account or vendor account")
     window.location.href="/"
 }
@@ -339,7 +346,7 @@ const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
     else{
 
         const { data } = await axios.post(
-            "http://localhost:3001/authUser/register",
+            "https://backend.kooblu.com/authUser/register",
             {
               firstName:First,
               lastName:Last,
@@ -668,7 +675,7 @@ const Form3=(e)=>{
         formdata.append("Location",Location)
         formdata.append("Address",Address)
         formdata.append("Category",Category)
-        axios.post("http://localhost:3001/vendor_Applications/Applications",formdata)
+        axios.post("https://backend.kooblu.com/vendor_Applications/Applications",formdata)
         .then(()=>{
             Swal.fire({
                 title: 'Your Application is recived We will contact you soon...',
@@ -862,7 +869,7 @@ const ForgetPwd=(event)=>{
         }  
       
 
-    axios.post("http://localhost:3001/authUser/forgot_password",{
+    axios.post("https://backend.kooblu.com/authUser/forgot_password",{
         email: ForgetEmail
      },{
          method:"POST",
@@ -946,7 +953,7 @@ const ForgetPasswordVendor=()=>{
             }  
           
     
-        axios.post("http://localhost:3001/vendor_Auth/forgot_password",{
+        axios.post("https://backend.kooblu.com/vendor_Auth/forgot_password",{
             Email: Email
          },{
              method:"POST",

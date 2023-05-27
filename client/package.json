@@ -1,5 +1,6 @@
 {
   "name": "project1",
+  "homepage": "https://kooblu.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -29,6 +30,7 @@
     "react-toastify": "^9.1.2",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.7.3",
+    "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
