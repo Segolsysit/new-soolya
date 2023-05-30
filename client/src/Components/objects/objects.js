@@ -24,9 +24,9 @@ if(window.innerWidth>600){
         <div className="Header">
             <div>
                 <ul className="contact">
-                    <li><i class="fa-solid fa-phone "></i> 1234</li>
+                    <li><i class="fa-solid fa-phone "></i> 9545454565</li>
                     <li>|</li>
-                    <li><i class="fa-solid fa-envelope"></i> abcd@gmail.com</li>
+                    <li><i class="fa-solid fa-envelope"></i> kooblu@gmail.com</li>
                     <li>|</li>
                     <li className="Time"><i class="fa-solid fa-clock"></i> 10.00 AM-7.00PM</li>
                 </ul>
@@ -51,8 +51,8 @@ else if(window.innerWidth<600){
         <div className="Header">
             <div>
                 <ul className="contact">
-                    <li><i class="fa-solid fa-phone "></i> 1234</li>
-                    <li><i class="fa-solid fa-envelope"></i> abcd@gmail.com</li>
+                    <li><i class="fa-solid fa-phone "></i> 9595456566</li>
+                    <li><i class="fa-solid fa-envelope"></i> kooblu@gmail.com</li>
                 </ul>
             </div>
 
@@ -74,7 +74,7 @@ const MenuBar = () => {
     const [cookies,removeCookie] = useCookies()
     // const Token=cookies.jwt2
     const Token =localStorage.getItem("ty");
-    const VendorToken=cookies.venjwt
+    const VendorToken=localStorage.getItem("vendor");
 
     const [Open, setOpen] = useState(false)
     const [icon, setIcon] = useState(<i class="fa-solid fa-bars"></i>)
@@ -777,9 +777,9 @@ const Footer = () => {
             <div className="Footer-sec2">
                 <ul className="Sec2-ul">
                     <li><h1 className="Sec2-head">Contact info</h1></li>
-                    <li><i class="fa-solid fa-phone"></i> 1234</li>
-                    <li><i class="fa-solid fa-envelope"></i> abc@abc.com</li>
-                    <li><i class="fa-solid fa-location-dot"></i> xyz</li>
+                    <li><i class="fa-solid fa-phone"></i> 9545454545</li>
+                    <li><i class="fa-solid fa-envelope"></i> kooblu@gmail.com</li>
+                    <li><i class="fa-solid fa-location-dot"></i> kooblu</li>
 
                 </ul>
             </div>
@@ -806,8 +806,8 @@ const End = () => {
 
 const MenuList = ({ Open, Close }) => {
     const [cookies,removeCookie] = useCookies()
-    const Token=cookies.jwt2
-    const VendorToken=cookies.venjwt
+    const Token=localStorage.getItem("ty")
+    const VendorToken=localStorage.getItem("vendor")
     const[state,setState]=useState(false)
     const ProfileOpen=()=>{
         if(!state){
@@ -851,6 +851,7 @@ const Profile=({open,close})=>{
     const Logout=()=>{
         // removeCookie("jwt2")
         localStorage.removeItem("ty");
+        localStorage.removeItem("vendor");
         // removeCookie("venjwt")
         window.location.href='/'
     }

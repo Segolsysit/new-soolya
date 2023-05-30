@@ -183,35 +183,32 @@ const VendorLogin = () => {
             seterrPwd("Please enter your Password")
         }
         else{
-            const {response} = await axios.post(
+             await axios.post(
                 "https://backend.kooblu.com/vendor_Auth/login",
                 {
                  Email:LoginId,
                  Password:Password
                 },
                 { withCredentials: true }
-              );
-              if (response.status === 'error') {
-                toast.error(response.message, {
-                    position: "top-center",
-                    autoClose: 1500,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    });
+              )
+             .then((res)=>{
+                if(res.data.status==='error'){
+                    toast.error(res.data.status)
+                }
+                else{
+                    toast.info("successfully loggedin", {
+                        position: "top-center",
+                      });
+                      console.log(res);
+                      console.log(res.data.users);
+                      console.log(res.users);
+                    localStorage.setItem("vendor",res.data.token)
+                    Navigate('/VendorDashboard')
+                    console.log(res.data.token);
+                    console.log(res.token);
+                }
+             })
                
-              }
-              else{
-                localStorage.setItem("vendor",response.token)
-                console.log(response.token);
-                console.log(response.data.token);
-                // window.location.href = "VendorDashboard"; // redirect to dashboard
-              }
-             
-             
         }
     }
    
@@ -685,7 +682,8 @@ const Form3=(e)=>{
                 hideClass: {
                   popup: 'animate__animated animate__fadeOutUp'
                 }
-              });Navigate("/")
+              })
+              Navigate("/")
         })
     }
 }
@@ -870,7 +868,7 @@ const ForgetPwd=(event)=>{
       
 
     axios.post("https://backend.kooblu.com/authUser/forgot_password",{
-        email: ForgetEmail
+        email: Email
      },{
          method:"POST",
          crossDomain:true,
