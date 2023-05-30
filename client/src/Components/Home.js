@@ -69,7 +69,7 @@ const Home = () => {
 //    console.log(cookies.jwt2);
 console.log(cookies.get('jwt2'));
     }, [])
-
+console.log(cookies.jwt2);
     return (
         <div>
 
