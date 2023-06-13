@@ -372,7 +372,7 @@ const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
               toast.info("successfully registerd", {
                   position: "top-center",
                 });
-                Navigate("/sign_in");
+                Navigate("/Login");
             }
           }
     }

@@ -81,13 +81,13 @@ try{
   if (isPasswordValid) {
     const token = vjwt.sign({ id: user._id }, "soolya vendor super secret key");
     res.cookie("venjwt", token, { httpOnly: false, maxAge: maxAge * 1000 });
+    res.status(200).json({ user: user._id, status: true, token:token });
   }
   else{
    
     return res.json({status:"error", message: "Invalid password" });
 
   }
- res.status(200).json({ user: user._id, status: true });
 
 }catch (err){
   console.log(err);
