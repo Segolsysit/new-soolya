@@ -194,7 +194,7 @@
     margin: 0px;
     padding: 40px;
     padding-bottom: 0px;
-    background-color: dodgerblue;
+    background-color:  #ff3d33;
     justify-content: space-between;
     align-items: center;
 }
@@ -238,7 +238,7 @@
 }
 
 .Subscribe-button{
-    background-color: dodgerblue;
+    background-color:  #ff3d33;
     padding: 10px 30px 10px 30px;
     border-radius:30px ;
     border:none;
@@ -249,7 +249,8 @@
 }
 
 .Subscribe-button:hover{
-    background-color: rgb(22, 109, 195);
+    background-color:  #f9f4f4;
+    color: black;
 }
 
 .Subscribe-img{

@@ -9,7 +9,7 @@ a{
 }
 
 .Header{
-    background-color: rgb(235, 165, 14);
+    background-color: #ff3d33;
     margin-top: 0px;
     height: 50px;
     align-items: center;
@@ -35,7 +35,7 @@ a{
 
 .social{
     display: flex;
-    color: rgb(14, 161, 235);
+    color: #ff3d33;
     list-style: none;
     gap:10px;
     font-size: 15px;
@@ -129,14 +129,14 @@ a{
 .Searchbutton{
     font-size: 15px;
     padding: 8px;
-    background-color: rgb(14, 150, 235);
+    background-color: #ff3d33;
     border-radius: 5px;
     border: none;
 }
 
 .hireButton{
     background-color: white;
-    border-color: dodgerblue ;
+    border-color: #ff3d33 ;
     border-style:solid ;
     border-width: 1.5px;
     border-radius: 5px;
@@ -147,7 +147,7 @@ a{
 }
 
 .hireButton:hover{
-    background-color:rgb(14, 150, 235) ;
+    background-color:#ff3d33 ;
     color: white;
     cursor:pointer;
 
@@ -155,7 +155,7 @@ a{
 
 .userButton{
     background-color: white;
-    border-color: rgb(14, 150, 235) ;
+    border-color: #ff3d33 ;
     border-style:solid;
     border-radius: 5px;
     border-width: 1.5px;
@@ -174,7 +174,7 @@ a{
 }
 
 .Profileimg:hover{
-    background-color:rgb(14, 150, 235) ;
+    background-color:#ff3d33 ;
     color: white;
     cursor:pointer;
 }
@@ -188,7 +188,7 @@ a{
 }
 
 .userButton:hover{
-    background-color:rgb(14, 150, 235) ;
+    background-color:#ff3d33 ;
     color: white;
     cursor:pointer;
 }
@@ -198,14 +198,14 @@ a{
 }
 
 .Menuitem:hover{
-    color:rgb(14, 150, 235) ;
+    color:#ff3d33 ;
     cursor: pointer;
     text-decoration: none;
 }
 
 .Menuitem-active{
     color: white;
-    background-color: dodgerblue;
+    background-color: #ff3d33;
     padding: 3px 5px 3px 5px;
     border-radius: 3px;
     font-weight: 500;
@@ -222,7 +222,7 @@ a{
 
 .covercontent{
     display: flex;
-    background-color: rgb(232, 244, 251);
+    background-color: #f8c9c7;
     background-image: url(https://images.vexels.com/media/users/3/101746/raw/da01a24b356c2778b7374e174b4806b9-light-blue-abstract-background.jpg);
     background-blend-mode: lighten;
     object-fit: fill;
@@ -249,7 +249,7 @@ a{
 }
 
 .secondaryTitle1{
-    color:rgb(14, 150, 235);
+    color:#ff3d33;
     font-size: 20px;
     margin: 10px;
 }
@@ -301,7 +301,7 @@ a{
     display: flex;
     gap: 5px;
     flex-direction: column;
-    background-color: rgb(14, 150, 235) ;
+    background-color: #ff3d33 ;
     color: white;
     padding: 10px 40px 10px 40px;
     border-radius: 50px;
@@ -334,7 +334,7 @@ a{
 }
 
 .SearchBtn{
-    background-color: dodgerblue;
+    background-color: #ff3d33;
     border: none;
     font-size: 20px;
     color: white;
@@ -344,7 +344,7 @@ a{
 }
 
 .SearchBtn:hover{
-    background-color: rgb(15, 108, 200);
+    background-color: #f90505;
 }
 
 .ptagforsearchbox{
@@ -437,7 +437,7 @@ a{
 }
 
 .Search-block:hover{
-    border: 2px solid dodgerblue ;
+    border: 2px solid #ff3d33 ;
 }
 
 .SelectionBox{
@@ -614,7 +614,7 @@ a{
     }
     .BurgerBtn{
         display: block;
-        background-color: dodgerblue;
+        background-color: #ff3d33;
         color: white;
         padding: 10px;
         border-radius: 10px;
@@ -787,7 +787,7 @@ a{
         display: flex;
         gap: 5px;
         flex-direction: column;
-        background-color: rgb(14, 150, 235) ;
+        background-color: #ff3d33 ;
         color: white;
         padding: 10px 40px 10px 40px;
         border-radius: 50px;
@@ -830,7 +830,7 @@ a{
     
     .BurgerBtn{
         display: block;
-        background-color: dodgerblue;
+        background-color: #ff3d33;
         color: white;
         padding: 10px;
         border-radius: 10px;
