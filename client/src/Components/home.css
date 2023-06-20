@@ -215,6 +215,10 @@ a{
 
 
 .cover{
+    background-color: #f8c9c7;
+    background-image: url(https://images.vexels.com/media/users/3/101746/raw/da01a24b356c2778b7374e174b4806b9-light-blue-abstract-background.jpg);
+    background-blend-mode: lighten;
+    object-fit: fill;
     
     z-index: 3;
 
@@ -222,15 +226,16 @@ a{
 
 .covercontent{
     display: flex;
-    background-color: #f8c9c7;
-    background-image: url(https://images.vexels.com/media/users/3/101746/raw/da01a24b356c2778b7374e174b4806b9-light-blue-abstract-background.jpg);
-    background-blend-mode: lighten;
-    object-fit: fill;
+    
     background-repeat: no-repeat;
-    height:40rem;
     margin-top: 0rem;
     justify-content: space-between;
 
+}
+
+.covercontent::after{
+    content: '';
+    background-image: url(./wave.svg);
 }
 
 .Covertitle{

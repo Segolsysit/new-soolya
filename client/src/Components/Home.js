@@ -18,7 +18,7 @@ const Home = () => {
     // const [cookies, setCookie, removeCookie] = useCookies(['name']);
     const cookies = new Cookies();
 
- 
+
     // const tok = cookies.jwt2;
 
     useEffect(() => {
@@ -66,10 +66,10 @@ const Home = () => {
             .then((data) => {
                 setData(data.data)
             })
-//    console.log(cookies.jwt2);
-console.log(cookies.get('jwt2'));
+        //    console.log(cookies.jwt2);
+        console.log(cookies.get('jwt2'));
     }, [])
-// console.log(cookies.jwt2);/
+    // console.log(cookies.jwt2);/
     return (
         <div>
 
@@ -97,29 +97,29 @@ console.log(cookies.get('jwt2'));
 
                             <hr className="solid"></hr>
                             <div className="selection">
-                                    <p className="ptagforsearchbox">I'm looking to..</p>
-                                    <select className="SelectionBox" onChange={(e) => {
-                                        setCategory(e.target.value)
-                                        setID(e.target.options.selectedIndex - 1)
-                                    }}>
-                                        <option value="Find Category">Find Category</option>
+                                <p className="ptagforsearchbox">I'm looking to..</p>
+                                <select className="SelectionBox" onChange={(e) => {
+                                    setCategory(e.target.value)
+                                    setID(e.target.options.selectedIndex - 1)
+                                }}>
+                                    <option value="Find Category">Find Category</option>
 
-                                        {
-                                            Data.map((item, index) => {
-                                                return (
+                                    {
+                                        Data.map((item, index) => {
+                                            return (
 
-                                                    <option key={index}>{item.catagorySetup}</option>
+                                                <option key={index}>{item.catagorySetup}</option>
 
-                                                )
+                                            )
 
 
-                                            })
-                                        }
-                                    </select>
+                                        })
+                                    }
+                                </select>
                             </div>
                             <hr className="solid" />
-                                <button className="SearchBtn" onClick={search}>search</button>
-                            
+                            <button className="SearchBtn" onClick={search}>search</button>
+
                         </div>
                         {/* </div> */}
 
@@ -132,10 +132,11 @@ console.log(cookies.get('jwt2'));
                             <h2 className="secondary">{count0}</h2>
                             <h4 className="teriary">Service Sold</h4>
                         </div>
-                    </div>
-                </div>
-            </div>
 
+                    </div>
+
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fill-opacity="1" d="M0,160L80,170.7C160,181,320,203,480,202.7C640,203,800,181,960,165.3C1120,149,1280,139,1360,133.3L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg></div>
             <div className="Body">
                 <div className="category">
                     <>
