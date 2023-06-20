@@ -34,8 +34,9 @@ const upload = multer({
 
 
 category_setup_Router.post("/new_catagory",upload.single("file"),async(req,res) => {
+    const catagorySetup=req.body.catagorySetup
     const items = new schema({
-        catagorySetup:req.body.catagorySetup,
+        catagorySetup:catagorySetup,
         originalname: req.file.originalname,
         mimetype: req.file.mimetype,
         filename: req.file.filename,
@@ -43,8 +44,15 @@ category_setup_Router.post("/new_catagory",upload.single("file"),async(req,res) 
         size: req.file.size,
         
        })
-       await items.save();
+       const data=await schema.findOne({"catagorySetup":catagorySetup})
+       if(data){
+        res.json({message:"Category Already Exist",data})
+       }
+       else{
+        await items.save();
        res.status(200).json({message:"Uploaded Successfully",items})
+       }
+       
 })
 
 category_setup_Router.get("/fetch_items",async(req,res)=>{

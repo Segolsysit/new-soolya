@@ -216,18 +216,34 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             formdata.append("file", img)
 
             axios.post("https://backend.kooblu.com/api/new_catagory/", formdata).then((res) => {
+                if(res.data.message==="Uploaded Successfully"){
+                    toast.success(' upload Successed!', {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+    
+                    });
+                }
+                else{
+                    toast.error(' Category already Exist!', {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+    
+                    });
+                }
 
-                toast.success(' uploaded Successed!', {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-
-                });
+                
 
                 setCatagorySetup("")
                 categorydata()
