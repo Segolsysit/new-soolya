@@ -33,7 +33,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(
     cors({
-      origin: "http://kooblu.com",
+      origin: "https://kooblu.com",
       methods: ["GET", "POST","PUT","DELETE","PATCH"],
       credentials: true
     })
