@@ -131,7 +131,7 @@ else if(Data.length!==0 && count>0){
                                         <div className="Card-body">
                                             <div className="Carosel-sec">
                                                 <p className="Category-carosel">{item.Subcategory}</p>
-                                                <h2 className="Carosel-price">${item.Price}</h2>
+                                                <h2 className="Carosel-price">₹{item.Price}</h2>
                                             </div>
                                             <h1 className="Carosel-desc">{item.Discription}</h1>
                                             <div className="Carosel-third">

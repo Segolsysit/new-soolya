@@ -32,6 +32,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
    // const nav = useNavigate()
 
     let aRef = useRef(null)
+    let bRef=useRef(null)
 
 
     const [Editservice, setEditservice] = useState('');
@@ -157,7 +158,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     //     nav("/admin")
     // }
 
-    const categorydata = (e) => {
+    const categorydata = () => {
         // e.preventDefault()
         axios.get("https://www.backend.kooblu.com/api/fetch_items").then((res) => {
             setgetData(res.data);
@@ -177,7 +178,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     // };
     const AddService = (e) => {
 
-        e.preventDefault();
+        e.preventDefault()
 
         if (categorySetup.length === 0) {
             toast.error("enter service category", {
@@ -250,7 +251,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                 categorydata()
                 setCatagorySetup("")
                 setImg("")
-                aRef.current.value = null
+                bRef.current.value = null
                 categorydata()
 
             })
@@ -353,7 +354,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
                         <label className="Category-Label">Image</label>
                         <div className="Categoryfile-div">
-                            <input ref={aRef} type="file" className="Category-input" onChange={handleImgChange} />
+                            <input ref={bRef} type="file" className="Category-input" onChange={handleImgChange} />
                         </div>
                         <button type="Submit" className="Category-button">Add</button>
                     </form>
