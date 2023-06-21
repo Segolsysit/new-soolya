@@ -410,7 +410,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                 <div class="modal-body">
                                     <form className="category_form" id="category_form" onSubmit={saveChange}>
                                         <div style={{display:'flex' ,justifyContent:'space-between'}}>
-                                        <TextField  type="text" placeholder={getbyid.catagorySetup} onChange={(e) => setEditservice(e.target.value)} label="Service" value={Editservice}/><br></br>
+                                        <TextField  type="text" placeholder={getbyid.catagorySetup} onChange={(e) => setEditservice(e.target.value)} label="Service" defaultValue={getbyid.catagorySetup}/><br></br>
                                         <img style={{ width: "5em", height: "5em" }} src={localpath + getbyid.filename}/>
                                         </div>
                                         <input ref={aRef} type="file" onChange={(e) => setEditImage(e.target.files[0])} /><br></br>
