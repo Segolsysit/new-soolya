@@ -81,21 +81,21 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
     // const getdata2 = () => {
-    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+    //     axios.get("https://www.backend.kooblu.com/booking_api/booking_data").then((res) => {
     //         setorderdetails(res.data)
     //     })}
 
     // useEffect(()=>{
     //     console.log(filter);
     //     if(filter!==""&&filter!==null&&filter!==NaN)
-    //     {axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor_bynum/${filter}`).then((res) => {
+    //     {axios.get(`https://www.backend.kooblu.com/vendor_Auth/fetch_vendor_bynum/${filter}`).then((res) => {
     //         setserviceman(res.data)
     //        // console.log(res.data);
     //        // console.log(serviceman.Email)
     //     })}
     //     else if(filter===""&&filter===null&&filter===NaN){
 
-    //         axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
+    //         axios.get("https://www.backend.kooblu.com/vendor_Auth/fetch_vendor").then((res) => {
     //         setserviceman(res.data)
     //        // console.log(res.data);
     //        // console.log(serviceman.Email)
@@ -107,7 +107,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     // },[filter])
 
     const servicemandata = () => {
-        axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
+        axios.get("https://www.backend.kooblu.com/vendor_Auth/fetch_vendor").then((res) => {
             setserviceman(res.data)
             // console.log(res.data);
             // console.log(serviceman.Email)
@@ -127,7 +127,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:3001/vendor_Auth/delete_item/${_id}`)
+                axios.delete(`https://www.backend.kooblu.com/vendor_Auth/delete_item/${_id}`)
                 Swal.fire(
                     'Deleted!',
                     'Your file has been deleted.',
@@ -160,7 +160,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
     const categorydata = () => {
         // e.preventDefault()
-        axios.get("http://localhost:3001/api/fetch_items").then((res) => {
+        axios.get("https://www.backend.kooblu.com/api/fetch_items").then((res) => {
             setgetData(res.data);
         })
 
@@ -217,7 +217,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             formdata.append("catagorySetup", categorySetup);
             formdata.append("file", img)
 
-            axios.post("http://localhost:3001/api/new_catagory/", formdata).then((res) => {
+            axios.post("https://www.backend.kooblu.com/api/new_catagory/", formdata).then((res) => {
                 if(res.data.message==="Uploaded Successfully"){
                     toast.success(' upload Successed!', {
                         position: "top-right",
@@ -283,7 +283,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         }
     }
     const delete_item = (id) => {
-        axios.delete(`http://localhost:3001/api/delete_item/${id}`).then(() => {
+        axios.delete(`https://www.backend.kooblu.com/api/delete_item/${id}`).then(() => {
             toast.error('😈 Deleted Successed!', {
                 position: "top-right",
                 autoClose: 2000,
@@ -300,11 +300,11 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
     }
 
-    const localpath = "http://localhost:3001/"
+    const localpath = "https://www.backend.kooblu.com/"
 
 
     const EditFun = (id) => {
-        axios.get(`http://localhost:3001/api/fetch_items_id/${id}`).then((res) => {
+        axios.get(`https://www.backend.kooblu.com/api/fetch_items_id/${id}`).then((res) => {
             setgetbyid(res.data)
             // console.log(res.data)
         })
@@ -313,7 +313,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     }
 
     // const Filter=(phone)=>{
-    //     if(phone!==""||phone!==null){axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/`).then((res) => {
+    //     if(phone!==""||phone!==null){axios.get(`https://www.backend.kooblu.com/vendor_Auth/fetch_vendor/`).then((res) => {
     //         setserviceman(res.data)
     //        // console.log(res.data);
     //        // console.log(serviceman.Email)
@@ -326,7 +326,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         formdata.append("catagorySetup", Editservice);
         formdata.append("file", EditImage)
 
-         axios.patch(`http://localhost:3001/api//update_items/${getbyid._id}`, formdata).then(() => {
+         axios.patch(`https://www.backend.kooblu.com/api//update_items/${getbyid._id}`, formdata).then(() => {
             // alert("updated")
             categorydata();
             setEditservice('');
@@ -535,7 +535,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
 }
-const localpath = "http://localhost:3001/"
+const localpath = "https://www.backend.kooblu.com/"
 const SubCategory = ({ formNumber }) => {
     const [Data, setData] = useState([])
 
@@ -559,12 +559,12 @@ const SubCategory = ({ formNumber }) => {
 
     const [count, setCount] = useState(1)
     useEffect(() => {
-        axios.get("http://localhost:3001/api/fetch_items")
+        axios.get("https://www.backend.kooblu.com/api/fetch_items")
             .then((data) => {
                 setData(data.data)
             })
 
-        axios.get("http://localhost:3001/sub_api/new_fetch_items")
+        axios.get("https://www.backend.kooblu.com/sub_api/new_fetch_items")
             .then((data) => {
                 setsubcategorydata(data.data)
             })
@@ -644,7 +644,7 @@ const SubCategory = ({ formNumber }) => {
             formData.append("Price", Price)
             formData.append("file", Image)
             // console.log(Image.file.originalname);
-            axios.post("http://localhost:3001/sub_api/new_subcategory", formData).then((res) => {
+            axios.post("https://www.backend.kooblu.com/sub_api/new_subcategory", formData).then((res) => {
                 // console.log(category);
 
                 toast.success(' uploaded Successed!', {
@@ -806,7 +806,7 @@ const RejectedList = ({ formNumber }) => {
     }));
 
     // const handleOpen = (_id) => {
-    //     axios.get(`http://localhost:3001/reject_api/rejected_data/${_id}`).then((response) => {
+    //     axios.get(`https://www.backend.kooblu.com/reject_api/rejected_data/${_id}`).then((response) => {
     //         setviewdata(response.data);
     //         console.log(response.data);
     //     })
@@ -824,7 +824,7 @@ const RejectedList = ({ formNumber }) => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:3001/reject_api/delete_item/${_id}`)
+                axios.delete(`https://www.backend.kooblu.com/reject_api/delete_item/${_id}`)
                 Swal.fire(
                     'Deleted!',
                     'Your file has been deleted.',
@@ -856,7 +856,7 @@ const RejectedList = ({ formNumber }) => {
     }));
 
     const getrejected_list = () => {
-        axios.get("http://localhost:3001/reject_api/rejected_data").then((res) => {
+        axios.get("https://www.backend.kooblu.com/reject_api/rejected_data").then((res) => {
             setregected(res.data)
         })
 
@@ -868,7 +868,7 @@ const RejectedList = ({ formNumber }) => {
     }, [])
 
     // const viewdeatils = (id) => {
-    //     axios.get(`http://localhost:3001/reject_api/rejected_data/${id}`).then((response) => {
+    //     axios.get(`https://www.backend.kooblu.com/reject_api/rejected_data/${id}`).then((response) => {
     //         setviewdata(response.data);
     //         console.log(response.data);
     //     })
@@ -990,13 +990,13 @@ const Orders = ({ formNumber }) => {
 
 
     const getdata = () => {
-        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+        axios.get("https://www.backend.kooblu.com/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
         })
-        axios.get("http://localhost:3001/booking_api/pending_booking_data").then((res) => {
+        axios.get("https://www.backend.kooblu.com/booking_api/pending_booking_data").then((res) => {
             setpending_orderdetails(res.data)
         })
-        axios.get("http://localhost:3001/booking_api/completed_booking_data").then((res) => {
+        axios.get("https://www.backend.kooblu.com/booking_api/completed_booking_data").then((res) => {
             setcompleted_orderdetails(res.data)
         })
 
@@ -1011,7 +1011,7 @@ const Orders = ({ formNumber }) => {
     }, [])
 
     const handleOpen4 = (id) => {
-        axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
+        axios.get(`https://www.backend.kooblu.com/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
                 setCompletedbill([res.data])
