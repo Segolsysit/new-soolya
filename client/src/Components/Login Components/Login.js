@@ -515,8 +515,12 @@ const Provider = () => {
     const[JobTitle,setJobTitle]=useState('select')
     const[WorkExp,setWorkExp]=useState('select')
     const[currently,setcurrently]=useState('select')
-    
-    
+    const[Zone,setZone]=useState('select')
+    const[AltPH,setAltPH]=useState('')
+    const[KnownL,setKnownL]=useState('')
+    const[SkillExp,setSkillExp]=useState('')
+    const[PanCard,setPanCard]=useState('')
+    const[Photo,setPhoto]=useState("")
     const Navigate = useNavigate();
 
     const [Pno, setPno] = useState(1)//page number
@@ -543,6 +547,12 @@ const Provider = () => {
     const[ErrJT,setErrJT]=useState("")
     const[ErrWE,setWE]=useState("")
     const[ErrCurrently,setErrCurrently]=useState("")
+    const[ErrZone,setErrZone]=useState("")
+    const [ErrAlpH,setAlph]=useState('')
+    const[ErrKnownL,setErrKnownL]=useState('')
+    const[ErrSkillExp,setErrSkillExp]=useState('')
+    const[ErrPan,setErrPan]=useState("")
+    const[ErrPhoto,setErrPhoto]=useState('')
 
     const Form1 = (e) => {
         e.preventDefault()
@@ -809,7 +819,7 @@ const Provider = () => {
                             }} />
                             <p style={{ color: "red" }}>{ErrA}</p>
                             <label className="Join-Label">Date Of Birth</label>
-                            <input type={'date'} className="Signup-Input" defaultValue={DOB} onChange={(e) => {
+                            <input type={'date'} className="Signup-Input" value={DOB} onChange={(e) => {
                                 setDOB(e.target.value)
                                 setErrDOB("")
                             }} />
@@ -821,7 +831,7 @@ const Provider = () => {
                             }} />
                             <p style={{ color: "red" }}>{ErrAadhar}</p>
                             <label className="Join-Label">AADHAR File</label>
-                            <input type={'file'} className="Signup-Input" value={AadharCard.originalname}   onChange={(e) => {
+                            <input type={'file'} ref={AadharCard} className="Signup-Input" value={AadharCard.originalname}   onChange={(e) => {
                                 setAadharCard(e.target.files[0])
                                 setErrAadharCard("")
                             }} />
@@ -956,122 +966,7 @@ const Provider = () => {
     const Form5 = (e) => {
         e.preventDefault()
         setError(false)
-        if (AccNo === "" || AccNo === null) {
-            setErrAcc("Enter your Acc number")
-            setError(true)
-        }
-        else if(AccNoC===""||AccNoC===null){
-            setErrAccC("Enter your Acc number")
-            setError(true)
-
-        }
-        else if(BnkName===""||BnkName===null){
-            setErrNOB("Enter Your Name of Bank")
-            setError(true)
-        }
-        else if(AAdhar.length<12||AAdhar.length>12){
-            setErrAadhar("Enter a valid Aadhar Number")
-            setError(true)
-        }
-        else if(Ifsc===""||Ifsc===null){
-            setErrIfsc("Enter your Ifsc")
-            setError(true)
-        }
-        else if(AccNo!=AccNoC){
-            setError(true)
-            toast.error('Account number not matched',{
-                position:'top-center'
-            })
-        }
-        else if (!Error) {
-            alert('hi')
-        }
-    }
-
-    
-
-
-    if (Pno === 5) {
-        return (
-
-            <div>
-                <Header />
-                <MenuBar />
-                <div className="Login-image">
-                    <h1 className="Login-heading">Register as Provider</h1>
-                </div>
-                <div className="Signup-card">
-                    <div className="Form-div">
-                        <form className="Form-Provider" onSubmit={Form5}>
-                            <div className="Signup-title">
-                                <h1 className="Signup-heading">Register as provider in ABC</h1>
-                                <p className="Signup-ptag">Welcome! Register with valid data</p>
-                            </div>
-                            <label className="Join-Label">Education Level</label>
-                            <select className="Signup-Input">
-                                <option>Select</option>
-                                <option>No formal education</option>
-                                <option>Below sslc</option>
-                                <option>sslc</option>
-                                <option>HSC</option>
-                                <option>Under Graduate</option>
-                                <option>Post Graduate</option>
-                                <option>Doctrate</option>
-                            </select>
-                            <p style={{ color: "red" }}>{ErrA}</p>
-                            <label className="Join-Label">Job Title</label>
-                            <select className="Signup-Input">
-                                <option>Select</option>
-                                <option>Electrician</option>
-                                <option>Plumber</option>
-                                <option>Carpenter</option>
-                                <option>Mechanic</option>  
-                            </select>
-                            <p style={{ color: "red" }}>{ErrAccC}</p>
-                            <label className="Join-Label">Work Experience</label>
-                            <select className="Signup-Input">
-                                <option>Select</option>
-                                <option>Fresher</option>
-                                <option>0-1 yrs</option>
-                                <option>1+ yrs</option>
-                                <option>3+ yrs</option>  
-                            </select>
-                            <p style={{ color: "red" }}>{ErrNOB}</p>
-                            <label className="Join-Label">Currently Working</label>
-                            <select className="Signup-Input">
-                                <option>Select</option>
-                                <option>Yes</option>
-                                <option>No</option>
-                                
-                            </select>
-                            <p style={{ color: "red" }}>{ErrIFSC}</p>
-                            <div className="Toggle-btns">
-                                <button className="Button-Toggle" onClick={(e)=>{e.preventDefault();setPno(Pno - 1); console.log(FirstName);} }>Previous</button>
-                                <button className="Button-Toggle" type="submit">Next</button>
-                            </div>
-                            <div className="Already">
-                                <p className="Primary-Signup">Already have an account</p>
-                                <Link to="/Login"><p className="Secondary-Signup">Login</p></Link>
-                            </div>
-
-                        </form>
-                    </div>
-                    <div className="Image-divProvider">
-
-                    </div>
-                </div>
-                <Footer />
-                <End />
-            </div>
-        )
-
-    }
-
-
-    const Form6 = (e) => {
-        e.preventDefault()
-        setError(false)
-        if (Education === "Select" || Education === "") {
+        if (Education === "select" || Education === "") {
             setErrEdu("Select Education")
             setError(true)
         }
@@ -1089,9 +984,135 @@ const Provider = () => {
             setErrCurrently("Select your current working")
             setError(true)
         }
+
+        else if(Zone==="select"||Zone===null){
+            setErrZone("Select your working zone")
+            setError(true)
+        }
        
         else if (!Error) {
-            alert('hi')
+            setPno(6)
+        }
+    }
+    
+
+    
+
+
+    if (Pno === 5) {
+        return (
+
+            <div>
+            <Header />
+            <MenuBar />
+            <div className="Login-image">
+                <h1 className="Login-heading">Register as Provider</h1>
+            </div>
+            <div className="Signup-card">
+                <div className="Form-div">
+                    <form className="Form-Provider" onSubmit={Form5}>
+                        <div className="Signup-title">
+                            <h1 className="Signup-heading">Register as provider in ABC</h1>
+                            <p className="Signup-ptag">Welcome! Register with valid data</p>
+                        </div>
+                        <label className="Join-Label">Education Level</label>
+                        <select className="Signup-Input" value={Education} onChange={(e)=>{setEducation(e.target.value)
+                        setErrEdu("")}}>
+                            <option>Select</option>
+                            <option>No formal education</option>
+                            <option>Below sslc</option>
+                            <option>sslc</option>
+                            <option>HSC</option>
+                            <option>Under Graduate</option>
+                            <option>Post Graduate</option>
+                            <option>Doctrate</option>
+                        </select>
+                        <p style={{ color: "red" }}>{ErrEdu}</p>
+                        <label className="Join-Label">Job Title</label>
+                        <select className="Signup-Input" value={JobTitle} onChange={(e)=>{setJobTitle(e.target.value)
+                        setErrJT("")}}>
+                            <option>Select</option>
+                            <option>Electrician</option>
+                            <option>Plumber</option>
+                            <option>Carpenter</option>
+                            <option>Mechanic</option>  
+                        </select>
+                        <p style={{ color: "red" }}>{ErrJT}</p>
+                        <label className="Join-Label">Work Experience</label>
+                        <select className="Signup-Input" value={WorkExp} onChange={(e)=>{setWorkExp(e.target.value)
+                        setWE("")}}>
+                            <option>Select</option>
+                            <option>Fresher</option>
+                            <option>0-1 yrs</option>
+                            <option>1-3 yrs</option>
+                            <option>3+ yrs</option>  
+                        </select>
+                        <p style={{ color: "red" }}>{ErrWE}</p>
+                        <label className="Join-Label">Currently Working</label>
+                        <select className="Signup-Input" value={currently} onChange={(e)=>{setcurrently(e.target.value)
+                        setErrCurrently("")}}>
+                            <option>Select</option>
+                            <option>Yes</option>
+                            <option>No</option>
+                            
+                        </select>
+                        <p style={{ color: "red" }}>{ErrCurrently}</p>
+                        <label className="Join-Label">Working Zone</label>
+                        <select className="Signup-Input" value={Zone} onChange={(e)=>{setZone(e.target.value)
+                        setErrZone("")}}>
+                            <option>select</option>
+                            <option>Erode</option>
+                            <option>Coimbatore</option>
+                            
+                        </select>
+                        <p style={{ color: "red" }}>{ErrZone}</p>
+                        <div className="Toggle-btns">
+                            <button className="Button-Toggle" onClick={(e)=>{e.preventDefault();setPno(Pno - 1); console.log(FirstName);} }>Previous</button>
+                            <button className="Button-Toggle" type="submit">Next</button>
+                        </div>
+                        <div className="Already">
+                            <p className="Primary-Signup">Already have an account</p>
+                            <Link to="/Login"><p className="Secondary-Signup">Login</p></Link>
+                        </div>
+
+                    </form>
+                </div>
+                <div className="Image-divProvider">
+
+                </div>
+            </div>
+            <Footer />
+            <End />
+        </div>
+        )
+
+    }
+
+
+    const Form6 = (e) => {
+        e.preventDefault()
+        setError(false)
+        if (Email === "" || Education === "") {
+            setErrE("Enter your mail Id")
+            setError(true)
+        }
+        else if(AltPH!==""&&(AltPH.length<10 || AltPH.length>10)){
+            setAlph("Enter a valid phone number")
+            setError(true)
+
+        }
+        else if(KnownL===""||KnownL===null){
+            setErrKnownL("Select your Known Language")
+            setError(true)
+        }
+        
+        else if(SkillExp===""||SkillExp===null){
+            setErrSkillExp("Select your current working")
+            setError(true)
+        }
+       
+        else if (!Error) {
+            setPno(7)
         }
     }
 
@@ -1114,44 +1135,138 @@ const Provider = () => {
                                 <h1 className="Signup-heading">Register as provider in ABC</h1>
                                 <p className="Signup-ptag">Welcome! Register with valid data</p>
                             </div>
-                            <label className="Join-Label">Education Level</label>
-                            <select className="Signup-Input" onChange={(e)=>setEducation(e.target.value)}>
-                                <option>Select</option>
-                                <option>No formal education</option>
-                                <option>Below sslc</option>
-                                <option>sslc</option>
-                                <option>HSC</option>
-                                <option>Under Graduate</option>
-                                <option>Post Graduate</option>
-                                <option>Doctrate</option>
-                            </select>
-                            <p style={{ color: "red" }}>{ErrEdu}</p>
-                            <label className="Join-Label">Job Title</label>
-                            <select className="Signup-Input" onChange={(e)=>setJobTitle(e.target.value)}>
-                                <option>Select</option>
-                                <option>Electrician</option>
-                                <option>Plumber</option>
-                                <option>Carpenter</option>
-                                <option>Mechanic</option>  
-                            </select>
-                            <p style={{ color: "red" }}>{ErrJT}</p>
-                            <label className="Join-Label">Work Experience</label>
-                            <select className="Signup-Input" onChange={(e)=>setWorkExp(e.target.value)}>
-                                <option>Select</option>
-                                <option>Fresher</option>
-                                <option>0-1 yrs</option>
-                                <option>1+ yrs</option>
-                                <option>3+ yrs</option>  
-                            </select>
-                            <p style={{ color: "red" }}>{ErrWE}</p>
-                            <label className="Join-Label" onChange={(e)=>setcurrently(e.target.value)}>Currently Working</label>
-                            <select className="Signup-Input">
-                                <option>Select</option>
-                                <option>Yes</option>
-                                <option>No</option>
-                                
-                            </select>
-                            <p style={{ color: "red" }}>{ErrCurrently}</p>
+                            <label className="Join-Label">Email</label>
+                            <input type={'email'} value={Email} className="Signup-Input" onChange={(e)=>{setEmail(e.target.value)
+                            setErrE("")}}/>
+                            <p style={{ color: "red" }}>{ErrE}</p>
+                            <label type={'number'} className="Join-Label">Alternate PH.no</label>
+                            <input className="Signup-Input" value={AltPH} onChange={(e)=>{setAltPH(e.target.value)
+                            setAlph('')}}/>
+                            <p style={{ color: "red" }}>{ErrAlpH}</p>
+                            <label className="Join-Label">Languages Known</label>
+                            <input className="Signup-Input" value={KnownL} onChange={(e)=>{setKnownL(e.target.value)
+                            setErrKnownL('')}}/>
+                            <p style={{ color: "red" }}>{ErrKnownL}</p>
+                            <label className="Join-Label">Skill Experience</label>
+                            <input className="Signup-Input" value={SkillExp} onChange={(e)=>{setSkillExp(e.target.value)
+                            setErrSkillExp('')}}/>
+                            <p style={{ color: "red" }}>{ErrSkillExp}</p>
+                            
+                            <div className="Toggle-btns">
+                                <button className="Button-Toggle" onClick={(e)=>{e.preventDefault();setPno(Pno - 1); console.log(FirstName);} }>Previous</button>
+                                <button className="Button-Toggle" type="submit">Next</button>
+                            </div>
+                            <div className="Already">
+                                <p className="Primary-Signup">Already have an account</p>
+                                <Link to="/Login"><p className="Secondary-Signup">Login</p></Link>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div className="Image-divProvider">
+
+                    </div>
+                </div>
+                <Footer />
+                <End />
+            </div>
+        )
+
+    }
+
+    const Form7 = (e) => {
+        e.preventDefault()
+        setError(false)
+        if (PanCard === "" || PanCard === null) {
+            setErrPan("Add your pancard file")
+            setError(true)
+        }
+        else if(Photo === "" || Photo === null){
+            setErrPhoto("Add Your photo")
+            setError(true)
+
+        }
+       
+       
+        else if (!Error) {
+            const Formdata=new FormData()
+            Formdata.append("FirstName",FirstName)
+            Formdata.append("LName",LName)
+            Formdata.append("Location",Location)
+            Formdata.append("Email",Email)
+            Formdata.append("Phone",Phone)
+            Formdata.append("Address",Address)
+            Formdata.append("Language",Language)
+            Formdata.append("Gender",Gender)
+            Formdata.append("DOB",DOB)
+            Formdata.append("AAdhar",AAdhar)
+            Formdata.append("AadharCard",AadharCard)
+            Formdata.append("AccNo",AccNo)
+            Formdata.append("BnkName",BnkName)
+            Formdata.append("Ifsc",Ifsc)
+            Formdata.append("Education",Education)
+            Formdata.append("JobTitle",JobTitle)
+            Formdata.append("WorkExp",WorkExp)
+            Formdata.append("Zone",Zone)
+            Formdata.append("AltPH",AltPH)
+            Formdata.append("KnownL",KnownL)
+            Formdata.append("SkillExp",SkillExp)
+            Formdata.append("PanCard",PanCard)
+            Formdata.append("Photo",Photo)
+            try{
+                axios.post('http://localhost:3001/vendor_Auth/register',Formdata)
+                .then((res)=>{
+                    if(res.data==="Email is already registered"){
+                        toast.error("Email is already registered",{
+                            position:'top-center'
+                        })
+                    }
+                    else{
+                        toast.success("Application Submitted")
+                    }
+                })
+            }
+
+            catch(error){
+                console.log(error);
+            }
+
+
+
+
+
+}
+    }
+
+    
+
+
+    if (Pno === 7) {
+        return (
+
+            <div>
+                <Header />
+                <MenuBar />
+                <div className="Login-image">
+                    <h1 className="Login-heading">Register as Provider</h1>
+                </div>
+                <div className="Signup-card">
+                    <div className="Form-div">
+                        <form className="Form-Provider" onSubmit={Form7}>
+                            <div className="Signup-title">
+                                <h1 className="Signup-heading">Register as provider in ABC</h1>
+                                <p className="Signup-ptag">Welcome! Register with valid data</p>
+                            </div>
+                            <label className="Join-Label">Pan Card</label>
+                            <input type={'file'}   className="Signup-Input" onChange={(e)=>{setPanCard(e.target.files[0])
+                            setErrPan("")}}/>
+                            <p style={{ color: "red" }}>{ErrPan}</p>
+                            <label  className="Join-Label">Photo</label>
+                            <input type={'file'} className="Signup-Input"  onChange={(e)=>{setPhoto(e.target.files[0])
+                            setErrPhoto('')}}/>
+                            <p style={{ color: "red" }}>{ErrPhoto}</p>
+                            
+                            
                             <div className="Toggle-btns">
                                 <button className="Button-Toggle" onClick={(e)=>{e.preventDefault();setPno(Pno - 1); console.log(FirstName);} }>Previous</button>
                                 <button className="Button-Toggle" type="submit">Next</button>
