@@ -35,7 +35,7 @@ const RecivedApplication = ({ formNumber }) => {
     const [pwderr, setpwderr] = useState('');
     const [open, setOpen1] = useState(false);
     const [openModel2, setOpenModel2] = useState(false);
-    const[Phone,setPhone]=useState("")
+    const [Phone, setPhone] = useState("")
 
 
     const handleOpen = (_id) => {
@@ -154,9 +154,9 @@ const RecivedApplication = ({ formNumber }) => {
     const [application, setApplication] = useState([])
     useEffect(() => {
         getdata()
-    },[])
+    }, [])
 
-    const localpath='https://backend.kooblu.com/'
+    const localpath = 'https://backend.kooblu.com/'
 
     if (formNumber === 10) {
         return (
@@ -209,17 +209,64 @@ const RecivedApplication = ({ formNumber }) => {
                         aria-labelledby="parent-modal-title"
                         aria-describedby="parent-modal-description"
                     >
-                        <Box sx={{ ...style, width: 450 }}>
-                            <div style={{display:'flex',gap:'10px',justifyContent:'space-between'}}>
-                            <div style={{width:'fit-content'}}>
-                            <p><b>Name</b> : {viewdata.FirstName}</p>
-                            <p>Email    : {viewdata.Email}</p>
-                            <p>phone    : {viewdata.Phone}</p>
-                            <p>Address  : {viewdata.Address}</p>
-                            <p>Location : {viewdata.Location}</p>
-                            <p>Category : {viewdata.Category}</p>
-                            </div>
-                            <img style={{aspectRatio:3/4,width:'100px',height:'50%'}} src={localpath+viewdata.filename} alt=''/>
+                        <Box sx={{ ...style,width:600,height:'100%',overflowY:'scroll'}}>
+                            <div style={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }}>
+                                <div style={{ width: 'fit-content' }}>
+                                    <p><b>First Name</b> : {viewdata.FirstName}</p>
+                                    <p><b>Last Name</b>: {viewdata.LName}</p>
+                                    <p><b>Email</b>   : {viewdata.Email}</p>
+                                    <p><b>phone</b>    : {viewdata.Phone}</p>
+                                    <p><b>Address </b> : {viewdata.Address}</p>
+                                    <p><b>Location</b> : {viewdata.Location}</p>
+                                    <p><b>Gender</b> : {viewdata.Gender}</p>
+                                    <p><b>Language</b> : {viewdata.Language}</p>
+                                    <p><b>DOB</b> : {viewdata.DOB}</p>
+                                    <p><b>AAdhar Number</b> : {viewdata.AAdhar}</p>
+                                    <p><b>Account Number</b> : {viewdata.AccNo}</p>
+                                    <p><b>IFSC Code</b> : {viewdata.Ifsc}</p>
+                                    <p><b>Education Level</b> : {viewdata.Education}</p>
+                                    <p><b>Job Title</b> : {viewdata.JobTitle}</p>
+                                    <p><b>Work Experience</b>   : {viewdata.WorkExp}</p>
+                                    <p><b>Work Zone</b>   : {viewdata.Zone}</p>
+                                    <p><b>Alternate Ph.No</b>   : {viewdata.AltPH}</p>
+                                    <p><b>Languages Known</b>   : {viewdata.KnownL}</p>
+                                    <div style={{display:'flex',gap:'20px'}}>
+                                { Array.isArray(viewdata.Files) && viewdata.Files.map(item => {
+                                    if (item.fieldName === "AadharCard") {
+                                        return (
+                                        <img style={{ aspectRatio: 16 / 9, width: '200px',  }} src={localpath + item.filename} alt='' />
+                                        )
+
+                                    }
+
+
+                                })}
+                                  { Array.isArray(viewdata.Files) && viewdata.Files.map(item => {
+                                    if (item.fieldName === "PanCard") {
+                                        return (
+                                        <img style={{ aspectRatio: 16 / 9, width: '200px',  }} src={localpath + item.filename} alt='' />
+                                        )
+
+                                    }
+
+
+                                })}
+                                </div>
+                                    
+
+
+
+                                </div>
+                                <div>
+                                { Array.isArray(viewdata.Files) && viewdata.Files.map(item => {
+                                    if (item.fieldName === "Photo") {
+                                        return <img style={{ aspectRatio: 3 / 4, width: '100px',  }} src={localpath + item.filename} alt='' />
+
+                                    }
+
+
+                                })}
+                                </div>
                             </div>
                             {/* <ChildModal close={setOpen1}/> */}
                             <Button onClick={handleOpenModel2}>hire</Button>

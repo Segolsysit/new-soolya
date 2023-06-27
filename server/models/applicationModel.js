@@ -1,48 +1,76 @@
 const mongoose = require("mongoose");
 
 const Applicationschema = mongoose.Schema({
-    FirstName: {
-        type: String,
-
+    FirstName:{
+        type:String
     },
-
-    LastName: {
-        type: String,
-
+    LName:{
+        type:String
     },
-    Email: {
+    Location:{
+        type:String
+    },
+    Email:{
         type:String,
-    },
-    Location: {
-        type:String,
-    },
-    Address: {
-        type:String,
-    },
-    Category: {
-        type:String,
+        unique:true
     },
     Phone:{
         type:Number,
+        unique:true
     },
-    mimetype: {
-        type: String,
-
+    Address:{
+        type:String,
     },
-    filename: {
-        type: String,
-
+    Gender:{
+        type:String,
     },
-    path: {
-        type: String,
-
+    Language:{
+        type:String,
     },
-    size: {
-        type: Number,
-
-    }
-   
-
+    DOB:{
+        type:Date,
+    },
+    AAdhar:{
+        type:Number,
+    },
+    AccNo:{
+        type:Number,
+    },
+    BnkName:{
+        type:String,
+    },
+    Ifsc:{
+        type:String,
+    },
+    Education:{
+        type:String,
+    },
+    JobTitle:{
+        type:String,
+    },
+    WorkExp:{
+        type:String,
+    },
+    Zone:{
+        type:String,
+    },
+    AltPH:{
+        type:Number,
+    },
+    KnownL:{
+        type:String,
+    },
+    SkillExp:{
+        type:String,
+    },
+    Files: [{
+        fieldName: String,
+        filename:String,
+        originalName: String,
+        mimeType: String,
+        path: String,
+        
+      }],
 
 });
 

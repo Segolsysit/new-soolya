@@ -4,10 +4,6 @@ const nodemailer = require('nodemailer');
 const bcrypt = require("bcrypt");
 const vjwt = require("jsonwebtoken");
 const maxAge = 3 * 24 * 60 * 60;
-const multer=require('multer');
-const vendorAuthModel = require("../models/vendorAuthModel");
-const path = require("path");
-
 
 
 // const auth = (req, res, next) => {
@@ -20,34 +16,6 @@ const path = require("path");
 //   } 
 
 // Protected route that can only be accessed by authenticated users
-const Storage=multer.diskStorage({
-  destination:(req,file,cb)=>{
-
-cb(null , "files&img")
-
-  },
-  filename:(req,file,cb)=>{
-        cb(null,file.originalname + "_"+Date.now() + path.extname(file.originalname))  
-  }
-})
-
-
-const fileFilter = (req, file, cb) => {
-  const acceptFileTypes = ['image/jpeg', 'image/jpg', 'image/png','file/pdf']
-  if (acceptFileTypes.includes(file.mimetype)) {
-      cb(null, true)
-  }
-  else {
-      cb(null, false)
-  }
-}
-
-const upload = multer({
-  storage:Storage,
-  fileFilter: fileFilter
-})
-
-
 VendorAuthRoute.get('/', (req, res) => {
   const token = req.cookies.venjwt;
   if (!token) {
@@ -70,70 +38,24 @@ VendorAuthRoute.get('/', (req, res) => {
   }
 });
 
-var multipleUpload = upload.fields([{ name: 'AadharCard' }, { name: 'PanCard' },{name:'Photo'}])
-
-
-VendorAuthRoute.post("/register", multipleUpload, async (req, res, next) => {
+VendorAuthRoute.post("/register", async (req, res, next) => {
 
   try {
-    const{FirstName,LName,Location,Email,Phone,Address,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL}=req.body
-    const AadharCard=req.files['AadharCard']
-    const PanCard=req.files['PanCard']
-    const Photo=req.files['Photo']
+    const { Username, Email, Password, Phonenumber } = req.body;
 
-
-    const fileData=new vendorAuthModel({
-      FirstName,LName,Location,Email,Phone,Address,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL,
-      Files:[]
-
-    })
-
-    if (AadharCard){
-      AadharCard.forEach(element => {
-        const file = {
-          fieldName: 'AadharCard',
-          filename:element.filename,
-          originalName: element.originalname,
-          mimeType: element.mimetype,
-          path: element.path,
-        };
-        fileData.Files.push(file);
-      });
-    }
-
-    if (Photo){
-      Photo.forEach(element => {
-        const file = {
-          fieldName: 'Photo',
-          filename:element.filename,
-          originalName: element.originalname,
-          mimeType: element.mimetype,
-          path: element.path,
-        };
-        fileData.Files.push(file);
-      });
-    }
-
-    if (PanCard){
-      PanCard.forEach(element => {
-        const file = {
-          fieldName: 'PanCard',
-          filename:element.filename,
-          originalName: element.originalname,
-          mimeType: element.mimetype,
-          path: element.path,
-        };
-        fileData.Files.push(file);
-      });
-    }
-
+    const hashedPassword = await bcrypt.hash(Password, 10);
     const isEmail = await VendorAuth.findOne({ Email });
     if (isEmail) {
       console.log("Email is already registered");
       res.json({ status: "error", message: "Email is already registered" });
     } else {
-      
-      fileData.save()
+      const user = await VendorAuth.create({
+        Username,
+        Email,
+        Password: hashedPassword,
+        Phonenumber
+      })
+      user.save()
       res.json({ status: "success", message: "signup successfull" });
     }
 

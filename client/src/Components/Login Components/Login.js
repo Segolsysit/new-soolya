@@ -831,7 +831,7 @@ const Provider = () => {
                             }} />
                             <p style={{ color: "red" }}>{ErrAadhar}</p>
                             <label className="Join-Label">AADHAR File</label>
-                            <input type={'file'} ref={AadharCard} className="Signup-Input" value={AadharCard.originalname}   onChange={(e) => {
+                            <input type={'file'}  className="Signup-Input" value={AadharCard.originalname}   onChange={(e) => {
                                 setAadharCard(e.target.files[0])
                                 setErrAadharCard("")
                             }} />
@@ -1214,7 +1214,7 @@ const Provider = () => {
             Formdata.append("PanCard",PanCard)
             Formdata.append("Photo",Photo)
             try{
-                axios.post('http://localhost:3001/vendor_Auth/register',Formdata)
+                axios.post('http://localhost:3001/vendor_Applications/Applications',Formdata)
                 .then((res)=>{
                     if(res.data==="Email is already registered"){
                         toast.error("Email is already registered",{

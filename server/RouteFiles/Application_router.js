@@ -9,47 +9,103 @@ const fs = require("fs");
 
 const Storage=multer.diskStorage({
     destination:(req,file,cb)=>{
-
-cb(null , "files&img")
-
+  
+  cb(null , "files&img")
+  
     },
     filename:(req,file,cb)=>{
-          cb(null,file.fieldname + "_"+Date.now() + path.extname(file.originalname))  
+          cb(null,file.originalname + "_"+Date.now() + path.extname(file.originalname))  
     }
-})
-const fileFilter = (req, file, cb) => {
-    const acceptFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+  })
+  
+  
+  const fileFilter = (req, file, cb) => {
+    const acceptFileTypes = ['image/jpeg', 'image/jpg', 'image/png','file/pdf']
     if (acceptFileTypes.includes(file.mimetype)) {
         cb(null, true)
     }
     else {
         cb(null, false)
     }
-}
-
-const upload = multer({
+  }
+  
+  const upload = multer({
     storage:Storage,
     fileFilter: fileFilter
-})
+  })
+
+  var multipleUpload = upload.fields([{ name: 'AadharCard' }, { name: 'PanCard' },{name:'Photo'}])
 
 
-Application_Router.post("/Applications",upload.single("file"),async(req,res) => {
-    const objects = new Applicationschema({
-        FirstName:req.body.FirstName,
-        LastName:req.body.LName,
-        originalname: req.file.originalname,
-        mimetype: req.file.mimetype,
-        filename: req.file.filename,
-        path: req.file.path,
-        size: req.file.size,
-        Email:req.body.Email,
-        Location:req.body.Location,
-        Address:req.body.Address,
-        Category:req.body.Category,
-        Phone:req.body.Phone
-       })
-       await objects.save();
-       res.status(200).json({message:"Uploaded Successfully",objects})
+
+Application_Router.post("/Applications",multipleUpload,async(req,res) => {
+    try {
+        const{FirstName,LName,Location,Email,Phone,Address,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL}=req.body
+        const AadharCard=req.files['AadharCard']
+        const PanCard=req.files['PanCard']
+        const Photo=req.files['Photo']
+    
+    
+        const fileData=new Applicationschema({
+          FirstName,LName,Location,Email,Phone,Address,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL,
+          Files:[]
+    
+        })
+    
+        if (AadharCard){
+          AadharCard.forEach(element => {
+            const file = {
+              fieldName: 'AadharCard',
+              filename:element.filename,
+              originalName: element.originalname,
+              mimeType: element.mimetype,
+              path: element.path,
+            };
+            fileData.Files.push(file);
+          });
+        }
+    
+        if (Photo){
+          Photo.forEach(element => {
+            const file = {
+              fieldName: 'Photo',
+              filename:element.filename,
+              originalName: element.originalname,
+              mimeType: element.mimetype,
+              path: element.path,
+            };
+            fileData.Files.push(file);
+          });
+        }
+    
+        if (PanCard){
+          PanCard.forEach(element => {
+            const file = {
+              fieldName: 'PanCard',
+              filename:element.filename,
+              originalName: element.originalname,
+              mimeType: element.mimetype,
+              path: element.path,
+            };
+            fileData.Files.push(file);
+          });
+        }
+    
+        const isEmail = await Applicationschema.findOne({ Email });
+        if (isEmail) {
+          console.log("Email is already registered");
+          res.json({ status: "error", message: "Email is already registered" });
+        } else {
+          
+          fileData.save()
+          res.json({ status: "success", message: "signup successfull" });
+        }
+    
+    
+      } catch (err) {
+        console.log(err);
+        res.status(500).json({ status: 'error', message: "Something went wrong" });
+      }
 })
 
 Application_Router.get("/vendor_application",async(req,res) => {
