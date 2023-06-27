@@ -868,6 +868,7 @@ const Provider = () => {
             setErrAcc("Enter your Acc number")
             setError(true)
         }
+        
         else if(AccNoC===""||AccNoC===null){
             setErrAccC("Enter your Acc number")
             setError(true)
@@ -920,7 +921,7 @@ const Provider = () => {
                                 setAccNo(e.target.value)
                                 setErrAcc("")
                             }} />
-                            <p style={{ color: "red" }}>{ErrA}</p>
+                            <p style={{ color: "red" }}>{ErrAcc}</p>
                             <label className="Join-Label">Confirm Account Number</label>
                             <input type={'number'} className="Signup-Input" value={AccNoC} onChange={(e) => {
                                 setAccCon(e.target.value)
