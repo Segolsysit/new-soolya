@@ -419,7 +419,9 @@ const Signup = () => {
                             }} />
                             <p className="Error-signup">{errL}</p>
                             <label className="Signup-Label">Phone Number</label>
-                            <input type="number" className="Signup-Input" onChange={(e) => {
+                            <input type="number" className="Signup-Input" onWheel={(e) => {
+                                e.target.blur();
+                            }} onChange={(e) => {
                                 setP(e.target.value)
                                 seterrP("")
                             }} />
@@ -502,57 +504,57 @@ const Provider = () => {
     const [Address, setAddress] = useState("")
     const [Category, setCategory] = useState("")
     const [File, setFile] = useState("")
-    const [Language,setLanguage]=useState('Select')
-    const [Gender,setGender]=useState("Select")
-    const[DOB,setDOB]=useState('')
-    const[AAdhar,setAadhar]=useState('')
-    const[AadharCard,setAadharCard]=useState("")
-    const[AccNo,setAccNo]=useState("")
-    const[AccNoC,setAccCon]=useState("")
-    const[BnkName,setBnkName]=useState('')
-    const[Ifsc,setIfsc]=useState('')
-    const[Education,setEducation]=useState('select')
-    const[JobTitle,setJobTitle]=useState('select')
-    const[WorkExp,setWorkExp]=useState('select')
-    const[currently,setcurrently]=useState('select')
-    const[Zone,setZone]=useState('select')
-    const[AltPH,setAltPH]=useState('')
-    const[KnownL,setKnownL]=useState('')
-    const[SkillExp,setSkillExp]=useState('')
-    const[PanCard,setPanCard]=useState('')
-    const[Photo,setPhoto]=useState("")
+    const [Language, setLanguage] = useState('Select')
+    const [Gender, setGender] = useState("Select")
+    const [DOB, setDOB] = useState('')
+    const [AAdhar, setAadhar] = useState('')
+    const [AadharCard, setAadharCard] = useState("")
+    const [AccNo, setAccNo] = useState("")
+    const [AccNoC, setAccCon] = useState("")
+    const [BnkName, setBnkName] = useState('')
+    const [Ifsc, setIfsc] = useState('')
+    const [Education, setEducation] = useState('select')
+    const [JobTitle, setJobTitle] = useState('select')
+    const [WorkExp, setWorkExp] = useState('select')
+    const [currently, setcurrently] = useState('select')
+    const [Zone, setZone] = useState('select')
+    const [AltPH, setAltPH] = useState('')
+    const [KnownL, setKnownL] = useState('')
+    const [SkillExp, setSkillExp] = useState('')
+    const [PanCard, setPanCard] = useState('')
+    const [Photo, setPhoto] = useState("")
     const Navigate = useNavigate();
 
     const [Pno, setPno] = useState(1)//page number
 
     const [ErrFN, setErrFN] = useState("")
     const [ErrLN, setErrLN] = useState("")
-    const [ErrLan,setErrLan]=useState('')
+    const [ErrLan, setErrLan] = useState('')
     const [ErrC, setErrC] = useState("")
     const [ErrL, setErrL] = useState("")
     const [Error, setError] = useState(false)
     const [ErrE, setErrE] = useState("")
     const [ErrP, setErrP] = useState("")
     const [ErrA, setErrA] = useState("")
-    const [ErrGender,setErrGender]=useState("")
+    const [ErrGender, setErrGender] = useState("")
     const [FileErr, setFileErr] = useState("")
-    const[ErrDOB,setErrDOB]=useState('')
-    const[ErrAadhar,setErrAadhar]=useState('')
-    const[ErrAadharCard,setErrAadharCard]=useState('')
-    const [ErrAcc,setErrAcc]=useState("")
-    const [ErrAccC,setErrAccC]=useState("")
-    const[ErrNOB,setErrNOB]=useState("")
-    const [ErrIFSC,setErrIfsc]=useState("")
-    const[ErrEdu,setErrEdu]=useState("")
-    const[ErrJT,setErrJT]=useState("")
-    const[ErrWE,setWE]=useState("")
-    const[ErrCurrently,setErrCurrently]=useState("")
-    const[ErrZone,setErrZone]=useState("")
-    const [ErrAlpH,setAlph]=useState('')
-    const[ErrKnownL,setErrKnownL]=useState('')
-    const[ErrSkillExp,setErrSkillExp]=useState('')
-    const[ErrPan,setErrPan]=useState("")
-    const[ErrPhoto,setErrPhoto]=useState('')
+    const [ErrDOB, setErrDOB] = useState('')
+    const [ErrAadhar, setErrAadhar] = useState('')
+    const [ErrAadharCard, setErrAadharCard] = useState('')
+    const [ErrAcc, setErrAcc] = useState("")
+    const [ErrAccC, setErrAccC] = useState("")
+    const [ErrNOB, setErrNOB] = useState("")
+    const [ErrIFSC, setErrIfsc] = useState("")
+    const [ErrEdu, setErrEdu] = useState("")
+    const [ErrJT, setErrJT] = useState("")
+    const [ErrWE, setWE] = useState("")
+    const [ErrCurrently, setErrCurrently] = useState("")
+    const [ErrZone, setErrZone] = useState("")
+    const [ErrAlpH, setAlph] = useState('')
+    const [ErrKnownL, setErrKnownL] = useState('')
+    const [ErrSkillExp, setErrSkillExp] = useState('')
+    const [ErrPan, setErrPan] = useState("")
+    const [ErrPhoto, setErrPhoto] = useState('')
 
     const Form1 = (e) => {
         e.preventDefault()
@@ -614,8 +616,10 @@ const Provider = () => {
                             </div>
                             <>
                                 <label className="Join-Label">Language</label>
-                                <select className="Signup-Input" defaultValue={Language} onChange={(e)=>{setLanguage(e.target.value)
-                                setErrLan('')}}>
+                                <select className="Signup-Input" defaultValue={Language} onChange={(e) => {
+                                    setLanguage(e.target.value)
+                                    setErrLan('')
+                                }}>
                                     <option>Select</option>
                                     <option>TAMIL</option>
                                     <option>ENGLISH</option>
@@ -635,14 +639,14 @@ const Provider = () => {
                                     setLocation(e.target.value)
                                     setErrL("")
                                 }}>
-                                    {city.map((item,index)=>(
-                                         <option key={index}>{item}</option>
+                                    {city.map((item, index) => (
+                                        <option key={index}>{item}</option>
                                     ))}
 
                                 </select>
                                 <p className="Error-signup">{ErrL}</p>
 
-                                
+
                                 <button type="button" className="Button-Signup" onClick={Form1}>Next</button>
                             </>
                             <div className="Already">
@@ -679,8 +683,8 @@ const Provider = () => {
             setErrFN("Enter your First Name")
             setError(true)
         }
-        
-        else if (LName ==="" || LName ===null) {
+
+        else if (LName === "" || LName === null) {
             setErrLN("Enter your Last Name")
             setError(true)
         }
@@ -688,7 +692,7 @@ const Provider = () => {
             setErrGender("Enter your Gender")
             setError(true)
         }
-       
+
 
         else if (!Error) {
             setPno(Pno + 1)
@@ -724,22 +728,24 @@ const Provider = () => {
                                 setLName(e.target.value)
                                 setErrLN("")
                             }} />
-                             <p style={{ color: "red" }}>{ErrLN}</p>
+                            <p style={{ color: "red" }}>{ErrLN}</p>
                             <label className="Join-Label">Gender</label>
-                            <select className="Signup-Input" defaultValue={Gender} onChange={(e)=>{setGender(e.target.value)
-                            setErrGender("")}}>
+                            <select className="Signup-Input" defaultValue={Gender} onChange={(e) => {
+                                setGender(e.target.value)
+                                setErrGender("")
+                            }}>
                                 <option>Select</option>
                                 <option>Male</option>
                                 <option>Female</option>
                             </select>
                             <p style={{ color: "red" }}>{ErrGender}</p>
                             <div className="Toggle-btns">
-                                <button className="Button-Toggle" 
-                                onClick={() => {
-                                    setPno(Pno - 1)
+                                <button className="Button-Toggle"
+                                    onClick={() => {
+                                        setPno(Pno - 1)
 
-                                    console.log(FirstName);
-                                }}
+                                        console.log(FirstName);
+                                    }}
                                 >Previous</button>
                                 <button className="Button-Toggle" type="submit">Next</button>
                             </div>
@@ -768,32 +774,32 @@ const Provider = () => {
             setErrA("Enter your address")
             setError(true)
         }
-        else if(DOB===""||DOB===null){
+        else if (DOB === "" || DOB === null) {
             setErrDOB("Enter Your DOB")
             setError(true)
 
         }
-        else if(AAdhar===""||AAdhar===null){
+        else if (AAdhar === "" || AAdhar === null) {
             setErrAadhar("Enter Your Aadhar Number")
             setError(true)
         }
-        else if(AAdhar.length<12||AAdhar.length>12){
+        else if (AAdhar.length < 12 || AAdhar.length > 12) {
             setErrAadhar("Enter a valid Aadhar Number")
             setError(true)
         }
-        else if(AadharCard===""||AadharCard===null){
+        else if (AadharCard === "" || AadharCard === null) {
             setErrAadharCard("Upload your Aadhar")
             setError(true)
         }
         else if (!Error) {
-            
+
             setPno(Pno + 1)
         }
     }
 
     console.log(Pno);
 
-    
+
 
 
     if (Pno === 3) {
@@ -813,7 +819,7 @@ const Provider = () => {
                                 <p className="Signup-ptag">Welcome! Register with valid data</p>
                             </div>
                             <label className="Join-Label">Address</label>
-                            <textarea  className="Signup-Input" defaultValue={Address} onChange={(e) => {
+                            <textarea className="Signup-Input" defaultValue={Address} onChange={(e) => {
                                 setAddress(e.target.value)
                                 setErrA("")
                             }} />
@@ -831,7 +837,7 @@ const Provider = () => {
                             }} />
                             <p style={{ color: "red" }}>{ErrAadhar}</p>
                             <label className="Join-Label">AADHAR File</label>
-                            <input type={'file'}  className="Signup-Input" value={AadharCard.originalname}   onChange={(e) => {
+                            <input type={'file'} className="Signup-Input" value={AadharCard.originalname} onChange={(e) => {
                                 setAadharCard(e.target.files[0])
                                 setErrAadharCard("")
                             }} />
@@ -868,28 +874,28 @@ const Provider = () => {
             setErrAcc("Enter your Acc number")
             setError(true)
         }
-        
-        else if(AccNoC===""||AccNoC===null){
+
+        else if (AccNoC === "" || AccNoC === null) {
             setErrAccC("Enter your Acc number")
             setError(true)
 
         }
-        else if(BnkName===""||BnkName===null){
+        else if (BnkName === "" || BnkName === null) {
             setErrNOB("Enter Your Name of Bank")
             setError(true)
         }
-        else if(AAdhar.length<12||AAdhar.length>12){
+        else if (AAdhar.length < 12 || AAdhar.length > 12) {
             setErrAadhar("Enter a valid Aadhar Number")
             setError(true)
         }
-        else if(Ifsc===""||Ifsc===null){
+        else if (Ifsc === "" || Ifsc === null) {
             setErrIfsc("Enter your Ifsc")
             setError(true)
         }
-        else if(AccNo!=AccNoC){
+        else if (AccNo != AccNoC) {
             setError(true)
-            toast.error('Account number not matched',{
-                position:'top-center'
+            toast.error('Account number not matched', {
+                position: 'top-center'
             })
         }
         else if (!Error) {
@@ -897,7 +903,7 @@ const Provider = () => {
         }
     }
 
-    
+
 
 
     if (Pno === 4) {
@@ -917,31 +923,37 @@ const Provider = () => {
                                 <p className="Signup-ptag">Welcome! Register with valid data</p>
                             </div>
                             <label className="Join-Label">Account Number</label>
-                            <input type={'number'}  className="Signup-Input" defaultValue={AccNo} onChange={(e) => {
-                                setAccNo(e.target.value)
-                                setErrAcc("")
-                            }} />
+                            <input type={'number'} className="Signup-Input" defaultValue={AccNo} onWheel={(e) => {
+                                e.target.blur();
+                            }}
+                                onChange={(e) => {
+                                    setAccNo(e.target.value)
+                                    setErrAcc("")
+                                }} />
                             <p style={{ color: "red" }}>{ErrAcc}</p>
                             <label className="Join-Label">Confirm Account Number</label>
-                            <input type={'number'} className="Signup-Input" value={AccNoC} onChange={(e) => {
-                                setAccCon(e.target.value)
-                                setErrAccC("")
-                            }} />
+                            <input type={'number'} className="Signup-Input" value={AccNoC} onWheel={(e) => {
+                                e.target.blur();
+                            }}
+                                onChange={(e) => {
+                                    setAccCon(e.target.value)
+                                    setErrAccC("")
+                                }} />
                             <p style={{ color: "red" }}>{ErrAccC}</p>
                             <label className="Join-Label">Name of Bank</label>
-                            <input type='text' className="Signup-Input" value={BnkName}   onChange={(e) => {
+                            <input type='text' className="Signup-Input" value={BnkName} onChange={(e) => {
                                 setBnkName(e.target.value)
                                 setErrNOB("")
                             }} />
                             <p style={{ color: "red" }}>{ErrNOB}</p>
                             <label className="Join-Label">IFSC Code</label>
-                            <input type={'text'} className="Signup-Input" defaultValue={Ifsc}  onChange={(e) => {
+                            <input type={'text'} className="Signup-Input" defaultValue={Ifsc} onChange={(e) => {
                                 setIfsc(e.target.value)
                                 setErrIfsc("")
                             }} />
                             <p style={{ color: "red" }}>{ErrIFSC}</p>
                             <div className="Toggle-btns">
-                                <button className="Button-Toggle" onClick={(e)=>{e.preventDefault();setPno(Pno - 1); console.log(FirstName);} }>Previous</button>
+                                <button className="Button-Toggle" onClick={(e) => { e.preventDefault(); setPno(Pno - 1); console.log(FirstName); }}>Previous</button>
                                 <button className="Button-Toggle" type="submit">Next</button>
                             </div>
                             <div className="Already">
@@ -971,120 +983,130 @@ const Provider = () => {
             setErrEdu("Select Education")
             setError(true)
         }
-        else if(JobTitle==="select"||JobTitle===null){
+        else if (JobTitle === "select" || JobTitle === null) {
             setErrJT("Select Job Title")
             setError(true)
 
         }
-        else if(WorkExp==="select"||WorkExp===null){
+        else if (WorkExp === "select" || WorkExp === null) {
             setWE("Select your experience category")
             setError(true)
         }
-        
-        else if(currently==="select"||currently===null){
+
+        else if (currently === "select" || currently === null) {
             setErrCurrently("Select your current working")
             setError(true)
         }
 
-        else if(Zone==="select"||Zone===null){
+        else if (Zone === "select" || Zone === null) {
             setErrZone("Select your working zone")
             setError(true)
         }
-       
+
         else if (!Error) {
             setPno(6)
         }
     }
-    
 
-    
+
+
 
 
     if (Pno === 5) {
         return (
 
             <div>
-            <Header />
-            <MenuBar />
-            <div className="Login-image">
-                <h1 className="Login-heading">Register as Provider</h1>
-            </div>
-            <div className="Signup-card">
-                <div className="Form-div">
-                    <form className="Form-Provider" onSubmit={Form5}>
-                        <div className="Signup-title">
-                            <h1 className="Signup-heading">Register as provider in ABC</h1>
-                            <p className="Signup-ptag">Welcome! Register with valid data</p>
-                        </div>
-                        <label className="Join-Label">Education Level</label>
-                        <select className="Signup-Input" value={Education} onChange={(e)=>{setEducation(e.target.value)
-                        setErrEdu("")}}>
-                            <option>Select</option>
-                            <option>No formal education</option>
-                            <option>Below sslc</option>
-                            <option>sslc</option>
-                            <option>HSC</option>
-                            <option>Under Graduate</option>
-                            <option>Post Graduate</option>
-                            <option>Doctrate</option>
-                        </select>
-                        <p style={{ color: "red" }}>{ErrEdu}</p>
-                        <label className="Join-Label">Job Title</label>
-                        <select className="Signup-Input" value={JobTitle} onChange={(e)=>{setJobTitle(e.target.value)
-                        setErrJT("")}}>
-                            <option>Select</option>
-                            <option>Electrician</option>
-                            <option>Plumber</option>
-                            <option>Carpenter</option>
-                            <option>Mechanic</option>  
-                        </select>
-                        <p style={{ color: "red" }}>{ErrJT}</p>
-                        <label className="Join-Label">Work Experience</label>
-                        <select className="Signup-Input" value={WorkExp} onChange={(e)=>{setWorkExp(e.target.value)
-                        setWE("")}}>
-                            <option>Select</option>
-                            <option>Fresher</option>
-                            <option>0-1 yrs</option>
-                            <option>1-3 yrs</option>
-                            <option>3+ yrs</option>  
-                        </select>
-                        <p style={{ color: "red" }}>{ErrWE}</p>
-                        <label className="Join-Label">Currently Working</label>
-                        <select className="Signup-Input" value={currently} onChange={(e)=>{setcurrently(e.target.value)
-                        setErrCurrently("")}}>
-                            <option>Select</option>
-                            <option>Yes</option>
-                            <option>No</option>
-                            
-                        </select>
-                        <p style={{ color: "red" }}>{ErrCurrently}</p>
-                        <label className="Join-Label">Working Zone</label>
-                        <select className="Signup-Input" value={Zone} onChange={(e)=>{setZone(e.target.value)
-                        setErrZone("")}}>
-                            <option>select</option>
-                            <option>Erode</option>
-                            <option>Coimbatore</option>
-                            
-                        </select>
-                        <p style={{ color: "red" }}>{ErrZone}</p>
-                        <div className="Toggle-btns">
-                            <button className="Button-Toggle" onClick={(e)=>{e.preventDefault();setPno(Pno - 1); console.log(FirstName);} }>Previous</button>
-                            <button className="Button-Toggle" type="submit">Next</button>
-                        </div>
-                        <div className="Already">
-                            <p className="Primary-Signup">Already have an account</p>
-                            <Link to="/Login"><p className="Secondary-Signup">Login</p></Link>
-                        </div>
-
-                    </form>
+                <Header />
+                <MenuBar />
+                <div className="Login-image">
+                    <h1 className="Login-heading">Register as Provider</h1>
                 </div>
-                <div className="Image-divProvider">
+                <div className="Signup-card">
+                    <div className="Form-div">
+                        <form className="Form-Provider" onSubmit={Form5}>
+                            <div className="Signup-title">
+                                <h1 className="Signup-heading">Register as provider in ABC</h1>
+                                <p className="Signup-ptag">Welcome! Register with valid data</p>
+                            </div>
+                            <label className="Join-Label">Education Level</label>
+                            <select className="Signup-Input" value={Education} onChange={(e) => {
+                                setEducation(e.target.value)
+                                setErrEdu("")
+                            }}>
+                                <option>Select</option>
+                                <option>No formal education</option>
+                                <option>Below sslc</option>
+                                <option>sslc</option>
+                                <option>HSC</option>
+                                <option>Under Graduate</option>
+                                <option>Post Graduate</option>
+                                <option>Doctrate</option>
+                            </select>
+                            <p style={{ color: "red" }}>{ErrEdu}</p>
+                            <label className="Join-Label">Job Title</label>
+                            <select className="Signup-Input" value={JobTitle} onChange={(e) => {
+                                setJobTitle(e.target.value)
+                                setErrJT("")
+                            }}>
+                                <option>Select</option>
+                                <option>Electrician</option>
+                                <option>Plumber</option>
+                                <option>Carpenter</option>
+                                <option>Mechanic</option>
+                            </select>
+                            <p style={{ color: "red" }}>{ErrJT}</p>
+                            <label className="Join-Label">Work Experience</label>
+                            <select className="Signup-Input" value={WorkExp} onChange={(e) => {
+                                setWorkExp(e.target.value)
+                                setWE("")
+                            }}>
+                                <option>Select</option>
+                                <option>Fresher</option>
+                                <option>0-1 yrs</option>
+                                <option>1-3 yrs</option>
+                                <option>3+ yrs</option>
+                            </select>
+                            <p style={{ color: "red" }}>{ErrWE}</p>
+                            <label className="Join-Label">Currently Working</label>
+                            <select className="Signup-Input" value={currently} onChange={(e) => {
+                                setcurrently(e.target.value)
+                                setErrCurrently("")
+                            }}>
+                                <option>Select</option>
+                                <option>Yes</option>
+                                <option>No</option>
 
+                            </select>
+                            <p style={{ color: "red" }}>{ErrCurrently}</p>
+                            <label className="Join-Label">Working Zone</label>
+                            <select className="Signup-Input" value={Zone} onChange={(e) => {
+                                setZone(e.target.value)
+                                setErrZone("")
+                            }}>
+                                <option>select</option>
+                                <option>Erode</option>
+                                <option>Coimbatore</option>
+
+                            </select>
+                            <p style={{ color: "red" }}>{ErrZone}</p>
+                            <div className="Toggle-btns">
+                                <button className="Button-Toggle" onClick={(e) => { e.preventDefault(); setPno(Pno - 1); console.log(FirstName); }}>Previous</button>
+                                <button className="Button-Toggle" type="submit">Next</button>
+                            </div>
+                            <div className="Already">
+                                <p className="Primary-Signup">Already have an account</p>
+                                <Link to="/Login"><p className="Secondary-Signup">Login</p></Link>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div className="Image-divProvider">
+
+                    </div>
                 </div>
+                <Footer />
+                <End />
             </div>
-            <Footer />
-            <End />
-        </div>
         )
 
     }
@@ -1097,27 +1119,27 @@ const Provider = () => {
             setErrE("Enter your mail Id")
             setError(true)
         }
-        else if(AltPH!==""&&(AltPH.length<10 || AltPH.length>10)){
+        else if (AltPH !== "" && (AltPH.length < 10 || AltPH.length > 10)) {
             setAlph("Enter a valid phone number")
             setError(true)
 
         }
-        else if(KnownL===""||KnownL===null){
+        else if (KnownL === "" || KnownL === null) {
             setErrKnownL("Select your Known Language")
             setError(true)
         }
-        
-        else if(SkillExp===""||SkillExp===null){
+
+        else if (SkillExp === "" || SkillExp === null) {
             setErrSkillExp("Select your current working")
             setError(true)
         }
-       
+
         else if (!Error) {
             setPno(7)
         }
     }
 
-    
+
 
 
     if (Pno === 6) {
@@ -1137,24 +1159,32 @@ const Provider = () => {
                                 <p className="Signup-ptag">Welcome! Register with valid data</p>
                             </div>
                             <label className="Join-Label">Email</label>
-                            <input type={'email'} value={Email} className="Signup-Input" onChange={(e)=>{setEmail(e.target.value)
-                            setErrE("")}}/>
+                            <input type={'email'} value={Email} className="Signup-Input" onChange={(e) => {
+                                setEmail(e.target.value)
+                                setErrE("")
+                            }} />
                             <p style={{ color: "red" }}>{ErrE}</p>
                             <label type={'number'} className="Join-Label">Alternate PH.no</label>
-                            <input className="Signup-Input" value={AltPH} onChange={(e)=>{setAltPH(e.target.value)
-                            setAlph('')}}/>
+                            <input className="Signup-Input" value={AltPH} onChange={(e) => {
+                                setAltPH(e.target.value)
+                                setAlph('')
+                            }} />
                             <p style={{ color: "red" }}>{ErrAlpH}</p>
                             <label className="Join-Label">Languages Known</label>
-                            <input className="Signup-Input" value={KnownL} onChange={(e)=>{setKnownL(e.target.value)
-                            setErrKnownL('')}}/>
+                            <input className="Signup-Input" value={KnownL} onChange={(e) => {
+                                setKnownL(e.target.value)
+                                setErrKnownL('')
+                            }} />
                             <p style={{ color: "red" }}>{ErrKnownL}</p>
                             <label className="Join-Label">Skill Experience</label>
-                            <input className="Signup-Input" value={SkillExp} onChange={(e)=>{setSkillExp(e.target.value)
-                            setErrSkillExp('')}}/>
+                            <input className="Signup-Input" value={SkillExp} onChange={(e) => {
+                                setSkillExp(e.target.value)
+                                setErrSkillExp('')
+                            }} />
                             <p style={{ color: "red" }}>{ErrSkillExp}</p>
-                            
+
                             <div className="Toggle-btns">
-                                <button className="Button-Toggle" onClick={(e)=>{e.preventDefault();setPno(Pno - 1); console.log(FirstName);} }>Previous</button>
+                                <button className="Button-Toggle" onClick={(e) => { e.preventDefault(); setPno(Pno - 1); console.log(FirstName); }}>Previous</button>
                                 <button className="Button-Toggle" type="submit">Next</button>
                             </div>
                             <div className="Already">
@@ -1182,53 +1212,53 @@ const Provider = () => {
             setErrPan("Add your pancard file")
             setError(true)
         }
-        else if(Photo === "" || Photo === null){
+        else if (Photo === "" || Photo === null) {
             setErrPhoto("Add Your photo")
             setError(true)
 
         }
-       
-       
+
+
         else if (!Error) {
-            const Formdata=new FormData()
-            Formdata.append("FirstName",FirstName)
-            Formdata.append("LName",LName)
-            Formdata.append("Location",Location)
-            Formdata.append("Email",Email)
-            Formdata.append("Phone",Phone)
-            Formdata.append("Address",Address)
-            Formdata.append("Language",Language)
-            Formdata.append("Gender",Gender)
-            Formdata.append("DOB",DOB)
-            Formdata.append("AAdhar",AAdhar)
-            Formdata.append("AadharCard",AadharCard)
-            Formdata.append("AccNo",AccNo)
-            Formdata.append("BnkName",BnkName)
-            Formdata.append("Ifsc",Ifsc)
-            Formdata.append("Education",Education)
-            Formdata.append("JobTitle",JobTitle)
-            Formdata.append("WorkExp",WorkExp)
-            Formdata.append("Zone",Zone)
-            Formdata.append("AltPH",AltPH)
-            Formdata.append("KnownL",KnownL)
-            Formdata.append("SkillExp",SkillExp)
-            Formdata.append("PanCard",PanCard)
-            Formdata.append("Photo",Photo)
-            try{
-                axios.post('https://backend.kooblu.com/vendor_Applications/Applications',Formdata)
-                .then((res)=>{
-                    if(res.data==="Email is already registered"){
-                        toast.error("Email is already registered",{
-                            position:'top-center'
-                        })
-                    }
-                    else{
-                        toast.success("Application Submitted")
-                    }
-                })
+            const Formdata = new FormData()
+            Formdata.append("FirstName", FirstName)
+            Formdata.append("LName", LName)
+            Formdata.append("Location", Location)
+            Formdata.append("Email", Email)
+            Formdata.append("Phone", Phone)
+            Formdata.append("Address", Address)
+            Formdata.append("Language", Language)
+            Formdata.append("Gender", Gender)
+            Formdata.append("DOB", DOB)
+            Formdata.append("AAdhar", AAdhar)
+            Formdata.append("AadharCard", AadharCard)
+            Formdata.append("AccNo", AccNo)
+            Formdata.append("BnkName", BnkName)
+            Formdata.append("Ifsc", Ifsc)
+            Formdata.append("Education", Education)
+            Formdata.append("JobTitle", JobTitle)
+            Formdata.append("WorkExp", WorkExp)
+            Formdata.append("Zone", Zone)
+            Formdata.append("AltPH", AltPH)
+            Formdata.append("KnownL", KnownL)
+            Formdata.append("SkillExp", SkillExp)
+            Formdata.append("PanCard", PanCard)
+            Formdata.append("Photo", Photo)
+            try {
+                axios.post('https://backend.kooblu.com/vendor_Applications/Applications', Formdata)
+                    .then((res) => {
+                        if (res.data === "Email is already registered") {
+                            toast.error("Email is already registered", {
+                                position: 'top-center'
+                            })
+                        }
+                        else {
+                            toast.success("Application Submitted")
+                        }
+                    })
             }
 
-            catch(error){
+            catch (error) {
                 console.log(error);
             }
 
@@ -1236,10 +1266,10 @@ const Provider = () => {
 
 
 
-}
+        }
     }
 
-    
+
 
 
     if (Pno === 7) {
@@ -1259,17 +1289,21 @@ const Provider = () => {
                                 <p className="Signup-ptag">Welcome! Register with valid data</p>
                             </div>
                             <label className="Join-Label">Pan Card</label>
-                            <input type={'file'}   className="Signup-Input" onChange={(e)=>{setPanCard(e.target.files[0])
-                            setErrPan("")}}/>
+                            <input type={'file'} className="Signup-Input" onChange={(e) => {
+                                setPanCard(e.target.files[0])
+                                setErrPan("")
+                            }} />
                             <p style={{ color: "red" }}>{ErrPan}</p>
-                            <label  className="Join-Label">Photo</label>
-                            <input type={'file'} className="Signup-Input"  onChange={(e)=>{setPhoto(e.target.files[0])
-                            setErrPhoto('')}}/>
+                            <label className="Join-Label">Photo</label>
+                            <input type={'file'} className="Signup-Input" onChange={(e) => {
+                                setPhoto(e.target.files[0])
+                                setErrPhoto('')
+                            }} />
                             <p style={{ color: "red" }}>{ErrPhoto}</p>
-                            
-                            
+
+
                             <div className="Toggle-btns">
-                                <button className="Button-Toggle" onClick={(e)=>{e.preventDefault();setPno(Pno - 1); console.log(FirstName);} }>Previous</button>
+                                <button className="Button-Toggle" onClick={(e) => { e.preventDefault(); setPno(Pno - 1); console.log(FirstName); }}>Previous</button>
                                 <button className="Button-Toggle" type="submit">Next</button>
                             </div>
                             <div className="Already">
