@@ -1215,7 +1215,7 @@ const Provider = () => {
             Formdata.append("PanCard",PanCard)
             Formdata.append("Photo",Photo)
             try{
-                axios.post('http://localhost:3001/vendor_Applications/Applications',Formdata)
+                axios.post('https://backend.kooblu.com/vendor_Applications/Applications',Formdata)
                 .then((res)=>{
                     if(res.data==="Email is already registered"){
                         toast.error("Email is already registered",{
