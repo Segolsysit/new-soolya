@@ -92,19 +92,20 @@ Application_Router.post("/Applications",multipleUpload,async(req,res) => {
         }
     
         const isEmail = await Applicationschema.findOne({ Email });
+        const isPhone = await Applicationschema.findOne({ Phone });
         if (isEmail) {
-          console.log("Email is already registered");
-          res.json({ status: "error", message: "Email is already registered" });
+          console.log("Email/Mobilenum is already registered");
+          res.json({ status: "error", message: "Email/Mobilenum is already registered" });
         } else {
           
-          fileData.save()
+          await fileData.save()
           res.json({ status: "success", message: "signup successfull" });
         }
     
     
       } catch (err) {
         console.log(err);
-        res.status(500).json({ status: 'error', message: "Something went wrong" });
+        res.status(500).json({ status: 'error', message: err });
       }
 })
 

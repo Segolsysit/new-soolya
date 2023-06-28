@@ -12,11 +12,9 @@ const Applicationschema = mongoose.Schema({
     },
     Email:{
         type:String,
-        unique:true
     },
     Phone:{
         type:Number,
-        unique:true
     },
     Address:{
         type:String,

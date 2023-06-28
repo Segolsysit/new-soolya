@@ -1247,8 +1247,8 @@ const Provider = () => {
             try {
                 axios.post('https://backend.kooblu.com/vendor_Applications/Applications', Formdata)
                     .then((res) => {
-                        if (res.data === "Email is already registered") {
-                            toast.error("Email is already registered", {
+                        if (res.data.message === "Email/Mobilenum is already registered") {
+                            toast.error("Already registered", {
                                 position: 'top-center'
                             })
                             
