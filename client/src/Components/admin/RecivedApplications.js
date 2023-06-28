@@ -58,6 +58,10 @@ const RecivedApplication = ({ formNumber }) => {
         setOpenModel2(false)
     };
 
+    const deleteapplication = () => {
+        axios.delete(`https://backend.kooblu.com/vendor_Applications/delete_item/${viewdata._id}`)
+    }
+    
     const handleVendorAuth = async (e) => {
         e.preventDefault()
 
@@ -107,9 +111,7 @@ const RecivedApplication = ({ formNumber }) => {
 
     }
 
-    const deleteapplication = () => {
-        axios.delete(`https://backend.kooblu.com/vendor_Applications/delete_item/${viewdata._id}`)
-    }
+    
 
     const reject_data = () => {
         // e.preventDefault()
