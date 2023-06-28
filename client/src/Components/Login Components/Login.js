@@ -1251,9 +1251,11 @@ const Provider = () => {
                             toast.error("Email is already registered", {
                                 position: 'top-center'
                             })
+                            
                         }
                         else {
                             toast.success("Application Submitted")
+                            Navigate('/')
                         }
                     })
             }
@@ -1560,6 +1562,7 @@ const ForgetPasswordVendor = () => {
                 console.log(res, "userRegister")
                 alert(res.data.status)
             }
+
             )
     }
 
