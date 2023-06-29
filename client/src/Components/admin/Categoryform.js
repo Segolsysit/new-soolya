@@ -796,19 +796,21 @@ const RejectedList = ({formNumber}) => {
 
     const[rejected,setRejected]=useState([])
     
-
+useEffect(()=>{
     axios.get("https://backend.kooblu.com/reject_api/rejected_data")
-            .then((data) => {
-                setRejected(data.data)
-            })
+    .then((data) => {
+        setRejected(data.data)
+    })
+},[])
+    
 
     if(formNumber===4){
         return (
             <div className="container-fluid">
                 <h1>Rejected List</h1>
-                    <table className='table-cat' aria-label="customized table">
+                    <table className='table-cat' aria-label="customized table" style={{width:'100%'}}>
                         <thead>
-                            <tr>
+                            <tr style={{textAlign:'center'}}>
                                 <th>SN</th>
                                 <th>Name</th>
                                 <th>Contact info</th>
