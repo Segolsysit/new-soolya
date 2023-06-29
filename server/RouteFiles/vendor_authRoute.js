@@ -41,30 +41,32 @@ VendorAuthRoute.get('/', (req, res) => {
 VendorAuthRoute.post("/register", async (req, res, next) => {
 
   try {
-    const { Username, Email, Password,Phonenumber } = req.body;
-
+    const { Username, Email, Password, Phonenumber } = req.body;
+  
     const hashedPassword = await bcrypt.hash(Password, 10);
-    const isEmail = await VendorAuth.findOne({ Email });
-    if (isEmail) {
+  
+    const isEmailExists = await VendorAuth.findOne({ Email });
+  
+    if (isEmailExists) {
       console.log("Email is already registered");
-      res.json({ status: "error", message: "Email is already registered" });
-    } else {
-      const user = await VendorAuth.create({
-        Username,
-        Email,
-        Password: hashedPassword,
-        Phonenumber
-      })
-      await user.save()
-      res.json({ status: "success", message: "signup successfull" });
+      return res.json({ status: "error", message: "Email is already registered" });
     }
-
-
+  
+    const user = await VendorAuth.create({
+      Username,
+      Email,
+      Password: hashedPassword,
+      Phonenumber,
+    });
+  
+    await user.save();
+  
+    res.json({ status: "success", message: "Signup successful" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ status: 'error', message: "Something went wrong" });
+    res.status(500).json({ status: "error", message: "Something went wrong" });
   }
-});
+})  
 
 
 

@@ -2,19 +2,10 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
     const VendorAuth = new mongoose.Schema({
-        Username:{
-            type:String   
-        },
-        Email:{
-            type:String,
-            unique: true
-        },
-        Password:{
-            type:String
-        },
-        Phonenumber:{
-            type:Number
-        }
+        Username:String,
+        Email:String,
+        Password:String,
+        Phonenumber:Number
     })
 
   

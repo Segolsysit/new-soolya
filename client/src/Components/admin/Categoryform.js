@@ -802,6 +802,20 @@ useEffect(()=>{
         setRejected(data.data)
     })
 },[])
+
+const Delete=(id)=>{
+    axios.delete(`https://backend.kooblu.com/reject_api/delete_item/${id}`)
+    .then((res)=>{
+        if(res.data==="Deleted"){
+            toast.success("Item Deleted")}
+        }
+    
+    )
+        .then(axios.get("https://backend.kooblu.com/reject_api/rejected_data")
+        .then((data) => {
+            setRejected(data.data)
+        }))
+}
     
 
     if(formNumber===4){
@@ -831,7 +845,7 @@ useEffect(()=>{
                                         <Switch color="primary" /></td>
                                     <td>
 
-                                        <Button type="button" ><i class="fa-solid fa-trash"></i></Button>
+                                        <Button onClick={()=>{Delete(data._id)}} type="button" ><i class="fa-solid fa-trash"></i></Button>
                                     </td>
                                 </tr >
                             )}
