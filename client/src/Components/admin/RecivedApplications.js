@@ -83,6 +83,7 @@ const RecivedApplication = ({ formNumber }) => {
                 Username: vendorName,
                 Email: vendorEmail,
                 Password: vendorPwd,
+                Phonenumber:Phone
             }, { withCredentials: true })
 
             if (response.data.status === 'error') {
