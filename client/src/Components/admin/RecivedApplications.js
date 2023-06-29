@@ -157,14 +157,14 @@ const RecivedApplication = ({ formNumber }) => {
         getdata()
     }, [])
 
-    const localpath = 'https://backend.kooblu.com/'
+    const localpath = 'https://backend.kooblu.com'
 
     if (formNumber === 10) {
         return (
             <div>
                 <h5>RecivedApplications</h5>
 
-                <div >
+                <div className="padd" >
                     <Table className='table-cat'>
                         <TableHead>
                             <TableRow>
@@ -177,9 +177,10 @@ const RecivedApplication = ({ formNumber }) => {
                                 <TableCell>View</TableCell>
                             </TableRow>
                         </TableHead>
+                        {application.length != 0 ?
                         <TableBody>
 
-                            {application.map((data, index) =>
+                          { application.map((data, index) =>
                                 <TableRow key={index}>
                                     <TableCell>{serialNumber++}</TableCell>
                                     <TableCell>{data.FirstName} {data.LastName}</TableCell>
@@ -194,11 +195,16 @@ const RecivedApplication = ({ formNumber }) => {
                                         <Button type="button" onClick={() => handleOpen(data._id)}><i class="fa-solid fa-eye"></i></Button>
                                     </TableCell>
                                 </TableRow>
-                            )}
-
-
-
-                        </TableBody>
+                            )
+                        }
+                        </TableBody>:
+                        <TableBody>
+                                <TableRow>
+                                    <TableCell colSpan={8}>
+                                        <h3 className="no_data">No Application Received</h3>
+                                    </TableCell>                             
+                                </TableRow>
+                            </TableBody>}
                     </Table>
                 </div>
 
@@ -210,9 +216,23 @@ const RecivedApplication = ({ formNumber }) => {
                         aria-labelledby="parent-modal-title"
                         aria-describedby="parent-modal-description"
                     >
-                        <Box sx={{ ...style,width:600,height:'100%',overflowY:'scroll'}}>
-                            <div style={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }}>
-                                <div style={{ width: 'fit-content' }}>
+
+                        <Box sx={{ ...style,height:'100%',overflowY:'scroll'}}>
+                            <div >
+                            {/* style={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }} */}
+                                <div >
+                                {/* style={{ width: 'fit-content' }} */}
+
+                                <div>
+                                { Array.isArray(viewdata.Files) && viewdata.Files.map(item => {
+                                    if (item.fieldName === "Photo") {
+                                        return <img style={{ aspectRatio: 3 / 4, width: '100px', marginLeft:"90px" }} src={localpath + item.filename} alt='' />
+
+                                    }
+
+
+                                })}
+                                </div>
                                     <p><b>First Name</b> : {viewdata.FirstName}</p>
                                     <p><b>Last Name</b>: {viewdata.LName}</p>
                                     <p><b>Email</b>   : {viewdata.Email}</p>
@@ -258,16 +278,7 @@ const RecivedApplication = ({ formNumber }) => {
 
 
                                 </div>
-                                <div>
-                                { Array.isArray(viewdata.Files) && viewdata.Files.map(item => {
-                                    if (item.fieldName === "Photo") {
-                                        return <img style={{ aspectRatio: 3 / 4, width: '100px',  }} src={localpath + item.filename} alt='' />
-
-                                    }
-
-
-                                })}
-                                </div>
+                               
                             </div>
                             {/* <ChildModal close={setOpen1}/> */}
                             <Button onClick={handleOpenModel2}>hire</Button>

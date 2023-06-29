@@ -115,6 +115,7 @@ const ServiceList=({formNumber})=>{
     
                                         </TableRow>
                                     </TableHead>
+                                    {getData.length != 0 ?
                                     <TableBody>
                                         {
                                             getData.map((data, index) => (
@@ -132,7 +133,12 @@ const ServiceList=({formNumber})=>{
     
                                             ))
                                         }
-                                    </TableBody>
+                                    </TableBody> :
+                                    <TableBody>
+                                    <TableRow>
+                                        <TableCell colSpan={5}><h3 className="no_data">No Service List Added</h3></TableCell>                             
+                                    </TableRow>
+                                </TableBody>}
                                 </Table>
                             </div>
                  
@@ -460,7 +466,7 @@ const AddNewService=({formNumber})=>{
                                 </div>
                             </div>
                             <div className='Addservice_list'>
-                                <Table className='table-cat'>
+                                <Table className='table-cat' >
                                     <TableHead>
                                         <TableRow>
                                             <TableCell>SN</TableCell>
@@ -478,6 +484,8 @@ const AddNewService=({formNumber})=>{
 
                                         </TableRow>
                                     </TableHead>
+                                    
+                                    {servicelist.length != 0 ? 
                                     <TableBody>
                                         {
                                             servicelist.map((data, index) => (
@@ -495,7 +503,14 @@ const AddNewService=({formNumber})=>{
                                                 </TableRow>
                                             ))
                                         }
-                                    </TableBody>
+                                    </TableBody>:
+                                    <TableBody>
+                                <TableRow>
+                                    <TableCell colSpan={8}>
+                                        <h3 className="no_data">No Service Man List Added</h3>
+                                    </TableCell>                             
+                                </TableRow>
+                            </TableBody>}
                                 </Table>
 
                             </div>

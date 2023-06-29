@@ -213,8 +213,8 @@ export const Admin = () => {
                                     <div className="bg-white py-2 collapse-inner rounded" >
                                         <div className="collapse-item" onClick={() => { setFormnum(6) 
                                         setVisible(true)}}>Service List</div>
-                                        <div className="collapse-item" onClick={() => { setFormnum(7) 
-                                        setVisible(true)}}>Add New Service</div>
+                                        {/* <div className="collapse-item" onClick={() => { setFormnum(7) 
+                                        setVisible(true)}}>Add New Service</div> */}
                                          </div>
                                 </div>
                             </li>

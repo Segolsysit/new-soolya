@@ -127,6 +127,14 @@ th{
     border-radius: 3px;
 }
 
+.no_data{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
 @media only screen and (max-width:600px) {
     .Category-Right{
         display: none;
