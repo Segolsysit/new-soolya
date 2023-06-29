@@ -47,7 +47,7 @@ Application_Router.post("/Applications",multipleUpload,async(req,res) => {
     
     
         const fileData=new Applicationschema({
-          FirstName,LName,Location,Email,Phone,Address,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL,
+          FirstName,LName,Location,Email,PhoneNumber:Phone,Address,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL,
           Files:[]
     
         })
@@ -120,15 +120,15 @@ Application_Router.get("/vendor_application",async(req,res) => {
  })
 
  Application_Router.delete("/delete_item/:id",async(req,res)=>{
-    const vendorData = await Applicationschema.findById(req.params.id)
-    await fs.unlink(vendorData.path,((err)=>{
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log("removed del file");
-        }
-    }));
+    // const vendorData = await Applicationschema.findById(req.params.id)
+    // await fs.unlink(vendorData.path,((err)=>{
+    //     if(err){
+    //         console.log(err);
+    //     }
+    //     else{
+    //         console.log("removed del file");
+    //     }
+    // }));
      await Applicationschema.findByIdAndDelete(req.params.id)
      return res.json('Deleted')
 })

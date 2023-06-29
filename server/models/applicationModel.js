@@ -13,7 +13,7 @@ const Applicationschema = mongoose.Schema({
     Email:{
         type:String,
     },
-    Phone:{
+    PhoneNumber:{
         type:Number,
     },
     Address:{
