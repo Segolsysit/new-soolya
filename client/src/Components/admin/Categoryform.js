@@ -774,11 +774,13 @@ const RejectedList = ({formNumber}) => {
 
     const[rejected,setRejected]=useState([])
     
-
+useEffect(()=>{
     axios.get("https://backend.kooblu.com/reject_api/rejected_data")
-            .then((data) => {
-                setRejected(data.data)
-            })
+    .then((data) => {
+        setRejected(data.data)
+    })
+},[])
+    
 
     if(formNumber===4){
         return (
