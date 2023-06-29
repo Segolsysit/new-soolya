@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import "./Admin.css";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, ToggleButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -81,21 +81,21 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
     // const getdata2 = () => {
-    //     axios.get("https://www.backend.kooblu.com/booking_api/booking_data").then((res) => {
+    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
     //         setorderdetails(res.data)
     //     })}
 
     // useEffect(()=>{
     //     console.log(filter);
     //     if(filter!==""&&filter!==null&&filter!==NaN)
-    //     {axios.get(`https://www.backend.kooblu.com/vendor_Auth/fetch_vendor_bynum/${filter}`).then((res) => {
+    //     {axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor_bynum/${filter}`).then((res) => {
     //         setserviceman(res.data)
     //        // console.log(res.data);
     //        // console.log(serviceman.Email)
     //     })}
     //     else if(filter===""&&filter===null&&filter===NaN){
 
-    //         axios.get("https://www.backend.kooblu.com/vendor_Auth/fetch_vendor").then((res) => {
+    //         axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
     //         setserviceman(res.data)
     //        // console.log(res.data);
     //        // console.log(serviceman.Email)
@@ -107,7 +107,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     // },[filter])
 
     const servicemandata = () => {
-        axios.get("https://www.backend.kooblu.com/vendor_Auth/fetch_vendor").then((res) => {
+        axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
             setserviceman(res.data)
             // console.log(res.data);
             // console.log(serviceman.Email)
@@ -127,7 +127,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://www.backend.kooblu.com/vendor_Auth/delete_item/${_id}`)
+                axios.delete(`http://localhost:3001/vendor_Auth/delete_item/${_id}`)
                 Swal.fire(
                     'Deleted!',
                     'Your file has been deleted.',
@@ -160,7 +160,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
     const categorydata = () => {
         // e.preventDefault()
-        axios.get("https://www.backend.kooblu.com/api/fetch_items").then((res) => {
+        axios.get("http://localhost:3001/api/fetch_items").then((res) => {
             setgetData(res.data);
         })
 
@@ -217,7 +217,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             formdata.append("catagorySetup", categorySetup);
             formdata.append("file", img)
 
-            axios.post("https://www.backend.kooblu.com/api/new_catagory/", formdata).then((res) => {
+            axios.post("http://localhost:3001/api/new_catagory/", formdata).then((res) => {
                 if(res.data.message==="Uploaded Successfully"){
                     toast.success(' upload Successed!', {
                         position: "top-right",
@@ -283,7 +283,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         }
     }
     const delete_item = (id) => {
-        axios.delete(`https://www.backend.kooblu.com/api/delete_item/${id}`).then(() => {
+        axios.delete(`http://localhost:3001/api/delete_item/${id}`).then(() => {
             toast.error('😈 Deleted Successed!', {
                 position: "top-right",
                 autoClose: 2000,
@@ -300,11 +300,11 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
     }
 
-    const localpath = "https://www.backend.kooblu.com/"
+    const localpath = "http://localhost:3001/"
 
 
     const EditFun = (id) => {
-        axios.get(`https://www.backend.kooblu.com/api/fetch_items_id/${id}`).then((res) => {
+        axios.get(`http://localhost:3001/api/fetch_items_id/${id}`).then((res) => {
             setgetbyid(res.data)
             // console.log(res.data)
         })
@@ -313,7 +313,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     }
 
     // const Filter=(phone)=>{
-    //     if(phone!==""||phone!==null){axios.get(`https://www.backend.kooblu.com/vendor_Auth/fetch_vendor/`).then((res) => {
+    //     if(phone!==""||phone!==null){axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/`).then((res) => {
     //         setserviceman(res.data)
     //        // console.log(res.data);
     //        // console.log(serviceman.Email)
@@ -326,7 +326,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         formdata.append("catagorySetup", Editservice);
         formdata.append("file", EditImage)
 
-         axios.patch(`https://www.backend.kooblu.com/api//update_items/${getbyid._id}`, formdata).then(() => {
+         axios.patch(`http://localhost:3001/api//update_items/${getbyid._id}`, formdata).then(() => {
             // alert("updated")
             categorydata();
             setEditservice('');
@@ -535,7 +535,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
 }
-const localpath = "https://www.backend.kooblu.com/"
+const localpath = "http://localhost:3001/"
 const SubCategory = ({ formNumber }) => {
     const [Data, setData] = useState([])
 
@@ -559,12 +559,12 @@ const SubCategory = ({ formNumber }) => {
 
     const [count, setCount] = useState(1)
     useEffect(() => {
-        axios.get("https://www.backend.kooblu.com/api/fetch_items")
+        axios.get("http://localhost:3001/api/fetch_items")
             .then((data) => {
                 setData(data.data)
             })
 
-        axios.get("https://www.backend.kooblu.com/sub_api/new_fetch_items")
+        axios.get("http://localhost:3001/sub_api/new_fetch_items")
             .then((data) => {
                 setsubcategorydata(data.data)
             })
@@ -644,7 +644,7 @@ const SubCategory = ({ formNumber }) => {
             formData.append("Price", Price)
             formData.append("file", Image)
             // console.log(Image.file.originalname);
-            axios.post("https://www.backend.kooblu.com/sub_api/new_subcategory", formData).then((res) => {
+            axios.post("http://localhost:3001/sub_api/new_subcategory", formData).then((res) => {
                 // console.log(category);
 
                 toast.success(' uploaded Successed!', {
@@ -768,153 +768,55 @@ const SubCategory = ({ formNumber }) => {
 }
 
 
-const RejectedList = ({ formNumber }) => {
+const RejectedList = ({formNumber}) => {
 
     let serialNumber = 1;
 
-    // const style1 = {
-    //     position: 'absolute',
-    //     top: '50%',
-    //     left: '50%',
-    //     transform: 'translate(-50%, -50%)',
-    //     width: 400,
-    //     bgcolor: 'background.paper',
-    //     border: '2px solid #000',
-    //     boxShadow: 24,
-    //     p: 4,
-    // };
-
-    //const server="localhost:3001/"
+    const[rejected,setRejected]=useState([])
     
-    const [rejected, setregected] = useState([])
-    //const [viewdata, setviewdata] = useState([]);
-    const [open, setOpen1] = useState(false);
-    //const [openModel2, setOpenModel2] = useState(false);
 
-    // const aemail = localStorage.getItem("adminemail")
-    // const apassword = localStorage.getItem("adminpassword")
-    // const nav = useNavigate()
+    axios.get("http://localhost:3001/reject_api/rejected_data")
+            .then((data) => {
+                setRejected(data.data)
+            })
 
-    const StyledTableCell = styled(TableCell)(({ theme }) => ({
-        [`&.${tableCellClasses.head}`]: {
-            backgroundColor: theme.palette.common.black,
-            color: theme.palette.common.white,
-        },
-        [`&.${tableCellClasses.body}`]: {
-            fontSize: 14,
-        },
-    }));
-
-    // const handleOpen = (_id) => {
-    //     axios.get(`https://www.backend.kooblu.com/reject_api/rejected_data/${_id}`).then((response) => {
-    //         setviewdata(response.data);
-    //         console.log(response.data);
-    //     })
-    //     setOpen1(true);
-    // }; 
-
-    const deleteOpen = (_id) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios.delete(`https://www.backend.kooblu.com/reject_api/delete_item/${_id}`)
-                Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                )
-            }
-            getrejected_list()
-        })
-
-    }
-
-    const handleClose = () => {
-        setOpen1(false);
-     //  setOpenModel2(false)
-    };
-
-    // const handleOpenModel2 = () => {
-    //     setOpenModel2(true)
-    //     setOpen1(false)
-    // }
-    const StyledTableRow = styled(TableRow)(({ theme }) => ({
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.action.hover,
-        },
-        // hide last border
-        // '&:last-child td, &:last-child th': {
-        //     border: 0,
-        // },
-    }));
-
-    const getrejected_list = () => {
-        axios.get("https://www.backend.kooblu.com/reject_api/rejected_data").then((res) => {
-            setregected(res.data)
-        })
-
-
-    }
-
-    useEffect(() => {
-        getrejected_list()
-    }, [])
-
-    // const viewdeatils = (id) => {
-    //     axios.get(`https://www.backend.kooblu.com/reject_api/rejected_data/${id}`).then((response) => {
-    //         setviewdata(response.data);
-    //         console.log(response.data);
-    //     })
-    // }
-    if (formNumber === 4) {
+    if(formNumber===4){
         return (
             <div className="container-fluid">
                 <h1>Rejected List</h1>
-                <TableContainer component={Paper} style={{ padding: "20px" }}>
-                    <Table className='table-cat' aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell>SN</StyledTableCell>
-                                <StyledTableCell>Name</StyledTableCell>
-                                <StyledTableCell>Contact info</StyledTableCell>
-                                <StyledTableCell>Status</StyledTableCell>
-                                <StyledTableCell>Action</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
+                    <table className='table-cat' aria-label="customized table">
+                        <thead>
+                            <tr>
+                                <th>SN</th>
+                                <th>Name</th>
+                                <th>Contact info</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
                             {rejected.map((data, index) =>
-                                <StyledTableRow>
-                                    <StyledTableCell>{serialNumber++}</StyledTableCell>
-                                    <StyledTableCell>{data.FirstName}</StyledTableCell>
-                                    <StyledTableCell>
+                                <tr>
+                                    <td>{serialNumber++}</td>
+                                    <td>{data.FirstName}</td>
+                                    <td>
                                         {data.Email}
-                                    </StyledTableCell>
-                                    <StyledTableCell>
-                                        <Switch color="primary" /></StyledTableCell>
-                                    <StyledTableCell>
+                                    </td>
+                                    <td>
+                                        <Switch color="primary" /></td>
+                                    <td>
 
-                                        <Button type="button" onClick={() => deleteOpen(data._id)}><i class="fa-solid fa-trash"></i></Button>
-                                    </StyledTableCell>
-                                </StyledTableRow >
+                                        <Button type="button" ><i class="fa-solid fa-trash"></i></Button>
+                                    </td>
+                                </tr >
                             )}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                        </tbody>
+                    </table>
                 <div>
 
-                    <Modal
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="parent-modal-title"
-                        aria-describedby="parent-modal-description"
+                    {/* <Modal
+                       
                     >
                         {/* <Box className="Application-popup" sx={{ ...style1 ,width: 400 }}>
                             <p><b>Name</b> : {viewdata.FirstName}</p>
@@ -929,12 +831,14 @@ const RejectedList = ({ formNumber }) => {
 
                             {/* <ChildModal /> */}
                         {/* </Box> */} 
-                    </Modal>
+                    {/* </Modal>  */}
                 </div>
 
             </div>
         )
     }
+     
+    
 
 }
 
@@ -990,13 +894,13 @@ const Orders = ({ formNumber }) => {
 
 
     const getdata = () => {
-        axios.get("https://www.backend.kooblu.com/booking_api/booking_data").then((res) => {
+        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
         })
-        axios.get("https://www.backend.kooblu.com/booking_api/pending_booking_data").then((res) => {
+        axios.get("http://localhost:3001/booking_api/pending_booking_data").then((res) => {
             setpending_orderdetails(res.data)
         })
-        axios.get("https://www.backend.kooblu.com/booking_api/completed_booking_data").then((res) => {
+        axios.get("http://localhost:3001/booking_api/completed_booking_data").then((res) => {
             setcompleted_orderdetails(res.data)
         })
 
@@ -1011,7 +915,7 @@ const Orders = ({ formNumber }) => {
     }, [])
 
     const handleOpen4 = (id) => {
-        axios.get(`https://www.backend.kooblu.com/booking_api/Completed_billing/${id}`)
+        axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
                 setCompletedbill([res.data])

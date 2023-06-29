@@ -41,7 +41,7 @@ VendorAuthRoute.get('/', (req, res) => {
 VendorAuthRoute.post("/register", async (req, res, next) => {
 
   try {
-    const { Username, Email, Password, Phonenumber } = req.body;
+    const { Username, Email, Password } = req.body;
 
     const hashedPassword = await bcrypt.hash(Password, 10);
     const isEmail = await VendorAuth.findOne({ Email });
@@ -53,9 +53,9 @@ VendorAuthRoute.post("/register", async (req, res, next) => {
         Username,
         Email,
         Password: hashedPassword,
-        Phonenumber
+        
       })
-      user.save()
+      await user.save()
       res.json({ status: "success", message: "signup successfull" });
     }
 

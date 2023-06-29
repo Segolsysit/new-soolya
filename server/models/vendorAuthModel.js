@@ -12,9 +12,7 @@ const bcrypt = require("bcrypt");
         Password:{
             type:String
         },
-        Phonenumber:{
-            type:Number
-        }
+       
     })
 
   
