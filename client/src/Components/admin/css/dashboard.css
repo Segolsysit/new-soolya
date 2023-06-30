@@ -36,6 +36,7 @@
    
    .counter-container {
      display: flex;
+     flex-direction: row;
      justify-content: space-around;
      align-items: center;
    }
@@ -64,3 +65,154 @@
     display: unset ;
     overflow-y: none;
    } */
+
+   .dashboard_heading{
+    text-align: center;
+
+   }
+
+   .dashboard_overall_count_div{
+    margin-top: 20px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns:auto auto auto;
+   }
+
+   .dashboard_view{
+       border: 2px solid gray;
+       border-radius: 5px;
+       width:90%;
+       height:90px; 
+       display: flex;
+       justify-content: space-around;
+       align-items: center;     
+   }
+
+   #teams_img{
+    font-size: 6.7vh;
+    color: rgb(65, 65, 196);
+   }
+
+   #teams_img_2{
+    font-size: 6.5vh;
+    color: green;
+   }
+
+   #teams_img_3{
+    font-size: 6.7vh;
+    color: violet;
+   }
+
+
+   /* .team_count_div{
+    margin-top: 7px;
+   } */
+
+   .teams_count {
+    text-align: center;
+   }
+
+   .teams_count h5{
+    font-size: 4.5vh;
+    font-weight: 700;
+   }
+
+   .team_count_div h6{
+    font-weight: 400;
+    font-size: 1em;
+   }
+
+
+
+   @media screen and (max-width:970px) {
+    .dashboard_overall_count_div{
+      display: grid;
+      grid-template-columns:auto auto;
+      row-gap: 20px;
+     }
+
+     #teams_img{
+      font-size: 6.7vh;
+      color: rgb(65, 65, 196);
+     }
+  
+     #teams_img_2{
+      font-size: 6.5vh;
+      color: green;
+     }
+  
+     #teams_img_3{
+      font-size: 6.7vh;
+      color: violet;
+     }
+   }
+
+
+   @media screen and (max-width:820px) {
+     #teams_img{
+      font-size: 6vh;
+      color: rgb(65, 65, 196);
+     }
+  
+     #teams_img_2{
+      font-size: 6vh;
+      color: green;
+     }
+  
+     #teams_img_3{
+      font-size: 6vh;
+      color: violet;
+     }
+   }
+
+
+
+   @media screen and (max-width:715px) {
+    .dashboard_overall_count_div{
+      display: grid;
+      grid-template-columns:auto;
+      row-gap: 20px;
+     }
+     #teams_img{
+      font-size: 5.7vh;
+      color: rgb(65, 65, 196);
+     }
+  
+     #teams_img_2{
+      font-size: 5.5vh;
+      color: green;
+     }
+  
+     #teams_img_3{
+      font-size: 5.7vh;
+      color: violet;
+     }
+
+    
+   }
+
+   
+   @media screen and (max-width:450px) {
+    #teams_img{
+      font-size: 4.7vh;
+      color: rgb(65, 65, 196);
+     }
+  
+     #teams_img_2{
+      font-size: 4.5vh;
+      color: green;
+     }
+  
+     #teams_img_3{
+      font-size: 4.7vh;
+      color: violet;
+     }
+  
+   }
+
+   @media screen and (max-width:370px) {
+    .team_count_div h6{
+      font-weight: 400;
+      font-size: 4.2vw;
+     }
+   }
