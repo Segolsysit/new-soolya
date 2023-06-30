@@ -376,9 +376,9 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
                                 </TableRow>
                             </TableHead>
-                            {getData.length != 0 ?
                             <TableBody>
-                                   { getData.map((data, index) =>
+                                {
+                                    getData.map((data, index) =>
 
                                     (<StyledTableRow key={index}>
                                         <StyledTableCell>{a++}</StyledTableCell>
@@ -392,16 +392,9 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                     </StyledTableRow>
                                     )
 
-                                   )   
+                                    )
                                 }
-                            </TableBody>:
-
-                            <TableBody>
-                                <TableRow>
-                                    <StyledTableCell colSpan={5}><h3 className="no_data">No service Category Added</h3></StyledTableCell>                             
-                                </TableRow>
                             </TableBody>
-                            }
                         </Table>
                     </TableContainer>
                 </div>
@@ -494,8 +487,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                 <StyledTableCell>Action</StyledTableCell>
                             </TableRow>
                         </TableHead>
-                        {serviceman.length != 0 ?
-                            <TableBody>
+                        <TableBody>
 
                             {serviceman.map((data) =>{
                             if(filter!==""&&filter!==null&&isNaN(filter))
@@ -534,14 +526,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                     </StyledTableRow >)
                                 }
                             })}
-                        </TableBody>:
-                        <TableBody>
-                        <TableRow>
-                            <StyledTableCell colSpan={8}>
-                                <h3 className="no_data">No Service Man List Added</h3>
-                            </StyledTableCell>                             
-                        </TableRow>
-                    </TableBody>}
+                        </TableBody>
                     </Table>
                 </TableContainer>
             </div>
@@ -751,7 +736,6 @@ const SubCategory = ({ formNumber }) => {
 
                                 </TableRow>
                             </TableHead>
-                           {subcategorydata.length != 0 ?
                             <TableBody>
                                 {
                                     subcategorydata.map((data, index) => (
@@ -772,13 +756,7 @@ const SubCategory = ({ formNumber }) => {
 
                                     ))
                                 }
-                            </TableBody>:
-                            <TableBody>
-                                <TableRow>
-                                    <StyledTableCell colSpan={8}><h3 className="no_data">No Sub-Category Added</h3></StyledTableCell>                             
-                                </TableRow>
                             </TableBody>
-                                }
                         </Table>
                     </TableContainer>
                 </div>
@@ -999,7 +977,6 @@ const Orders = ({ formNumber }) => {
 
                             </TableRow>
                         </TableHead>
-                        {pending_orderdetails.length != 0 ?
                         <TableBody>
                             {
                                 pending_orderdetails.map((data, index) => (
@@ -1021,14 +998,7 @@ const Orders = ({ formNumber }) => {
 
                                 ))
                             }
-                        </TableBody>:
-                        <TableBody>
-                        <TableRow>
-                            <TableCell colSpan={9}>
-                                <h3 className="no_data">No Pending Order Details</h3>
-                            </TableCell>                             
-                        </TableRow>
-                    </TableBody>}
+                        </TableBody>
                     </Table>
                 </TableContainer>
 
@@ -1059,8 +1029,7 @@ const Orders = ({ formNumber }) => {
 
                             </TableRow>
                         </TableHead>
-                        {orderdetails.length != 0 ?
-                            <TableBody>
+                        <TableBody>
                             {
                                 orderdetails.map((data, index) => (
 
@@ -1080,14 +1049,7 @@ const Orders = ({ formNumber }) => {
 
                                 ))
                             }
-                        </TableBody>:
-                        <TableBody>
-                        <TableRow>
-                            <StyledTableCell colSpan={8}>
-                                <h3 className="no_data">No Orders Booked</h3>
-                            </StyledTableCell>                             
-                        </TableRow>
-                    </TableBody>}
+                        </TableBody>
                     </Table>
                 </TableContainer>
 
@@ -1115,8 +1077,7 @@ const Orders = ({ formNumber }) => {
                                 <StyledTableCell align="center">Bill</StyledTableCell>
                             </TableRow>
                         </TableHead>
-                        {completed_orderdetails.length != 0 ?
-                            <TableBody>
+                        <TableBody>
                             {
                                 completed_orderdetails.map((data, index) => (
                                     <StyledTableRow key={index}>
@@ -1133,14 +1094,7 @@ const Orders = ({ formNumber }) => {
                                     </StyledTableRow>
                                 ))
                             }
-                        </TableBody>:
-                        <TableBody>
-                        <TableRow>
-                            <TableCell colSpan={10}>
-                                <h3 className="no_data">No Completed Order Details</h3>
-                            </TableCell>                             
-                        </TableRow>
-                    </TableBody>}
+                        </TableBody>
                     </Table>
                 </TableContainer>
                 <div className="Bill-modal" hidden={open4}>
