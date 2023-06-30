@@ -97,12 +97,12 @@ const Home = () => {
 
                             <hr className="solid"></hr>
                             <div className="selection">
-                                <p className="ptagforsearchbox">I'm looking to..</p>
+                                {/* <p className="ptagforsearchbox">I'm looking to..</p> */}
                                 <select className="SelectionBox" onChange={(e) => {
                                     setCategory(e.target.value)
                                     setID(e.target.options.selectedIndex - 1)
                                 }}>
-                                    <option value="Find Category">Find Category</option>
+                                    <option value="Find Category">I'm Looking to...</option>
 
                                     {
                                         Data.map((item, index) => {
