@@ -878,9 +878,9 @@ const UserDashboard=()=>{
 
     const[Loader,setLoader]=useState(false)
 
-    // const token = cookies.jwt2;
+     const token = cookies.jwt2;
 
-    const token = localStorage.getItem("ty");
+    // const token = localStorage.getItem("ty");
     console.log(token);
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
