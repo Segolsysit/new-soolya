@@ -76,6 +76,7 @@
     padding: 20px;
     display: grid;
     grid-template-columns:auto auto auto;
+    gap: 30px;
    }
 
    .dashboard_view{
@@ -86,6 +87,9 @@
        display: flex;
        justify-content: space-around;
        align-items: center;     
+   }
+
+   .dashboard_view_img{
    }
 
    #teams_img{
@@ -104,9 +108,7 @@
    }
 
 
-   /* .team_count_div{
-    margin-top: 7px;
-   } */
+   
 
    .teams_count {
     text-align: center;
@@ -129,6 +131,7 @@
       display: grid;
       grid-template-columns:auto auto;
       row-gap: 20px;
+      column-gap: 20px;
      }
 
      #teams_img{

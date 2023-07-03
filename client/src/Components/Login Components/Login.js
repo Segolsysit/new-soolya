@@ -380,7 +380,7 @@ const Signup = () => {
                     toast.info("successfully registerd", {
                         position: "top-center",
                     });
-                    Navigate("/sign_in");
+                    Navigate("/Login");
                 }
             }
         }
