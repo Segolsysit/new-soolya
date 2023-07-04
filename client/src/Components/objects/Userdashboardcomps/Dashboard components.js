@@ -135,6 +135,163 @@ const UserProfile = ({ State }) => {
 
 }
 
+const EditForm=({State})=>{
+    const token = localStorage.getItem("vendor");
+    const decodedToken = jwt_decode(token);
+    const userId = decodedToken.id;
+    const[VendorProfile,setVendorProfile]=useState([])
+
+
+//Edit States
+const[Name,setName]=useState("")
+const[mail,setMail]=useState("")
+const[Phone,setPhone]=useState("")
+const[Location,setLocation]=useState("")
+const[Gender,setGender]=useState("")
+const[Language,setLanguage]=useState("")
+const[DoB,setDob]=useState(null)
+const[Aadhar,setAadhar]=useState("")
+const[Accn,setAccn]=useState("")
+const[BnkName,setBnkName]=useState("")
+const[IFSC,setIfsc]=useState("")
+const[Education,setEducation]=useState("")
+const[JobTitle,setJobTitle]=useState("")
+const[WorkExp,setWorkExp]=useState("")
+const[Zone,setZone]=useState("")
+const[AltPhone,setAltPhone]=useState("")
+const[Lang,setLang]=useState("")
+const[Picture,setPicture]=useState([])
+const[Pan,setPan]=useState([])
+const [AadharCard,setAadharCard]=useState([])
+
+
+const PostData=(id)=>{
+    const formData=new FormData()
+    formData.append("Username",Name)
+    formData.append("mail",mail)
+    formData.append("Phone",Phone)
+    formData.append("Location",Location)
+    formData.append("Gender",Gender)
+    formData.append("Language",Language)
+    formData.append("DoB",DoB)
+    formData.append("Aadhar",Aadhar)
+    formData.append("Accn",Accn)
+    formData.append("BnkName",BnkName)
+    formData.append("IFSC",IFSC)
+    formData.append("Education",Education)
+    formData.append("JobTitle",JobTitle)
+    formData.append("WorkExp",WorkExp)
+    formData.append("Zone",Zone)
+    formData.append("AltPhone",AltPhone)
+    formData.append("Lang",Lang)
+    formData.append("Files",)
+    axios.patch(`http://localhost:3001/vendor_Auth/Edit/${id}`,formData)
+}
+
+
+
+    useEffect(()=>{
+        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
+            .then((res) => {
+                console.log(res.data);
+                setVendorProfile(res.data)
+            })
+    },[])
+    if(State==6){
+        return(
+        <div style={{borderRadius:'40px'}}>
+            <table style={{width:'40rem'}}>
+                <tbody>
+                    <tr>
+                        <td style={{textAlign:'left'}}>User Name</td>
+                        <td><input defaultValue={VendorProfile.Username} onChange={(e)=>{setName(e.target.value)}}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Email</td>
+                        <td><input defaultValue={VendorProfile.Email}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Phone Number</td>
+                        <td><input defaultValue={VendorProfile.Phonenumber}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Location</td>
+                        <td><input defaultValue={VendorProfile.Location}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Gender</td>
+                        <td><input defaultValue={VendorProfile.Gender}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Language</td>
+                        <td><input defaultValue={VendorProfile.Language}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>DOB</td>
+                        <td><input  defaultValue={VendorProfile.DOB}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Aadhar</td>
+                        <td><input defaultValue={VendorProfile.AAdhar}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>AccNo</td>
+                        <td><input defaultValue={VendorProfile.AccNo}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Bank Name</td>
+                        <td><input defaultValue={VendorProfile.BnkName}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>IFSC</td>
+                        <td><input defaultValue={VendorProfile.Ifsc}/></td>
+                    </tr>
+
+                    <tr>
+                        <td style={{textAlign:'left'}}>Education</td>
+                        <td><input defaultValue={VendorProfile.Education}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Job Title</td>
+                        <td><input defaultValue={VendorProfile.JobTitle}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Work Experience</td>
+                        <td><input defaultValue={VendorProfile.WorkExp}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Zone</td>
+                        <td><input defaultValue={VendorProfile.Zone}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Alternate Phone</td>
+                        <td><input defaultValue={VendorProfile.AltPH}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Languages Known</td>
+                        <td><input defaultValue={VendorProfile.KnownL}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Profile Picture</td>
+                        <td><input type={'file'} onChange={(e)=>setPicture(e.target.files[0])}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Pan Card</td>
+                        <td><input type={'file'} onChange={(e)=>setPan(e.target.files[0])}/></td>
+                    </tr>
+                    <tr>
+                        <td style={{textAlign:'left'}}>Aadhar Card</td>
+                        <td><input type={'file'} onChange={(e)=>setAadharCard(e.target.files[0])}/></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            <button style={{border:'none',borderRadius:'10px',backgroundColor:'#ff3d33',color:'white'}} onClick={()=>PostData(VendorProfile._id)}>Submit</button>
+        </div>
+    )}
+    else return null
+}
+
 const VendorProfile = ({ State }) => {
     const [orderdetails, setorderdetails] = useState([])
     const [cookies, setCookie, removeCookie] = useCookies([]);
@@ -1620,4 +1777,4 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
 }
 
-export { UserProfile, UserOrders, VendorProfile, VendorOrders, PendingOrders }
+export { UserProfile, UserOrders, VendorProfile, VendorOrders, PendingOrders,EditForm }

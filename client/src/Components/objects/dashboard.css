@@ -84,7 +84,7 @@
     cursor: pointer;
 }
 
-.fa-pen{
+/* .fa-pen{
     position: relative;
     padding: 8px;
     background-color: grey;
@@ -92,12 +92,12 @@
     border-radius: 50%;
     font-size: 12px;
 
-}
+} */
 
-.fa-pen:hover{
+/* .fa-pen:hover{
     background-color: rgb(214, 211, 211);
     color: black;
-}
+} */
 
 .Dashboard-right ::-webkit-scrollbar{
     display: none;

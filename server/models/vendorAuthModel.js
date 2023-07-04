@@ -5,7 +5,30 @@ const bcrypt = require("bcrypt");
         Username:String,
         Email:String,
         Password:String,
-        Phonenumber:Number
+        Phonenumber:Number,
+        Location:String,
+        Gender:String,
+        Language:String,
+        DOB:Date,
+        AAdhar:Number,
+        AccNo:Number,
+        BnkName:String,
+        Ifsc:String,
+        Education:String,
+        JobTitle:String,
+        WorkExp:String,
+        Zone:String,
+        AltPH:Number,
+        KnownL:String,
+        SkillExp:String,
+        Files: [{
+            fieldName: String,
+            filename:String,
+            originalName: String,
+            mimeType: String,
+            path: String,
+            
+          }],
     })
 
   

@@ -41,7 +41,7 @@ VendorAuthRoute.get('/', (req, res) => {
 VendorAuthRoute.post("/register", async (req, res, next) => {
 
   try {
-    const { Username, Email, Password, Phonenumber } = req.body;
+    const { Username, Email, Password, Phonenumber,Location,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL,Files } = req.body;
   
     const hashedPassword = await bcrypt.hash(Password, 10);
   
@@ -57,6 +57,21 @@ VendorAuthRoute.post("/register", async (req, res, next) => {
       Email,
       Password: hashedPassword,
       Phonenumber,
+      Location,
+      Gender,
+      Language,
+      DOB,
+      AAdhar,
+      AccNo,
+      BnkName,
+      Ifsc,
+      Education,
+      JobTitle,
+      WorkExp,
+      Zone,
+      AltPH,
+      KnownL,
+      Files
     });
   
     await user.save();
@@ -235,6 +250,42 @@ VendorAuthRoute.post("/reset-password/:id/:token", async (req, res) => {
     return res.json({ status: "Something went wrong" });
   }
 });
+
+
+VendorAuthRoute.patch('/Edit/:id',async(req,res)=>{
+  const id=req.params.id
+   const data= await VendorAuth.findByIdAndUpdate(id,{
+    Username:req.body.Name,
+    Email:req.body.mail,
+    Phonenumber:req.body.Phone,
+    Location:req.body.Location,
+    Gender:req.body.Gender,
+    Language:req.body.Language,
+    DOB:req.body.DoB,
+    AAdhar:req.body.Aadhar,
+    AccNo:req.body.Accn,
+    BnkName:req.body.BnkName,
+    Ifsc:req.body.IFSC,
+    Education:req.body.Education,
+    JobTitle:req.body.JobTitle,
+    WorkExp:req.body.WorkExp,
+    Zone:req.body.Zone,
+    AltPH:req.body.AltPhone,
+    KnownL:req.body.Lang,
+    Files:req.body.Files
+  })
+  try{
+    await data.save()
+    .then(res.json({status:'ok',data}))
+  }
+  
+  
+  catch(error){
+    res.json({status:'error',error})
+  }
+
+  
+})
 
 
 module.exports = VendorAuthRoute;

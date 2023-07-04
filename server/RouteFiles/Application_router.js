@@ -48,7 +48,9 @@ Application_Router.post("/Applications",multipleUpload,async(req,res) => {
     
         const fileData=new Applicationschema({
           FirstName,LName,Location,Email,PhoneNumber:Phone,Address,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL,
-          Files:[]
+          AadharFiles:[],
+          PhotoFiles:[],
+          PanFiles:[]
     
         })
     
@@ -61,7 +63,7 @@ Application_Router.post("/Applications",multipleUpload,async(req,res) => {
               mimeType: element.mimetype,
               path: element.path,
             };
-            fileData.Files.push(file);
+            fileData.AadharFiles.push(file);
           });
         }
     
@@ -74,7 +76,7 @@ Application_Router.post("/Applications",multipleUpload,async(req,res) => {
               mimeType: element.mimetype,
               path: element.path,
             };
-            fileData.Files.push(file);
+            fileData.PhotoFiles.push(file);
           });
         }
     
@@ -87,7 +89,7 @@ Application_Router.post("/Applications",multipleUpload,async(req,res) => {
               mimeType: element.mimetype,
               path: element.path,
             };
-            fileData.Files.push(file);
+            fileData.PanFiles.push(file);
           });
         }
     

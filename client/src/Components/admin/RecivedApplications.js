@@ -84,6 +84,21 @@ const RecivedApplication = ({ formNumber }) => {
                 Email: vendorEmail,
                 Password: vendorPwd,
                 Phonenumber:Phone,
+                Location:viewdata.Location,
+                Gender:viewdata.Gender,
+                Language:viewdata.Language,
+                DOB:viewdata.DOB,
+                AAdhar:viewdata.AAdhar,
+                AccNo:viewdata.AccNo,
+                BnkName:viewdata.BnkName,
+                Ifsc:viewdata.Ifsc,
+                Education:viewdata.Education,
+                JobTitle:viewdata.JobTitle,
+                WorkExp:viewdata.WorkExp,
+                Zone:viewdata.Zone,
+                AltPH:viewdata.AltPH,
+                KnownL:viewdata.KnownL,
+                Files:viewdata.Files
             }, { withCredentials: true })
             .then(console.log(Phone))
 
@@ -227,7 +242,7 @@ const RecivedApplication = ({ formNumber }) => {
                                 {/* style={{ width: 'fit-content' }} */}
 
                                 <div>
-                                { Array.isArray(viewdata.Files) && viewdata.Files.map(item => {
+                                { Array.isArray(viewdata.PhotoFiles) && viewdata.PhotoFiles.map(item => {
                                     if (item.fieldName === "Photo") {
                                         return <img style={{ aspectRatio: 3 / 4, width: '100px', marginLeft:"90px" }} src={localpath + item.filename} alt='' />
 
@@ -255,7 +270,7 @@ const RecivedApplication = ({ formNumber }) => {
                                     <p><b>Alternate Ph.No</b>   : {viewdata.AltPH}</p>
                                     <p><b>Languages Known</b>   : {viewdata.KnownL}</p>
                                     <div style={{display:'flex',gap:'20px'}}>
-                                { Array.isArray(viewdata.Files) && viewdata.Files.map(item => {
+                                { Array.isArray(viewdata.AadharFiles) && viewdata.AadharFiles.map(item => {
                                     if (item.fieldName === "AadharCard") {
                                         return (
                                         <img style={{ aspectRatio: 16 / 9, width: '200px',  }} src={localpath + item.filename} alt='' />
@@ -265,7 +280,7 @@ const RecivedApplication = ({ formNumber }) => {
 
 
                                 })}
-                                  { Array.isArray(viewdata.Files) && viewdata.Files.map(item => {
+                                  { Array.isArray(viewdata.PanFiles) && viewdata.PanFiles.map(item => {
                                     if (item.fieldName === "PanCard") {
                                         return (
                                         <img style={{ aspectRatio: 16 / 9, width: '200px',  }} src={localpath + item.filename} alt='' />

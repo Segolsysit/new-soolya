@@ -7,7 +7,7 @@ import'./dashboard.css'
 import './aboutus.css'
 import { Link, useNavigate } from "react-router-dom";
 import {useCookies} from 'react-cookie'
-import {UserProfile,UserOrders, VendorOrders, PendingOrders} from "./Userdashboardcomps/Dashboard components";
+import {UserProfile,UserOrders, VendorOrders, PendingOrders, EditForm} from "./Userdashboardcomps/Dashboard components";
 import { useLocation } from "react-router-dom";
 import jwt_decode from  "jwt-decode"
 import axios from "axios";
@@ -985,7 +985,7 @@ const VendorDashboard=()=>{
 
     const getdata2 = () => {
         const notification = parseInt(localStorage.getItem("ordercount"))
-        axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res) => {
+        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
             console.log(res.data.length);
             console.log(notification);
@@ -1027,7 +1027,7 @@ const VendorDashboard=()=>{
               })
             
             }else{
-                const response = await axios.get("https://backend.kooblu.com/vendor_Auth",{
+                const response = await axios.get("http://localhost:3001/vendor_Auth",{
                     withCredentials:true
                 });
 
@@ -1042,7 +1042,7 @@ const VendorDashboard=()=>{
         }
        fetchData()
     },[pathname,localStorage.getItem("vendor"),removeCookie])
-    if(!loading){
+    if(loading){
         return(
             <div>
                 <h1 className="Welcome-block">Welcome, {vendorName}</h1>
@@ -1052,16 +1052,19 @@ const VendorDashboard=()=>{
                     <div className="Sidebar">
                         <ul className="Sidebar-ul">
                             <li className={state===1? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(1)}><i class="fa-solid fa-user"/><p className="Sidebar-lable">My Profile</p></li>
+                            <li className={state===6? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(6)}><i class="fa-solid fa-pen"></i><p className="Sidebar-lable">Edit Profile</p></li>
                             <li className={state===2? "Sidebar-liactive":"Sidebar-li"} onClick={() => { localStorage.setItem("ordercount", orderdetails.length); setnot(0);setState(2)}}><i class="fa-solid fa-list"></i><p className="Sidebar-lable">Orders
                             {not === 0 ? <span></span> : <span className="badge badge-danger badge-counter">{not}</span>}</p></li>
                             <li className={state===3? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(3)}><i class="fa-solid fa-clock"></i><p className="Sidebar-lable">Pending Orders</p></li>
                             <li className={state===5? "Sidebar-liactive":"Sidebar-li"} onClick={()=>setState(5)}><i class="fa-solid fa-check"></i><p className="Sidebar-lable">Completed Orders</p></li>
+
                         </ul>
                     </div>
                     <div className="Dashboard-right" >
                         <VendorProfile State={state}/>
                         <VendorOrders State={state}/>
                         <PendingOrders State={state} setState={setState}/>
+                        <EditForm State={state} />
                     </div>
     
                 </div>
@@ -1077,6 +1080,9 @@ const VendorDashboard=()=>{
     }
     
 }
+
+
+
 
 
 const AboutUs=()=>{

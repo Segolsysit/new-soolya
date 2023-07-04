@@ -135,13 +135,14 @@
 }
 
 .Count{
+    aspect-ratio: 1/1;
+    width: fit-content;
     font-size: 40px;
     font-weight: 600;
     color: white;
     padding: 30px;
     border: 2px solid rgb(252, 248, 248);
     border-radius: 50%;
-    aspect-ratio: 1/1;
 }
 
 .Orders{
