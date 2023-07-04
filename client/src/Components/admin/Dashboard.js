@@ -17,21 +17,21 @@ function DashBoard({open,close,formNumber}){
 
 
 useEffect(()=>{
-  axios.get("http://localhost:3001/booking_api/completed_booking_data").then((res) => {
+  axios.get("https://backend.kooblu.com/booking_api/completed_booking_data").then((res) => {
             setcompleted_orderdetails(res.data)
         })
-        axios.get(`http://localhost:3001/vendor_Applications/vendor_application`).then((res) => {
+        axios.get(`https://backend.kooblu.com/vendor_Applications/vendor_application`).then((res) => {
             setApplication(res.data);
        
     })
 
-    axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+    axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res) => {
         setOrders(res.data)
     })
-    axios.get("http://localhost:3001/booking_api/pending_booking_data").then((res) => {
+    axios.get("https://backend.kooblu.com/booking_api/pending_booking_data").then((res) => {
         setPendingOrders(res.data)
     })
-    axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
+    axios.get("https://backend.kooblu.com/vendor_Auth/fetch_vendor").then((res) => {
         setWorkers(res.data)
     })
 
