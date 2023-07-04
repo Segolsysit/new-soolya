@@ -175,7 +175,7 @@ const RecivedApplication = ({ formNumber }) => {
         getdata()
     }, [])
 
-    const localpath = 'https://backend.kooblu.com'
+    const localpath = 'https://backend.kooblu.com/'
 
     if (formNumber === 10) {
         return (
