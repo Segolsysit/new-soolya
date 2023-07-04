@@ -184,7 +184,9 @@ const PostData=(id)=>{
     formData.append("Zone",Zone)
     formData.append("AltPhone",AltPhone)
     formData.append("Lang",Lang)
-    formData.append("Files",)
+    formData.append("AadharFiles",AadharCard)
+    formData.append("PhotoFiles",Picture)
+    formData.append("PanFiles",Pan)
     axios.patch(`https://backend.kooblu.com/vendor_Auth/Edit/${id}`,formData)
 }
 

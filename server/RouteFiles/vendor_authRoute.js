@@ -272,7 +272,9 @@ VendorAuthRoute.patch('/Edit/:id',async(req,res)=>{
     Zone:req.body.Zone,
     AltPH:req.body.AltPhone,
     KnownL:req.body.Lang,
-    Files:req.body.Files
+    AadharFiles:req.files.AadharFiles,
+    PhotoFiles:req.files.PhotoFiles,
+    PanFiles:req.files.PanFiles
   })
   try{
     await data.save()

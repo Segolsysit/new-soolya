@@ -1042,7 +1042,7 @@ const VendorDashboard=()=>{
         }
        fetchData()
     },[pathname,localStorage.getItem("vendor"),removeCookie])
-    if(loading){
+    if(!loading){
         return(
             <div>
                 <h1 className="Welcome-block">Welcome, {vendorName}</h1>
@@ -1075,7 +1075,7 @@ const VendorDashboard=()=>{
     }
     else{
          
-    <h2>Loading...</h2>
+   return  <h2>Loading...</h2>
         
     }
     
