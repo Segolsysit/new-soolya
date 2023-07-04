@@ -985,7 +985,7 @@ const VendorDashboard=()=>{
 
     const getdata2 = () => {
         const notification = parseInt(localStorage.getItem("ordercount"))
-        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+        axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
             console.log(res.data.length);
             console.log(notification);
@@ -1027,7 +1027,7 @@ const VendorDashboard=()=>{
               })
             
             }else{
-                const response = await axios.get("http://localhost:3001/vendor_Auth",{
+                const response = await axios.get("https://backend.kooblu.com/vendor_Auth",{
                     withCredentials:true
                 });
 

@@ -185,13 +185,13 @@ const PostData=(id)=>{
     formData.append("AltPhone",AltPhone)
     formData.append("Lang",Lang)
     formData.append("Files",)
-    axios.patch(`http://localhost:3001/vendor_Auth/Edit/${id}`,formData)
+    axios.patch(`https://backend.kooblu.com/vendor_Auth/Edit/${id}`,formData)
 }
 
 
 
     useEffect(()=>{
-        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
+        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
             .then((res) => {
                 console.log(res.data);
                 setVendorProfile(res.data)

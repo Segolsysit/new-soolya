@@ -157,7 +157,7 @@ VendorAuthRoute.post("/forgot_password", async (req, res, next) => {
     const token = vjwt.sign({ Email: oldUser.Email, id: oldUser._id }, secret, {
       expiresIn: "5m",
     });
-    const link = `http://localhost:3001/vendor_Auth/reset-password/${oldUser._id}/${token}`;
+    const link = `https://backend.kooblu.com/vendor_Auth/reset-password/${oldUser._id}/${token}`;
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       host: "smtp.ethereal.email",
