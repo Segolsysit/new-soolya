@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
 import Cookies from 'universal-cookie';
 
-axios.defaults.baseURL = 'http://localhost:3001';
+axios.defaults.baseURL = 'https://backend.kooblu.com';
 axios.defaults.withCredentials = true;
 
 const Home = () => {
@@ -17,7 +17,7 @@ const Home = () => {
     const Navigate = useNavigate()
     // const [cookies, setCookie, removeCookie] = useCookies(['name']);
     const cookies = new Cookies();
-
+// hello
 
     // const tok = cookies.jwt2;
 
@@ -62,7 +62,7 @@ const Home = () => {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:3001/api/fetch_items")
+        axios.get("https://backend.kooblu.com/api/fetch_items")
             .then((data) => {
                 setData(data.data)
             })
