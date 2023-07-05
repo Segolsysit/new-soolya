@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import "./Admin.css";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, TextField, ToggleButton } from '@mui/material';
+import { Box, Button, TextField, ToggleButton, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -28,11 +28,21 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const [getData, setgetData] = useState([]);
     const [getbyid, setgetbyid] = useState('');
     const [filter, setFilter] = useState("")
-
-   // const nav = useNavigate()
+    const [open, setOpen] = React.useState(false);
+    const [get, setGet] = useState({})
+    const handleOpen = (id) => {
+        axios.get("https://backend.kooblu.com/vendor_Auth/fetch_vendor/" + id).then((res) => {
+            setGet(res.data)
+            console.log(res.data);
+        })
+        // console.log(id);
+        setOpen(true)
+    };
+    const handleClose = () => setOpen(false);
+    // const nav = useNavigate()
 
     let aRef = useRef(null)
-    let bRef=useRef(null)
+    let bRef = useRef(null)
 
 
     const [Editservice, setEditservice] = useState('');
@@ -107,7 +117,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     // },[filter])
 
     const servicemandata = () => {
-        axios.get("https://backend.kooblu.com/vendor_Auth/fetch_vendor").then((res) => {
+        axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
             setserviceman(res.data)
             // console.log(res.data);
             // console.log(serviceman.Email)
@@ -147,8 +157,8 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     useEffect(() => {
         // getdata2()
         categorydata()
-       
-       // verify()
+
+        // verify()
         servicemandata()
     }, [])
 
@@ -165,17 +175,17 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         })
 
     }
-    // const modelstyle = {
-    //     position: 'absolute',
-    //     top: '50%',
-    //     left: '50%',
-    //     transform: 'translate(-50%, -50%)',
-    //     width: 400,
-    //     bgcolor: 'background.paper',
-    //     border: '2px solid #000',
-    //     boxShadow: 24,
-    //     p: 4,
-    // };
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
     const AddService = (e) => {
 
         e.preventDefault()
@@ -218,7 +228,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             formdata.append("file", img)
 
             axios.post("https://backend.kooblu.com/api/new_catagory/", formdata).then((res) => {
-                if(res.data.message==="Uploaded Successfully"){
+                if (res.data.message === "Uploaded Successfully") {
                     toast.success(' upload Successed!', {
                         position: "top-right",
                         autoClose: 2000,
@@ -228,10 +238,10 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                         draggable: true,
                         progress: undefined,
                         theme: "colored",
-    
+
                     });
                 }
-                else{
+                else {
                     toast.error(' Category already Exist!', {
                         position: "top-right",
                         autoClose: 2000,
@@ -241,11 +251,11 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                         draggable: true,
                         progress: undefined,
                         theme: "colored",
-    
+
                     });
                 }
 
-                
+
 
                 setCatagorySetup("")
                 categorydata()
@@ -308,8 +318,8 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             setgetbyid(res.data)
             // console.log(res.data)
         })
-    //    handleOpen()
-       // console.log(getbyid);
+        //    handleOpen()
+        // console.log(getbyid);
     }
 
     // const Filter=(phone)=>{
@@ -321,24 +331,26 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     // }
 
     const saveChange = (e) => {
-         e.preventDefault();
+        e.preventDefault();
         const formdata = new FormData();
         formdata.append("catagorySetup", Editservice);
         formdata.append("file", EditImage)
 
-         axios.patch(`https://backend.kooblu.com/api//update_items/${getbyid._id}`, formdata).then(() => {
+        axios.patch(`https://backend.kooblu.com/api//update_items/${getbyid._id}`, formdata).then(() => {
             // alert("updated")
             categorydata();
             setEditservice('');
             aRef.current.value = null;
         })
         // console.log(formdata);
-       // handleClose();
+        // handleClose();
 
 
     }
 
-
+    function getData1(id) {
+        console.log(id);
+    }
 
 
 
@@ -409,9 +421,9 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                 </div>
                                 <div class="modal-body">
                                     <form className="category_form" id="category_form" onSubmit={saveChange}>
-                                        <div style={{display:'flex' ,justifyContent:'space-between'}}>
-                                        <TextField  type="text" placeholder={getbyid.catagorySetup} onChange={(e) => setEditservice(e.target.value)} label="Service" defaultValue={getbyid.catagorySetup}/><br></br>
-                                        <img style={{ width: "5em", height: "5em" }} src={localpath + getbyid.filename}/>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                            <TextField type="text" placeholder={getbyid.catagorySetup} onChange={(e) => setEditservice(e.target.value)} label="Service" defaultValue={getbyid.catagorySetup} /><br></br>
+                                            <img style={{ width: "5em", height: "5em" }} src={localpath + getbyid.filename} />
                                         </div>
                                         <input ref={aRef} type="file" onChange={(e) => setEditImage(e.target.files[0])} /><br></br>
                                         <div class="modal-footer">
@@ -489,11 +501,9 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                         </TableHead>
                         <TableBody>
 
-                            {serviceman.map((data) =>{
-                            if(filter!==""&&filter!==null&&isNaN(filter))
-                                {
-                                    if(String(data.Phonenumber).match(filter)||String((data.Username).toLowerCase()).match(filter.toLowerCase()))
-                                    {
+                            {serviceman.map((data) => {
+                                if (filter !== "" && filter !== null && isNaN(filter)) {
+                                    if (String(data.Phonenumber).match(filter) || String((data.Username).toLowerCase()).match(filter.toLowerCase())) {
                                         return (<StyledTableRow>
                                             <StyledTableCell>{a++}</StyledTableCell>
                                             <StyledTableCell>{data.Username}</StyledTableCell>
@@ -504,7 +514,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                                 <Switch color="primary" /></StyledTableCell>
                                             <StyledTableCell style={{ width: '2%' }}>
                                                 <Button><i class="fa-solid fa-pencil"></i></Button>
-                                                <Button><i class="fa-solid fa-eye"></i></Button>
+                                                <Button ><i class="fa-solid fa-eye" ></i></Button>
                                                 <Button type="button" onClick={() => deleteOpen1(data._id)}><i class="fa-solid fa-trash"></i></Button>
                                             </StyledTableCell>
                                         </StyledTableRow >)
@@ -520,7 +530,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                             <Switch color="primary" /></StyledTableCell>
                                         <StyledTableCell style={{ width: '2%' }}>
                                             <Button><i class="fa-solid fa-pencil"></i></Button>
-                                            <Button><i class="fa-solid fa-eye"></i></Button>
+                                            <Button onClick={() => { handleOpen(data._id) }}><i class="fa-solid fa-eye"></i></Button>
                                             <Button type="button" onClick={() => deleteOpen1(data._id)}><i class="fa-solid fa-trash"></i></Button>
                                         </StyledTableCell>
                                     </StyledTableRow >)
@@ -529,6 +539,113 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <div >
+                    <Modal className="det"
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style} className="detail" style={{ height: "30rem"}} >
+                            <Typography id="modal-modal-title" variant="h5" component="h2">
+                                Details of that Vendor
+                            </Typography>
+                            {/* {get.map((getData) => ( */}
+                            <div style={{ borderRadius: '40px' }}>
+                                <table style={{padding:"5px"}}>
+                                    <tbody >
+                                        <tr style={{padding:"5px"}}>
+                                            <td style={{ textAlign: 'left' }}>User Name</td>
+                                            <td>{get.Username}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Email</td>
+                                            <td>{get.Email}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Phone Number</td>
+                                            <td>{get.Phonenumber}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Location</td>
+                                            <td>{get.Location}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Gender</td>
+                                            <td>{get.Gender}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Language</td>
+                                            <td>{get.Language}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>DOB</td>
+                                            <td>{get.DOB}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Aadhar</td>
+                                            <td>{get.AAdhar}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>AccNo</td>
+                                            <td>{get.AccNo}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Bank Name</td>
+                                            <td>{get.BnkName}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>IFSC</td>
+                                            <td>{get.Ifsc}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Education</td>
+                                            <td>{get.Education}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Job Title</td>
+                                            <td>{get.JobTitle}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Work Experience</td>
+                                            <td>{get.WorkExp}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Zone</td>
+                                            <td>{get.Zone}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Alternate Phone</td>
+                                            <td>{get.AltPH}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Languages Known</td>
+                                            <td>{get.KnownL}</td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Profile Picture</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Pan Card</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td style={{ textAlign: 'left' }}>Aadhar Card</td>
+                                            <td></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            {/* )) */}
+                            {/* } */}
+                        </Box>
+                    </Modal>
+                </div>
             </div>
         )
     }
@@ -768,67 +885,68 @@ const SubCategory = ({ formNumber }) => {
 }
 
 
-const RejectedList = ({formNumber}) => {
+const RejectedList = ({ formNumber }) => {
 
     let serialNumber = 1;
 
-    const[rejected,setRejected]=useState([])
-    
-useEffect(()=>{
-    axios.get("https://backend.kooblu.com/reject_api/rejected_data")
-    .then((data) => {
-        setRejected(data.data)
-    })
-},[])
+    const [rejected, setRejected] = useState([])
 
-const Delete=(id)=>{
-    axios.delete(`https://backend.kooblu.com/reject_api/delete_item/${id}`)
-    .then((res)=>{
-        if(res.data==="Deleted"){
-            toast.success("Item Deleted")}
-        }
-    
-    )
-        .then(axios.get("https://backend.kooblu.com/reject_api/rejected_data")
-        .then((data) => {
-            setRejected(data.data)
-        }))
-}
-    
+    useEffect(() => {
+        axios.get("https://backend.kooblu.com/reject_api/rejected_data")
+            .then((data) => {
+                setRejected(data.data)
+            })
+    }, [])
 
-    if(formNumber===4){
+    const Delete = (id) => {
+        axios.delete(`https://backend.kooblu.com/reject_api/delete_item/${id}`)
+            .then((res) => {
+                if (res.data === "Deleted") {
+                    toast.success("Item Deleted")
+                }
+            }
+
+            )
+            .then(axios.get("https://backend.kooblu.com/reject_api/rejected_data")
+                .then((data) => {
+                    setRejected(data.data)
+                }))
+    }
+
+
+    if (formNumber === 4) {
         return (
             <div className="container-fluid">
                 <h1>Rejected List</h1>
-                    <table className='table-cat' aria-label="customized table" style={{width:'100%'}}>
-                        <thead>
-                            <tr style={{textAlign:'center'}}>
-                                <th>SN</th>
-                                <th>Name</th>
-                                <th>Contact info</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <table className='table-cat' aria-label="customized table" style={{ width: '100%' }}>
+                    <thead>
+                        <tr style={{ textAlign: 'center' }}>
+                            <th>SN</th>
+                            <th>Name</th>
+                            <th>Contact info</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                            {rejected.map((data, index) =>
-                                <tr>
-                                    <td>{serialNumber++}</td>
-                                    <td>{data.FirstName}</td>
-                                    <td>
-                                        {data.Email}
-                                    </td>
-                                    <td>
-                                        <Switch color="primary" /></td>
-                                    <td>
+                        {rejected.map((data, index) =>
+                            <tr>
+                                <td>{serialNumber++}</td>
+                                <td>{data.FirstName}</td>
+                                <td>
+                                    {data.Email}
+                                </td>
+                                <td>
+                                    <Switch color="primary" /></td>
+                                <td>
 
-                                        <Button onClick={()=>{Delete(data._id)}} type="button" ><i class="fa-solid fa-trash"></i></Button>
-                                    </td>
-                                </tr >
-                            )}
-                        </tbody>
-                    </table>
+                                    <Button onClick={() => { Delete(data._id) }} type="button" ><i class="fa-solid fa-trash"></i></Button>
+                                </td>
+                            </tr >
+                        )}
+                    </tbody>
+                </table>
                 <div>
 
                     {/* <Modal
@@ -842,19 +960,19 @@ const Delete=(id)=>{
                             <p>Location : {viewdata.Location}</p>
                             <img src={server + viewdata.filename} alt=''></img>
                             {/* <ChildModal close={setOpen1}/> */}
-                            {/* </Modal><Button onClick={handleOpenModel2}>hire</Button> */}
-                            {/* <Button onClick={() => reject_data()}>Reject</Button> */}
+                    {/* </Modal><Button onClick={handleOpenModel2}>hire</Button> */}
+                    {/* <Button onClick={() => reject_data()}>Reject</Button> */}
 
-                            {/* <ChildModal /> */}
-                        {/* </Box> */} 
+                    {/* <ChildModal /> */}
+                    {/* </Box> */}
                     {/* </Modal>  */}
                 </div>
 
             </div>
         )
     }
-     
-    
+
+
 
 }
 
@@ -871,7 +989,7 @@ const Orders = ({ formNumber }) => {
     //const[subCategory,setSubcategory]=useState([])
     const [open4, setOpen4] = useState(true);
     // const [notificationCount, setNotificationCount] = useState(0);
-   // const nav = useNavigate()
+    // const nav = useNavigate()
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -926,7 +1044,7 @@ const Orders = ({ formNumber }) => {
 
     useEffect(() => {
         getdata()
-       // verify()
+        // verify()
 
     }, [])
 
@@ -935,9 +1053,9 @@ const Orders = ({ formNumber }) => {
             .then((res) => {
                 console.log(res.data);
                 setCompletedbill([res.data])
-            
+
                 //setSubcategory(res.data.workLists)
-                
+
             })
             .then(() => {
                 setOpen4(false)
