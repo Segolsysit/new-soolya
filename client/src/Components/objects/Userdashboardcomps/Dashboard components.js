@@ -58,7 +58,7 @@ const UserProfile = ({ State }) => {
 
 
     useEffect(() => {
-        axios.get(`https://backend.kooblu.com/authUser/fetch_email/${userId}`)
+        axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
             .then((res) => {
                 // console.log(res.data);
                 setMyorders(res.data)
@@ -71,7 +71,7 @@ const UserProfile = ({ State }) => {
 
     useEffect(() => {
 
-        axios.get(`https://backend.kooblu.com/booking_api/booking_data/${useremail}`)
+        axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
             .then((res) => {
                 // console.log(res.data);
                 setorderdetails(res.data)
@@ -135,162 +135,164 @@ const UserProfile = ({ State }) => {
 
 }
 
-const EditForm=({State})=>{
+const EditForm = ({ State }) => {
     const token = localStorage.getItem("vendor");
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.id;
-    const[VendorProfile,setVendorProfile]=useState([])
+    const [VendorProfile, setVendorProfile] = useState([])
 
 
-//Edit States
-const[Name,setName]=useState("")
-const[mail,setMail]=useState("")
-const[Phone,setPhone]=useState("")
-const[Location,setLocation]=useState("")
-const[Gender,setGender]=useState("")
-const[Language,setLanguage]=useState("")
-const[DoB,setDob]=useState(null)
-const[Aadhar,setAadhar]=useState("")
-const[Accn,setAccn]=useState("")
-const[BnkName,setBnkName]=useState("")
-const[IFSC,setIfsc]=useState("")
-const[Education,setEducation]=useState("")
-const[JobTitle,setJobTitle]=useState("")
-const[WorkExp,setWorkExp]=useState("")
-const[Zone,setZone]=useState("")
-const[AltPhone,setAltPhone]=useState("")
-const[Lang,setLang]=useState("")
-const[Picture,setPicture]=useState([])
-const[Pan,setPan]=useState([])
-const [AadharCard,setAadharCard]=useState([])
+    //Edit States
+    const [Name, setName] = useState("")
+    const [mail, setMail] = useState("")
+    const [Phone, setPhone] = useState("")
+    const [Location, setLocation] = useState("")
+    const [Gender, setGender] = useState("")
+    const [Language, setLanguage] = useState("")
+    const [DoB, setDob] = useState("")
+    const [Aadhar, setAadhar] = useState("")
+    const [Accn, setAccn] = useState("")
+    const [BnkName, setBnkName] = useState("")
+    const [IFSC, setIfsc] = useState("")
+    const [Education, setEducation] = useState("")
+    const [JobTitle, setJobTitle] = useState("")
+    const [WorkExp, setWorkExp] = useState("")
+    const [Zone, setZone] = useState("")
+    const [AltPhone, setAltPhone] = useState("")
+    const [Lang, setLang] = useState("")
+    const [Picture, setPicture] = useState([])
+    const [Pan, setPan] = useState([])
+    const [AadharCard, setAadharCard] = useState([])
 
 
-const PostData=(id)=>{
-    const formData=new FormData()
-    formData.append("Username",Name)
-    formData.append("mail",mail)
-    formData.append("Phone",Phone)
-    formData.append("Location",Location)
-    formData.append("Gender",Gender)
-    formData.append("Language",Language)
-    formData.append("DoB",DoB)
-    formData.append("Aadhar",Aadhar)
-    formData.append("Accn",Accn)
-    formData.append("BnkName",BnkName)
-    formData.append("IFSC",IFSC)
-    formData.append("Education",Education)
-    formData.append("JobTitle",JobTitle)
-    formData.append("WorkExp",WorkExp)
-    formData.append("Zone",Zone)
-    formData.append("AltPhone",AltPhone)
-    formData.append("Lang",Lang)
-    formData.append("AadharFiles",AadharCard)
-    formData.append("PhotoFiles",Picture)
-    formData.append("PanFiles",Pan)
-    axios.patch(`https://backend.kooblu.com/vendor_Auth/Edit/${id}`,formData)
-}
+    const PostData = async (id) => {
+        const formData = new FormData()
+        formData.append("Username", Name)
+        formData.append("mail", mail)
+        formData.append("Phone", Phone)
+        formData.append("Location", Location)
+        formData.append("Gender", Gender)
+        formData.append("Language", Language)
+        formData.append("DoB", DoB)
+        formData.append("Aadhar", Aadhar)
+        formData.append("Accn", Accn)
+        formData.append("BnkName", BnkName)
+        formData.append("IFSC", IFSC)
+        formData.append("Education", Education)
+        formData.append("JobTitle", JobTitle)
+        formData.append("WorkExp", WorkExp)
+        formData.append("Zone", Zone)
+        formData.append("AltPhone", AltPhone)
+        formData.append("Lang", Lang)
+        formData.append("AadharFiles", AadharCard)
+        formData.append("PhotoFiles", Picture)
+        formData.append("PanFiles", Pan)
+        await axios.patch(`http://localhost:3001/vendor_Auth/Edit/${id}`, formData)
+
+    }
 
 
 
-    useEffect(()=>{
-        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
+    useEffect(() => {
+        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
             .then((res) => {
                 console.log(res.data);
                 setVendorProfile(res.data)
             })
-    },[])
-    if(State==6){
-        return(
-        <div style={{borderRadius:'40px'}}>
-            <table style={{width:'40rem'}}>
-                <tbody>
-                    <tr>
-                        <td style={{textAlign:'left'}}>User Name</td>
-                        <td><input defaultValue={VendorProfile.Username} onChange={(e)=>{setName(e.target.value)}}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Email</td>
-                        <td><input defaultValue={VendorProfile.Email}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Phone Number</td>
-                        <td><input defaultValue={VendorProfile.Phonenumber}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Location</td>
-                        <td><input defaultValue={VendorProfile.Location}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Gender</td>
-                        <td><input defaultValue={VendorProfile.Gender}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Language</td>
-                        <td><input defaultValue={VendorProfile.Language}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>DOB</td>
-                        <td><input  defaultValue={VendorProfile.DOB}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Aadhar</td>
-                        <td><input defaultValue={VendorProfile.AAdhar}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>AccNo</td>
-                        <td><input defaultValue={VendorProfile.AccNo}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Bank Name</td>
-                        <td><input defaultValue={VendorProfile.BnkName}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>IFSC</td>
-                        <td><input defaultValue={VendorProfile.Ifsc}/></td>
-                    </tr>
+    }, [])
+    if (State == 6) {
+        return (
+            <div style={{ borderRadius: '40px' }}>
+                <table style={{ width: '40rem' }}>
+                    <tbody>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>User Name</td>
+                            <td><input defaultValue={VendorProfile.Username} onChange={(e) => { setName(e.target.value) }} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Email</td>
+                            <td><input defaultValue={VendorProfile.Email} onChange={(e) => { setMail(e.target.value) }} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Phone Number</td>
+                            <td><input defaultValue={VendorProfile.Phonenumber} onChange={(e) => { setPhone(e.target.value) }} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Location</td>
+                            <td><input defaultValue={VendorProfile.Location} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Gender</td>
+                            <td><input defaultValue={VendorProfile.Gender} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Language</td>
+                            <td><input defaultValue={VendorProfile.Language} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>DOB</td>
+                            <td><input defaultValue={VendorProfile.DOB} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Aadhar</td>
+                            <td><input defaultValue={VendorProfile.AAdhar} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>AccNo</td>
+                            <td><input defaultValue={VendorProfile.AccNo} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Bank Name</td>
+                            <td><input defaultValue={VendorProfile.BnkName} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>IFSC</td>
+                            <td><input defaultValue={VendorProfile.Ifsc} /></td>
+                        </tr>
 
-                    <tr>
-                        <td style={{textAlign:'left'}}>Education</td>
-                        <td><input defaultValue={VendorProfile.Education}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Job Title</td>
-                        <td><input defaultValue={VendorProfile.JobTitle}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Work Experience</td>
-                        <td><input defaultValue={VendorProfile.WorkExp}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Zone</td>
-                        <td><input defaultValue={VendorProfile.Zone}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Alternate Phone</td>
-                        <td><input defaultValue={VendorProfile.AltPH}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Languages Known</td>
-                        <td><input defaultValue={VendorProfile.KnownL}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Profile Picture</td>
-                        <td><input type={'file'} onChange={(e)=>setPicture(e.target.files[0])}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Pan Card</td>
-                        <td><input type={'file'} onChange={(e)=>setPan(e.target.files[0])}/></td>
-                    </tr>
-                    <tr>
-                        <td style={{textAlign:'left'}}>Aadhar Card</td>
-                        <td><input type={'file'} onChange={(e)=>setAadharCard(e.target.files[0])}/></td>
-                    </tr>
-                    
-                </tbody>
-            </table>
-            <button style={{border:'none',borderRadius:'10px',backgroundColor:'#ff3d33',color:'white'}} onClick={()=>PostData(VendorProfile._id)}>Submit</button>
-        </div>
-    )}
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Education</td>
+                            <td><input defaultValue={VendorProfile.Education} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Job Title</td>
+                            <td><input defaultValue={VendorProfile.JobTitle} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Work Experience</td>
+                            <td><input defaultValue={VendorProfile.WorkExp} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Zone</td>
+                            <td><input defaultValue={VendorProfile.Zone} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Alternate Phone</td>
+                            <td><input defaultValue={VendorProfile.AltPH} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Languages Known</td>
+                            <td><input defaultValue={VendorProfile.KnownL} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Profile Picture</td>
+                            <td><input type={'file'} onChange={(e) => setPicture(e.target.files[0])} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Pan Card</td>
+                            <td><input type={'file'} onChange={(e) => setPan(e.target.files[0])} /></td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}>Aadhar Card</td>
+                            <td><input type={'file'} onChange={(e) => setAadharCard(e.target.files[0])} /></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <button style={{ border: 'none', borderRadius: '10px', backgroundColor: '#ff3d33', color: 'white' }} onClick={() => PostData(VendorProfile._id)}>Submit</button>
+            </div>
+        )
+    }
     else return null
 }
 
@@ -306,6 +308,10 @@ const VendorProfile = ({ State }) => {
     //const [dummy, setDummy] = useState(0)
     // const useremail = myorders.Email
     const { pathname } = useLocation();
+    const [vendorDetails, setVendorDetails] = useState(null);
+    const [completedOrderdetails, setcompletedOrderdetails] = useState([])
+
+
     useEffect(() => {
         window.scrollTo(0, 0);
 
@@ -317,22 +323,45 @@ const VendorProfile = ({ State }) => {
 
     // }, 1000)
 
+    function get_vendor() {
+
+        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
+            .then((res) => {
+                setVendorDetails(res.data)
+                axios.get(`http://localhost:3001/booking_api/Completed_vendor_order/${res.data.Email}`)
+                    .then((res) => {
+                        setcompletedOrderdetails(res.data)
+                        console.log(res.data);
+                        // const totalearnings = completedOrderdetails.reduce((acc, curr) => acc + parseInt(curr.total), 0)
+                        // console.log(total);
+                    })
+            })
+    }
+
 
     useEffect(() => {
-        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
+        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
             .then((res) => {
                 console.log(res.data);
                 setMyorders(res.data)
             })
 
-        axios.get("https://backend.kooblu.com/booking_api/booking_data")
+        axios.get("http://localhost:3001/booking_api/booking_data")
             .then((res) => {
                 console.log(res.data);
                 setorderdetails(res.data)
             })
         // orders1()
 
+
+        get_vendor()
+
     }, [])
+
+
+    // const Vemail = vendorDetails.Email
+
+    const totalearnings = ((completedOrderdetails.reduce((acc, curr) => acc + parseInt(curr.total), 0)) * (15 / 100))
 
 
     useEffect(() => {
@@ -348,15 +377,18 @@ const VendorProfile = ({ State }) => {
     // }
 
 
-
+    const localpath = "https://backend.kooblu.com"
 
 
     if (State === 1) {
         return (
+            <div className="Dashboard-MainDiv">
             <div className="User-Screen">
                 <div className="Vendor-sec1">
+                    {Array.isArray(myorders.PhotoFiles) && myorders.PhotoFiles.map((item, index) => (
+                        <img key={index} className="User-img" src={localpath + item.filename} alt="" />
 
-                    <img className="User-img" src="https://img.freepik.com/free-vector/digital-tools-concept-illustration_114360-7118.jpg?w=1380&t=st=1682572354~exp=1682572954~hmac=b5050378427867b9b7e204e07e4b4aa64be5c7e31bcdea1890729d172906f92a" alt="" />
+                    ))}
 
                     <div className="Vendor-sec1Data">
                         <div>
@@ -380,6 +412,45 @@ const VendorProfile = ({ State }) => {
                     <h2 className="Orders">Orders Available</h2>
                 </div>
 
+            </div>
+            <div className="User-Screen">
+
+            <div className="Vendor-sec1" style={{backgroundColor:"#e3a5f0"}}>
+
+                    <img className="User-img" src="https://img.freepik.com/free-vector/happy-rich-banker-celebrating-income-growth_74855-5867.jpg?w=2000&t=st=1688534814~exp=1688535414~hmac=a9a55492da7c5b15131b76f834629e922261d35d6ce566f85b7d97540d42e006" alt="" />
+
+                    <div className="Vendor-sec2Data" style={{color:'white'}}>
+                        <div>
+                            <h1 className="Vendor-data" style={{ fontSize: '30px' }}>{completedOrderdetails.length}</h1>
+
+                        </div>
+                        <div>
+
+
+
+                            <h2 className="Vendor-data">Completed Orders</h2>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div className="Vendor-sec1" style={{ backgroundColor: 'dodgerblue' }}>
+
+                    <img className="User-img" src="https://img.freepik.com/free-vector/happy-rich-banker-celebrating-income-growth_74855-5867.jpg?w=2000&t=st=1688534814~exp=1688535414~hmac=a9a55492da7c5b15131b76f834629e922261d35d6ce566f85b7d97540d42e006" alt="" />
+
+                    <div className="Vendor-sec2Data">
+                        <div>
+                            <h1 className="Vendor-data" style={{ fontSize: '30px' }}>₹ {totalearnings}</h1>
+
+                        </div>
+                        <div>
+                            <h2 className="Vendor-data">Total Earnings</h2>
+
+
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
         )
     }
@@ -439,7 +510,7 @@ const VendorOrders = ({ State }) => {
 
     // const token = cookies.venjwt;
     const token = localStorage.getItem("vendor");
-    
+
     const decodedToken = jwt_decode(token);
     const vendorId = decodedToken.id;
 
@@ -463,10 +534,10 @@ const VendorOrders = ({ State }) => {
 
     function get_vendor() {
 
-        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${vendorId}`)
+        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${vendorId}`)
             .then((res) => {
                 setVendorDetails(res.data)
-                axios.get(`https://backend.kooblu.com/booking_api/Completed_vendor_order/${res.data.Email}`)
+                axios.get(`http://localhost:3001/booking_api/Completed_vendor_order/${res.data.Email}`)
                     .then((res) => {
                         setcompletedOrderdetails(res.data)
                         console.log(res.data);
@@ -493,44 +564,45 @@ const VendorOrders = ({ State }) => {
     // }
     const acceptOrder = async (order) => {
 
-       
-            try {
-                 axios.get(`https://backend.kooblu.com/booking_api/booking/${order._id}`).then(async(res)=>{
-                    console.log(confirm);
-                    if(res.data === null){
-                        toast.error("Order was already accepted", {
+
+        try {
+            axios.get(`http://localhost:3001/booking_api/booking/${order._id}`).then(async (res) => {
+                console.log(confirm);
+                if (res.data === null) {
+                    toast.error("Order was already accepted", {
+                        position: 'top-center'
+                    })
+                    getdata()
+                }
+                else {
+                    try {
+                        //console.log(order.number);
+                        const response = await axios.post('http://localhost:3001/OTP/sendotp', { phoneNumber: order.number }, { withCredentials: true })
+                        console.log(response.data.message);
+
+                        setOrderId(order)
+                        handleOpen()
+
+                    } catch (err) {
+
+                        console.log(err.response.data.message);
+                        toast.error(err.response.data.message, {
                             position: 'top-center'
                         })
-                        getdata()
+
                     }
-                    else{
-                        try {
-                            //console.log(order.number);
-                            const response = await axios.post('https://backend.kooblu.com/OTP/sendotp', { phoneNumber: order.number }, { withCredentials: true })
-                            console.log(response.data.message);
-                
-                            setOrderId(order)
-                            handleOpen()
-                
-                        } catch (err) {
-                
-                            console.log(err.response.data.message);
-                            toast.error(err.response.data.message , {
-                                position: 'top-center'
-                            })
-                
-                        }}
-                    })
                 }
-             catch (err) {
-                console.log(err.response.data);
-            }
-   
+            })
+        }
+        catch (err) {
+            console.log(err.response.data);
+        }
+
 
 
     }
-    const Buttonclick=()=>{
-        
+    const Buttonclick = () => {
+
     }
 
 
@@ -540,12 +612,12 @@ const VendorOrders = ({ State }) => {
     const handleVerifyOtp = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post('https://backend.kooblu.com/OTP/verifyotp', { phoneNumber: orders.number, otp: veriyfyOtp }, { withCredentials: true })
+            const response = await axios.post('http://localhost:3001/OTP/verifyotp', { phoneNumber: orders.number, otp: veriyfyOtp }, { withCredentials: true })
             console.log(response.data.message)
             setError('');
             if (response.data.message === "OTP verified successfully") {
 
-                await axios.post(`https://backend.kooblu.com/booking_api/pending_orders/${orders._id}`, {
+                await axios.post(`http://localhost:3001/booking_api/pending_orders/${orders._id}`, {
                     vendor_email: vendorDetails.Email,
                     vendor_name: vendorDetails.Username,
                     user_email: orders.user_email,
@@ -560,7 +632,7 @@ const VendorOrders = ({ State }) => {
                     price: orders.price,
                     paymentMethod: orders.paymentMethod
                 })
-                axios.delete(`https://backend.kooblu.com/booking_api/delete_item/${orders._id}`)
+                axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
                     .then(() => {
                         toast.success("Successfully verified", {
                             position: 'top-center'
@@ -587,7 +659,7 @@ const VendorOrders = ({ State }) => {
 
 
     const handleOpen4 = (id) => {
-        axios.get(`https://backend.kooblu.com/booking_api/Completed_billing/${id}`)
+        axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
                 setCompletedbill([res.data])
@@ -608,7 +680,7 @@ const VendorOrders = ({ State }) => {
     }
 
     const getdata = () => {
-        axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res) => {
+        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
             // console.log(vendorDetails.Username);
         })
@@ -618,7 +690,7 @@ const VendorOrders = ({ State }) => {
     let a = 1;
 
     // const listofwork = () => {
-    //     axios.get("https://backend.kooblu.com/sub_api/new_fetch_items").then((res) => {
+    //     axios.get("http://localhost:3001/sub_api/new_fetch_items").then((res) => {
     //         setoptions2(res.data)
     //         console.log(res.data);
     //     })
@@ -655,7 +727,7 @@ const VendorOrders = ({ State }) => {
     //     clearInterval(timer);
     //     try {
     //         // console.log(orders.number);
-    //       const response = await axios.post('https://backend.kooblu.com/doneOtp/service-done-otp', {
+    //       const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
     //         phoneNumber: orders.number
     //       });
     //       console.log(response.data.message);
@@ -1023,7 +1095,7 @@ const PendingOrders = ({ State, setState }) => {
             console.log(selected);
             try {
                 // console.log(orders.number);
-                const response = await axios.post('https://backend.kooblu.com/doneOtp/service-done-otp', {
+                const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
                     phoneNumber: Phonenumber
                 });
                 console.log(response.data.message);
@@ -1046,20 +1118,20 @@ const PendingOrders = ({ State, setState }) => {
         }
     }
     function get_vendor() {
-        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${vendorId}`)
+        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${vendorId}`)
             .then((res) => {
                 setVendorDetails(res.data)
                 console.log(res.data);
             })
     }
     function vendor_orders() {
-        axios.get(`https://backend.kooblu.com/booking_api/pending_booking_data/${vendorDetails.Email}`)
+        axios.get(`http://localhost:3001/booking_api/pending_booking_data/${vendorDetails.Email}`)
             .then((res) => {
                 setPendingorders(res.data)
             })
     }
     const listofwork = () => {
-        axios.get("https://backend.kooblu.com/sub_api/new_fetch_items").then((res) => {
+        axios.get("http://localhost:3001/sub_api/new_fetch_items").then((res) => {
             setoptions2(res.data)
             console.log(res.data);
         })
@@ -1097,7 +1169,7 @@ const PendingOrders = ({ State, setState }) => {
             subCategory: data.Subcategory,
             price: data.Price
         }));
-        axios.post("https://backend.kooblu.com/doneOtp/verifyotp", {
+        axios.post("http://localhost:3001/doneOtp/verifyotp", {
             phoneNumber: Phonenumber,
             otp: OTP
         }
@@ -1107,7 +1179,7 @@ const PendingOrders = ({ State, setState }) => {
                 handleClose2()
                 if (res.data.message === "OTP verified successfully") {
                     console.log(completePendingorders._id);
-                    axios.post(`https://backend.kooblu.com/booking_api/Completed_orders/${completePendingorders._id}`, {
+                    axios.post(`http://localhost:3001/booking_api/Completed_orders/${completePendingorders._id}`, {
                         vendor_email: vendorDetails.Email,
                         vendor_name: vendorDetails.Username,
                         user_email: completePendingorders.user_email,
@@ -1124,7 +1196,7 @@ const PendingOrders = ({ State, setState }) => {
                         workLists: workListsData,
                         total: total
                     }).then(() => {
-                        axios.delete(`https://backend.kooblu.com/booking_api/delete_pending_item/${completePendingorders._id}`)
+                        axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${completePendingorders._id}`)
                         toast.success("OTP verified", {
                             position: 'top-center'
                         })
@@ -1337,7 +1409,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         setOpen4(true)
     }
     const handleOpen4 = (id) => {
-        axios.get(`https://backend.kooblu.com/booking_api/Completed_billing/${id}`)
+        axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
                 setCompletedbill([res.data])
@@ -1354,8 +1426,8 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     }
     const Razorpay = useRazorpay()
     const Total = completedbill.map((data) => data.total)
-    
-    
+
+
     function pay(data) {
 
         var amount = parseInt(Total);
@@ -1390,7 +1462,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         propay.open()
         // .then(()=>{
         function completePayment() {
-            axios.patch(`https://backend.kooblu.com/booking_api/edit_Completed_orders/${data._id}`, {
+            axios.patch(`http://localhost:3001/booking_api/edit_Completed_orders/${data._id}`, {
                 vendor_email: data.vendor_email,
                 vendor_name: data.vendor_name,
                 user_email: data.user_email,
@@ -1426,7 +1498,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
     const orders = () => {
         console.log(userId);
-        axios.get(`https://backend.kooblu.com/authUser/fetch_email/${userId}`)
+        axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
             .then((res) => {
                 // console.log(res.data);
                 setMyorders(res.data);
@@ -1439,20 +1511,20 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     // }
 
     useEffect(() => {
-        axios.get(`https://backend.kooblu.com/booking_api/booking_data/${useremail}`)
+        axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
             .then((res) => {
                 console.log(res.data);
                 setorderdetails(res.data)
 
             })
 
-        axios.get(`https://backend.kooblu.com/booking_api/pending_book/${useremail}`)
+        axios.get(`http://localhost:3001/booking_api/pending_book/${useremail}`)
             .then((res) => {
                 setpending_order(res.data)
                 console.log(res.data);
             })
 
-        axios.get(`https://backend.kooblu.com/booking_api/Completed_order/${useremail}`)
+        axios.get(`http://localhost:3001/booking_api/Completed_order/${useremail}`)
             .then((res) => {
                 setCompleted_order(res.data)
                 setSubcategory(res.data.workLists)
@@ -1490,7 +1562,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     // }
 
     // const getdata = () => {
-    //     axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res)=>{
+    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res)=>{
     //             setorderdetails(res.data)
     //             setNotificationCount(orderdetails.length)
     //         })
@@ -1779,4 +1851,4 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
 }
 
-export { UserProfile, UserOrders, VendorProfile, VendorOrders, PendingOrders,EditForm }
+export { UserProfile, UserOrders, VendorProfile, VendorOrders, PendingOrders, EditForm }

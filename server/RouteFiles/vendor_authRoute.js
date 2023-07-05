@@ -2,8 +2,44 @@ const VendorAuth = require("../models/vendorAuthModel")
 const VendorAuthRoute = require("express").Router();
 const nodemailer = require('nodemailer');
 const bcrypt = require("bcrypt");
+const path = require("path");
+
 const vjwt = require("jsonwebtoken");
 const maxAge = 3 * 24 * 60 * 60;
+const multer=require('multer')
+
+
+
+
+
+const Storage=multer.diskStorage({
+  destination:(req,file,cb)=>{
+
+cb(null , "files&img")
+
+  },
+  filename:(req,file,cb)=>{
+        cb(null,file.fieldname + "_"+Date.now() + path.extname(file.originalname))  
+  }
+})
+const fileFilter = (req, file, cb) => {
+  const acceptFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+  if (acceptFileTypes.includes(file.mimetype)) {
+      cb(null, true)
+  }
+  else {
+      cb(null, false)
+  }
+}
+
+
+const upload = multer({
+  storage:Storage,
+  fileFilter: fileFilter
+})
+
+
+var multipleUpload = upload.fields([{ name: 'AadharFiles' }, { name: 'PhotoFiles' },{name:'PanFiles'}])
 
 
 // const auth = (req, res, next) => {
@@ -38,10 +74,10 @@ VendorAuthRoute.get('/', (req, res) => {
   }
 });
 
-VendorAuthRoute.post("/register", async (req, res, next) => {
+VendorAuthRoute.post("/register",multipleUpload, async (req, res, next) => {
 
   try {
-    const { Username, Email, Password, Phonenumber,Location,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL,Files } = req.body;
+    const { Username, Email, Password, Phonenumber,Location,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL,AadharCard,PanCard,Photo } = req.body;
   
     const hashedPassword = await bcrypt.hash(Password, 10);
   
@@ -52,7 +88,7 @@ VendorAuthRoute.post("/register", async (req, res, next) => {
       return res.json({ status: "error", message: "Email is already registered" });
     }
   
-    const user = await VendorAuth.create({
+    const fileData = new VendorAuth({
       Username,
       Email,
       Password: hashedPassword,
@@ -71,10 +107,51 @@ VendorAuthRoute.post("/register", async (req, res, next) => {
       Zone,
       AltPH,
       KnownL,
-      Files
+      AadharCard:[],
+      Photo:[],
+      PanCard:[]
     });
+    if (AadharCard){
+      AadharCard.forEach(element => {
+        const file = {
+          fieldName: 'AadharCard',
+          filename:element.filename,
+          originalName: element.originalname,
+          mimeType: element.mimetype,
+          path: element.path,
+        };
+        fileData.AadharFiles.push(file);
+      });
+    }
+
+    if (Photo){
+      Photo.forEach(element => {
+        const file = {
+          fieldName: 'Photo',
+          filename:element.filename,
+          originalName: element.originalname,
+          mimeType: element.mimetype,
+          path: element.path,
+        };
+        fileData.PhotoFiles.push(file);
+      });
+    }
+
+    if (PanCard){
+      PanCard.forEach(element => {
+        const file = {
+          fieldName: 'PanCard',
+          filename:element.filename,
+          originalName: element.originalname,
+          mimeType: element.mimetype,
+          path: element.path,
+        };
+        fileData.PanFiles.push(file);
+      });
+    }
+
   
-    await user.save();
+    await fileData.save();
   
     res.json({ status: "success", message: "Signup successful" });
   } catch (err) {
@@ -252,12 +329,16 @@ VendorAuthRoute.post("/reset-password/:id/:token", async (req, res) => {
 });
 
 
-VendorAuthRoute.patch('/Edit/:id',async(req,res)=>{
+VendorAuthRoute.patch('/Edit/:id',multipleUpload,async(req,res)=>{
   const id=req.params.id
+  const AadharCard=req.files["AadharFiles"]
+  const PanCard=req.files["PanFiles"]
+  const Photo=req.files["PhotoFiles"]
+  console.log(AadharCard+" "+PanCard+" "+Photo);
    const data= await VendorAuth.findByIdAndUpdate(id,{
-    Username:req.body.Name,
+    Username:req.body.Username || id.Username,
     Email:req.body.mail,
-    Phonenumber:req.body.Phone,
+    Phonenumber:req.body.Phone || id.Phonenumber,
     Location:req.body.Location,
     Gender:req.body.Gender,
     Language:req.body.Language,
@@ -272,9 +353,9 @@ VendorAuthRoute.patch('/Edit/:id',async(req,res)=>{
     Zone:req.body.Zone,
     AltPH:req.body.AltPhone,
     KnownL:req.body.Lang,
-    AadharFiles:req.files.AadharFiles,
-    PhotoFiles:req.files.PhotoFiles,
-    PanFiles:req.files.PanFiles
+    AadharFiles:AadharCard ,
+    PhotoFiles: PanCard,
+    PanFiles: Photo
   })
   try{
     await data.save()

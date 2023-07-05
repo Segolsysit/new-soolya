@@ -40,7 +40,7 @@ const RecivedApplication = ({ formNumber }) => {
 
     const handleOpen = (_id) => {
         // console.log("hii")
-        axios.get(`https://backend.kooblu.com/vendor_Applications/fetchVendor_id/${_id}`).then((res) => {
+        axios.get(`http://localhost:3001/vendor_Applications/fetchVendor_id/${_id}`).then((res) => {
             setviewdata(res.data);
             setreject(res.data)
         })
@@ -59,7 +59,7 @@ const RecivedApplication = ({ formNumber }) => {
     };
 
     const deleteapplication = () => {
-        axios.delete(`https://backend.kooblu.com/vendor_Applications/delete_item/${viewdata._id}`)
+        axios.delete(`http://localhost:3001/vendor_Applications/delete_item/${viewdata._id}`)
     }
 
     const handleVendorAuth = async (e) => {
@@ -79,7 +79,7 @@ const RecivedApplication = ({ formNumber }) => {
             setpwderr("password is required")
         }
         else {
-            const response = await axios.post("https://backend.kooblu.com/vendor_Auth/register", {
+            const response = await axios.post("http://localhost:3001/vendor_Auth/register", {
                 Username: vendorName,
                 Email: vendorEmail,
                 Password: vendorPwd,
@@ -98,7 +98,9 @@ const RecivedApplication = ({ formNumber }) => {
                 Zone:viewdata.Zone,
                 AltPH:viewdata.AltPH,
                 KnownL:viewdata.KnownL,
-                Files:viewdata.Files
+                AadharCard:viewdata.AadharFiles,
+                PanCard:viewdata.PanFiles,
+                Photo:viewdata.PhotoFiles
             }, { withCredentials: true })
             .then(console.log(Phone))
 
@@ -133,7 +135,7 @@ const RecivedApplication = ({ formNumber }) => {
     const reject_data = () => {
         // e.preventDefault()
         // console.log(viewdata)
-        axios.post("https://backend.kooblu.com/reject_api/new_rejection", {
+        axios.post("http://localhost:3001/reject_api/new_rejection", {
             Category: reject.Category,
             Location: reject.Location,
             FirstName: reject.FirstName,
@@ -144,7 +146,7 @@ const RecivedApplication = ({ formNumber }) => {
 
         })
             .then(() => {
-                axios.delete(`https://backend.kooblu.com/vendor_Applications/delete_item/${viewdata._id}`).then(() => {
+                axios.delete(`http://localhost:3001/vendor_Applications/delete_item/${viewdata._id}`).then(() => {
                     toast.error('😈 Deleted Successed!', {
                         position: "top-right",
                         autoClose: 2000,
@@ -164,7 +166,7 @@ const RecivedApplication = ({ formNumber }) => {
     }
 
     const getdata = () => {
-        axios.get("https://backend.kooblu.com/vendor_Applications/vendor_application").then((res) => {
+        axios.get("http://localhost:3001/vendor_Applications/vendor_application").then((res) => {
             console.log(res.data);
             setApplication(res.data)
         })
@@ -175,7 +177,7 @@ const RecivedApplication = ({ formNumber }) => {
         getdata()
     }, [])
 
-    const localpath = 'https://backend.kooblu.com/'
+    const localpath = 'http://localhost:3001/'
 
     if (formNumber === 10) {
         return (
