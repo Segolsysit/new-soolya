@@ -58,7 +58,7 @@ const UserProfile = ({ State }) => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
+        axios.get(`https://backend.kooblu.com/authUser/fetch_email/${userId}`)
             .then((res) => {
                 // console.log(res.data);
                 setMyorders(res.data)
@@ -71,7 +71,7 @@ const UserProfile = ({ State }) => {
 
     useEffect(() => {
 
-        axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
+        axios.get(`https://backend.kooblu.com/booking_api/booking_data/${useremail}`)
             .then((res) => {
                 // console.log(res.data);
                 setorderdetails(res.data)
@@ -187,14 +187,14 @@ const EditForm = ({ State }) => {
         formData.append("AadharFiles", AadharCard)
         formData.append("PhotoFiles", Picture)
         formData.append("PanFiles", Pan)
-        await axios.patch(`http://localhost:3001/vendor_Auth/Edit/${id}`, formData)
+        await axios.patch(`https://backend.kooblu.com/vendor_Auth/Edit/${id}`, formData)
 
     }
 
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
+        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
             .then((res) => {
                 console.log(res.data);
                 setVendorProfile(res.data)
@@ -325,10 +325,10 @@ const VendorProfile = ({ State }) => {
 
     function get_vendor() {
 
-        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
+        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
             .then((res) => {
                 setVendorDetails(res.data)
-                axios.get(`http://localhost:3001/booking_api/Completed_vendor_order/${res.data.Email}`)
+                axios.get(`https://backend.kooblu.com/booking_api/Completed_vendor_order/${res.data.Email}`)
                     .then((res) => {
                         setcompletedOrderdetails(res.data)
                         console.log(res.data);
@@ -340,13 +340,13 @@ const VendorProfile = ({ State }) => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
+        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
             .then((res) => {
                 console.log(res.data);
                 setMyorders(res.data)
             })
 
-        axios.get("http://localhost:3001/booking_api/booking_data")
+        axios.get("https://backend.kooblu.com/booking_api/booking_data")
             .then((res) => {
                 console.log(res.data);
                 setorderdetails(res.data)
@@ -534,10 +534,10 @@ const VendorOrders = ({ State }) => {
 
     function get_vendor() {
 
-        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${vendorId}`)
+        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${vendorId}`)
             .then((res) => {
                 setVendorDetails(res.data)
-                axios.get(`http://localhost:3001/booking_api/Completed_vendor_order/${res.data.Email}`)
+                axios.get(`https://backend.kooblu.com/booking_api/Completed_vendor_order/${res.data.Email}`)
                     .then((res) => {
                         setcompletedOrderdetails(res.data)
                         console.log(res.data);
@@ -566,7 +566,7 @@ const VendorOrders = ({ State }) => {
 
 
         try {
-            axios.get(`http://localhost:3001/booking_api/booking/${order._id}`).then(async (res) => {
+            axios.get(`https://backend.kooblu.com/booking_api/booking/${order._id}`).then(async (res) => {
                 console.log(confirm);
                 if (res.data === null) {
                     toast.error("Order was already accepted", {
@@ -577,7 +577,7 @@ const VendorOrders = ({ State }) => {
                 else {
                     try {
                         //console.log(order.number);
-                        const response = await axios.post('http://localhost:3001/OTP/sendotp', { phoneNumber: order.number }, { withCredentials: true })
+                        const response = await axios.post('https://backend.kooblu.com/OTP/sendotp', { phoneNumber: order.number }, { withCredentials: true })
                         console.log(response.data.message);
 
                         setOrderId(order)
@@ -612,12 +612,12 @@ const VendorOrders = ({ State }) => {
     const handleVerifyOtp = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post('http://localhost:3001/OTP/verifyotp', { phoneNumber: orders.number, otp: veriyfyOtp }, { withCredentials: true })
+            const response = await axios.post('https://backend.kooblu.com/OTP/verifyotp', { phoneNumber: orders.number, otp: veriyfyOtp }, { withCredentials: true })
             console.log(response.data.message)
             setError('');
             if (response.data.message === "OTP verified successfully") {
 
-                await axios.post(`http://localhost:3001/booking_api/pending_orders/${orders._id}`, {
+                await axios.post(`https://backend.kooblu.com/booking_api/pending_orders/${orders._id}`, {
                     vendor_email: vendorDetails.Email,
                     vendor_name: vendorDetails.Username,
                     user_email: orders.user_email,
@@ -632,7 +632,7 @@ const VendorOrders = ({ State }) => {
                     price: orders.price,
                     paymentMethod: orders.paymentMethod
                 })
-                axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
+                axios.delete(`https://backend.kooblu.com/booking_api/delete_item/${orders._id}`)
                     .then(() => {
                         toast.success("Successfully verified", {
                             position: 'top-center'
@@ -659,7 +659,7 @@ const VendorOrders = ({ State }) => {
 
 
     const handleOpen4 = (id) => {
-        axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
+        axios.get(`https://backend.kooblu.com/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
                 setCompletedbill([res.data])
@@ -680,7 +680,7 @@ const VendorOrders = ({ State }) => {
     }
 
     const getdata = () => {
-        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+        axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
             // console.log(vendorDetails.Username);
         })
@@ -690,7 +690,7 @@ const VendorOrders = ({ State }) => {
     let a = 1;
 
     // const listofwork = () => {
-    //     axios.get("http://localhost:3001/sub_api/new_fetch_items").then((res) => {
+    //     axios.get("https://backend.kooblu.com/sub_api/new_fetch_items").then((res) => {
     //         setoptions2(res.data)
     //         console.log(res.data);
     //     })
@@ -727,7 +727,7 @@ const VendorOrders = ({ State }) => {
     //     clearInterval(timer);
     //     try {
     //         // console.log(orders.number);
-    //       const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
+    //       const response = await axios.post('https://backend.kooblu.com/doneOtp/service-done-otp', {
     //         phoneNumber: orders.number
     //       });
     //       console.log(response.data.message);
@@ -1095,7 +1095,7 @@ const PendingOrders = ({ State, setState }) => {
             console.log(selected);
             try {
                 // console.log(orders.number);
-                const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
+                const response = await axios.post('https://backend.kooblu.com/doneOtp/service-done-otp', {
                     phoneNumber: Phonenumber
                 });
                 console.log(response.data.message);
@@ -1118,20 +1118,20 @@ const PendingOrders = ({ State, setState }) => {
         }
     }
     function get_vendor() {
-        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${vendorId}`)
+        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${vendorId}`)
             .then((res) => {
                 setVendorDetails(res.data)
                 console.log(res.data);
             })
     }
     function vendor_orders() {
-        axios.get(`http://localhost:3001/booking_api/pending_booking_data/${vendorDetails.Email}`)
+        axios.get(`https://backend.kooblu.com/booking_api/pending_booking_data/${vendorDetails.Email}`)
             .then((res) => {
                 setPendingorders(res.data)
             })
     }
     const listofwork = () => {
-        axios.get("http://localhost:3001/sub_api/new_fetch_items").then((res) => {
+        axios.get("https://backend.kooblu.com/sub_api/new_fetch_items").then((res) => {
             setoptions2(res.data)
             console.log(res.data);
         })
@@ -1169,7 +1169,7 @@ const PendingOrders = ({ State, setState }) => {
             subCategory: data.Subcategory,
             price: data.Price
         }));
-        axios.post("http://localhost:3001/doneOtp/verifyotp", {
+        axios.post("https://backend.kooblu.com/doneOtp/verifyotp", {
             phoneNumber: Phonenumber,
             otp: OTP
         }
@@ -1179,7 +1179,7 @@ const PendingOrders = ({ State, setState }) => {
                 handleClose2()
                 if (res.data.message === "OTP verified successfully") {
                     console.log(completePendingorders._id);
-                    axios.post(`http://localhost:3001/booking_api/Completed_orders/${completePendingorders._id}`, {
+                    axios.post(`https://backend.kooblu.com/booking_api/Completed_orders/${completePendingorders._id}`, {
                         vendor_email: vendorDetails.Email,
                         vendor_name: vendorDetails.Username,
                         user_email: completePendingorders.user_email,
@@ -1196,7 +1196,7 @@ const PendingOrders = ({ State, setState }) => {
                         workLists: workListsData,
                         total: total
                     }).then(() => {
-                        axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${completePendingorders._id}`)
+                        axios.delete(`https://backend.kooblu.com/booking_api/delete_pending_item/${completePendingorders._id}`)
                         toast.success("OTP verified", {
                             position: 'top-center'
                         })
@@ -1409,7 +1409,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         setOpen4(true)
     }
     const handleOpen4 = (id) => {
-        axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
+        axios.get(`https://backend.kooblu.com/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
                 setCompletedbill([res.data])
@@ -1462,7 +1462,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         propay.open()
         // .then(()=>{
         function completePayment() {
-            axios.patch(`http://localhost:3001/booking_api/edit_Completed_orders/${data._id}`, {
+            axios.patch(`https://backend.kooblu.com/booking_api/edit_Completed_orders/${data._id}`, {
                 vendor_email: data.vendor_email,
                 vendor_name: data.vendor_name,
                 user_email: data.user_email,
@@ -1498,7 +1498,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
     const orders = () => {
         console.log(userId);
-        axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
+        axios.get(`https://backend.kooblu.com/authUser/fetch_email/${userId}`)
             .then((res) => {
                 // console.log(res.data);
                 setMyorders(res.data);
@@ -1511,20 +1511,20 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     // }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
+        axios.get(`https://backend.kooblu.com/booking_api/booking_data/${useremail}`)
             .then((res) => {
                 console.log(res.data);
                 setorderdetails(res.data)
 
             })
 
-        axios.get(`http://localhost:3001/booking_api/pending_book/${useremail}`)
+        axios.get(`https://backend.kooblu.com/booking_api/pending_book/${useremail}`)
             .then((res) => {
                 setpending_order(res.data)
                 console.log(res.data);
             })
 
-        axios.get(`http://localhost:3001/booking_api/Completed_order/${useremail}`)
+        axios.get(`https://backend.kooblu.com/booking_api/Completed_order/${useremail}`)
             .then((res) => {
                 setCompleted_order(res.data)
                 setSubcategory(res.data.workLists)
@@ -1562,7 +1562,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     // }
 
     // const getdata = () => {
-    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res)=>{
+    //     axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res)=>{
     //             setorderdetails(res.data)
     //             setNotificationCount(orderdetails.length)
     //         })
