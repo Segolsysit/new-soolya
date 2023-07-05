@@ -83,7 +83,7 @@
        /* border: 2px solid gray; */
        border-radius: 5px;
        width:90%;
-       height:90px; 
+       height:80px; 
        display: flex;
        justify-content: space-around;
        align-items: center;     
@@ -93,18 +93,18 @@
    }
 
    #teams_img{
-    font-size: 6.7vh;
+    font-size: 4.0vh;
     color: rgb(65, 65, 196);
    }
 
    #teams_img_2{
-    font-size: 6.5vh;
-    color: green;
+    font-size: 4.0vh;
+    color: rgb(239, 248, 239);
    }
 
    #teams_img_3{
-    font-size: 6.7vh;
-    color: violet;
+    font-size: 4.0vh;
+    color: rgb(251, 245, 251);
    }
 
 
@@ -115,13 +115,13 @@
    }
 
    .teams_count h5{
-    font-size: 4.5vh;
+    font-size: 4vh;
     font-weight: 700;
    }
 
    .team_count_div h6{
     font-weight: 400;
-    font-size: 1em;
+    font-size: 0.9em;
    }
 
 
