@@ -3,6 +3,7 @@
     height: fit-content;
     flex-direction: row;
     justify-content: left;
+    flex-wrap: wrap;
 }
 
 .Earnings{
