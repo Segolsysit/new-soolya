@@ -143,23 +143,23 @@ const EditForm = ({ State }) => {
 
 
     //Edit States
-    const [Name, setName] = useState("")
-    const [mail, setMail] = useState("")
-    const [Phone, setPhone] = useState("")
-    const [Location, setLocation] = useState("")
-    const [Gender, setGender] = useState("")
-    const [Language, setLanguage] = useState("")
-    const [DoB, setDob] = useState("")
-    const [Aadhar, setAadhar] = useState("")
-    const [Accn, setAccn] = useState("")
-    const [BnkName, setBnkName] = useState("")
-    const [IFSC, setIfsc] = useState("")
-    const [Education, setEducation] = useState("")
-    const [JobTitle, setJobTitle] = useState("")
-    const [WorkExp, setWorkExp] = useState("")
-    const [Zone, setZone] = useState("")
-    const [AltPhone, setAltPhone] = useState("")
-    const [Lang, setLang] = useState("")
+    const [Name, setName] = useState("null")
+    const [mail, setMail] = useState("null")
+    const [Phone, setPhone] = useState("null")
+    const [Location, setLocation] = useState("null")
+    const [Gender, setGender] = useState("null")
+    const [Language, setLanguage] = useState("null")
+    const [DoB, setDob] = useState("null")
+    const [Aadhar, setAadhar] = useState("null")
+    const [Accn, setAccn] = useState("null")
+    const [BnkName, setBnkName] = useState("null")
+    const [IFSC, setIfsc] = useState("null")
+    const [Education, setEducation] = useState("null")
+    const [JobTitle, setJobTitle] = useState("null")
+    const [WorkExp, setWorkExp] = useState("null")
+    const [Zone, setZone] = useState("null")
+    const [AltPhone, setAltPhone] = useState("null")
+    const [Lang, setLang] = useState("null")
     const [Picture, setPicture] = useState([])
     const [Pan, setPan] = useState([])
     const [AadharCard, setAadharCard] = useState([])
@@ -196,8 +196,28 @@ const EditForm = ({ State }) => {
     useEffect(() => {
         axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
             .then((res) => {
-                console.log(res.data);
+                console.log(res.data)
                 setVendorProfile(res.data)
+                setName(res.data.Username)
+                setMail(res.data.Email)
+                setPhone(res.data.Phonenumber)
+                setLocation(res.data.Location)
+                setGender(res.data.Gender)
+                setLanguage(res.data.Language)
+                setDob(res.data.DOB)
+                setAadhar(res.data.AAdhar)
+                setAccn(res.data.AccNo)
+                setBnkName(res.data.BnkName)
+                setIfsc(res.data.Ifsc)
+                setEducation(res.data.Education)
+                setJobTitle(res.data.JobTitle)
+                setWorkExp(res.data.WorkExp)
+                setZone(res.data.Zone)
+                setAltPhone(res.data.AltPH)
+                setLang(res.data.KnownL)
+                setPicture(res.data.PhotoFiles)
+                setPan(res.data.PanFiles)
+                setAadharCard(res.data.AadharFiles)
             })
     }, [])
     if (State == 6) {
@@ -219,60 +239,64 @@ const EditForm = ({ State }) => {
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Location</td>
-                            <td><input defaultValue={VendorProfile.Location} /></td>
+                            <td><input defaultValue={VendorProfile.Location} onChange={(e) => { setLocation(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Gender</td>
-                            <td><input defaultValue={VendorProfile.Gender} /></td>
+                            <td><select onChange={(e)=>{setGender(e.target.value)}}>
+                                <option>{VendorProfile.Gender}</option>
+                                <option>{VendorProfile.Gender==="Male"?"Female":"Male"}</option>
+
+                                </select></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Language</td>
-                            <td><input defaultValue={VendorProfile.Language} /></td>
+                            <td><input defaultValue={VendorProfile.Language} onChange={(e) => { setLanguage(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>DOB</td>
-                            <td><input defaultValue={VendorProfile.DOB} /></td>
+                            <td><input type={'date'} defaultValue={VendorProfile.DOB} onChange={(e) => { setDob(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Aadhar</td>
-                            <td><input defaultValue={VendorProfile.AAdhar} /></td>
+                            <td><input defaultValue={VendorProfile.AAdhar} onChange={(e) => { setAadhar(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>AccNo</td>
-                            <td><input defaultValue={VendorProfile.AccNo} /></td>
+                            <td><input defaultValue={VendorProfile.AccNo} onChange={(e) => { setAccn(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Bank Name</td>
-                            <td><input defaultValue={VendorProfile.BnkName} /></td>
+                            <td><input defaultValue={VendorProfile.BnkName} onChange={(e) => { setBnkName(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>IFSC</td>
-                            <td><input defaultValue={VendorProfile.Ifsc} /></td>
+                            <td><input defaultValue={VendorProfile.Ifsc} onChange={(e) => { setIfsc(e.target.value) }}/></td>
                         </tr>
 
                         <tr>
                             <td style={{ textAlign: 'left' }}>Education</td>
-                            <td><input defaultValue={VendorProfile.Education} /></td>
+                            <td><input defaultValue={VendorProfile.Education} onChange={(e) => { setEducation(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Job Title</td>
-                            <td><input defaultValue={VendorProfile.JobTitle} /></td>
+                            <td><input defaultValue={VendorProfile.JobTitle} onChange={(e) => { setJobTitle(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Work Experience</td>
-                            <td><input defaultValue={VendorProfile.WorkExp} /></td>
+                            <td><input defaultValue={VendorProfile.WorkExp} onChange={(e) => { setWorkExp(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Zone</td>
-                            <td><input defaultValue={VendorProfile.Zone} /></td>
+                            <td><input defaultValue={VendorProfile.Zone} onChange={(e) => { setZone(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Alternate Phone</td>
-                            <td><input defaultValue={VendorProfile.AltPH} /></td>
+                            <td><input defaultValue={VendorProfile.AltPH} onChange={(e) => { setAltPhone(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Languages Known</td>
-                            <td><input defaultValue={VendorProfile.KnownL} /></td>
+                            <td><input defaultValue={VendorProfile.KnownL} onChange={(e) => { setLang(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Profile Picture</td>
