@@ -335,31 +335,32 @@ VendorAuthRoute.patch('/Edit/:id',multipleUpload,async(req,res)=>{
   const PanCard=req.files["PanFiles"]
   const Photo=req.files["PhotoFiles"]
   console.log(AadharCard+" "+PanCard+" "+Photo);
-   const data= await VendorAuth.findByIdAndUpdate(id,{
-    Username:req.body.Username || id.Username,
-    Email:req.body.mail,
-    Phonenumber:req.body.Phone || id.Phonenumber,
-    Location:req.body.Location,
-    Gender:req.body.Gender,
-    Language:req.body.Language,
-    DOB:req.body.DoB,
-    AAdhar:req.body.Aadhar,
-    AccNo:req.body.Accn,
-    BnkName:req.body.BnkName,
-    Ifsc:req.body.IFSC,
-    Education:req.body.Education,
-    JobTitle:req.body.JobTitle,
-    WorkExp:req.body.WorkExp,
-    Zone:req.body.Zone,
-    AltPH:req.body.AltPhone,
-    KnownL:req.body.Lang,
-    AadharFiles:AadharCard ,
-    PhotoFiles: PanCard,
-    PanFiles: Photo
-  })
+   const data= await VendorAuth.findByIdAndUpdate(id)
+    data.Username=req.body.Username||data.Username
+    data.Email=req.body.mail||data.Email
+    data.Phonenumber=req.body.Phone||data.Phonenumber
+    data.Location=req.body.Location||data.Location
+    data.Gender=req.body.Gender||data.Gender
+    data.Language=req.body.Language||data.Language
+    data.DOB=req.body.DoB||data.DOB
+    data.AAdhar=req.body.Aadhar||data.AAdhar
+    data.AccNo=req.body.Accn||data.AccNo
+    data.BnkName=req.body.BnkName||data.BnkName
+    data.Ifsc=req.body.IFSC||data.Ifsc
+    data.Education=req.body.Education||data.Education
+    data.JobTitle=req.body.JobTitle||data.JobTitle
+    data.WorkExp=req.body.WorkExp||data.WorkExp
+    data.Zone=req.body.Zone||data.Zone
+    data.AltPH = req.body.AltPhone !== "null" ? req.body.AltPhone : null;
+    data.KnownL=req.body.Lang||data.KnownL
+    data.AadharFiles=AadharCard||data.AadharFiles
+    data.PhotoFiles=Photo ||data.PhotoFiles
+    data.PanFiles=PanCard ||data.PanFiles
+
+  
   try{
     await data.save()
-    .then(res.json({status:'ok',data}))
+    res.json({status:'ok',data})
   }
   
   
