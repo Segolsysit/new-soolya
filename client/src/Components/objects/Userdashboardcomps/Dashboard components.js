@@ -243,16 +243,20 @@ const EditForm = ({ State }) => {
                             <td><input defaultValue={VendorProfile.Location} onChange={(e) => { setLocation(e.target.value) }}/></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Gender</td>
-                            <td><input defaultValue={VendorProfile.Gender} /></td>
+                            <td>Gender</td>
+                            <td><select onChange={(e)=>{setGender(e.target.value)}}>
+                                <option>{VendorProfile.Gender}</option>
+                                <option>{VendorProfile.Gender==="Male"?"Female":"Male"}</option>
+
+                                </select></td>
                         </tr>
                         <tr>
                             <td>Language</td>
                             <td><input defaultValue={VendorProfile.Language} onChange={(e) => { setLanguage(e.target.value) }}/></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>DOB</td>
-                            <td><input defaultValue={VendorProfile.DOB} /></td>
+                            <td>DOB</td>
+                            <td><input type={'date'} defaultValue={VendorProfile.DOB} onChange={(e) => { setDob(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td>Aadhar</td>
