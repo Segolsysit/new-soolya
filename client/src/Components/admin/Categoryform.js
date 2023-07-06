@@ -41,7 +41,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             setGet(res.data)
             setImg1(res.data.PhotoFiles[0].filename)
             setImg2(res.data.AadharFiles[0].filename)
-            setImg3(res.data.AadharFiles[0].filename)
+            setImg3(res.data.PanFiles[0].filename)
             console.log(typeof (res.data.PhotoFiles[0].filename));
             console.log(res.data.AadharFiles[0].filename);
         })
@@ -130,7 +130,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     // },[filter])
 
     const servicemandata = () => {
-        axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
+        axios.get("https://backend.kooblu.com/vendor_Auth/fetch_vendor").then((res) => {
             setserviceman(res.data)
             // console.log(res.data);
             // console.log(serviceman.Email)
@@ -645,14 +645,14 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                         <tr>
                                             <td style={{ textAlign: 'left' }}>Pan Card</td>
                                             <td>
-                                                <img style={{ width: "100px", height: "100px" }} src={localpath + imgsrc2}></img>
+                                                <img style={{ width: "100px", height: "100px" }} src={localpath + imgsrc3}></img>
 
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style={{ textAlign: 'left' }}>Aadhar Card</td>
                                             <td>
-                                                <img style={{ width: "100px", height: "100px" }} src={localpath + imgsrc3}></img>
+                                                <img style={{ width: "100px", height: "100px" }} src={localpath + imgsrc2}></img>
 
                                             </td>
                                         </tr>
