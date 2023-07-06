@@ -239,7 +239,7 @@ const EditForm = ({ State }) => {
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Location</td>
-                            <td><input defaultValue={VendorProfile.Location} /></td>
+                            <td><input defaultValue={VendorProfile.Location} onChange={(e) => { setLocation(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Gender</td>
@@ -251,52 +251,52 @@ const EditForm = ({ State }) => {
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Language</td>
-                            <td><input defaultValue={VendorProfile.Language} /></td>
+                            <td><input defaultValue={VendorProfile.Language} onChange={(e) => { setLanguage(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>DOB</td>
-                            <td><input defaultValue={VendorProfile.DOB} /></td>
+                            <td><input type={'date'} defaultValue={VendorProfile.DOB} onChange={(e) => { setDob(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Aadhar</td>
-                            <td><input defaultValue={VendorProfile.AAdhar} /></td>
+                            <td><input defaultValue={VendorProfile.AAdhar} onChange={(e) => { setAadhar(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>AccNo</td>
-                            <td><input defaultValue={VendorProfile.AccNo} /></td>
+                            <td><input defaultValue={VendorProfile.AccNo} onChange={(e) => { setAccn(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Bank Name</td>
-                            <td><input defaultValue={VendorProfile.BnkName} /></td>
+                            <td><input defaultValue={VendorProfile.BnkName} onChange={(e) => { setBnkName(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>IFSC</td>
-                            <td><input defaultValue={VendorProfile.Ifsc} /></td>
+                            <td><input defaultValue={VendorProfile.Ifsc} onChange={(e) => { setIfsc(e.target.value) }}/></td>
                         </tr>
 
                         <tr>
                             <td style={{ textAlign: 'left' }}>Education</td>
-                            <td><input defaultValue={VendorProfile.Education} /></td>
+                            <td><input defaultValue={VendorProfile.Education} onChange={(e) => { setEducation(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Job Title</td>
-                            <td><input defaultValue={VendorProfile.JobTitle} /></td>
+                            <td><input defaultValue={VendorProfile.JobTitle} onChange={(e) => { setJobTitle(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Work Experience</td>
-                            <td><input defaultValue={VendorProfile.WorkExp} /></td>
+                            <td><input defaultValue={VendorProfile.WorkExp} onChange={(e) => { setWorkExp(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Zone</td>
-                            <td><input defaultValue={VendorProfile.Zone} /></td>
+                            <td><input defaultValue={VendorProfile.Zone} onChange={(e) => { setZone(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Alternate Phone</td>
-                            <td><input defaultValue={VendorProfile.AltPH} /></td>
+                            <td><input defaultValue={VendorProfile.AltPH} onChange={(e) => { setAltPhone(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Languages Known</td>
-                            <td><input defaultValue={VendorProfile.KnownL} /></td>
+                            <td><input defaultValue={VendorProfile.KnownL} onChange={(e) => { setLang(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Profile Picture</td>
