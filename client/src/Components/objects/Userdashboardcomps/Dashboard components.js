@@ -193,7 +193,7 @@ const EditForm = ({ State }) => {
                 toast.success('Profile Updated')
                 setTimeout(()=>{
                     window.location.reload()
-                },5000)
+                },2000)
             }
             else{
                 toast.error("Couldn't Update")
