@@ -30,10 +30,19 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const [filter, setFilter] = useState("")
     const [open, setOpen] = React.useState(false);
     const [get, setGet] = useState({})
+    const [imgsrc1, setImg1] = useState("")
+    const [imgsrc2, setImg2] = useState("")
+    const [imgsrc3, setImg3] = useState("")
+
+
     const handleOpen = (id) => {
         axios.get("https://backend.kooblu.com/vendor_Auth/fetch_vendor/" + id).then((res) => {
             setGet(res.data)
-            console.log(res.data);
+            setImg1(res.data.PhotoFiles[0].filename)
+            setImg2(res.data.AadharFiles[0].filename)
+            setImg3(res.data.AadharFiles[0].filename)
+            console.log(typeof (res.data.PhotoFiles[0].filename));
+            console.log(res.data.AadharFiles[0].filename);
         })
         // console.log(id);
         setOpen(true)
@@ -44,7 +53,10 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     let aRef = useRef(null)
     let bRef = useRef(null)
 
+    useEffect(() => {
+        console.log(get);
 
+    }, [])
     const [Editservice, setEditservice] = useState('');
     // const [EditDesc, setEditDesc] = useState('');
     // const [EditPrice, setEditPrice] = useState('');
@@ -117,7 +129,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     // },[filter])
 
     const servicemandata = () => {
-        axios.get("https://backend.kooblu.com/vendor_Auth/fetch_vendor").then((res) => {
+        axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
             setserviceman(res.data)
             // console.log(res.data);
             // console.log(serviceman.Email)
@@ -228,7 +240,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             formdata.append("file", img)
 
             axios.post("https://backend.kooblu.com/api/new_catagory/", formdata).then((res) => {
-                if(res.data.message==="Uploaded Successfully"){
+                if (res.data.message === "Uploaded Successfully") {
                     toast.success(' upload Successed!', {
                         position: "top-right",
                         autoClose: 2000,
@@ -336,7 +348,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         formdata.append("catagorySetup", Editservice);
         formdata.append("file", EditImage)
 
-         axios.patch(`https://backend.kooblu.com/api//update_items/${getbyid._id}`, formdata).then(() => {
+        axios.patch(`https://backend.kooblu.com/api//update_items/${getbyid._id}`, formdata).then(() => {
             // alert("updated")
             categorydata();
             setEditservice('');
@@ -546,15 +558,15 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                         aria-labelledby="modal-modal-title"
                         aria-describedby="modal-modal-description"
                     >
-                        <Box sx={style} className="detail" style={{ height: "30rem"}} >
+                        <Box sx={style} className="detail" style={{ height: "30rem" }} >
                             <Typography id="modal-modal-title" variant="h5" component="h2">
                                 Details of that Vendor
                             </Typography>
                             {/* {get.map((getData) => ( */}
                             <div style={{ borderRadius: '40px' }}>
-                                <table style={{padding:"5px"}}>
+                                <table style={{ padding: "5px" }}>
                                     <tbody >
-                                        <tr style={{padding:"5px"}}>
+                                        <tr style={{ padding: "5px" }}>
                                             <td style={{ textAlign: 'left' }}>User Name</td>
                                             <td>{get.Username}</td>
                                         </tr>
@@ -625,15 +637,23 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                         </tr>
                                         <tr>
                                             <td style={{ textAlign: 'left' }}>Profile Picture</td>
-                                            <td></td>
+                                            <td>
+                                                <img style={{ width: "100px", height: "100px" }} src={localpath + imgsrc1}></img>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td style={{ textAlign: 'left' }}>Pan Card</td>
-                                            <td></td>
+                                            <td>
+                                                <img style={{ width: "100px", height: "100px" }} src={localpath + imgsrc2}></img>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td style={{ textAlign: 'left' }}>Aadhar Card</td>
-                                            <td></td>
+                                            <td>
+                                                <img style={{ width: "100px", height: "100px" }} src={localpath + imgsrc3}></img>
+
+                                            </td>
                                         </tr>
 
                                     </tbody>
@@ -889,29 +909,30 @@ const RejectedList = ({ formNumber }) => {
 
     let serialNumber = 1;
 
-    const[rejected,setRejected]=useState([])
-    
-useEffect(()=>{
-    axios.get("https://backend.kooblu.com/reject_api/rejected_data")
-    .then((data) => {
-        setRejected(data.data)
-    })
-},[])
+    const [rejected, setRejected] = useState([])
 
-const Delete=(id)=>{
-    axios.delete(`https://backend.kooblu.com/reject_api/delete_item/${id}`)
-    .then((res)=>{
-        if(res.data==="Deleted"){
-            toast.success("Item Deleted")}
-        }
-    
-    )
-        .then(axios.get("https://backend.kooblu.com/reject_api/rejected_data")
-        .then((data) => {
-            setRejected(data.data)
-        }))
-}
-    
+    useEffect(() => {
+        axios.get("https://backend.kooblu.com/reject_api/rejected_data")
+            .then((data) => {
+                setRejected(data.data)
+            })
+    }, [])
+
+    const Delete = (id) => {
+        axios.delete(`https://backend.kooblu.com/reject_api/delete_item/${id}`)
+            .then((res) => {
+                if (res.data === "Deleted") {
+                    toast.success("Item Deleted")
+                }
+            }
+
+            )
+            .then(axios.get("https://backend.kooblu.com/reject_api/rejected_data")
+                .then((data) => {
+                    setRejected(data.data)
+                }))
+    }
+
 
     if (formNumber === 4) {
         return (
