@@ -206,7 +206,7 @@ const EditForm = ({ State }) => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
+        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
             .then((res) => {
                 let newData = new Date(res.data.DOB);
                 console.log(newData.getFullYear(),newData.getDate(), newData.getMonth());
