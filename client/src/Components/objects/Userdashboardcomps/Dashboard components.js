@@ -187,14 +187,14 @@ const EditForm = ({ State }) => {
         formData.append("AadharFiles", AadharCard)
         formData.append("PhotoFiles", Picture)
         formData.append("PanFiles", Pan)
-        await axios.patch(`http://localhost:3001/vendor_Auth/Edit/${id}`, formData)
+        await axios.patch(`https://backend.kooblu.com/vendor_Auth/Edit/${id}`, formData)
 
     }
 
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
+        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
             .then((res) => {
                 console.log(res.data)
                 setVendorProfile(res.data)
