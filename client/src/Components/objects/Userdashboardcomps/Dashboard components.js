@@ -222,98 +222,98 @@ const EditForm = ({ State }) => {
     }, [])
     if (State == 6) {
         return (
-            <div style={{ borderRadius: '40px' }}>
-                <table style={{ width: '40rem' }}>
+            <div className="edit_table_div">
+                <div>
+                <table className="edit_table">
                     <tbody>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>User Name</td>
+                            <td>User Name</td>
                             <td><input defaultValue={VendorProfile.Username} onChange={(e) => { setName(e.target.value) }} /></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Email</td>
+                            <td>Email</td>
                             <td><input defaultValue={VendorProfile.Email} onChange={(e) => { setMail(e.target.value) }} /></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Phone Number</td>
+                            <td>Phone Number</td>
                             <td><input defaultValue={VendorProfile.Phonenumber} onChange={(e) => { setPhone(e.target.value) }} /></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Location</td>
+                            <td>Location</td>
                             <td><input defaultValue={VendorProfile.Location} onChange={(e) => { setLocation(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>Gender</td>
-                            <td><select onChange={(e)=>{setGender(e.target.value)}}>
-                                <option>{VendorProfile.Gender}</option>
-                                <option>{VendorProfile.Gender==="Male"?"Female":"Male"}</option>
-
-                                </select></td>
+                            <td><input defaultValue={VendorProfile.Gender} /></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Language</td>
+                            <td>Language</td>
                             <td><input defaultValue={VendorProfile.Language} onChange={(e) => { setLanguage(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td style={{ textAlign: 'left' }}>DOB</td>
-                            <td><input type={'date'} defaultValue={VendorProfile.DOB} onChange={(e) => { setDob(e.target.value) }}/></td>
+                            <td><input defaultValue={VendorProfile.DOB} /></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Aadhar</td>
+                            <td>Aadhar</td>
                             <td><input defaultValue={VendorProfile.AAdhar} onChange={(e) => { setAadhar(e.target.value) }}/></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>AccNo</td>
+                            <td>AccNo</td>
                             <td><input defaultValue={VendorProfile.AccNo} onChange={(e) => { setAccn(e.target.value) }}/></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Bank Name</td>
+                            <td>Bank Name</td>
                             <td><input defaultValue={VendorProfile.BnkName} onChange={(e) => { setBnkName(e.target.value) }}/></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>IFSC</td>
+                            <td>IFSC</td>
                             <td><input defaultValue={VendorProfile.Ifsc} onChange={(e) => { setIfsc(e.target.value) }}/></td>
                         </tr>
 
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Education</td>
+                            <td>Education</td>
                             <td><input defaultValue={VendorProfile.Education} onChange={(e) => { setEducation(e.target.value) }}/></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Job Title</td>
+                            <td>Job Title</td>
                             <td><input defaultValue={VendorProfile.JobTitle} onChange={(e) => { setJobTitle(e.target.value) }}/></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Work Experience</td>
+                            <td>Work Experience</td>
                             <td><input defaultValue={VendorProfile.WorkExp} onChange={(e) => { setWorkExp(e.target.value) }}/></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Zone</td>
+                            <td>Zone</td>
                             <td><input defaultValue={VendorProfile.Zone} onChange={(e) => { setZone(e.target.value) }}/></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Alternate Phone</td>
+                            <td>Alternate Phone</td>
                             <td><input defaultValue={VendorProfile.AltPH} onChange={(e) => { setAltPhone(e.target.value) }}/></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Languages Known</td>
+                            <td>Languages Known</td>
                             <td><input defaultValue={VendorProfile.KnownL} onChange={(e) => { setLang(e.target.value) }}/></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Profile Picture</td>
+                            <td>Profile Picture</td>
                             <td><input type={'file'} onChange={(e) => setPicture(e.target.files[0])} /></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Pan Card</td>
+                            <td>Pan Card</td>
                             <td><input type={'file'} onChange={(e) => setPan(e.target.files[0])} /></td>
                         </tr>
                         <tr>
-                            <td style={{ textAlign: 'left' }}>Aadhar Card</td>
+                            <td>Aadhar Card</td>
                             <td><input type={'file'} onChange={(e) => setAadharCard(e.target.files[0])} /></td>
                         </tr>
 
                     </tbody>
                 </table>
-                <button style={{ border: 'none', borderRadius: '10px', backgroundColor: '#ff3d33', color: 'white' }} onClick={() => PostData(VendorProfile._id)}>Submit</button>
+                <div className="edit_submit_btn_div">
+                  <button className="edit_submit_btn" onClick={() => PostData(VendorProfile._id)}>Submit</button>
+                </div>
+                </div>
             </div>
         )
     }
