@@ -266,10 +266,27 @@ completedOrderdetails
     outline: 1px solid #eceffa;
 }
 
+.edit_table td select{
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    margin: 0px;
+    text-align: center;
+    border: none;
+    outline: 1px solid #eceffa;
+}
+
+
 .edit_table td input:focus{
     outline: 2px solid red;
     border-radius: 5px;
 }
+
+.edit_table td select:focus{
+    outline: 2px solid red;
+    border-radius: 5px;
+}
+
 
 .edit_table tr td:first-child{
     background-color: #e8ebf8;
