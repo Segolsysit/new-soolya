@@ -130,7 +130,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     // },[filter])
 
     const servicemandata = () => {
-        axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
+        axios.get("https://backend.kooblu.com/vendor_Auth/fetch_vendor").then((res) => {
             setserviceman(res.data)
             // console.log(res.data);
             // console.log(serviceman.Email)
