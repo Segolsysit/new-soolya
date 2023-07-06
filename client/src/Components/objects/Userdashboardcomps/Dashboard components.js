@@ -194,9 +194,11 @@ const EditForm = ({ State }) => {
 
 
     useEffect(() => {
-        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
+        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
             .then((res) => {
-                console.log(res.data)
+                let newData = new Date(res.data.DOB);
+                console.log(newData.getFullYear(),newData.getDate(), newData.getMonth());
+                // console.log(res.data.DOB.getFullYear());
                 setVendorProfile(res.data)
                 setName(res.data.Username)
                 setMail(res.data.Email)
@@ -204,7 +206,8 @@ const EditForm = ({ State }) => {
                 setLocation(res.data.Location)
                 setGender(res.data.Gender)
                 setLanguage(res.data.Language)
-                setDob(res.data.DOB)
+                // setDob("2023-07-06")
+                setDob(`${newData.getFullYear()}-${ newData.toLocaleString('en-US',{month:'2-digit'})}-${newData.toLocaleString('en-US',{day:'2-digit'})}`)
                 setAadhar(res.data.AAdhar)
                 setAccn(res.data.AccNo)
                 setBnkName(res.data.BnkName)
@@ -256,7 +259,7 @@ const EditForm = ({ State }) => {
                         </tr>
                         <tr>
                             <td>DOB</td>
-                            <td><input type={'date'} defaultValue={VendorProfile.DOB} onChange={(e) => { setDob(e.target.value) }}/></td>
+                            <td><input type={'date'} defaultValue={DoB}  onChange={(e) => { setDob(e.target.value) }}/></td>
                         </tr>
                         <tr>
                             <td>Aadhar</td>

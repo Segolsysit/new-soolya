@@ -189,7 +189,7 @@ const VendorLogin = () => {
         }
         else {
             await axios.post(
-                "https://backend.kooblu.com/vendor_Auth/login",
+                "http://localhost:3001/vendor_Auth/login",
                 {
                     Email: LoginId,
                     Password: Password
