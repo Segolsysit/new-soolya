@@ -188,6 +188,18 @@ const EditForm = ({ State }) => {
         formData.append("PhotoFiles", Picture)
         formData.append("PanFiles", Pan)
         await axios.patch(`https://backend.kooblu.com/vendor_Auth/Edit/${id}`, formData)
+        .then((res)=>{
+            if(res.data.status==='ok'){
+                toast.success('Profile Updated')
+                setTimeout(()=>{
+                    window.location.reload()
+                },2000)
+            }
+            else{
+                toast.error("Couldn't Update")
+            }
+            
+        })
 
     }
 
