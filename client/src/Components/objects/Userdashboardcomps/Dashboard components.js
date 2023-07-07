@@ -224,99 +224,99 @@ const EditForm = ({ State }) => {
         return (
             <div className="edit_table_div">
                 <div>
-                <table className="edit_table">
-                    <tbody>
-                        <tr>
-                            <td>User Name</td>
-                            <td><input defaultValue={VendorProfile.Username} onChange={(e) => { setName(e.target.value) }} /></td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td><input defaultValue={VendorProfile.Email} onChange={(e) => { setMail(e.target.value) }} /></td>
-                        </tr>
-                        <tr>
-                            <td>Phone Number</td>
-                            <td><input defaultValue={VendorProfile.Phonenumber} onChange={(e) => { setPhone(e.target.value) }} /></td>
-                        </tr>
-                        <tr>
-                            <td>Location</td>
-                            <td><input defaultValue={VendorProfile.Location} onChange={(e) => { setLocation(e.target.value) }}/></td>
-                        </tr>
-                        <tr>
-                            <td>Gender</td>
-                            <td><select onChange={(e)=>{setGender(e.target.value)}}>
-                                <option>{VendorProfile.Gender}</option>
-                                <option>{VendorProfile.Gender==="Male"?"Female":"Male"}</option>
+                    <table className="edit_table">
+                        <tbody>
+                            <tr>
+                                <td>User Name</td>
+                                <td><input defaultValue={VendorProfile.Username} onChange={(e) => { setName(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><input defaultValue={VendorProfile.Email} onChange={(e) => { setMail(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>Phone Number</td>
+                                <td><input defaultValue={VendorProfile.Phonenumber} onChange={(e) => { setPhone(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>Location</td>
+                                <td><input defaultValue={VendorProfile.Location} onChange={(e) => { setLocation(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>Gender</td>
+                                <td><select onChange={(e) => { setGender(e.target.value) }}>
+                                    <option>{VendorProfile.Gender}</option>
+                                    <option>{VendorProfile.Gender === "Male" ? "Female" : "Male"}</option>
 
                                 </select></td>
-                        </tr>
-                        <tr>
-                            <td>Language</td>
-                            <td><input defaultValue={VendorProfile.Language} onChange={(e) => { setLanguage(e.target.value) }}/></td>
-                        </tr>
-                        <tr>
-                            <td>DOB</td>
-                            <td><input type={'date'} defaultValue={VendorProfile.DOB} onChange={(e) => { setDob(e.target.value) }}/></td>
-                        </tr>
-                        <tr>
-                            <td>Aadhar</td>
-                            <td><input defaultValue={VendorProfile.AAdhar} onChange={(e) => { setAadhar(e.target.value) }}/></td>
-                        </tr>
-                        <tr>
-                            <td>AccNo</td>
-                            <td><input defaultValue={VendorProfile.AccNo} onChange={(e) => { setAccn(e.target.value) }}/></td>
-                        </tr>
-                        <tr>
-                            <td>Bank Name</td>
-                            <td><input defaultValue={VendorProfile.BnkName} onChange={(e) => { setBnkName(e.target.value) }}/></td>
-                        </tr>
-                        <tr>
-                            <td>IFSC</td>
-                            <td><input defaultValue={VendorProfile.Ifsc} onChange={(e) => { setIfsc(e.target.value) }}/></td>
-                        </tr>
+                            </tr>
+                            <tr>
+                                <td>Language</td>
+                                <td><input defaultValue={VendorProfile.Language} onChange={(e) => { setLanguage(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>DOB</td>
+                                <td><input type={'date'} defaultValue={VendorProfile.DOB} onChange={(e) => { setDob(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>Aadhar</td>
+                                <td><input defaultValue={VendorProfile.AAdhar} onChange={(e) => { setAadhar(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>AccNo</td>
+                                <td><input defaultValue={VendorProfile.AccNo} onChange={(e) => { setAccn(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>Bank Name</td>
+                                <td><input defaultValue={VendorProfile.BnkName} onChange={(e) => { setBnkName(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>IFSC</td>
+                                <td><input defaultValue={VendorProfile.Ifsc} onChange={(e) => { setIfsc(e.target.value) }} /></td>
+                            </tr>
 
-                        <tr>
-                            <td>Education</td>
-                            <td><input defaultValue={VendorProfile.Education} onChange={(e) => { setEducation(e.target.value) }}/></td>
-                        </tr>
-                        <tr>
-                            <td>Job Title</td>
-                            <td><input defaultValue={VendorProfile.JobTitle} onChange={(e) => { setJobTitle(e.target.value) }}/></td>
-                        </tr>
-                        <tr>
-                            <td>Work Experience</td>
-                            <td><input defaultValue={VendorProfile.WorkExp} onChange={(e) => { setWorkExp(e.target.value) }}/></td>
-                        </tr>
-                        <tr>
-                            <td>Zone</td>
-                            <td><input defaultValue={VendorProfile.Zone} onChange={(e) => { setZone(e.target.value) }}/></td>
-                        </tr>
-                        <tr>
-                            <td>Alternate Phone</td>
-                            <td><input defaultValue={VendorProfile.AltPH} onChange={(e) => { setAltPhone(e.target.value) }}/></td>
-                        </tr>
-                        <tr>
-                            <td>Languages Known</td>
-                            <td><input defaultValue={VendorProfile.KnownL} onChange={(e) => { setLang(e.target.value) }}/></td>
-                        </tr>
-                        <tr>
-                            <td>Profile Picture</td>
-                            <td><input type={'file'} onChange={(e) => setPicture(e.target.files[0])} /></td>
-                        </tr>
-                        <tr>
-                            <td>Pan Card</td>
-                            <td><input type={'file'} onChange={(e) => setPan(e.target.files[0])} /></td>
-                        </tr>
-                        <tr>
-                            <td>Aadhar Card</td>
-                            <td><input type={'file'} onChange={(e) => setAadharCard(e.target.files[0])} /></td>
-                        </tr>
+                            <tr>
+                                <td>Education</td>
+                                <td><input defaultValue={VendorProfile.Education} onChange={(e) => { setEducation(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>Job Title</td>
+                                <td><input defaultValue={VendorProfile.JobTitle} onChange={(e) => { setJobTitle(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>Work Experience</td>
+                                <td><input defaultValue={VendorProfile.WorkExp} onChange={(e) => { setWorkExp(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>Zone</td>
+                                <td><input defaultValue={VendorProfile.Zone} onChange={(e) => { setZone(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>Alternate Phone</td>
+                                <td><input defaultValue={VendorProfile.AltPH} onChange={(e) => { setAltPhone(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>Languages Known</td>
+                                <td><input defaultValue={VendorProfile.KnownL} onChange={(e) => { setLang(e.target.value) }} /></td>
+                            </tr>
+                            <tr>
+                                <td>Profile Picture</td>
+                                <td><input type={'file'} onChange={(e) => setPicture(e.target.files[0])} /></td>
+                            </tr>
+                            <tr>
+                                <td>Pan Card</td>
+                                <td><input type={'file'} onChange={(e) => setPan(e.target.files[0])} /></td>
+                            </tr>
+                            <tr>
+                                <td>Aadhar Card</td>
+                                <td><input type={'file'} onChange={(e) => setAadharCard(e.target.files[0])} /></td>
+                            </tr>
 
-                    </tbody>
-                </table>
-                <div className="edit_submit_btn_div">
-                  <button className="edit_submit_btn" onClick={() => PostData(VendorProfile._id)}>Submit</button>
-                </div>
+                        </tbody>
+                    </table>
+                    <div className="edit_submit_btn_div">
+                        <button className="edit_submit_btn" onClick={() => PostData(VendorProfile._id)}>Submit</button>
+                    </div>
                 </div>
             </div>
         )
@@ -389,7 +389,7 @@ const VendorProfile = ({ State }) => {
 
     // const Vemail = vendorDetails.Email
 
-    const totalearnings =Math.round( ((completedOrderdetails.reduce((acc, curr) => acc + parseInt(curr.total), 0)) * (15 / 100)))
+    const totalearnings = Math.round(((completedOrderdetails.reduce((acc, curr) => acc + parseInt(curr.total), 0)) * (15 / 100)))
 
 
     useEffect(() => {
@@ -411,76 +411,76 @@ const VendorProfile = ({ State }) => {
     if (State === 1) {
         return (
             <div className="Dashboard-MainDiv">
-            <div className="User-Screen">
-                <div id="Vendor-Details" className="Vendor-sec1">
-                    {Array.isArray(myorders.PhotoFiles) && myorders.PhotoFiles.map((item, index) => (
-                        <img key={index} className="User-img" src={localpath + item.filename} alt="" />
+                <div className="User-Screen">
+                    <div id="Vendor-Details" className="Vendor-sec1">
+                        {Array.isArray(myorders.PhotoFiles) && myorders.PhotoFiles.map((item, index) => (
+                            <img key={index} className="User-img" src={localpath + item.filename} alt="" />
 
-                    ))}
+                        ))}
 
-                    <div className="Vendor-sec1Data">
-                        <div>
-                            <h2 className="Vendor-data"><i class="fa-solid fa-user"></i></h2>
-                            <h2 className="Vendor-data"><i class="fa-solid fa-envelope"></i></h2>
-                        </div>
-                        <div>
-
-
-                            <h2 className="Vendor-data">{myorders.Username}</h2>
-                            <h2 className="Vendor-data">{myorders.Email}</h2>
+                        <div className="Vendor-sec1Data">
+                            <div>
+                                <h2 className="Vendor-data"><i class="fa-solid fa-user"></i></h2>
+                                <h2 className="Vendor-data"><i class="fa-solid fa-envelope"></i></h2>
+                            </div>
+                            <div>
 
 
-
-                        </div>
-                    </div>
-                </div>
-
-                
-
-            </div>
-            <div className="User-Screen">
-            <div className="vendor-sec2" >
-                    <h1 className="Count">{count}</h1>
-                    <h2 className="Orders">Orders Available</h2>
-                </div>
-
-                <div className="Vendor-sec1" style={{backgroundColor:"#e3a5f0"}}>
-
-                    <img className="User-img" src="https://img.freepik.com/free-vector/happy-rich-banker-celebrating-income-growth_74855-5867.jpg?w=2000&t=st=1688534814~exp=1688535414~hmac=a9a55492da7c5b15131b76f834629e922261d35d6ce566f85b7d97540d42e006" alt="" />
-
-                    <div className="Vendor-sec2Data" style={{color:'white'}}>
-                        <div>
-                        <h2 className="Vendor-data">Completed Orders</h2>
-
-
-                        </div>
-                        <div>
-
-                        <h1 className="Vendor-data" style={{ fontSize: '30px' }}>{completedOrderdetails.length}</h1>
+                                <h2 className="Vendor-data">{myorders.Username}</h2>
+                                <h2 className="Vendor-data">{myorders.Email}</h2>
 
 
 
-
+                            </div>
                         </div>
                     </div>
+
+
+
                 </div>
-                <div className="Vendor-sec1" style={{ backgroundColor: 'dodgerblue' }}>
+                <div className="User-Screen">
+                    <div className="vendor-sec2" >
+                        <h1 className="Count">{count}</h1>
+                        <h2 className="Orders">Orders Available</h2>
+                    </div>
 
-                    <img className="User-img" src="https://img.freepik.com/free-vector/happy-rich-banker-celebrating-income-growth_74855-5867.jpg?w=2000&t=st=1688534814~exp=1688535414~hmac=a9a55492da7c5b15131b76f834629e922261d35d6ce566f85b7d97540d42e006" alt="" />
+                    <div className="Vendor-sec1" style={{ backgroundColor: "#e3a5f0" }}>
 
-                    <div className="Vendor-sec2Data">
-                        <div>
-                            <h2 className="Vendor-data">Total Earnings</h2>
+                        <img className="User-img" src="https://img.freepik.com/free-vector/happy-rich-banker-celebrating-income-growth_74855-5867.jpg?w=2000&t=st=1688534814~exp=1688535414~hmac=a9a55492da7c5b15131b76f834629e922261d35d6ce566f85b7d97540d42e006" alt="" />
 
-                        </div>
-                        <div>
-                        <h1 className="Vendor-data" style={{ fontSize: '30px' }}>₹ {totalearnings}</h1>
+                        <div className="Vendor-sec2Data" style={{ color: 'white' }}>
+                            <div>
+                                <h2 className="Vendor-data">Completed Orders</h2>
 
 
+                            </div>
+                            <div>
+
+                                <h1 className="Vendor-data" style={{ fontSize: '30px' }}>{completedOrderdetails.length}</h1>
+
+
+
+
+                            </div>
                         </div>
                     </div>
-                </div>
-            
+                    <div className="Vendor-sec1" style={{ backgroundColor: 'dodgerblue' }}>
+
+                        <img className="User-img" src="https://img.freepik.com/free-vector/happy-rich-banker-celebrating-income-growth_74855-5867.jpg?w=2000&t=st=1688534814~exp=1688535414~hmac=a9a55492da7c5b15131b76f834629e922261d35d6ce566f85b7d97540d42e006" alt="" />
+
+                        <div className="Vendor-sec2Data">
+                            <div>
+                                <h2 className="Vendor-data">Total Earnings</h2>
+
+                            </div>
+                            <div>
+                                <h1 className="Vendor-data" style={{ fontSize: '30px' }}>₹ {totalearnings}</h1>
+
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         )
@@ -779,8 +779,8 @@ const VendorOrders = ({ State }) => {
         return (
             <div style={{ width: "100%" }}>
                 <div className="container-fluid vendor-container">
-                    <h1>Order Details</h1>
-                    <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                    <h2>Order Details</h2>
+                    <TableContainer component={Paper} style={{ padding: "20px", marginTop:"30px"}}>
                         <Table className='table-cat' style={{ margin: "0px" }}>
                             <TableHead>
                                 <TableRow>
@@ -798,9 +798,11 @@ const VendorOrders = ({ State }) => {
 
                                 </TableRow>
                             </TableHead>
+                            {orderdetails.length < 0 ? 
                             <TableBody>
                                 {
                                     orderdetails.map((data, index) => (
+
 
 
                                         <StyledTableRow key={index}>
@@ -819,7 +821,16 @@ const VendorOrders = ({ State }) => {
 
                                     ))
                                 }
-                            </TableBody>
+                            </TableBody> : (
+                          <TableBody>
+                          <StyledTableCell colSpan={8}>
+                              <div>
+                                  <p className="center_content">No Orders Available</p>
+                              </div>
+                          </StyledTableCell>
+
+                      </TableBody>
+                            )}
                         </Table>
                     </TableContainer>
 
@@ -929,10 +940,10 @@ const VendorOrders = ({ State }) => {
         return (
             <div style={{ width: "100%" }}>
                 <div className="container-fluid">
-                    <h1>Completed Orders</h1><br />
-                    <div className="Earnings">
-                        <h3>Total Earnings : <span className="Pay-button">{totalearnings}</span></h3><br />
-                        <h3>Total Orders : {completedOrderdetails.length}</h3>
+                    <h2>Completed Orders</h2><br />
+                    <div className="Earnings" >
+                        <h4>Total Earnings : <span className="Pay-button">{totalearnings}</span></h4><br />
+                        <h4>Total Orders : {completedOrderdetails.length}</h4>
                     </div>
                     <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
                         <TableHead>
@@ -950,7 +961,8 @@ const VendorOrders = ({ State }) => {
 
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        {completedOrderdetails.length < 0 ?
+                            <TableBody>
                             {
                                 completedOrderdetails.map((data, index) => (
 
@@ -971,7 +983,17 @@ const VendorOrders = ({ State }) => {
 
                                 ))
                             }
-                        </TableBody>
+                        </TableBody> :  (
+                          <TableBody>
+                          <StyledTableCell colSpan={7}>
+                              <div>
+                                  <p className="center_content">No Completed Orders</p>
+                              </div>
+                          </StyledTableCell>
+
+                      </TableBody>
+                            )}
+
                     </Table>
                     <div className="Bill-modal" hidden={open4}>
                         <h2 className="Bills-heading">Bill</h2>
@@ -1255,8 +1277,8 @@ const PendingOrders = ({ State, setState }) => {
         return (
             <div style={{ width: "100%" }}>
                 <div className="container-fluid">
-                    <h1>Pending order Details</h1>
-                    <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                    <h2>Pending order Details</h2>
+                    <TableContainer component={Paper} style={{ padding: "20px", marginTop:"30px" }}>
                         <Table className='table-cat' style={{ margin: "0px" }}>
                             <TableHead>
                                 <TableRow>
@@ -1274,9 +1296,9 @@ const PendingOrders = ({ State, setState }) => {
 
                                 </TableRow>
                             </TableHead>
-                            <TableBody>
+                            {pendingorders.length > 0 ? <TableBody>
                                 {
-                                    pendingorders.length > 0 ? (pendingorders.map((data, index) => (
+                                    pendingorders.map((data, index) => (
 
 
                                         <StyledTableRow key={index}>
@@ -1298,13 +1320,19 @@ const PendingOrders = ({ State, setState }) => {
                                         </StyledTableRow>
 
                                     ))
-                                    ) : (
 
-
-                                        <p>No pending orders</p>
-                                    )
                                 }
-                            </TableBody>
+                            </TableBody> : (
+                                <TableBody>
+                                    <StyledTableCell colSpan={8}>
+                                        <div>
+                                            <p className="center_content">No pending orders</p>
+                                        </div>
+                                    </StyledTableCell>
+
+                                </TableBody>
+
+                            )}
                         </Table>
                     </TableContainer>
 
@@ -1619,7 +1647,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
             <div style={{ width: "100%" }}>
 
                 <div className="container-fluid">
-                    <h1>Pending Orders</h1>
+                    <h2>Pending Orders</h2>
                     <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
                         <TableHead>
                             <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
@@ -1636,7 +1664,8 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        {pending_order.length < 0 ?
+                         <TableBody>
                             {
                                 pending_order.map((data, index) => (
 
@@ -1656,7 +1685,19 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                                 ))
                             }
+                        </TableBody>: (
+                            <TableBody>
+                            <TableRow>
+                                <TableCell colSpan={7}>
+                                <div>
+                                    <p className="center_content">No pending orders</p>
+                                </div>
+                                </TableCell>
+                               
+                            </TableRow>
+
                         </TableBody>
+                        )}
                     </Table>
                 </div>
             </div>
@@ -1685,7 +1726,8 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        {orderdetails.length < 0 ?
+                         <TableBody>
                             {
                                 orderdetails.map((data, index) => (
 
@@ -1704,7 +1746,19 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                                 ))
                             }
+                        </TableBody> : (
+                            <TableBody>
+                            <TableRow>
+                                <TableCell colSpan={7}>
+                                <div>
+                                    <p className="center_content">No Orders Available</p>
+                                </div>
+                                </TableCell>
+                               
+                            </TableRow>
+
                         </TableBody>
+                        )}
                     </Table>
 
                 </div>
@@ -1716,7 +1770,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         return (
             <div style={{ width: "100%" }}>
                 <div className="container-fluid">
-                    <h1>Completed Orders</h1>
+                    <h2>Completed Orders</h2>
                     <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
                         <TableHead>
                             <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
@@ -1733,6 +1787,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                             </TableRow>
                         </TableHead>
+                       {completed_order.length < 0 ?
                         <TableBody>
                             {
                                 completed_order.map((data, index) => {
@@ -1741,7 +1796,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                         <TableRow key={index} style={{ backgroundColor: "white" }}>
                                             <TableCell>{a++}</TableCell>
 
-                                            {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                         {/* <TableCell><p>{data.Service}</p></TableCell> */}
                                             <TableCell><p>{data.Category}</p> </TableCell>
                                             <TableCell><p>{data.vendor_name}</p> </TableCell>
                                             <TableCell><p>{data.price}</p></TableCell>
@@ -1755,7 +1810,19 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                                 })
                             }
+                        </TableBody>: (
+                            <TableBody>
+                            <TableRow>
+                                <TableCell colSpan={7}>
+                                <div>
+                                    <p className="center_content">No Completed orders</p>
+                                </div>
+                                </TableCell>
+                               
+                            </TableRow>
+
                         </TableBody>
+                        )}
                     </Table>
 
                 </div>
@@ -1769,7 +1836,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
             <div style={{ width: "100%" }}>
 
                 <div className="container-fluid" >
-                    <h1>Bills & Payment</h1>
+                    <h2>Bills & Payment</h2>
 
 
                     <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
@@ -1788,6 +1855,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                             </TableRow>
                         </TableHead>
+                       {completed_order.length < 0 ?
                         <TableBody>
                             {
                                 completed_order.map((data, index) => (
@@ -1810,7 +1878,19 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                                 ))
                             }
+                        </TableBody>:(
+                            <TableBody>
+                            <TableRow>
+                                <TableCell colSpan={6}>
+                                <div>
+                                    <p className="center_content">No Bills Generated</p>
+                                </div>
+                                </TableCell>
+                               
+                            </TableRow>
+
                         </TableBody>
+                        )}
                     </Table>
 
 

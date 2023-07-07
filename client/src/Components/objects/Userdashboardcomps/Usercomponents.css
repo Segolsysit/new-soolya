@@ -11,8 +11,8 @@
     height: -moz-fit-content;
     height: fit-content;
     flex-direction: row;
-    justify-content: space-between;
-    margin: 8%;
+    justify-content: space-around;
+    margin: 1%;
 }
 
 #Vendor-Details{
@@ -304,6 +304,14 @@ completedOrderdetails
     border-radius: 5px;
     background-color: #ff3d33;
     color: white;
+}
+
+
+.center_content{
+    text-align: center;
+    font-size: 20px;
+    padding: 15px;
+    font-weight: 800;
 }
 
 @keyframes dropdown {
