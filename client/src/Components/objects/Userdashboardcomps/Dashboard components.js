@@ -166,6 +166,17 @@ const EditForm = ({ State }) => {
     const AadharRef=useRef(null)
     const ProfileRef=useRef(null)
     const PanRef=useRef(null)
+    const localpath='http://localhost:3001/'
+    const [previewURL, setPreviewURL] = useState('');
+    const [AadharpreviewURL, setAadharPreviewURL] = useState('');
+    const [PanpreviewURL, setPanPreviewURL] = useState('');
+
+
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedAadhar, setSelectedAadhar] = useState(null);
+    const [selectedPan, setSelectedPan] = useState(null);
+
+
 
 
     const PostData = async (id) => {
@@ -205,6 +216,51 @@ const EditForm = ({ State }) => {
         })
 
     }
+
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        setPicture(event.target.files[0])
+        if (file) {
+          setSelectedImage(file);
+          const reader = new FileReader();
+    
+          reader.onloadend = () => {
+            setPreviewURL(reader.result);
+          };
+    
+          reader.readAsDataURL(file);
+        }
+      };
+
+      const handleAadharChange = (event) => {
+        const file = event.target.files[0];
+        setAadharCard(event.target.files[0])
+        if (file) {
+          setSelectedImage(file);
+          const reader = new FileReader();
+    
+          reader.onloadend = () => {
+            setAadharPreviewURL(reader.result);
+          };
+    
+          reader.readAsDataURL(file);
+        }
+      };
+
+      const handlePanChange = (event) => {
+        const file = event.target.files[0];
+        setPan(event.target.files[0])
+        if (file) {
+          setSelectedImage(file);
+          const reader = new FileReader();
+    
+          reader.onloadend = () => {
+            setPanPreviewURL(reader.result);
+          };
+    
+          reader.readAsDataURL(file);
+        }
+      };
 
 
 
@@ -323,15 +379,33 @@ const EditForm = ({ State }) => {
                         </tr>
                         <tr>
                             <td>Profile Picture</td>
-                            <td><input  type={'file'} ref={ProfileRef}  key={ProfileRef.current} onChange={(e) => setPicture(e.target.files[0])} /></td>
+                            <td><input  type={'file'}  onChange={(e) => handleImageChange(e)} /></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <img className="DisplayImage" src={previewURL===""?localpath+VendorProfile.PhotoFiles[0].filename:previewURL} alt="img"/>
+                            </td>
                         </tr>
                         <tr>
                             <td>Pan Card</td>
-                            <td><input  type={'file'} ref={PanRef}  key={PanRef.current} onChange={(e) => setPan(e.target.files[0])} /></td>
+                            <td><input  type={'file'}  onChange={(e) => handlePanChange(e)}/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <img className="DisplayImage" src={PanpreviewURL===""?localpath+VendorProfile.PanFiles[0].filename:PanpreviewURL} alt="img"/>
+                            </td>
                         </tr>
                         <tr>
                             <td>Aadhar Card</td>
-                            <td><input  type={'file'} ref={AadharRef}  key={AadharRef.current} onChange={(e) => setAadharCard(e.target.files[0])} /></td>
+                            <td><input  type={'file'}  onChange={(e) => handleAadharChange(e)} /></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <img  className="DisplayImage" src={AadharpreviewURL===""?localpath+VendorProfile.AadharFiles[0].filename:AadharpreviewURL} alt="img"/>
+                            </td>
                         </tr>
 
                     </tbody>

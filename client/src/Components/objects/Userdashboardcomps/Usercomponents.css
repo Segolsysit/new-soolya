@@ -141,6 +141,11 @@ completedOrderdetails
     width: 300px;
 }
 
+.DisplayImage{
+    aspect-ratio: 16/9;
+    width: 300px;
+}
+
 .Dashboard-MainDiv{
     display: flex;
     flex-direction: column;
