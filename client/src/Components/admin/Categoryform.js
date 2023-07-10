@@ -37,7 +37,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
     const handleOpen = (id) => {
-        axios.get("https://backend.kooblu.com/vendor_Auth/fetch_vendor/" + id).then((res) => {
+        axios.get("http://localhost:3001/vendor_Auth/fetch_vendor/" + id).then((res) => {
             setGet(res.data)
             setImg1(res.data.PhotoFiles[0].filename)
             setImg2(res.data.AadharFiles[0].filename)
@@ -673,12 +673,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
 }
-const localpath = "https://backend.kooblu.com/"
-
-
-
-
-
+const localpath = "http://localhost:3001/"
 const SubCategory = ({ formNumber }) => {
     const [Data, setData] = useState([])
 
