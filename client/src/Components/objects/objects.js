@@ -413,7 +413,8 @@ const Ad = () => {
         "desc": "Years of Experience",
     },]
 
-    return (<div className="Adblock">
+    return (
+    <div className="Adblock">
         {data.map((item,index)=> {
             return (
                 <div className="inner-ad" key={index}>
@@ -423,8 +424,9 @@ const Ad = () => {
                 </div>
             )
         })}
-
-    </div>)
+    </div>
+    
+    )
 }
 
 
