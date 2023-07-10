@@ -80,25 +80,27 @@ subcategory_router.get("/new_fetch_items/:service",async(req,res)=>{
 
 subcategory_router.patch("/update_subcategory/:id",upload.single('file'),async(req,res)=>{
     const removeExisitingFile = await subcategoyr_schema.findById(req.params.id)
-    fs.unlink(removeExisitingFile.path,((err)=>{
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log("existing file removed ");
-        }
+    // fs.unlink(removeExisitingFile.path,((err)=>{
+    //     if(err){
+    //         console.log(err);
+    //     }
+    //     else{
+    //         console.log("existing file removed ");
+    //     }
 
-    }));
+    // }));
     const update_subcategory = await subcategoyr_schema.findByIdAndUpdate(req.params.id)
-    update_subcategory.Category=req.body.Category;
-    update_subcategory.Subcategory=req.body.Subcategory;
-    update_subcategory.Discription=req.body.Discription;
-    update_subcategory.originalname=req.file.originalname;
-    update_subcategory.mimetype=req.file.mimetype;
-    update_subcategory.filename=req.file.filename;
-    update_subcategory.path = req.file.path;
-    update_subcategory.size = req.file.size;
-
+    // update_subcategory.Category=req.body.Category;
+    update_subcategory.Subcategory=req.body.Subcategory||update_subcategory.Subcategory;
+    update_subcategory.Discription=req.body.Discription||update_subcategory.Discription;
+    update_subcategory.Price=req.body.Price||update_subcategory.Price
+    if(req.file){
+        update_subcategory.originalname=req.file.originalname||update_subcategory.originalname;
+        update_subcategory.mimetype=req.file.mimetype||update_subcategory.mimetype;
+        update_subcategory.filename=req.file.filename||update_subcategory.filename;
+        update_subcategory.path = req.file.path||update_subcategory.path;
+        update_subcategory.size = req.file.size||update_subcategory.size;
+    }
     await update_subcategory .save();
     res.status(200).json("File Updated")
 })
