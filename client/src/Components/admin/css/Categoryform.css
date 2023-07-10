@@ -137,6 +137,13 @@ th {
     font-weight: 700;
 }
 
+.ImagePreview{
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    z-index: 4;
+}
+
 @media only screen and (max-width:600px) {
     .Category-Right {
         display: none;

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { toast } from "react-toastify";
+import './css/Categoryform.css'
 // import { get } from '../../../../server/RouteFiles/subcategory_router';
 const style = {
     position: 'absolute',
@@ -11,6 +12,19 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+
+
+const style2 = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: "100%",
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -36,7 +50,20 @@ const RecivedApplication = ({ formNumber }) => {
     const [open, setOpen1] = useState(false);
     const [openModel2, setOpenModel2] = useState(false);
     const [Phone, setPhone] = useState("")
+    const [ImageState, setImageState] = useState(false)
+    const [ImgUrl, setImgUrl] = useState("")
 
+
+
+    const handleImgOpen=(name)=>{
+        setImageState(true)
+        setImgUrl(name)
+    }
+
+    const handleImgClose=()=>{
+        setImageState(false)
+
+    }
 
     const handleOpen = (_id) => {
         // console.log("hii")
@@ -83,26 +110,26 @@ const RecivedApplication = ({ formNumber }) => {
                 Username: vendorName,
                 Email: vendorEmail,
                 Password: vendorPwd,
-                Phonenumber:Phone,
-                Location:viewdata.Location,
-                Gender:viewdata.Gender,
-                Language:viewdata.Language,
-                DOB:viewdata.DOB,
-                AAdhar:viewdata.AAdhar,
-                AccNo:viewdata.AccNo,
-                BnkName:viewdata.BnkName,
-                Ifsc:viewdata.Ifsc,
-                Education:viewdata.Education,
-                JobTitle:viewdata.JobTitle,
-                WorkExp:viewdata.WorkExp,
-                Zone:viewdata.Zone,
-                AltPH:viewdata.AltPH,
-                KnownL:viewdata.KnownL,
-                AadharCard:viewdata.AadharFiles,
-                PanCard:viewdata.PanFiles,
-                Photo:viewdata.PhotoFiles
+                Phonenumber: Phone,
+                Location: viewdata.Location,
+                Gender: viewdata.Gender,
+                Language: viewdata.Language,
+                DOB: viewdata.DOB,
+                AAdhar: viewdata.AAdhar,
+                AccNo: viewdata.AccNo,
+                BnkName: viewdata.BnkName,
+                Ifsc: viewdata.Ifsc,
+                Education: viewdata.Education,
+                JobTitle: viewdata.JobTitle,
+                WorkExp: viewdata.WorkExp,
+                Zone: viewdata.Zone,
+                AltPH: viewdata.AltPH,
+                KnownL: viewdata.KnownL,
+                AadharCard: viewdata.AadharFiles,
+                PanCard: viewdata.PanFiles,
+                Photo: viewdata.PhotoFiles
             }, { withCredentials: true })
-            .then(console.log(Phone))
+                .then(console.log(Phone))
 
             if (response.data.status === 'error') {
                 console.log(response.data.message);
@@ -130,7 +157,7 @@ const RecivedApplication = ({ formNumber }) => {
 
     }
 
-    
+
 
     const reject_data = () => {
         // e.preventDefault()
@@ -163,6 +190,11 @@ const RecivedApplication = ({ formNumber }) => {
         setOpen1(false)
         getdata()
 
+    }
+
+    const OpenImage = (name) => {
+        setImageState(false)
+        setImgUrl(name)
     }
 
     const getdata = () => {
@@ -198,31 +230,31 @@ const RecivedApplication = ({ formNumber }) => {
                             </TableRow>
                         </TableHead>
                         {application.length != 0 ?
-                        <TableBody>
+                            <TableBody>
 
-                          { application.map((data, index) =>
-                                <TableRow key={index}>
-                                    <TableCell>{serialNumber++}</TableCell>
-                                    <TableCell>{data.FirstName} {data.LastName}</TableCell>
-                                    <TableCell>
-                                        <p>{data.Email}</p></TableCell>
-                                    <TableCell><p>{data.Phone}</p></TableCell>
-                                    <TableCell><p>{data.Address}</p></TableCell>
-                                    <TableCell>
-                                        <p>{data.Location}</p>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Button type="button" onClick={() => handleOpen(data._id)}><i class="fa-solid fa-eye"></i></Button>
-                                    </TableCell>
-                                </TableRow>
-                            )
-                        }
-                        </TableBody>:
-                        <TableBody>
+                                {application.map((data, index) =>
+                                    <TableRow key={index}>
+                                        <TableCell>{serialNumber++}</TableCell>
+                                        <TableCell>{data.FirstName} {data.LastName}</TableCell>
+                                        <TableCell>
+                                            <p>{data.Email}</p></TableCell>
+                                        <TableCell><p>{data.Phone}</p></TableCell>
+                                        <TableCell><p>{data.Address}</p></TableCell>
+                                        <TableCell>
+                                            <p>{data.Location}</p>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Button type="button" onClick={() => handleOpen(data._id)}><i class="fa-solid fa-eye"></i></Button>
+                                        </TableCell>
+                                    </TableRow>
+                                )
+                                }
+                            </TableBody> :
+                            <TableBody>
                                 <TableRow>
                                     <TableCell colSpan={8}>
                                         <h3 className="no_data">No Application Received</h3>
-                                    </TableCell>                             
+                                    </TableCell>
                                 </TableRow>
                             </TableBody>}
                     </Table>
@@ -237,22 +269,22 @@ const RecivedApplication = ({ formNumber }) => {
                         aria-describedby="parent-modal-description"
                     >
 
-                        <Box sx={{ ...style,height:'100%',overflowY:'scroll'}}>
+                        <Box sx={{ ...style, height: '100%', overflowY: 'scroll' }}>
                             <div >
-                            {/* style={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }} */}
+                                {/* style={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }} */}
                                 <div >
-                                {/* style={{ width: 'fit-content' }} */}
+                                    {/* style={{ width: 'fit-content' }} */}
 
-                                <div>
-                                { Array.isArray(viewdata.PhotoFiles) && viewdata.PhotoFiles.map(item => {
-                                    if (item.fieldName === "Photo") {
-                                        return <img style={{ aspectRatio: 3 / 4, width: '100px', marginLeft:"90px" }} src={localpath + item.filename} alt='' />
+                                    <div>
+                                        {Array.isArray(viewdata.PhotoFiles) && viewdata.PhotoFiles.map(item => {
+                                            if (item.fieldName === "Photo") {
+                                                return <img style={{ aspectRatio: 3 / 4, width: '100px', marginLeft: "90px" }} src={localpath + item.filename} alt='' />
 
-                                    }
+                                            }
 
 
-                                })}
-                                </div>
+                                        })}
+                                    </div>
                                     <p><b>First Name</b> : {viewdata.FirstName}</p>
                                     <p><b>Last Name</b>: {viewdata.LName}</p>
                                     <p><b>Email</b>   : {viewdata.Email}</p>
@@ -271,34 +303,34 @@ const RecivedApplication = ({ formNumber }) => {
                                     <p><b>Work Zone</b>   : {viewdata.Zone}</p>
                                     <p><b>Alternate Ph.No</b>   : {viewdata.AltPH}</p>
                                     <p><b>Languages Known</b>   : {viewdata.KnownL}</p>
-                                    <div style={{display:'flex',gap:'20px'}}>
-                                { Array.isArray(viewdata.AadharFiles) && viewdata.AadharFiles.map(item => {
-                                    if (item.fieldName === "AadharCard") {
-                                        return (
-                                        <img style={{ aspectRatio: 16 / 9, width: '200px',  }} src={localpath + item.filename} alt='' />
-                                        )
+                                    <div style={{ display: 'flex', gap: '20px' }}>
+                                        {Array.isArray(viewdata.AadharFiles) && viewdata.AadharFiles.map(item => {
+                                            if (item.fieldName === "AadharCard") {
+                                                return (
+                                                    <img style={{ aspectRatio: 16 / 9, width: '200px', }} src={localpath + item.filename} alt='' onClick={() => handleImgOpen(item.filename)} />
+                                                )
 
-                                    }
-
-
-                                })}
-                                  { Array.isArray(viewdata.PanFiles) && viewdata.PanFiles.map(item => {
-                                    if (item.fieldName === "PanCard") {
-                                        return (
-                                        <img style={{ aspectRatio: 16 / 9, width: '200px',  }} src={localpath + item.filename} alt='' />
-                                        )
-
-                                    }
+                                            }
 
 
-                                })}
+                                        })}
+                                        {Array.isArray(viewdata.PanFiles) && viewdata.PanFiles.map(item => {
+                                            if (item.fieldName === "PanCard") {
+                                                return (
+                                                    <img style={{ aspectRatio: 16 / 9, width: '200px', }} src={localpath + item.filename} alt='' />
+                                                )
+
+                                            }
+
+
+                                        })}
+                                    </div>
+
+
+
+
                                 </div>
-                                    
 
-
-
-                                </div>
-                               
                             </div>
                             {/* <ChildModal close={setOpen1}/> */}
                             <Button onClick={handleOpenModel2}>hire</Button>
@@ -309,6 +341,19 @@ const RecivedApplication = ({ formNumber }) => {
                     </Modal>
                 </div>
                 <div>
+                    <div>
+                        {/* <Button onClick={handleOpen}>Open modal</Button> */}
+                        <Modal
+                            open={ImageState}
+                            onClose={handleImgClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={style2}>
+                                <img src={ImgUrl} alt="img"/>
+                            </Box>
+                        </Modal>
+                    </div>
                     <Modal
                         open={openModel2}
                         onClose={handleClose}
@@ -379,6 +424,7 @@ const RecivedApplication = ({ formNumber }) => {
                         </Box>
                     </Modal>
                 </div>
+
             </div>
         )
     }
