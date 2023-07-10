@@ -278,7 +278,7 @@ const RecivedApplication = ({ formNumber }) => {
                                     <div>
                                         {Array.isArray(viewdata.PhotoFiles) && viewdata.PhotoFiles.map(item => {
                                             if (item.fieldName === "Photo") {
-                                                return <img style={{ aspectRatio: 3 / 4, width: '100px', marginLeft: "90px" }} src={localpath + item.filename} alt='' />
+                                                return <img style={{ aspectRatio: 3 / 4, width: '100px', marginLeft: "90px" }} src={localpath + item.filename} alt='' onClick={()=>handleImgOpen(item.filename)}/>
 
                                             }
 
@@ -317,7 +317,7 @@ const RecivedApplication = ({ formNumber }) => {
                                         {Array.isArray(viewdata.PanFiles) && viewdata.PanFiles.map(item => {
                                             if (item.fieldName === "PanCard") {
                                                 return (
-                                                    <img style={{ aspectRatio: 16 / 9, width: '200px', }} src={localpath + item.filename} alt='' />
+                                                    <img style={{ aspectRatio: 16 / 9, width: '200px', }} src={localpath + item.filename} alt='' onClick={()=>handleImgOpen(item.filename)}/>
                                                 )
 
                                             }
