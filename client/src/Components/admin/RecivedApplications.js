@@ -350,7 +350,7 @@ const RecivedApplication = ({ formNumber }) => {
                             aria-describedby="modal-modal-description"
                         >
                             <Box sx={style2}>
-                                <img src={localpath + ImgUrl} alt="img"/>
+                                <img height={"1080px"} width={"1920px"} src={localpath + ImgUrl} alt="img"/>
                             </Box>
                         </Modal>
                     </div>
