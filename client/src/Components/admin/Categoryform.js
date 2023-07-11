@@ -693,7 +693,27 @@ const SubCategory = ({ formNumber }) => {
     const [ErrImg, setErrImg] = useState("")
     const [ErrPrice, setErrPrice] = useState("")
     const [subcategorydata, setsubcategorydata] = useState([])
+    const [open,setOpen]=useState(false)
 
+
+    const[SubCat,setSubCat]=useState("")
+    const[Desc,setDesc]=useState("")
+    const[Pri,setPri]=useState("")
+    const[Img,setImg]=useState(null)
+    const[id,setId]=useState("")
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: "fit-content",
+        bgcolor: 'background.paper',
+        borderRadius:'20px',
+        // border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+      };
 
     const [count, setCount] = useState(1)
     useEffect(() => {
@@ -708,6 +728,16 @@ const SubCategory = ({ formNumber }) => {
             })
 
     }, [count])
+
+
+    const handleOpen=(id)=>{
+        setOpen(true)
+        setId(id)
+    }
+
+    const handleClose=()=>{
+        setOpen(false)
+    }
 
     const handleImgChange = (e) => {
         let file = e.target.files[0]
@@ -837,9 +867,70 @@ const SubCategory = ({ formNumber }) => {
         setPrice("")
     }, [count])
 
+
+
+
+    const UpdateSubCategory = async(e) => {
+        e.preventDefault();
+        const formData = new FormData()
+        formData.append("Subcategory",SubCat)
+        formData.append("Discription",Desc)
+        formData.append("Price",Pri)
+        formData.append("file",Img)
+        await axios.patch(`https://backend.kooblu.com/sub_api/update_subcategory/${id}`,formData)
+        .then((response)=>{
+            if(response.data==="File Updated"){
+                toast.success("file updated")
+                axios.get("https://backend.kooblu.com/sub_api/new_fetch_items")
+                .then((data) => {
+                    setsubcategorydata(data.data)
+                })
+                handleClose()
+            }
+            else{
+                toast.error("Could'nt Process")
+            }
+        })
+    }
+
     if (formNumber === 11) {
         return (
             <div className="Subcategory-Outer">
+                <div>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <form onSubmit={UpdateSubCategory}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Edit
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                Sub Category
+                            </Typography>
+                            <input onChange={(e)=>{setSubCat(e.target.value)}}/>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                Description
+                            </Typography>
+                            <input onChange={(e)=>{setDesc(e.target.value)}}/>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                Price
+                            </Typography>
+                            <input onChange={(e)=>{setPri(e.target.value)}}/>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                Image
+                            </Typography>
+                            <input type={'file'} onChange={(e)=>{setImg(e.target.files[0])}}/>
+                            <Typography>
+                            <button type="submit">Submit</button>
+                            </Typography>
+                            </form>
+                        </Box>
+                    </Modal>
+                </div>
                 <form className="SubCategory" onSubmit={AddSubCategory}>
                     <label className="Category-Label">Category</label>
                     <select className="Category-input" onChange={(e) => {
@@ -911,7 +1002,7 @@ const SubCategory = ({ formNumber }) => {
                                             <StyledTableCell>{data.Discription}</StyledTableCell>
                                             <StyledTableCell><p>{data.Price}</p></StyledTableCell>
                                             <StyledTableCell><Button data-bs-toggle="modal" data-bs-target="#EditCategory"><i class="fa-solid fa-pencil"></i></Button></StyledTableCell>
-                                            <StyledTableCell><Button onClick={() => { del(data._id) }} ><i class="fa-regular fa-trash-can"></i></Button></StyledTableCell>
+                                            <StyledTableCell><Button ><i class="fa-regular fa-trash-can"></i></Button></StyledTableCell>
                                         </StyledTableRow>
 
 
@@ -921,7 +1012,11 @@ const SubCategory = ({ formNumber }) => {
                         </Table>
                     </TableContainer>
                 </div>
+                
+
             </div>
+
+
         )
     }
     else return null
