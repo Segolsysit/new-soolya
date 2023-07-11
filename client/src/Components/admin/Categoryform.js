@@ -693,14 +693,14 @@ const SubCategory = ({ formNumber }) => {
     const [ErrImg, setErrImg] = useState("")
     const [ErrPrice, setErrPrice] = useState("")
     const [subcategorydata, setsubcategorydata] = useState([])
-    const [open,setOpen]=useState(false)
+    const [open, setOpen] = useState(false)
 
 
-    const[SubCat,setSubCat]=useState("")
-    const[Desc,setDesc]=useState("")
-    const[Pri,setPri]=useState("")
-    const[Img,setImg]=useState(null)
-    const[id,setId]=useState("")
+    const [SubCat, setSubCat] = useState("")
+    const [Desc, setDesc] = useState("")
+    const [Pri, setPri] = useState("")
+    const [Img, setImg] = useState(null)
+    const [id, setId] = useState("")
 
     const style = {
         position: 'absolute',
@@ -709,11 +709,11 @@ const SubCategory = ({ formNumber }) => {
         transform: 'translate(-50%, -50%)',
         width: "fit-content",
         bgcolor: 'background.paper',
-        borderRadius:'20px',
+        borderRadius: '20px',
         // border: '2px solid #000',
         boxShadow: 24,
         p: 4,
-      };
+    };
 
     const [count, setCount] = useState(1)
     useEffect(() => {
@@ -730,12 +730,12 @@ const SubCategory = ({ formNumber }) => {
     }, [count])
 
 
-    const handleOpen=(id)=>{
+    const handleOpen = (id) => {
         setOpen(true)
         setId(id)
     }
 
-    const handleClose=()=>{
+    const handleClose = () => {
         setOpen(false)
     }
 
@@ -870,27 +870,27 @@ const SubCategory = ({ formNumber }) => {
 
 
 
-    const UpdateSubCategory = async(e) => {
+    const UpdateSubCategory = async (e) => {
         e.preventDefault();
         const formData = new FormData()
-        formData.append("Subcategory",SubCat)
-        formData.append("Discription",Desc)
-        formData.append("Price",Pri)
-        formData.append("file",Img)
-        await axios.patch(`https://backend.kooblu.com/sub_api/update_subcategory/${id}`,formData)
-        .then((response)=>{
-            if(response.data==="File Updated"){
-                toast.success("file updated")
-                axios.get("https://backend.kooblu.com/sub_api/new_fetch_items")
-                .then((data) => {
-                    setsubcategorydata(data.data)
-                })
-                handleClose()
-            }
-            else{
-                toast.error("Could'nt Process")
-            }
-        })
+        formData.append("Subcategory", SubCat)
+        formData.append("Discription", Desc)
+        formData.append("Price", Pri)
+        formData.append("file", Img)
+        await axios.patch(`https://backend.kooblu.com/sub_api/update_subcategory/${id}`, formData)
+            .then((response) => {
+                if (response.data === "File Updated") {
+                    toast.success("file updated")
+                    axios.get("https://backend.kooblu.com/sub_api/new_fetch_items")
+                        .then((data) => {
+                            setsubcategorydata(data.data)
+                        })
+                    handleClose()
+                }
+                else {
+                    toast.error("Could'nt Process")
+                }
+            })
     }
 
     if (formNumber === 11) {
@@ -905,28 +905,28 @@ const SubCategory = ({ formNumber }) => {
                     >
                         <Box sx={style}>
                             <form onSubmit={UpdateSubCategory}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                                Edit
-                            </Typography>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                Sub Category
-                            </Typography>
-                            <input onChange={(e)=>{setSubCat(e.target.value)}}/>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                Description
-                            </Typography>
-                            <input onChange={(e)=>{setDesc(e.target.value)}}/>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                Price
-                            </Typography>
-                            <input onChange={(e)=>{setPri(e.target.value)}}/>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                Image
-                            </Typography>
-                            <input type={'file'} onChange={(e)=>{setImg(e.target.files[0])}}/>
-                            <Typography>
-                            <button type="submit">Submit</button>
-                            </Typography>
+                                <Typography id="modal-modal-title" variant="h6" component="h2">
+                                    Edit
+                                </Typography>
+                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                    Sub Category
+                                </Typography>
+                                <input onChange={(e) => { setSubCat(e.target.value) }} />
+                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                    Description
+                                </Typography>
+                                <input onChange={(e) => { setDesc(e.target.value) }} />
+                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                    Price
+                                </Typography>
+                                <input onChange={(e) => { setPri(e.target.value) }} />
+                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                    Image
+                                </Typography>
+                                <input type={'file'} onChange={(e) => { setImg(e.target.files[0]) }} />
+                                <Typography>
+                                    <button type="submit">Submit</button>
+                                </Typography>
                             </form>
                         </Box>
                     </Modal>
@@ -1001,8 +1001,8 @@ const SubCategory = ({ formNumber }) => {
 
                                             <StyledTableCell>{data.Discription}</StyledTableCell>
                                             <StyledTableCell><p>{data.Price}</p></StyledTableCell>
-                                            <StyledTableCell><Button data-bs-toggle="modal" data-bs-target="#EditCategory"><i class="fa-solid fa-pencil"></i></Button></StyledTableCell>
-                                            <StyledTableCell><Button ><i class="fa-regular fa-trash-can"></i></Button></StyledTableCell>
+                                            <StyledTableCell><Button onClick={() => handleOpen(data._id)}><i class="fa-solid fa-pencil"></i></Button></StyledTableCell>
+                                            <StyledTableCell><Button onClick={() => { del(data._id) }}><i class="fa-regular fa-trash-can"></i></Button></StyledTableCell>
                                         </StyledTableRow>
 
 
@@ -1012,7 +1012,7 @@ const SubCategory = ({ formNumber }) => {
                         </Table>
                     </TableContainer>
                 </div>
-                
+
 
             </div>
 
