@@ -894,7 +894,7 @@ const VendorOrders = ({ State }) => {
 
                                 </TableRow>
                             </TableHead>
-                            {orderdetails.length < 0 ?
+                            {orderdetails.length > 0 ?
                                 <TableBody>
                                     {
                                         orderdetails.map((data, index) => (
@@ -1057,7 +1057,7 @@ const VendorOrders = ({ State }) => {
 
                             </TableRow>
                         </TableHead>
-                        {completedOrderdetails.length < 0 ?
+                        {completedOrderdetails.length > 0 ?
                             <TableBody>
                                 {
                                     completedOrderdetails.map((data, index) => (
@@ -1760,7 +1760,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                             </TableRow>
                         </TableHead>
-                        {pending_order.length < 0 ?
+                        {pending_order.length > 0 ?
                             <TableBody>
                                 {
                                     pending_order.map((data, index) => (
@@ -1883,7 +1883,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                             </TableRow>
                         </TableHead>
-                        {completed_order.length < 0 ?
+                        {completed_order.length > 0 ?
                             <TableBody>
                                 {
                                     completed_order.map((data, index) => {
@@ -1951,7 +1951,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                             </TableRow>
                         </TableHead>
-                        {completed_order.length < 0 ?
+                        {completed_order.length > 0 ?
                             <TableBody>
                                 {
                                     completed_order.map((data, index) => (
