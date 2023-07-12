@@ -37,7 +37,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
     const handleOpen = (id) => {
-        axios.get("https://backend.kooblu.com/vendor_Auth/fetch_vendor/" + id).then((res) => {
+        axios.get("http://localhost:3001/vendor_Auth/fetch_vendor/" + id).then((res) => {
             setGet(res.data)
             setImg1(res.data.PhotoFiles[0].filename)
             setImg2(res.data.AadharFiles[0].filename)
@@ -104,21 +104,21 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
     // const getdata2 = () => {
-    //     axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res) => {
+    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
     //         setorderdetails(res.data)
     //     })}
 
     // useEffect(()=>{
     //     console.log(filter);
     //     if(filter!==""&&filter!==null&&filter!==NaN)
-    //     {axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor_bynum/${filter}`).then((res) => {
+    //     {axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor_bynum/${filter}`).then((res) => {
     //         setserviceman(res.data)
     //        // console.log(res.data);
     //        // console.log(serviceman.Email)
     //     })}
     //     else if(filter===""&&filter===null&&filter===NaN){
 
-    //         axios.get("https://backend.kooblu.com/vendor_Auth/fetch_vendor").then((res) => {
+    //         axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
     //         setserviceman(res.data)
     //        // console.log(res.data);
     //        // console.log(serviceman.Email)
@@ -130,9 +130,9 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     // },[filter])
 
     const servicemandata = () => {
-        axios.get("https://backend.kooblu.com/vendor_Auth/fetch_vendor").then((res) => {
+        axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
             setserviceman(res.data)
-            // console.log(res.data);
+            console.log(res.data);
             // console.log(serviceman.Email)
         })
     }
@@ -150,7 +150,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://backend.kooblu.com/vendor_Auth/delete_item/${_id}`)
+                axios.delete(`http://localhost:3001/vendor_Auth/delete_item/${_id}`)
                 Swal.fire(
                     'Deleted!',
                     'Your file has been deleted.',
@@ -170,7 +170,6 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     useEffect(() => {
         // getdata2()
         categorydata()
-
         // verify()
         servicemandata()
     }, [])
@@ -183,7 +182,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
     const categorydata = () => {
         // e.preventDefault()
-        axios.get("https://backend.kooblu.com/api/fetch_items").then((res) => {
+        axios.get("http://localhost:3001/api/fetch_items").then((res) => {
             setgetData(res.data);
         })
 
@@ -240,7 +239,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
             formdata.append("catagorySetup", categorySetup);
             formdata.append("file", img)
 
-            axios.post("https://backend.kooblu.com/api/new_catagory/", formdata).then((res) => {
+            axios.post("http://localhost:3001/api/new_catagory/", formdata).then((res) => {
                 if (res.data.message === "Uploaded Successfully") {
                     toast.success(' upload Successed!', {
                         position: "top-right",
@@ -306,7 +305,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         }
     }
     const delete_item = (id) => {
-        axios.delete(`https://backend.kooblu.com/api/delete_item/${id}`).then(() => {
+        axios.delete(`http://localhost:3001/api/delete_item/${id}`).then(() => {
             toast.error('😈 Deleted Successed!', {
                 position: "top-right",
                 autoClose: 2000,
@@ -323,11 +322,11 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
     }
 
-    const localpath = "https://backend.kooblu.com/"
+    const localpath = "http://localhost:3001/"
 
 
     const EditFun = (id) => {
-        axios.get(`https://backend.kooblu.com/api/fetch_items_id/${id}`).then((res) => {
+        axios.get(`http://localhost:3001/api/fetch_items_id/${id}`).then((res) => {
             setgetbyid(res.data)
             // console.log(res.data)
         })
@@ -336,7 +335,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     }
 
     // const Filter=(phone)=>{
-    //     if(phone!==""||phone!==null){axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/`).then((res) => {
+    //     if(phone!==""||phone!==null){axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/`).then((res) => {
     //         setserviceman(res.data)
     //        // console.log(res.data);
     //        // console.log(serviceman.Email)
@@ -349,7 +348,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         formdata.append("catagorySetup", Editservice);
         formdata.append("file", EditImage)
 
-        axios.patch(`https://backend.kooblu.com/api/update_items/${getbyid._id}`, formdata).then(() => {
+        axios.patch(`http://localhost:3001/api/update_items/${getbyid._id}`, formdata).then(() => {
             // alert("updated")
             categorydata();
             setEditservice('');
@@ -455,6 +454,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         )
     }
     if (FormNumber === 2) {
+
         return (
             <div >
                 <h1> Service Man List</h1>
@@ -465,7 +465,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                         className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 w-75 navbar-search">
                         <div className="input-group">
                             <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2" onChange={(e) => setFilter(e.target.value)} />
+                                aria-label="Search" aria-describedby="basic-addon2" onChange={(e) => { setFilter(e.target.value); console.log(typeof (e.target.value)) }} />
                             <div className="input-group-append">
                                 <button className="btn btn-primary" type="button">
                                     <i className="fas fa-search fa-sm"></i>
@@ -490,7 +490,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                     <div className="input-group">
                                         <input type="text" className="form-control bg-light border-0 small"
                                             placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2" onChange={(e) => setFilter(e.target.value)} />
+                                            aria-describedby="basic-addon2" onChange={(e) => { console.log(e.target.value); setFilter(e.target.value) }} />
                                         <div className="input-group-append">
                                             <button className="btn btn-primary" type="button">
                                                 <i className="fas fa-search fa-sm"></i>
@@ -516,7 +516,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
                             {serviceman.map((data) => {
                                 if (filter !== "" && filter !== null && isNaN(filter)) {
-                                    if (String(data.Phonenumber).match(filter) || String((data.Username).toLowerCase()).match(filter.toLowerCase())) {
+                                    if (String((data.Username).toLowerCase()).match(filter.toLowerCase()) || String(data.Phonenumber).match(filter)) {
                                         return (<StyledTableRow>
                                             <StyledTableCell>{a++}</StyledTableCell>
                                             <StyledTableCell>{data.Username}</StyledTableCell>
@@ -673,7 +673,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
 }
-const localpath = "https://backend.kooblu.com/"
+const localpath = "http://localhost:3001/"
 const SubCategory = ({ formNumber }) => {
     const [Data, setData] = useState([])
 
@@ -720,12 +720,12 @@ const SubCategory = ({ formNumber }) => {
 
     const [count, setCount] = useState(1)
     useEffect(() => {
-        axios.get("https://backend.kooblu.com/api/fetch_items")
+        axios.get("http://localhost:3001/api/fetch_items")
             .then((data) => {
                 setData(data.data)
             })
 
-        axios.get("https://backend.kooblu.com/sub_api/new_fetch_items")
+        axios.get("http://localhost:3001/sub_api/new_fetch_items")
             .then((data) => {
                 setsubcategorydata(data.data)
             })
@@ -734,7 +734,7 @@ const SubCategory = ({ formNumber }) => {
 
 
     const handleOpen = (ids) => {
-        axios.get("https://backend.kooblu.com/sub_api/Book_new_fetch_items/" + ids).then((data) => {
+        axios.get("http://localhost:3001/sub_api/Book_new_fetch_items/" + ids).then((data) => {
             setEdit(data.data);
             console.log(data.data);
             console.log(data.data.Subcategory);
@@ -836,7 +836,7 @@ const SubCategory = ({ formNumber }) => {
             formData.append("Price", Price)
             formData.append("file", Image)
             // console.log(Image.file.originalname);
-            axios.post("https://backend.kooblu.com/sub_api/new_subcategory", formData).then((res) => {
+            axios.post("http://localhost:3001/sub_api/new_subcategory", formData).then((res) => {
                 // console.log(category);
 
                 toast.success(' uploaded Successed!', {
@@ -861,10 +861,10 @@ const SubCategory = ({ formNumber }) => {
     }
     function del(id) {
         console.log(id);
-        axios.delete("https://backend.kooblu.com/sub_api/delete_item/" + id).then(() => {
+        axios.delete("http://localhost:3001/sub_api/delete_item/" + id).then(() => {
 
 
-            axios.get("https://backend.kooblu.com/sub_api/new_fetch_items")
+            axios.get("http://localhost:3001/sub_api/new_fetch_items")
                 .then((data) => {
                     setsubcategorydata(data.data)
                 })
@@ -915,11 +915,11 @@ const SubCategory = ({ formNumber }) => {
         formData.append("Discription", Desc)
         formData.append("Price", Pri)
         formData.append("file", Img)
-        await axios.patch(`https://backend.kooblu.com/sub_api/update_subcategory/${id}`, formData)
+        await axios.patch(`http://localhost:3001/sub_api/update_subcategory/${id}`, formData)
             .then((response) => {
                 if (response.data === "File Updated") {
                     toast.success("file updated")
-                    axios.get("https://backend.kooblu.com/sub_api/new_fetch_items")
+                    axios.get("http://localhost:3001/sub_api/new_fetch_items")
                         .then((data) => {
                             setsubcategorydata(data.data);
                             // setPreviewURL("")
@@ -1088,14 +1088,14 @@ const RejectedList = ({ formNumber }) => {
     const [rejected, setRejected] = useState([])
 
     useEffect(() => {
-        axios.get("https://backend.kooblu.com/reject_api/rejected_data")
+        axios.get("http://localhost:3001/reject_api/rejected_data")
             .then((data) => {
                 setRejected(data.data)
             })
     }, [])
 
     const Delete = (id) => {
-        axios.delete(`https://backend.kooblu.com/reject_api/delete_item/${id}`)
+        axios.delete(`http://localhost:3001/reject_api/delete_item/${id}`)
             .then((res) => {
                 if (res.data === "Deleted") {
                     toast.success("Item Deleted")
@@ -1103,7 +1103,7 @@ const RejectedList = ({ formNumber }) => {
             }
 
             )
-            .then(axios.get("https://backend.kooblu.com/reject_api/rejected_data")
+            .then(axios.get("http://localhost:3001/reject_api/rejected_data")
                 .then((data) => {
                     setRejected(data.data)
                 }))
@@ -1224,13 +1224,13 @@ const Orders = ({ formNumber }) => {
 
 
     const getdata = () => {
-        axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res) => {
+        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
         })
-        axios.get("https://backend.kooblu.com/booking_api/pending_booking_data").then((res) => {
+        axios.get("http://localhost:3001/booking_api/pending_booking_data").then((res) => {
             setpending_orderdetails(res.data)
         })
-        axios.get("https://backend.kooblu.com/booking_api/completed_booking_data").then((res) => {
+        axios.get("http://localhost:3001/booking_api/completed_booking_data").then((res) => {
             setcompleted_orderdetails(res.data)
         })
 
@@ -1245,7 +1245,7 @@ const Orders = ({ formNumber }) => {
     }, [])
 
     const handleOpen4 = (id) => {
-        axios.get(`https://backend.kooblu.com/booking_api/Completed_billing/${id}`)
+        axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
                 setCompletedbill([res.data])
