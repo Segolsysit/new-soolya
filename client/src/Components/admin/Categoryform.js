@@ -515,7 +515,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                         <TableBody>
 
                             {serviceman.map((data) => {
-                                if (filter !== "" && filter !== null && isNaN(filter)) {
+                                if (filter !== "" && filter !== null) {
                                     if (String((data.Username).toLowerCase()).match(filter.toLowerCase()) || String(data.Phonenumber).match(filter)) {
                                         return (<StyledTableRow>
                                             <StyledTableCell>{a++}</StyledTableCell>
