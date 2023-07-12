@@ -701,6 +701,9 @@ const SubCategory = ({ formNumber }) => {
     const [Pri, setPri] = useState("")
     const [Img, setImg] = useState(null)
     const [id, setId] = useState("")
+    const [edit, setEdit] = useState({});
+    const [previewURL, setPreviewURL] = useState('');
+
 
     const style = {
         position: 'absolute',
@@ -730,13 +733,23 @@ const SubCategory = ({ formNumber }) => {
     }, [count])
 
 
-    const handleOpen = (id) => {
-        setOpen(true)
-        setId(id)
+    const handleOpen = (ids) => {
+        axios.get("https://backend.kooblu.com/sub_api/Book_new_fetch_items/" + ids).then((data) => {
+            setEdit(data.data);
+            console.log(data.data);
+            console.log(data.data.Subcategory);
+            setOpen(true)
+            setId(ids)
+        })
+        // setEdit(id)
+        // console.log(edit.Subcategory);
+
     }
+
 
     const handleClose = () => {
         setOpen(false)
+        setPreviewURL("")
     }
 
     const handleImgChange = (e) => {
@@ -759,6 +772,17 @@ const SubCategory = ({ formNumber }) => {
         }
 
         else {
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    setPreviewURL(reader.result);
+                };
+
+                reader.readAsDataURL(file);
+            }
+            else {
+                setPreviewURL("")
+            }
             setImage(file)
             setErrImg("")
         }
@@ -828,7 +852,7 @@ const SubCategory = ({ formNumber }) => {
                 })
                 setCount(count + 1)
                 aRef.current.value = null
-
+                setPreviewURL("")
 
             })
 
@@ -868,7 +892,21 @@ const SubCategory = ({ formNumber }) => {
     }, [count])
 
 
+    function imgChg(e) {
+        const file = e.target.files[0];
+        setImg(e.target.files[0]);
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewURL(reader.result);
+            };
 
+            reader.readAsDataURL(file);
+        }
+        else {
+            setPreviewURL("")
+        }
+    }
 
     const UpdateSubCategory = async (e) => {
         e.preventDefault();
@@ -883,9 +921,18 @@ const SubCategory = ({ formNumber }) => {
                     toast.success("file updated")
                     axios.get("https://backend.kooblu.com/sub_api/new_fetch_items")
                         .then((data) => {
-                            setsubcategorydata(data.data)
+                            setsubcategorydata(data.data);
+                            // setPreviewURL("")
+                            console.log(data.data);
+                            // window.location.reload();
+
+
                         })
-                    handleClose()
+                    handleClose();
+                    setSubCat("");
+                    setDesc("");
+                    setPri("");
+                    setImg("");
                 }
                 else {
                     toast.error("Could'nt Process")
@@ -911,19 +958,24 @@ const SubCategory = ({ formNumber }) => {
                                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                     Sub Category
                                 </Typography>
-                                <input onChange={(e) => { setSubCat(e.target.value) }} />
+                                <input defaultValue={edit.Subcategory} onChange={(e) => { setSubCat(e.target.value) }} />
                                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                     Description
                                 </Typography>
-                                <input onChange={(e) => { setDesc(e.target.value) }} />
+                                <input defaultValue={edit.Discription} onChange={(e) => { setDesc(e.target.value) }} />
                                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                     Price
                                 </Typography>
-                                <input onChange={(e) => { setPri(e.target.value) }} />
+                                <input defaultValue={edit.Price} onChange={(e) => { setPri(e.target.value) }} />
                                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                     Image
                                 </Typography>
-                                <input type={'file'} onChange={(e) => { setImg(e.target.files[0]) }} />
+                                <input type={'file'} onChange={(e) => { imgChg(e) }} />
+
+                                <img className="DisplayImage"
+                                    src={previewURL === "" ? localpath + edit.filename : previewURL}
+                                    alt="img" />
+
                                 <Typography>
                                     <button type="submit">Submit</button>
                                 </Typography>
@@ -967,6 +1019,9 @@ const SubCategory = ({ formNumber }) => {
                     <p style={{ color: "red" }}>{ErrPrice}</p>
                     <label className="Category-Label">Image</label>
                     <input ref={aRef} className="Category-input" type="file" onChange={handleImgChange} />
+                    {previewURL === "" ? null : <img className="DisplayImage"
+                        src={previewURL}
+                        alt="img" />}
                     <p style={{ color: "red" }}>{ErrImg}</p>
                     <button className="Category-button" type="submit">Add</button>
 
@@ -978,6 +1033,7 @@ const SubCategory = ({ formNumber }) => {
                                 <TableRow>
                                     <StyledTableCell>SN</StyledTableCell>
                                     <StyledTableCell>Category</StyledTableCell>
+                                    <StyledTableCell>SubCategory</StyledTableCell>
                                     <StyledTableCell>Image</StyledTableCell>
                                     <StyledTableCell>Desc</StyledTableCell>
                                     <StyledTableCell>Price</StyledTableCell>
@@ -997,6 +1053,7 @@ const SubCategory = ({ formNumber }) => {
                                             <StyledTableCell>{a++}</StyledTableCell>
 
                                             <StyledTableCell>{data.Category}</StyledTableCell>
+                                            <StyledTableCell>{data.Subcategory}</StyledTableCell>
                                             <StyledTableCell><img src={localpath + data.filename} style={{ width: "5em", height: "5em" }} alt=".........."></img> </StyledTableCell>
 
                                             <StyledTableCell>{data.Discription}</StyledTableCell>
@@ -1234,28 +1291,37 @@ const Orders = ({ formNumber }) => {
 
                             </TableRow>
                         </TableHead>
-                        <TableBody>
-                            {
-                                pending_orderdetails.map((data, index) => (
+                        {pending_orderdetails.length === 0 ?
+                            (<TableBody>
+                                <TableRow>
+                                    <TableCell colSpan={9}>
+                                        <h3 className="no_data">No pending order is found</h3>
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>) :
+                            (<TableBody>
+                                {
+                                    pending_orderdetails.map((data, index) => (
 
 
-                                    <StyledTableRow key={index}>
-                                        <StyledTableCell>{a++}</StyledTableCell>
+                                        <StyledTableRow key={index}>
+                                            <StyledTableCell>{a++}</StyledTableCell>
 
-                                        <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
-                                    </StyledTableRow>
+                                            <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
+                                        </StyledTableRow>
 
 
-                                ))
-                            }
-                        </TableBody>
+                                    ))
+                                }
+                            </TableBody>
+                            )}
                     </Table>
                 </TableContainer>
 
@@ -1270,7 +1336,7 @@ const Orders = ({ formNumber }) => {
             <div className="container-fluid" >
                 <h1>Orders</h1>
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
-                    <Table className='table-cat' style={{ margin: "0px" }}>
+                    <Table className='table-cat' style={{ margin: "0px", textAlign: "center", alignItems: "center" }}>
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell align="center">SN</StyledTableCell>
@@ -1286,10 +1352,17 @@ const Orders = ({ formNumber }) => {
 
                             </TableRow>
                         </TableHead>
-                        <TableBody>
-                            {orderdetails.length === 0 ? (<p>No Order is Found!</p>) :
+                        {orderdetails.length === 0 ? (<TableBody>
+                            <TableRow>
+                                <TableCell colSpan={8}>
+                                    <h3 className="no_data">No orders found!</h3>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>) :
+                            <TableBody style={{ textAlign: "center" }} align="center">
 
-                                orderdetails.map((data, index) => (
+
+                                {orderdetails.map((data, index) => (
 
 
                                     <StyledTableRow key={index}>
@@ -1306,8 +1379,9 @@ const Orders = ({ formNumber }) => {
 
 
                                 ))
-                            }
-                        </TableBody>
+                                }
+                            </TableBody>
+                        }
                     </Table>
                 </TableContainer>
 
@@ -1335,24 +1409,34 @@ const Orders = ({ formNumber }) => {
                                 <StyledTableCell align="center">Bill</StyledTableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
-                            {
-                                completed_orderdetails.map((data, index) => (
-                                    <StyledTableRow key={index}>
-                                        <StyledTableCell>{a++}</StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><button onClick={() => handleOpen4(data._id)} className="Pay-button">View Bill</button></StyledTableCell>
-                                    </StyledTableRow>
-                                ))
-                            }
-                        </TableBody>
+                        {completed_orderdetails.length === 0 ? (
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell colSpan={10}>
+                                        <h3 className="no_data">No completed orders Found!</h3>
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>) :
+                            (
+                                <TableBody>
+                                    {
+                                        completed_orderdetails.map((data, index) => (
+                                            <StyledTableRow key={index}>
+                                                <StyledTableCell>{a++}</StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><button onClick={() => handleOpen4(data._id)} className="Pay-button">View Bill</button></StyledTableCell>
+                                            </StyledTableRow>
+                                        ))
+                                    }
+                                </TableBody>
+                            )}
                     </Table>
                 </TableContainer>
                 <div className="Bill-modal" hidden={open4}>
