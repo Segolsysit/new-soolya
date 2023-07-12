@@ -233,7 +233,7 @@ const Page2 = () => {
     const id = localStorage.getItem("order_id")
 
     function get() {
-        axios.get(`http://localhost:3001/sub_api/Book_new_fetch_items/${id}`)
+        axios.get(`https://backend.kooblu.com/sub_api/Book_new_fetch_items/${id}`)
             .then((data) => setData(data.data))
     }
     useEffect(() => {
@@ -248,7 +248,7 @@ const Page2 = () => {
     const Address = localStorage.getItem("Address")
     const selectedNumber = localStorage.getItem("NumberOfService")
 
-    const Price = selectedNumber * Data.Price
+    const Price = parseInt(selectedNumber * Data.Price)
     console.log(Price);
 
 
@@ -256,22 +256,22 @@ const Page2 = () => {
     return (
         <div className="Bill-div" style={{ width: '100%' }}>
             <div className="Bill-sec1">
-                <div style={{display:'flex',flexDirection:'row',gap:'15px', padding:'5px', textAlign: 'left', width: '100%' }}>
-                    <div style={{ display: 'flex', flexDirection:'column' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', gap: '15px', padding: '5px', textAlign: 'left', width: '100%' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <h1 className="Bill-Name">Name:</h1>
                         <h1 className="Bill-Name">Address:</h1>
                         <h1 className="Bill-Name">Phone:</h1>
                     </div>
-                    <div style={{ display: 'flex', flexDirection:'column' }}>
-                        
-                        <h1 className="Bill-Name" style={{color:'grey'}}>{Name}</h1>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+
+                        <h1 className="Bill-Name" style={{ color: 'grey' }}>{Name}</h1>
                         <p className="Billp-tag">{Address}</p>
                         <p className="Billp-tag">{Number}</p>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        
 
-                        
+
+
                     </div>
                 </div>
             </div>
@@ -314,7 +314,7 @@ const Page3 = ({ Page, setPage }) => {
     const Orderid = localStorage.getItem("order_id")
 
     function get() {
-        axios.get(`http://localhost:3001/sub_api/Book_new_fetch_items/${Orderid}`)
+        axios.get(`https://backend.kooblu.com/sub_api/Book_new_fetch_items/${Orderid}`)
             .then((data) => setData(data.data))
     }
     useEffect(() => {
@@ -410,7 +410,7 @@ const Page4 = ({ Page, setPage, Bookstate, setBookState }) => {
                     />
                 </center> */}
 
-                
+
             </div>
         </div>
     )
