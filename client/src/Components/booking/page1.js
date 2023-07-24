@@ -8,7 +8,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 const Page1 = ({ Page, setPage }) => {
 
-
+    const sportsData = ['Badminton', 'Cricket', 'Football', 'Golf', 'Tennis'];
     const defaultName = localStorage.getItem("Name")
     const defaultPhone = localStorage.getItem("Phone")
     const defaultAddress = localStorage.getItem("Address")
@@ -24,7 +24,9 @@ const Page1 = ({ Page, setPage }) => {
     const [city, setCity] = useState(defaultcity)
     const [Post, setPost] = useState(defaultPost)
     const [address, setAddress] = useState(defaultAddress)
-
+    const [subCat, setSubCat] = useState([])
+    const [subdata, SetSubdata] = useState("")
+    const lisub = [];
 
     const [ErrName, setErrName] = useState("")
     const [ErrPhone, setErrPhone] = useState("")
@@ -52,7 +54,18 @@ const Page1 = ({ Page, setPage }) => {
         setSelectedNumber(selectedNumber);
 
     };
+    function dat() {
+        console.log(lisub);
+    }
+    useEffect(() => {
+        axios.get("http://localhost:3001/sub_api/new_fetch_items").then((data) => {
+            console.log(data.data);
+            setSubCat(data.data);
+        })
+    }, [])
+    function handleSelectService() {
 
+    }
     const SubmitForm = (e) => {
         e.preventDefault()
         setErrName("")
@@ -220,6 +233,29 @@ const Page1 = ({ Page, setPage }) => {
                         {numberOptions}
                     </select>
                 </div>
+                {/* <div className="Form1-textdiv">
+                    <label className="Form1-subheading">whta are the services you want?</label>
+                    <select className="Form1-textbox" value={subdata} onChange={(e) => {
+                        SetSubdata(e.target.value); lisub.push(e.target.value); console.log(lisub);
+                    }}>
+                        {subCat.map((sub) => (
+                            <option value={sub.Subcategory}>{sub.Subcategory}</option>
+                        ))
+                        }
+                    </select>
+
+                </div> */}
+                {/* <div>
+                    <ul>
+                        {/* {lisub.map((lis) => ( */}
+                {/* <li>
+                            {lisub}
+                        </li>
+                        {/* ))
+
+                        } */}
+                {/* </ul>
+                </div> */}
 
             </div>
             <button className="Form1-btn" onClick={SubmitForm}>Next</button>
