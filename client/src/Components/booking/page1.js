@@ -58,7 +58,7 @@ const Page1 = ({ Page, setPage }) => {
         console.log(lisub);
     }
     useEffect(() => {
-        axios.get("http://localhost:3001/sub_api/new_fetch_items").then((data) => {
+        axios.get("https://backend.kooblu.com/sub_api/new_fetch_items").then((data) => {
             console.log(data.data);
             setSubCat(data.data);
         })

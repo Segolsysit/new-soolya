@@ -1100,8 +1100,11 @@ const Provider = () => {
                                 setErrZone("")
                             }}>
                                 <option>select</option>
-                                <option>Erode</option>
-                                <option>Coimbatore</option>
+                                {city.map((c) => (
+                                    <option value={c}>{c}</option>
+                                ))}
+                                {/* <option>Erode</option>
+                                <option>Coimbatore</option> */}
 
                             </select>
                             <p style={{ color: "red" }}>{ErrZone}</p>
