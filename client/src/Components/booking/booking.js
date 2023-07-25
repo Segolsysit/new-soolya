@@ -18,27 +18,27 @@ const BookingPage = () => {
     // const token = cookies.jwt2;
     const token = localStorage.getItem("ty");
 
-    // const decodedToken = jwt_decode(token);
-    // const userId = decodedToken.id;
+    const decodedToken = jwt_decode(token);
+    const userId = decodedToken.id;
 
     const selectedNumber = localStorage.getItem("NumberOfService")
 
     const Price = selectedNumber * booking_service.Price
     // console.log(Price);
 
-    // useEffect(() => {
-    //     orders()
-    //     get()
-    // }, [])
+    useEffect(() => {
+        orders()
+        get()
+    }, [])
 
-    // const orders = () => {
-    //     // console.log(userId);
-    //     axios.get(`https://backend.kooblu.com/authUser/fetch_email/${userId}`)
-    //         .then((res) => {
-    //             console.log(res.data);
-    //             setMyorders(res.data)
-    //         })
-    // }
+    const orders = () => {
+        // console.log(userId);
+        axios.get(`https://backend.kooblu.com/authUser/fetch_email/${userId}`)
+            .then((res) => {
+                console.log(res.data);
+                setMyorders(res.data)
+            })
+    }
 
     function get() {
         axios.get(`https://backend.kooblu.com/sub_api/Book_new_fetch_items/${id}`)
