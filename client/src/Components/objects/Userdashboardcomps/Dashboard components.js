@@ -675,7 +675,7 @@ const VendorOrders = ({ State }) => {
     }
     // const Vemail = vendorDetails.Email
 
-    const totalearnings = completedOrderdetails.reduce((acc, curr) => acc + parseInt(curr.total), 0)
+    const totalearnings = completedOrderdetails.reduce((acc, curr) => acc + (curr.price), 0)
 
     const handleOpen = () => {
         setOpen(true)
