@@ -82,7 +82,7 @@ const BookingPage = () => {
             zip,
             person,
             number,
-            // Service:booking_service.Service,
+            // Service: booking_service.Service,
             Category: booking_service.Subcategory,
             price: Price,
             paymentMethod: localStorage.getItem("paymentType")
@@ -96,7 +96,7 @@ const BookingPage = () => {
                 zip,
                 person,
                 number,
-                // Service:booking_service.Service,
+                // Service: booking_service.Service,
                 Category: booking_service.Subcategory,
                 price: Price,
                 paymentMethod: localStorage.getItem("paymentType")

@@ -293,7 +293,7 @@ const RecivedApplication = ({ formNumber }) => {
                                     <p><b>Location</b> : {viewdata.Location}</p>
                                     <p><b>Gender</b> : {viewdata.Gender}</p>
                                     <p><b>Language</b> : {viewdata.Language}</p>
-                                    <p><b>DOB</b> : {viewdata.DOB}</p>
+                                    <p><b>DOB</b> : {new Date(viewdata.DOB).toLocaleDateString()}</p>
                                     <p><b>AAdhar Number</b> : {viewdata.AAdhar}</p>
                                     <p><b>Account Number</b> : {viewdata.AccNo}</p>
                                     <p><b>IFSC Code</b> : {viewdata.Ifsc}</p>

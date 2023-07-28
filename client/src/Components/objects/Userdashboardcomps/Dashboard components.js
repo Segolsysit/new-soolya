@@ -485,7 +485,7 @@ const VendorProfile = ({ State }) => {
 
     // const Vemail = vendorDetails.Email
 
-    const totalearnings = Math.round(((completedOrderdetails.reduce((acc, curr) => acc + parseInt(curr.total), 0)) * (15 / 100)))
+    const totalearnings = Math.round(((completedOrderdetails.reduce((acc, curr) => acc + curr.price, 0)) * (15 / 100)))
 
 
     useEffect(() => {
@@ -598,7 +598,7 @@ const VendorOrders = ({ State }) => {
     const [orders, setOrderId] = useState('');
     const [veriyfyOtp, setVerifyOtp] = useState('');
     const [open, setOpen] = useState(false);
-    const [completedbill, setCompletedbill] = useState([])
+    const [completedbill, setCompletedbill] = useState({})
     const [confirm, setconfirm] = useState([])
     const [open4, setOpen4] = useState(true);
     const { pathname } = useLocation();
@@ -684,7 +684,9 @@ const VendorOrders = ({ State }) => {
     //     setOpen2(true)
     // }
     const handleClose = () => {
+        // if (reason !== 'backdropClick') {
         setOpen(false)
+        // }
     }
     // const handleClose2 = () => {
     //     setOpen2(false)
@@ -789,7 +791,7 @@ const VendorOrders = ({ State }) => {
         axios.get(`https://backend.kooblu.com/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
-                setCompletedbill([res.data])
+                setCompletedbill(res.data)
 
                 // setSubcategory(res.data.workLists)
 
@@ -933,7 +935,7 @@ const VendorOrders = ({ State }) => {
                     <div>
                         <Modal
                             open={open}
-                            onClose={handleClose}
+                            // onClose={handleClose}
                             aria-labelledby="child-modal-title"
                             aria-describedby="child-modal-description"
                         >
@@ -1107,27 +1109,40 @@ const VendorOrders = ({ State }) => {
                                     <TableBody style={{ width: '100%' }}>
 
                                         {
-                                            completedbill.map((data) => (
-                                                data.workLists.map((Sub, secondindex) => (
-                                                    //console.log(Sub.subCategory)
+                                            <TableRow>
+                                                <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{completedbill.Category}</p></TableCell>
+                                                <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{completedbill.price}</p></TableCell>
 
-                                                    <TableRow key={secondindex} >
-                                                        <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{Sub.subCategory}</p></TableCell>
-                                                        <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{Sub.price}</p></TableCell>
-                                                    </TableRow>
-                                                ))
-                                            ))
+                                            </TableRow>
+                                            // completedbill.map((data) => (
+                                            //     data.workLists.map((Sub, secondindex) => (
+                                            //         //console.log(Sub.subCategory)
+
+                                            //         <TableRow key={secondindex} >
+                                            //             <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{Sub.subCategory}</p></TableCell>
+                                            //             <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{Sub.price}</p></TableCell>
+                                            //         </TableRow>
+                                            //     ))
+                                            // ))
                                         }
-
                                         <TableRow>
                                             <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
                                             {
-                                                completedbill.map((data, index) => (
-                                                    <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{data.total}</p></TableCell>
-                                                )
-                                                )
+
+                                                <TableCell style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{completedbill.price}</p></TableCell>
+
+
                                             }
                                         </TableRow>
+                                        {/* <TableRow>
+                                        <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
+                                        {
+                                            completedbill.map((data, index) => (
+                                                <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{data.total}</p></TableCell>
+                                            )
+                                            )
+                                        }
+                                    </TableRow> */}
 
                                     </TableBody>
 
@@ -1233,37 +1248,37 @@ const PendingOrders = ({ State, setState }) => {
         setOpen2(true)
     }
     const completeOtp = async () => {
-        if (selected.length === 0) {
-            toast.error("Select the work done", {
+        // if (selected.length === 0) {
+        //     toast.error("Select the work done", {
+        //         position: 'top-center'
+        //     })
+        // }
+        // else {
+        setResendOTP(false);
+        clearInterval(timer);
+        console.log(selected);
+        try {
+            // console.log(orders.number);
+            const response = await axios.post('https://backend.kooblu.com/doneOtp/service-done-otp', {
+                phoneNumber: Phonenumber
+            });
+            console.log(response.data.message);
+            toast.success(response.data.message, {
                 position: 'top-center'
             })
-        }
-        else {
-            setResendOTP(false);
-            clearInterval(timer);
-            console.log(selected);
-            try {
-                // console.log(orders.number);
-                const response = await axios.post('https://backend.kooblu.com/doneOtp/service-done-otp', {
-                    phoneNumber: Phonenumber
-                });
-                console.log(response.data.message);
-                toast.success(response.data.message, {
-                    position: 'top-center'
-                })
-                handleOpen2()
-                setOTPSent(true);
-                setTimeRemaining(120);
-                setTimer(setInterval(() => {
-                    setTimeRemaining(prevTime => prevTime - 1);
-                }, 1000));
-            } catch (error) {
-                console.log(error.response.data.message);
-                //   setError(error.response.data.message);
-                toast.error(error.response.data.message, {
-                    position: 'top-center'
-                })
-            }
+            handleOpen2()
+            setOTPSent(true);
+            setTimeRemaining(120);
+            setTimer(setInterval(() => {
+                setTimeRemaining(prevTime => prevTime - 1);
+            }, 1000));
+        } catch (error) {
+            console.log(error.response.data.message);
+            //   setError(error.response.data.message);
+            toast.error(error.response.data.message, {
+                position: 'top-center'
+            })
+            // }
         }
     }
     function get_vendor() {
@@ -1342,8 +1357,8 @@ const PendingOrders = ({ State, setState }) => {
                         Category: completePendingorders.Category,
                         price: completePendingorders.price,
                         paymentMethod: completePendingorders.paymentMethod,
-                        workLists: workListsData,
-                        total: total
+                        // workLists: workListsData,
+                        // total: total
                     }).then(() => {
                         axios.delete(`https://backend.kooblu.com/booking_api/delete_pending_item/${completePendingorders._id}`)
                         toast.success("OTP verified", {
@@ -1409,10 +1424,13 @@ const PendingOrders = ({ State, setState }) => {
                                             <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                             <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
                                             <StyledTableCell align="center"><button onClick={() => {
-                                                setState(4)
+                                                completeOtp();
+                                                setState(4);
+                                                handleOpen2();
                                                 setPhone(data.number);
+                                                console.log(data.number);
                                                 setCompletePendingorders(data)
-                                            }} className="Action-btn">completed </button></StyledTableCell>
+                                            }} className="Action-btn">completed</button></StyledTableCell>
                                         </StyledTableRow>
 
                                     ))
@@ -1445,7 +1463,7 @@ const PendingOrders = ({ State, setState }) => {
                     <div>
                         <Modal
                             open={open2}
-                            onClose={handleClose2}
+                            // onClose={handleClose2}
                             aria-labelledby="child-modal-title"
                             aria-describedby="child-modal-description"
                         >
@@ -1478,8 +1496,8 @@ const PendingOrders = ({ State, setState }) => {
                             </Box>
                         </Modal>
                     </div>
-                    <h1>List of Works</h1>
-                    <div>
+                    {/* <h1>List of Works</h1> */}
+                    {/* <div>
                         <Multiselect
                             options={options2} // Options to display in the dropdown
                             // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
@@ -1488,9 +1506,9 @@ const PendingOrders = ({ State, setState }) => {
                             displayValue={"Subcategory"} // Property name to display in the dropdown options
                         // displayValue={"Price"}
                         />
-                    </div>
+                    </div> */}
 
-                    <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                    {/* <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
                         <Table className='table-cat' style={{ margin: "0px" }}>
                             <TableHead>
                                 <TableRow>
@@ -1511,12 +1529,12 @@ const PendingOrders = ({ State, setState }) => {
                                 }
                                 <StyledTableRow>
                                     <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
-                                    <StyledTableCell align="center">{total}<br /><button onClick={() => { completeOtp() }}>confirm</button></StyledTableCell>
-                                </StyledTableRow>
+                                    {/* <StyledTableCell align="center">{total}<br /><button onClick={() => { completeOtp() }}>confirm</button></StyledTableCell> */}
+                    {/* </StyledTableRow>
 
                             </TableBody>
                         </Table>
-                    </TableContainer>
+                    </TableContainer> */}
                     {/*                    
                                 <MultiSelect
                                  {...options2.map((data)=>(
@@ -1524,7 +1542,7 @@ const PendingOrders = ({ State, setState }) => {
                                 value={selected}
                                 onChange={setSelected}
                                 labelledBy="Select"
-                               
+
                             /> */}
 
                 </div>
@@ -1540,7 +1558,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     const [myorders, setMyorders] = useState([])
     const [pending_order, setpending_order] = useState([])
     const [completed_order, setCompleted_order] = useState([])
-    const [completedbill, setCompletedbill] = useState([])
+    const [completedbill, setCompletedbill] = useState({})
 
 
     // const workListsData = completedbill.map((data) => (
@@ -1567,7 +1585,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         axios.get(`https://backend.kooblu.com/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
-                setCompletedbill([res.data])
+                setCompletedbill(res.data)
 
                 setSubcategory(res.data.workLists)
 
@@ -1580,12 +1598,13 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         console.log(open4);
     }
     const Razorpay = useRazorpay()
-    const Total = completedbill.map((data) => data.total)
+    // const Total = completedbill.map((data) => data.total)
 
 
     function pay(data) {
 
-        var amount = parseInt(Total);
+        // var amount = parseInt(Total);
+        var amount = completedbill.price
 
         var options = {
             key: "rzp_test_1SnQnLm783h5Op",
@@ -2008,19 +2027,32 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                 <TableBody style={{ width: '100%' }}>
 
                                     {
-                                        completedbill.map((data) => (
-                                            data.workLists.map((Sub, secondindex) => (
-                                                //console.log(Sub.subCategory)
+                                        <TableRow>
+                                            <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{completedbill.Category}</p></TableCell>
+                                            <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{completedbill.price}</p></TableCell>
 
-                                                <TableRow key={secondindex} >
-                                                    <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{Sub.subCategory}</p></TableCell>
-                                                    <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{Sub.price}</p></TableCell>
-                                                </TableRow>
-                                            ))
-                                        ))
+                                        </TableRow>
+                                        // completedbill.map((data) => (
+                                        //     data.workLists.map((Sub, secondindex) => (
+                                        //         //console.log(Sub.subCategory)
+
+                                        //         <TableRow key={secondindex} >
+                                        //             <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{Sub.subCategory}</p></TableCell>
+                                        //             <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{Sub.price}</p></TableCell>
+                                        //         </TableRow>
+                                        //     ))
+                                        // ))
                                     }
-
                                     <TableRow>
+                                        <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
+                                        {
+
+                                            <TableCell style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{completedbill.price}</p></TableCell>
+
+
+                                        }
+                                    </TableRow>
+                                    {/* <TableRow>
                                         <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
                                         {
                                             completedbill.map((data, index) => (
@@ -2028,7 +2060,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                             )
                                             )
                                         }
-                                    </TableRow>
+                                    </TableRow> */}
 
                                 </TableBody>
 
@@ -2037,6 +2069,11 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                     </div>
                     <div style={{ display: "flex", gap: "5px" }}>
+                        {<button hidden={completedbill.paymentMethod === "onlinePayment" ? false : true} onClick={() => pay(completedbill)} className="Bill-btn1">Pay</button>}
+
+                        <button className="Bill-btn2" onClick={handleClose4}>Close</button>
+                    </div>
+                    {/* <div style={{ display: "flex", gap: "5px" }}>
                         {
                             completedbill.map((data, index) => (
                                 <button hidden={data.paymentMethod === "onlinePayment" ? false : true} onClick={() => pay(data)} className="Bill-btn1">Pay</button>
@@ -2044,7 +2081,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                         }
                         <button className="Bill-btn2" onClick={handleClose4}>Cancel</button>
-                    </div>
+                    </div> */}
 
                 </div>
             </div>

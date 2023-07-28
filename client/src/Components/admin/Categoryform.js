@@ -1181,7 +1181,7 @@ const Orders = ({ formNumber }) => {
     const [pending_orderdetails, setpending_orderdetails] = useState([])
     //const aemail = localStorage.getItem("adminemail")
     //const apassword = localStorage.getItem("adminpassword");
-    const [completedbill, setCompletedbill] = useState([])
+    const [completedbill, setCompletedbill] = useState({})
     //const[subCategory,setSubcategory]=useState([])
     const [open4, setOpen4] = useState(true);
     // const [notificationCount, setNotificationCount] = useState(0);
@@ -1248,7 +1248,7 @@ const Orders = ({ formNumber }) => {
         axios.get(`https://backend.kooblu.com/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
-                setCompletedbill([res.data])
+                setCompletedbill(res.data)
 
                 //setSubcategory(res.data.workLists)
 
@@ -1455,25 +1455,25 @@ const Orders = ({ formNumber }) => {
                                 <TableBody style={{ width: '100%' }}>
 
                                     {
-                                        completedbill.map((data) => (
-                                            data.workLists.map((Sub, secondindex) => (
-                                                //console.log(Sub.subCategory)
+                                        // completedbill.map((data) => (
+                                        //     data.workLists.map((Sub, secondindex) => (
+                                        //console.log(Sub.subCategory)
 
-                                                <TableRow key={secondindex} >
-                                                    <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{Sub.subCategory}</p></TableCell>
-                                                    <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{Sub.price}</p></TableCell>
-                                                </TableRow>
-                                            ))
-                                        ))
+                                        <TableRow >
+                                            <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{completedbill.Category}</p></TableCell>
+                                            <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{completedbill.price}</p></TableCell>
+                                        </TableRow>
+                                        // ))
+                                        // ))
                                     }
 
                                     <TableRow>
                                         <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
                                         {
-                                            completedbill.map((data, index) => (
-                                                <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{data.total}</p></TableCell>
-                                            )
-                                            )
+                                            // completedbill.map((data, index) => (
+                                            <TableCell style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{completedbill.price}</p></TableCell>
+                                            // )
+                                            // )
                                         }
                                     </TableRow>
 
