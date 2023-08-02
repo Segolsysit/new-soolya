@@ -8,7 +8,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 const Page1 = ({ Page, setPage }) => {
 
-
+    const sportsData = ['Badminton', 'Cricket', 'Football', 'Golf', 'Tennis'];
     const defaultName = localStorage.getItem("Name")
     const defaultPhone = localStorage.getItem("Phone")
     const defaultAddress = localStorage.getItem("Address")
@@ -24,7 +24,9 @@ const Page1 = ({ Page, setPage }) => {
     const [city, setCity] = useState(defaultcity)
     const [Post, setPost] = useState(defaultPost)
     const [address, setAddress] = useState(defaultAddress)
-
+    const [subCat, setSubCat] = useState([])
+    const [subdata, SetSubdata] = useState("")
+    const lisub = [];
 
     const [ErrName, setErrName] = useState("")
     const [ErrPhone, setErrPhone] = useState("")
@@ -52,7 +54,18 @@ const Page1 = ({ Page, setPage }) => {
         setSelectedNumber(selectedNumber);
 
     };
+    function dat() {
+        console.log(lisub);
+    }
+    useEffect(() => {
+        axios.get("https://backend.kooblu.com/sub_api/new_fetch_items").then((data) => {
+            console.log(data.data);
+            setSubCat(data.data);
+        })
+    }, [])
+    function handleSelectService() {
 
+    }
     const SubmitForm = (e) => {
         e.preventDefault()
         setErrName("")
@@ -220,6 +233,29 @@ const Page1 = ({ Page, setPage }) => {
                         {numberOptions}
                     </select>
                 </div>
+                {/* <div className="Form1-textdiv">
+                    <label className="Form1-subheading">whta are the services you want?</label>
+                    <select className="Form1-textbox" value={subdata} onChange={(e) => {
+                        SetSubdata(e.target.value); lisub.push(e.target.value); console.log(lisub);
+                    }}>
+                        {subCat.map((sub) => (
+                            <option value={sub.Subcategory}>{sub.Subcategory}</option>
+                        ))
+                        }
+                    </select>
+
+                </div> */}
+                {/* <div>
+                    <ul>
+                        {/* {lisub.map((lis) => ( */}
+                {/* <li>
+                            {lisub}
+                        </li>
+                        {/* ))
+
+                        } */}
+                {/* </ul>
+                </div> */}
 
             </div>
             <button className="Form1-btn" onClick={SubmitForm}>Next</button>
@@ -233,7 +269,7 @@ const Page2 = () => {
     const id = localStorage.getItem("order_id")
 
     function get() {
-        axios.get(`http://localhost:3001/sub_api/Book_new_fetch_items/${id}`)
+        axios.get(`https://backend.kooblu.com/sub_api/Book_new_fetch_items/${id}`)
             .then((data) => setData(data.data))
     }
     useEffect(() => {
@@ -248,7 +284,7 @@ const Page2 = () => {
     const Address = localStorage.getItem("Address")
     const selectedNumber = localStorage.getItem("NumberOfService")
 
-    const Price = selectedNumber * Data.Price
+    const Price = parseInt(selectedNumber * Data.Price)
     console.log(Price);
 
 
@@ -256,22 +292,22 @@ const Page2 = () => {
     return (
         <div className="Bill-div" style={{ width: '100%' }}>
             <div className="Bill-sec1">
-                <div style={{display:'flex',flexDirection:'row',gap:'15px', padding:'5px', textAlign: 'left', width: '100%' }}>
-                    <div style={{ display: 'flex', flexDirection:'column' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', gap: '15px', padding: '5px', textAlign: 'left', width: '100%' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <h1 className="Bill-Name">Name:</h1>
                         <h1 className="Bill-Name">Address:</h1>
                         <h1 className="Bill-Name">Phone:</h1>
                     </div>
-                    <div style={{ display: 'flex', flexDirection:'column' }}>
-                        
-                        <h1 className="Bill-Name" style={{color:'grey'}}>{Name}</h1>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+
+                        <h1 className="Bill-Name" style={{ color: 'grey' }}>{Name}</h1>
                         <p className="Billp-tag">{Address}</p>
                         <p className="Billp-tag">{Number}</p>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        
 
-                        
+
+
                     </div>
                 </div>
             </div>
@@ -314,7 +350,7 @@ const Page3 = ({ Page, setPage }) => {
     const Orderid = localStorage.getItem("order_id")
 
     function get() {
-        axios.get(`http://localhost:3001/sub_api/Book_new_fetch_items/${Orderid}`)
+        axios.get(`https://backend.kooblu.com/sub_api/Book_new_fetch_items/${Orderid}`)
             .then((data) => setData(data.data))
     }
     useEffect(() => {
@@ -410,7 +446,7 @@ const Page4 = ({ Page, setPage, Bookstate, setBookState }) => {
                     />
                 </center> */}
 
-                
+
             </div>
         </div>
     )

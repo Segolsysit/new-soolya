@@ -37,7 +37,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
     const handleOpen = (id) => {
-        axios.get("http://localhost:3001/vendor_Auth/fetch_vendor/" + id).then((res) => {
+        axios.get("https://backend.kooblu.com/vendor_Auth/fetch_vendor/" + id).then((res) => {
             setGet(res.data)
             setImg1(res.data.PhotoFiles[0].filename)
             setImg2(res.data.AadharFiles[0].filename)
@@ -132,7 +132,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const servicemandata = () => {
         axios.get("http://localhost:3001/vendor_Auth/fetch_vendor").then((res) => {
             setserviceman(res.data)
-            // console.log(res.data);
+            console.log(res.data);
             // console.log(serviceman.Email)
         })
     }
@@ -170,7 +170,6 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     useEffect(() => {
         // getdata2()
         categorydata()
-
         // verify()
         servicemandata()
     }, [])
@@ -455,6 +454,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
         )
     }
     if (FormNumber === 2) {
+
         return (
             <div >
                 <h1> Service Man List</h1>
@@ -465,7 +465,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                         className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 w-75 navbar-search">
                         <div className="input-group">
                             <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2" onChange={(e) => setFilter(e.target.value)} />
+                                aria-label="Search" aria-describedby="basic-addon2" onChange={(e) => { setFilter(e.target.value); console.log(typeof (e.target.value)) }} />
                             <div className="input-group-append">
                                 <button className="btn btn-primary" type="button">
                                     <i className="fas fa-search fa-sm"></i>
@@ -490,7 +490,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                     <div className="input-group">
                                         <input type="text" className="form-control bg-light border-0 small"
                                             placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2" onChange={(e) => setFilter(e.target.value)} />
+                                            aria-describedby="basic-addon2" onChange={(e) => { console.log(e.target.value); setFilter(e.target.value) }} />
                                         <div className="input-group-append">
                                             <button className="btn btn-primary" type="button">
                                                 <i className="fas fa-search fa-sm"></i>
@@ -516,7 +516,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
                             {serviceman.map((data) => {
                                 if (filter !== "" && filter !== null) {
-                                    if (String(data.Phonenumber).match(filter) || String((data.Username).toLowerCase()).match(filter.toLowerCase())) {
+                                    if (String((data.Username).toLowerCase()).match(filter.toLowerCase()) || String(data.Phonenumber).match(filter)) {
                                         return (<StyledTableRow>
                                             <StyledTableCell>{a++}</StyledTableCell>
                                             <StyledTableCell>{data.Username}</StyledTableCell>
@@ -673,7 +673,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
 }
-const localpath = "http://localhost:3001/"
+const localpath = "https://backend.kooblu.com/"
 const SubCategory = ({ formNumber }) => {
     const [Data, setData] = useState([])
 
@@ -693,14 +693,17 @@ const SubCategory = ({ formNumber }) => {
     const [ErrImg, setErrImg] = useState("")
     const [ErrPrice, setErrPrice] = useState("")
     const [subcategorydata, setsubcategorydata] = useState([])
-    const [open,setOpen]=useState(false)
+    const [open, setOpen] = useState(false)
 
 
-    const[SubCat,setSubCat]=useState("")
-    const[Desc,setDesc]=useState("")
-    const[Pri,setPri]=useState("")
-    const[Img,setImg]=useState(null)
-    const[id,setId]=useState("")
+    const [SubCat, setSubCat] = useState("")
+    const [Desc, setDesc] = useState("")
+    const [Pri, setPri] = useState("")
+    const [Img, setImg] = useState(null)
+    const [id, setId] = useState("")
+    const [edit, setEdit] = useState({});
+    const [previewURL, setPreviewURL] = useState('');
+
 
     const style = {
         position: 'absolute',
@@ -709,11 +712,11 @@ const SubCategory = ({ formNumber }) => {
         transform: 'translate(-50%, -50%)',
         width: "fit-content",
         bgcolor: 'background.paper',
-        borderRadius:'20px',
+        borderRadius: '20px',
         // border: '2px solid #000',
         boxShadow: 24,
         p: 4,
-      };
+    };
 
     const [count, setCount] = useState(1)
     useEffect(() => {
@@ -730,13 +733,23 @@ const SubCategory = ({ formNumber }) => {
     }, [count])
 
 
-    const handleOpen=(id)=>{
-        setOpen(true)
-        setId(id)
+    const handleOpen = (ids) => {
+        axios.get("https://backend.kooblu.com/sub_api/Book_new_fetch_items/" + ids).then((data) => {
+            setEdit(data.data);
+            console.log(data.data);
+            console.log(data.data.Subcategory);
+            setOpen(true)
+            setId(ids)
+        })
+        // setEdit(id)
+        // console.log(edit.Subcategory);
+
     }
 
-    const handleClose=()=>{
+
+    const handleClose = () => {
         setOpen(false)
+        setPreviewURL("")
     }
 
     const handleImgChange = (e) => {
@@ -759,6 +772,17 @@ const SubCategory = ({ formNumber }) => {
         }
 
         else {
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    setPreviewURL(reader.result);
+                };
+
+                reader.readAsDataURL(file);
+            }
+            else {
+                setPreviewURL("")
+            }
             setImage(file)
             setErrImg("")
         }
@@ -828,12 +852,35 @@ const SubCategory = ({ formNumber }) => {
                 })
                 setCount(count + 1)
                 aRef.current.value = null
-
+                setPreviewURL("")
 
             })
 
 
         }
+    }
+    function del(id) {
+        console.log(id);
+        axios.delete("https://backend.kooblu.com/sub_api/delete_item/" + id).then(() => {
+
+
+            axios.get("https://backend.kooblu.com/sub_api/new_fetch_items")
+                .then((data) => {
+                    setsubcategorydata(data.data)
+                })
+            toast.error('deleted Successed!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored"
+
+            })
+        })
+        // console.log('clicked');
     }
 
     useEffect(() => {
@@ -845,29 +892,52 @@ const SubCategory = ({ formNumber }) => {
     }, [count])
 
 
+    function imgChg(e) {
+        const file = e.target.files[0];
+        setImg(e.target.files[0]);
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewURL(reader.result);
+            };
 
+            reader.readAsDataURL(file);
+        }
+        else {
+            setPreviewURL("")
+        }
+    }
 
-    const UpdateSubCategory = async(e) => {
+    const UpdateSubCategory = async (e) => {
         e.preventDefault();
         const formData = new FormData()
-        formData.append("Subcategory",SubCat)
-        formData.append("Discription",Desc)
-        formData.append("Price",Pri)
-        formData.append("file",Img)
-        await axios.patch(`http://localhost:3001/sub_api/update_subcategory/${id}`,formData)
-        .then((response)=>{
-            if(response.data==="File Updated"){
-                toast.success("file updated")
-                axios.get("http://localhost:3001/sub_api/new_fetch_items")
-                .then((data) => {
-                    setsubcategorydata(data.data)
-                })
-                handleClose()
-            }
-            else{
-                toast.error("Could'nt Process")
-            }
-        })
+        formData.append("Subcategory", SubCat)
+        formData.append("Discription", Desc)
+        formData.append("Price", Pri)
+        formData.append("file", Img)
+        await axios.patch(`https://backend.kooblu.com/sub_api/update_subcategory/${id}`, formData)
+            .then((response) => {
+                if (response.data === "File Updated") {
+                    toast.success("file updated")
+                    axios.get("https://backend.kooblu.com/sub_api/new_fetch_items")
+                        .then((data) => {
+                            setsubcategorydata(data.data);
+                            // setPreviewURL("")
+                            console.log(data.data);
+                            // window.location.reload();
+
+
+                        })
+                    handleClose();
+                    setSubCat("");
+                    setDesc("");
+                    setPri("");
+                    setImg("");
+                }
+                else {
+                    toast.error("Could'nt Process")
+                }
+            })
     }
 
     if (formNumber === 11) {
@@ -882,28 +952,33 @@ const SubCategory = ({ formNumber }) => {
                     >
                         <Box sx={style}>
                             <form onSubmit={UpdateSubCategory}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                                Edit
-                            </Typography>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                Sub Category
-                            </Typography>
-                            <input onChange={(e)=>{setSubCat(e.target.value)}}/>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                Description
-                            </Typography>
-                            <input onChange={(e)=>{setDesc(e.target.value)}}/>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                Price
-                            </Typography>
-                            <input onChange={(e)=>{setPri(e.target.value)}}/>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                Image
-                            </Typography>
-                            <input type={'file'} onChange={(e)=>{setImg(e.target.files[0])}}/>
-                            <Typography>
-                            <button type="submit">Submit</button>
-                            </Typography>
+                                <Typography id="modal-modal-title" variant="h6" component="h2">
+                                    Edit
+                                </Typography>
+                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                    Sub Category
+                                </Typography>
+                                <input defaultValue={edit.Subcategory} onChange={(e) => { setSubCat(e.target.value) }} />
+                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                    Description
+                                </Typography>
+                                <input defaultValue={edit.Discription} onChange={(e) => { setDesc(e.target.value) }} />
+                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                    Price
+                                </Typography>
+                                <input defaultValue={edit.Price} onChange={(e) => { setPri(e.target.value) }} />
+                                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                    Image
+                                </Typography>
+                                <input type={'file'} onChange={(e) => { imgChg(e) }} />
+
+                                <img className="DisplayImage"
+                                    src={previewURL === "" ? localpath + edit.filename : previewURL}
+                                    alt="img" />
+
+                                <Typography>
+                                    <button type="submit">Submit</button>
+                                </Typography>
                             </form>
                         </Box>
                     </Modal>
@@ -944,6 +1019,9 @@ const SubCategory = ({ formNumber }) => {
                     <p style={{ color: "red" }}>{ErrPrice}</p>
                     <label className="Category-Label">Image</label>
                     <input ref={aRef} className="Category-input" type="file" onChange={handleImgChange} />
+                    {previewURL === "" ? null : <img className="DisplayImage"
+                        src={previewURL}
+                        alt="img" />}
                     <p style={{ color: "red" }}>{ErrImg}</p>
                     <button className="Category-button" type="submit">Add</button>
 
@@ -955,11 +1033,12 @@ const SubCategory = ({ formNumber }) => {
                                 <TableRow>
                                     <StyledTableCell>SN</StyledTableCell>
                                     <StyledTableCell>Category</StyledTableCell>
+                                    <StyledTableCell>SubCategory</StyledTableCell>
                                     <StyledTableCell>Image</StyledTableCell>
                                     <StyledTableCell>Desc</StyledTableCell>
                                     <StyledTableCell>Price</StyledTableCell>
                                     <StyledTableCell>Edit</StyledTableCell>
-                                    <StyledTableCell>Delete</StyledTableCell>
+                                    <StyledTableCell >Delete</StyledTableCell>
 
 
 
@@ -974,12 +1053,13 @@ const SubCategory = ({ formNumber }) => {
                                             <StyledTableCell>{a++}</StyledTableCell>
 
                                             <StyledTableCell>{data.Category}</StyledTableCell>
+                                            <StyledTableCell>{data.Subcategory}</StyledTableCell>
                                             <StyledTableCell><img src={localpath + data.filename} style={{ width: "5em", height: "5em" }} alt=".........."></img> </StyledTableCell>
 
                                             <StyledTableCell>{data.Discription}</StyledTableCell>
                                             <StyledTableCell><p>{data.Price}</p></StyledTableCell>
-                                            <StyledTableCell><Button onClick={()=>handleOpen(data._id)}><i class="fa-solid fa-pencil" ></i></Button></StyledTableCell>
-                                            <StyledTableCell><Button ><i class="fa-regular fa-trash-can"></i></Button></StyledTableCell>
+                                            <StyledTableCell><Button onClick={() => handleOpen(data._id)}><i class="fa-solid fa-pencil"></i></Button></StyledTableCell>
+                                            <StyledTableCell><Button onClick={() => { del(data._id) }}><i class="fa-regular fa-trash-can"></i></Button></StyledTableCell>
                                         </StyledTableRow>
 
 
@@ -989,7 +1069,7 @@ const SubCategory = ({ formNumber }) => {
                         </Table>
                     </TableContainer>
                 </div>
-                
+
 
             </div>
 
@@ -1101,7 +1181,7 @@ const Orders = ({ formNumber }) => {
     const [pending_orderdetails, setpending_orderdetails] = useState([])
     //const aemail = localStorage.getItem("adminemail")
     //const apassword = localStorage.getItem("adminpassword");
-    const [completedbill, setCompletedbill] = useState([])
+    const [completedbill, setCompletedbill] = useState({})
     //const[subCategory,setSubcategory]=useState([])
     const [open4, setOpen4] = useState(true);
     // const [notificationCount, setNotificationCount] = useState(0);
@@ -1168,7 +1248,7 @@ const Orders = ({ formNumber }) => {
         axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
-                setCompletedbill([res.data])
+                setCompletedbill(res.data)
 
                 //setSubcategory(res.data.workLists)
 
@@ -1211,28 +1291,37 @@ const Orders = ({ formNumber }) => {
 
                             </TableRow>
                         </TableHead>
-                        <TableBody>
-                            {
-                                pending_orderdetails.map((data, index) => (
+                        {pending_orderdetails.length === 0 ?
+                            (<TableBody>
+                                <TableRow>
+                                    <TableCell colSpan={9}>
+                                        <h3 className="no_data">No pending order is found</h3>
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>) :
+                            (<TableBody>
+                                {
+                                    pending_orderdetails.map((data, index) => (
 
 
-                                    <StyledTableRow key={index}>
-                                        <StyledTableCell>{a++}</StyledTableCell>
+                                        <StyledTableRow key={index}>
+                                            <StyledTableCell>{a++}</StyledTableCell>
 
-                                        <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
-                                    </StyledTableRow>
+                                            <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
+                                        </StyledTableRow>
 
 
-                                ))
-                            }
-                        </TableBody>
+                                    ))
+                                }
+                            </TableBody>
+                            )}
                     </Table>
                 </TableContainer>
 
@@ -1244,10 +1333,10 @@ const Orders = ({ formNumber }) => {
     }
     else if (formNumber === 12) {
         return (
-            <div className="container-fluid">
+            <div className="container-fluid" >
                 <h1>Orders</h1>
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
-                    <Table className='table-cat' style={{ margin: "0px" }}>
+                    <Table className='table-cat' style={{ margin: "0px", textAlign: "center", alignItems: "center" }}>
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell align="center">SN</StyledTableCell>
@@ -1263,9 +1352,17 @@ const Orders = ({ formNumber }) => {
 
                             </TableRow>
                         </TableHead>
-                        <TableBody>
-                            {
-                                orderdetails.map((data, index) => (
+                        {orderdetails.length === 0 ? (<TableBody>
+                            <TableRow>
+                                <TableCell colSpan={8}>
+                                    <h3 className="no_data">No orders found!</h3>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>) :
+                            <TableBody style={{ textAlign: "center" }} align="center">
+
+
+                                {orderdetails.map((data, index) => (
 
 
                                     <StyledTableRow key={index}>
@@ -1282,8 +1379,9 @@ const Orders = ({ formNumber }) => {
 
 
                                 ))
-                            }
-                        </TableBody>
+                                }
+                            </TableBody>
+                        }
                     </Table>
                 </TableContainer>
 
@@ -1311,24 +1409,34 @@ const Orders = ({ formNumber }) => {
                                 <StyledTableCell align="center">Bill</StyledTableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
-                            {
-                                completed_orderdetails.map((data, index) => (
-                                    <StyledTableRow key={index}>
-                                        <StyledTableCell>{a++}</StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
-                                        <StyledTableCell align="center"><button onClick={() => handleOpen4(data._id)} className="Pay-button">View Bill</button></StyledTableCell>
-                                    </StyledTableRow>
-                                ))
-                            }
-                        </TableBody>
+                        {completed_orderdetails.length === 0 ? (
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell colSpan={10}>
+                                        <h3 className="no_data">No completed orders Found!</h3>
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>) :
+                            (
+                                <TableBody>
+                                    {
+                                        completed_orderdetails.map((data, index) => (
+                                            <StyledTableRow key={index}>
+                                                <StyledTableCell>{a++}</StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><button onClick={() => handleOpen4(data._id)} className="Pay-button">View Bill</button></StyledTableCell>
+                                            </StyledTableRow>
+                                        ))
+                                    }
+                                </TableBody>
+                            )}
                     </Table>
                 </TableContainer>
                 <div className="Bill-modal" hidden={open4}>
@@ -1347,25 +1455,25 @@ const Orders = ({ formNumber }) => {
                                 <TableBody style={{ width: '100%' }}>
 
                                     {
-                                        completedbill.map((data) => (
-                                            data.workLists.map((Sub, secondindex) => (
-                                                //console.log(Sub.subCategory)
+                                        // completedbill.map((data) => (
+                                        //     data.workLists.map((Sub, secondindex) => (
+                                        //console.log(Sub.subCategory)
 
-                                                <TableRow key={secondindex} >
-                                                    <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{Sub.subCategory}</p></TableCell>
-                                                    <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{Sub.price}</p></TableCell>
-                                                </TableRow>
-                                            ))
-                                        ))
+                                        <TableRow >
+                                            <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{completedbill.Category}</p></TableCell>
+                                            <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{completedbill.price}</p></TableCell>
+                                        </TableRow>
+                                        // ))
+                                        // ))
                                     }
 
                                     <TableRow>
                                         <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
                                         {
-                                            completedbill.map((data, index) => (
-                                                <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{data.total}</p></TableCell>
-                                            )
-                                            )
+                                            // completedbill.map((data, index) => (
+                                            <TableCell style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{completedbill.price}</p></TableCell>
+                                            // )
+                                            // )
                                         }
                                     </TableRow>
 

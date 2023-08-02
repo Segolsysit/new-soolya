@@ -555,7 +555,12 @@ const Provider = () => {
     const [ErrSkillExp, setErrSkillExp] = useState('')
     const [ErrPan, setErrPan] = useState("")
     const [ErrPhoto, setErrPhoto] = useState('')
-
+    const [sub1, SetSub1] = useState([]);
+    useEffect(() => {
+        axios.get("https://backend.kooblu.com/sub_api/new_fetch_items").then((res) => {
+            SetSub1(res.data);
+        })
+    }, [])
     const Form1 = (e) => {
         e.preventDefault()
 
@@ -1013,6 +1018,8 @@ const Provider = () => {
 
 
     if (Pno === 5) {
+
+
         return (
 
             <div>
@@ -1048,11 +1055,20 @@ const Provider = () => {
                                 setJobTitle(e.target.value)
                                 setErrJT("")
                             }}>
-                                <option>Select</option>
+                                <option>select</option>
+
+                                {sub1.map((s) => (
+
+
+                                    <option value={s.Subcategory}>{s.Subcategory}</option>
+
+
+                                ))}
+                                {/* <option>Select</option>
                                 <option>Electrician</option>
                                 <option>Plumber</option>
                                 <option>Carpenter</option>
-                                <option>Mechanic</option>
+                                <option>Mechanic</option> */}
                             </select>
                             <p style={{ color: "red" }}>{ErrJT}</p>
                             <label className="Join-Label">Work Experience</label>
@@ -1084,8 +1100,11 @@ const Provider = () => {
                                 setErrZone("")
                             }}>
                                 <option>select</option>
-                                <option>Erode</option>
-                                <option>Coimbatore</option>
+                                {city.map((c) => (
+                                    <option value={c}>{c}</option>
+                                ))}
+                                {/* <option>Erode</option>
+                                <option>Coimbatore</option> */}
 
                             </select>
                             <p style={{ color: "red" }}>{ErrZone}</p>
@@ -1251,7 +1270,7 @@ const Provider = () => {
                             toast.error("Already registered", {
                                 position: 'top-center'
                             })
-                            
+
                         }
                         else {
                             toast.success("Application Submitted")

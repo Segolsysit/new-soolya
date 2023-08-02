@@ -2,7 +2,7 @@ import React from "react";
 import './Usercomponents.css'
 import { Table, TableBody, TableCell, TableRow, TableHead, Button, TextField } from '@mui/material';
 import axios from 'axios';
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useCookies } from "react-cookie";
 import jwt_decode from 'jwt-decode';
 import { useLocation } from "react-router-dom";
@@ -163,10 +163,10 @@ const EditForm = ({ State }) => {
     const [Picture, setPicture] = useState([])
     const [Pan, setPan] = useState([])
     const [AadharCard, setAadharCard] = useState([])
-    const AadharRef=useRef(null)
-    const ProfileRef=useRef(null)
-    const PanRef=useRef(null)
-    const localpath='https://backend.kooblu.com/'
+    const AadharRef = useRef(null)
+    const ProfileRef = useRef(null)
+    const PanRef = useRef(null)
+    const localpath = 'https://backend.kooblu.com/'
     const [previewURL, setPreviewURL] = useState('');
     const [AadharpreviewURL, setAadharPreviewURL] = useState('');
     const [PanpreviewURL, setPanPreviewURL] = useState('');
@@ -202,18 +202,18 @@ const EditForm = ({ State }) => {
         formData.append("PhotoFiles", Picture)
         formData.append("PanFiles", Pan)
         await axios.patch(`https://backend.kooblu.com/vendor_Auth/Edit/${id}`, formData)
-        .then((res)=>{
-            if(res.data.status==='ok'){
-                toast.success('Profile Updated')
-                setTimeout(()=>{
-                    window.location.reload()
-                },2000)
-            }
-            else{
-                toast.error("Couldn't Update")
-            }
-            
-        })
+            .then((res) => {
+                if (res.data.status === 'ok') {
+                    toast.success('Profile Updated')
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 2000)
+                }
+                else {
+                    toast.error("Couldn't Update")
+                }
+
+            })
 
     }
 
@@ -221,46 +221,46 @@ const EditForm = ({ State }) => {
         const file = event.target.files[0];
         setPicture(event.target.files[0])
         if (file) {
-          setSelectedImage(file);
-          const reader = new FileReader();
-    
-          reader.onloadend = () => {
-            setPreviewURL(reader.result);
-          };
-    
-          reader.readAsDataURL(file);
-        }
-      };
+            setSelectedImage(file);
+            const reader = new FileReader();
 
-      const handleAadharChange = (event) => {
+            reader.onloadend = () => {
+                setPreviewURL(reader.result);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleAadharChange = (event) => {
         const file = event.target.files[0];
         setAadharCard(event.target.files[0])
         if (file) {
-          setSelectedImage(file);
-          const reader = new FileReader();
-    
-          reader.onloadend = () => {
-            setAadharPreviewURL(reader.result);
-          };
-    
-          reader.readAsDataURL(file);
-        }
-      };
+            setSelectedImage(file);
+            const reader = new FileReader();
 
-      const handlePanChange = (event) => {
+            reader.onloadend = () => {
+                setAadharPreviewURL(reader.result);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handlePanChange = (event) => {
         const file = event.target.files[0];
         setPan(event.target.files[0])
         if (file) {
-          setSelectedImage(file);
-          const reader = new FileReader();
-    
-          reader.onloadend = () => {
-            setPanPreviewURL(reader.result);
-          };
-    
-          reader.readAsDataURL(file);
+            setSelectedImage(file);
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+                setPanPreviewURL(reader.result);
+            };
+
+            reader.readAsDataURL(file);
         }
-      };
+    };
 
 
 
@@ -268,7 +268,7 @@ const EditForm = ({ State }) => {
         axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
             .then((res) => {
                 let newData = new Date(res.data.DOB);
-                console.log(newData.getFullYear(),newData.getDate(), newData.getMonth());
+                console.log(newData.getFullYear(), newData.getDate(), newData.getMonth());
                 // console.log(res.data.DOB.getFullYear());
                 setVendorProfile(res.data)
                 setName(res.data.Username)
@@ -278,7 +278,7 @@ const EditForm = ({ State }) => {
                 setGender(res.data.Gender)
                 setLanguage(res.data.Language)
                 // setDob("2023-07-06")
-                setDob(`${newData.getFullYear()}-${ newData.toLocaleString('en-US',{month:'2-digit'})}-${newData.toLocaleString('en-US',{day:'2-digit'})}`)
+                setDob(`${newData.getFullYear()}-${newData.toLocaleString('en-US', { month: '2-digit' })}-${newData.toLocaleString('en-US', { day: '2-digit' })}`)
                 setAadhar(res.data.AAdhar)
                 setAccn(res.data.AccNo)
                 setBnkName(res.data.BnkName)
@@ -292,9 +292,9 @@ const EditForm = ({ State }) => {
                 setPicture(res.data.PhotoFiles)
                 setPan(res.data.PanFiles)
                 setAadharCard(res.data.AadharFiles)
-                AadharRef.current=res.data.AadharFiles[0].filename
-                ProfileRef.current=res.data.PhotoFiles[0].filename
-                PanRef.current=res.data.PanFiles[0].filename
+                AadharRef.current = res.data.AadharFiles[0].filename
+                ProfileRef.current = res.data.PhotoFiles[0].filename
+                PanRef.current = res.data.PanFiles[0].filename
                 console.log(res.data.PanFiles[0].filename);
             })
     }, [])
@@ -334,7 +334,7 @@ const EditForm = ({ State }) => {
                             </tr>
                             <tr>
                                 <td>DOB</td>
-                                <td><input type={'date'} defaultValue={DoB}  onChange={(e) => { setDob(e.target.value) }} /></td>
+                                <td><input type={'date'} defaultValue={DoB} onChange={(e) => { setDob(e.target.value) }} /></td>
                             </tr>
                             <tr>
                                 <td>Aadhar</td>
@@ -379,33 +379,33 @@ const EditForm = ({ State }) => {
                             </tr>
                             <tr>
                                 <td>Profile Picture</td>
-                                <td><input  type={'file'}  onChange={(e) => handleImageChange(e)} /></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <img className="DisplayImage" src={previewURL===""?localpath+VendorProfile.PhotoFiles[0].filename:previewURL} alt="img"/>
-                            </td>
+                                <td><input type={'file'} onChange={(e) => handleImageChange(e)} /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <img className="DisplayImage" src={previewURL === "" ? localpath + VendorProfile.PhotoFiles[0].filename : previewURL} alt="img" />
+                                </td>
                             </tr>
                             <tr>
                                 <td>Pan Card</td>
-                                <td><input  type={'file'}  onChange={(e) => handlePanChange(e)}/></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <img className="DisplayImage" src={PanpreviewURL===""?localpath+VendorProfile.PanFiles[0].filename:PanpreviewURL} alt="img"/>
-                            </td>
+                                <td><input type={'file'} onChange={(e) => handlePanChange(e)} /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <img className="DisplayImage" src={PanpreviewURL === "" ? localpath + VendorProfile.PanFiles[0].filename : PanpreviewURL} alt="img" />
+                                </td>
                             </tr>
                             <tr>
                                 <td>Aadhar Card</td>
-                                <td><input  type={'file'}  onChange={(e) => handleAadharChange(e)} /></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <img  className="DisplayImage" src={AadharpreviewURL===""?localpath+VendorProfile.AadharFiles[0].filename:AadharpreviewURL} alt="img"/>
-                            </td>
+                                <td><input type={'file'} onChange={(e) => handleAadharChange(e)} /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <img className="DisplayImage" src={AadharpreviewURL === "" ? localpath + VendorProfile.AadharFiles[0].filename : AadharpreviewURL} alt="img" />
+                                </td>
                             </tr>
 
                         </tbody>
@@ -485,7 +485,7 @@ const VendorProfile = ({ State }) => {
 
     // const Vemail = vendorDetails.Email
 
-    const totalearnings = Math.round(((completedOrderdetails.reduce((acc, curr) => acc + parseInt(curr.total), 0)) * (15 / 100)))
+    const totalearnings = Math.round(((completedOrderdetails.reduce((acc, curr) => acc + curr.price, 0)) * (15 / 100)))
 
 
     useEffect(() => {
@@ -598,7 +598,7 @@ const VendorOrders = ({ State }) => {
     const [orders, setOrderId] = useState('');
     const [veriyfyOtp, setVerifyOtp] = useState('');
     const [open, setOpen] = useState(false);
-    const [completedbill, setCompletedbill] = useState([])
+    const [completedbill, setCompletedbill] = useState({})
     const [confirm, setconfirm] = useState([])
     const [open4, setOpen4] = useState(true);
     const { pathname } = useLocation();
@@ -675,7 +675,7 @@ const VendorOrders = ({ State }) => {
     }
     // const Vemail = vendorDetails.Email
 
-    const totalearnings = completedOrderdetails.reduce((acc, curr) => acc + parseInt(curr.total), 0)
+    const totalearnings = completedOrderdetails.reduce((acc, curr) => acc + (curr.price), 0)
 
     const handleOpen = () => {
         setOpen(true)
@@ -684,7 +684,9 @@ const VendorOrders = ({ State }) => {
     //     setOpen2(true)
     // }
     const handleClose = () => {
+        // if (reason !== 'backdropClick') {
         setOpen(false)
+        // }
     }
     // const handleClose2 = () => {
     //     setOpen2(false)
@@ -789,7 +791,7 @@ const VendorOrders = ({ State }) => {
         axios.get(`https://backend.kooblu.com/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
-                setCompletedbill([res.data])
+                setCompletedbill(res.data)
 
                 // setSubcategory(res.data.workLists)
 
@@ -876,7 +878,7 @@ const VendorOrders = ({ State }) => {
             <div style={{ width: "100%" }}>
                 <div className="container-fluid vendor-container">
                     <h2>Order Details</h2>
-                    <TableContainer component={Paper} style={{ padding: "20px", marginTop:"30px"}}>
+                    <TableContainer component={Paper} style={{ padding: "20px", marginTop: "30px" }}>
                         <Table className='table-cat' style={{ margin: "0px" }}>
                             <TableHead>
                                 <TableRow>
@@ -894,46 +896,46 @@ const VendorOrders = ({ State }) => {
 
                                 </TableRow>
                             </TableHead>
-                            {orderdetails.length < 0 ? 
-                            <TableBody>
-                                {
-                                    orderdetails.map((data, index) => (
+                            {orderdetails.length > 0 ?
+                                <TableBody>
+                                    {
+                                        orderdetails.map((data, index) => (
 
 
 
-                                        <StyledTableRow key={index}>
-                                            <StyledTableCell>{a++}</StyledTableCell>
+                                            <StyledTableRow key={index}>
+                                                <StyledTableCell>{a++}</StyledTableCell>
 
-                                            <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
-                                            <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
-                                            <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
-                                            <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
-                                            <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
-                                            <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
-                                            <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
-                                            <StyledTableCell align="center"><button className="Action-btn" onClick={() => acceptOrder(data)}>Accept</button></StyledTableCell>
-                                        </StyledTableRow>
+                                                <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><button className="Action-btn" onClick={() => acceptOrder(data)}>Accept</button></StyledTableCell>
+                                            </StyledTableRow>
 
 
-                                    ))
-                                }
-                            </TableBody> : (
-                          <TableBody>
-                          <StyledTableCell colSpan={8}>
-                              <div>
-                                  <p className="center_content">No Orders Available</p>
-                              </div>
-                          </StyledTableCell>
+                                        ))
+                                    }
+                                </TableBody> : (
+                                    <TableBody>
+                                        <StyledTableCell colSpan={8}>
+                                            <div>
+                                                <p className="center_content">No Orders Available</p>
+                                            </div>
+                                        </StyledTableCell>
 
-                      </TableBody>
-                            )}
+                                    </TableBody>
+                                )}
                         </Table>
                     </TableContainer>
 
                     <div>
                         <Modal
                             open={open}
-                            onClose={handleClose}
+                            // onClose={handleClose}
                             aria-labelledby="child-modal-title"
                             aria-describedby="child-modal-description"
                         >
@@ -1057,37 +1059,37 @@ const VendorOrders = ({ State }) => {
 
                             </TableRow>
                         </TableHead>
-                        {completedOrderdetails.length < 0 ?
+                        {completedOrderdetails.length > 0 ?
                             <TableBody>
-                            {
-                                completedOrderdetails.map((data, index) => (
+                                {
+                                    completedOrderdetails.map((data, index) => (
 
 
-                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                        <StyledTableCell>{a++}</StyledTableCell>
+                                        <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                            <StyledTableCell>{a++}</StyledTableCell>
 
-                                        {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                        <StyledTableCell><p>{data.Category}</p> </StyledTableCell>
-                                        <StyledTableCell><p>{data.vendor_name}</p></StyledTableCell>
-                                        <StyledTableCell><p>{data.address}</p></StyledTableCell>
-                                        <StyledTableCell><p>{data.number}</p></StyledTableCell>
-                                        <StyledTableCell><p>{data.paymentMethod}</p></StyledTableCell>
-                                        <StyledTableCell style={{ textAlign: "center" }}><button onClick={() => handleOpen4(data._id)} className="Pay-button">View Bill</button></StyledTableCell>
+                                            {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                            <StyledTableCell><p>{data.Category}</p> </StyledTableCell>
+                                            <StyledTableCell><p>{data.vendor_name}</p></StyledTableCell>
+                                            <StyledTableCell><p>{data.address}</p></StyledTableCell>
+                                            <StyledTableCell><p>{data.number}</p></StyledTableCell>
+                                            <StyledTableCell><p>{data.paymentMethod}</p></StyledTableCell>
+                                            <StyledTableCell style={{ textAlign: "center" }}><button onClick={() => handleOpen4(data._id)} className="Pay-button">View Bill</button></StyledTableCell>
 
-                                    </TableRow>
+                                        </TableRow>
 
 
-                                ))
-                            }
-                        </TableBody> :  (
-                          <TableBody>
-                          <StyledTableCell colSpan={7}>
-                              <div>
-                                  <p className="center_content">No Completed Orders</p>
-                              </div>
-                          </StyledTableCell>
+                                    ))
+                                }
+                            </TableBody> : (
+                                <TableBody>
+                                    <StyledTableCell colSpan={7}>
+                                        <div>
+                                            <p className="center_content">No Completed Orders</p>
+                                        </div>
+                                    </StyledTableCell>
 
-                      </TableBody>
+                                </TableBody>
                             )}
 
                     </Table>
@@ -1107,27 +1109,40 @@ const VendorOrders = ({ State }) => {
                                     <TableBody style={{ width: '100%' }}>
 
                                         {
-                                            completedbill.map((data) => (
-                                                data.workLists.map((Sub, secondindex) => (
-                                                    //console.log(Sub.subCategory)
+                                            <TableRow>
+                                                <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{completedbill.Category}</p></TableCell>
+                                                <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{completedbill.price}</p></TableCell>
 
-                                                    <TableRow key={secondindex} >
-                                                        <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{Sub.subCategory}</p></TableCell>
-                                                        <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{Sub.price}</p></TableCell>
-                                                    </TableRow>
-                                                ))
-                                            ))
+                                            </TableRow>
+                                            // completedbill.map((data) => (
+                                            //     data.workLists.map((Sub, secondindex) => (
+                                            //         //console.log(Sub.subCategory)
+
+                                            //         <TableRow key={secondindex} >
+                                            //             <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{Sub.subCategory}</p></TableCell>
+                                            //             <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{Sub.price}</p></TableCell>
+                                            //         </TableRow>
+                                            //     ))
+                                            // ))
                                         }
-
                                         <TableRow>
                                             <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
                                             {
-                                                completedbill.map((data, index) => (
-                                                    <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{data.total}</p></TableCell>
-                                                )
-                                                )
+
+                                                <TableCell style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{completedbill.price}</p></TableCell>
+
+
                                             }
                                         </TableRow>
+                                        {/* <TableRow>
+                                        <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
+                                        {
+                                            completedbill.map((data, index) => (
+                                                <TableCell key={index} style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{data.total}</p></TableCell>
+                                            )
+                                            )
+                                        }
+                                    </TableRow> */}
 
                                     </TableBody>
 
@@ -1233,37 +1248,37 @@ const PendingOrders = ({ State, setState }) => {
         setOpen2(true)
     }
     const completeOtp = async () => {
-        if (selected.length === 0) {
-            toast.error("Select the work done", {
+        // if (selected.length === 0) {
+        //     toast.error("Select the work done", {
+        //         position: 'top-center'
+        //     })
+        // }
+        // else {
+        setResendOTP(false);
+        clearInterval(timer);
+        console.log(selected);
+        try {
+            // console.log(orders.number);
+            const response = await axios.post('https://backend.kooblu.com/doneOtp/service-done-otp', {
+                phoneNumber: Phonenumber
+            });
+            console.log(response.data.message);
+            toast.success(response.data.message, {
                 position: 'top-center'
             })
-        }
-        else {
-            setResendOTP(false);
-            clearInterval(timer);
-            console.log(selected);
-            try {
-                // console.log(orders.number);
-                const response = await axios.post('https://backend.kooblu.com/doneOtp/service-done-otp', {
-                    phoneNumber: Phonenumber
-                });
-                console.log(response.data.message);
-                toast.success(response.data.message, {
-                    position: 'top-center'
-                })
-                handleOpen2()
-                setOTPSent(true);
-                setTimeRemaining(120);
-                setTimer(setInterval(() => {
-                    setTimeRemaining(prevTime => prevTime - 1);
-                }, 1000));
-            } catch (error) {
-                console.log(error.response.data.message);
-                //   setError(error.response.data.message);
-                toast.error(error.response.data.message, {
-                    position: 'top-center'
-                })
-            }
+            handleOpen2()
+            setOTPSent(true);
+            setTimeRemaining(120);
+            setTimer(setInterval(() => {
+                setTimeRemaining(prevTime => prevTime - 1);
+            }, 1000));
+        } catch (error) {
+            console.log(error.response.data.message);
+            //   setError(error.response.data.message);
+            toast.error(error.response.data.message, {
+                position: 'top-center'
+            })
+            // }
         }
     }
     function get_vendor() {
@@ -1342,8 +1357,8 @@ const PendingOrders = ({ State, setState }) => {
                         Category: completePendingorders.Category,
                         price: completePendingorders.price,
                         paymentMethod: completePendingorders.paymentMethod,
-                        workLists: workListsData,
-                        total: total
+                        // workLists: workListsData,
+                        // total: total
                     }).then(() => {
                         axios.delete(`https://backend.kooblu.com/booking_api/delete_pending_item/${completePendingorders._id}`)
                         toast.success("OTP verified", {
@@ -1374,7 +1389,7 @@ const PendingOrders = ({ State, setState }) => {
             <div style={{ width: "100%" }}>
                 <div className="container-fluid">
                     <h2>Pending order Details</h2>
-                    <TableContainer component={Paper} style={{ padding: "20px", marginTop:"30px" }}>
+                    <TableContainer component={Paper} style={{ padding: "20px", marginTop: "30px" }}>
                         <Table className='table-cat' style={{ margin: "0px" }}>
                             <TableHead>
                                 <TableRow>
@@ -1409,10 +1424,13 @@ const PendingOrders = ({ State, setState }) => {
                                             <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                             <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
                                             <StyledTableCell align="center"><button onClick={() => {
-                                                setState(4)
+                                                completeOtp();
+                                                setState(4);
+                                                handleOpen2();
                                                 setPhone(data.number);
+                                                console.log(data.number);
                                                 setCompletePendingorders(data)
-                                            }} className="Action-btn">completed </button></StyledTableCell>
+                                            }} className="Action-btn">completed</button></StyledTableCell>
                                         </StyledTableRow>
 
                                     ))
@@ -1445,7 +1463,7 @@ const PendingOrders = ({ State, setState }) => {
                     <div>
                         <Modal
                             open={open2}
-                            onClose={handleClose2}
+                            // onClose={handleClose2}
                             aria-labelledby="child-modal-title"
                             aria-describedby="child-modal-description"
                         >
@@ -1478,8 +1496,8 @@ const PendingOrders = ({ State, setState }) => {
                             </Box>
                         </Modal>
                     </div>
-                    <h1>List of Works</h1>
-                    <div>
+                    {/* <h1>List of Works</h1> */}
+                    {/* <div>
                         <Multiselect
                             options={options2} // Options to display in the dropdown
                             // selectedValues={options2.selectedValue} // Preselected value to persist in dropdown
@@ -1488,9 +1506,9 @@ const PendingOrders = ({ State, setState }) => {
                             displayValue={"Subcategory"} // Property name to display in the dropdown options
                         // displayValue={"Price"}
                         />
-                    </div>
+                    </div> */}
 
-                    <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                    {/* <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
                         <Table className='table-cat' style={{ margin: "0px" }}>
                             <TableHead>
                                 <TableRow>
@@ -1511,12 +1529,12 @@ const PendingOrders = ({ State, setState }) => {
                                 }
                                 <StyledTableRow>
                                     <StyledTableCell align="center" colspan="2">Total</StyledTableCell>
-                                    <StyledTableCell align="center">{total}<br /><button onClick={() => { completeOtp() }}>confirm</button></StyledTableCell>
-                                </StyledTableRow>
+                                    {/* <StyledTableCell align="center">{total}<br /><button onClick={() => { completeOtp() }}>confirm</button></StyledTableCell> */}
+                    {/* </StyledTableRow>
 
                             </TableBody>
                         </Table>
-                    </TableContainer>
+                    </TableContainer> */}
                     {/*                    
                                 <MultiSelect
                                  {...options2.map((data)=>(
@@ -1524,7 +1542,7 @@ const PendingOrders = ({ State, setState }) => {
                                 value={selected}
                                 onChange={setSelected}
                                 labelledBy="Select"
-                               
+
                             /> */}
 
                 </div>
@@ -1540,7 +1558,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     const [myorders, setMyorders] = useState([])
     const [pending_order, setpending_order] = useState([])
     const [completed_order, setCompleted_order] = useState([])
-    const [completedbill, setCompletedbill] = useState([])
+    const [completedbill, setCompletedbill] = useState({})
 
 
     // const workListsData = completedbill.map((data) => (
@@ -1567,7 +1585,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         axios.get(`https://backend.kooblu.com/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
-                setCompletedbill([res.data])
+                setCompletedbill(res.data)
 
                 setSubcategory(res.data.workLists)
 
@@ -1580,12 +1598,13 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         console.log(open4);
     }
     const Razorpay = useRazorpay()
-    const Total = completedbill.map((data) => data.total)
+    // const Total = completedbill.map((data) => data.total)
 
 
     function pay(data) {
 
-        var amount = parseInt(Total);
+        // var amount = parseInt(Total);
+        var amount = completedbill.price
 
         var options = {
             key: "rzp_test_1SnQnLm783h5Op",
@@ -1760,40 +1779,40 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                             </TableRow>
                         </TableHead>
-                        {pending_order.length < 0 ?
-                         <TableBody>
-                            {
-                                pending_order.map((data, index) => (
+                        {pending_order.length > 0 ?
+                            <TableBody>
+                                {
+                                    pending_order.map((data, index) => (
 
 
-                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                        <TableCell>{a++}</TableCell>
+                                        <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                            <TableCell>{a++}</TableCell>
 
-                                        {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                        <TableCell><p>{data.Category}</p> </TableCell>
-                                        <TableCell><p>{data.vendor_name}</p> </TableCell>
-                                        <TableCell><p>{data.price}</p></TableCell>
-                                        <TableCell><p>{data.address}</p></TableCell>
-                                        <TableCell><p>{data.number}</p></TableCell>
-                                        <TableCell><p>{data.paymentMethod}</p></TableCell>
+                                            {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                            <TableCell><p>{data.Category}</p> </TableCell>
+                                            <TableCell><p>{data.vendor_name}</p> </TableCell>
+                                            <TableCell><p>{data.price}</p></TableCell>
+                                            <TableCell><p>{data.address}</p></TableCell>
+                                            <TableCell><p>{data.number}</p></TableCell>
+                                            <TableCell><p>{data.paymentMethod}</p></TableCell>
+                                        </TableRow>
+
+
+                                    ))
+                                }
+                            </TableBody> : (
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell colSpan={7}>
+                                            <div>
+                                                <p className="center_content">No pending orders</p>
+                                            </div>
+                                        </TableCell>
+
                                     </TableRow>
 
-
-                                ))
-                            }
-                        </TableBody>: (
-                            <TableBody>
-                            <TableRow>
-                                <TableCell colSpan={7}>
-                                <div>
-                                    <p className="center_content">No pending orders</p>
-                                </div>
-                                </TableCell>
-                               
-                            </TableRow>
-
-                        </TableBody>
-                        )}
+                                </TableBody>
+                            )}
                     </Table>
                 </div>
             </div>
@@ -1822,39 +1841,39 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                             </TableRow>
                         </TableHead>
-                        {orderdetails.length < 0 ?
-                         <TableBody>
-                            {
-                                orderdetails.map((data, index) => (
+                        {orderdetails.length > 0 ?
+                            <TableBody>
+                                {
+                                    orderdetails.map((data, index) => (
 
 
-                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                        <TableCell>{a++}</TableCell>
+                                        <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                            <TableCell>{a++}</TableCell>
 
-                                        {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                        <TableCell><p>{data.Category}</p> </TableCell>
-                                        <TableCell><p>{data.price}</p></TableCell>
-                                        <TableCell><p>{data.address}</p></TableCell>
-                                        <TableCell><p>{data.number}</p></TableCell>
-                                        <TableCell><p>{data.paymentMethod}</p></TableCell>
+                                            {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                            <TableCell><p>{data.Category}</p> </TableCell>
+                                            <TableCell><p>{data.price}</p></TableCell>
+                                            <TableCell><p>{data.address}</p></TableCell>
+                                            <TableCell><p>{data.number}</p></TableCell>
+                                            <TableCell><p>{data.paymentMethod}</p></TableCell>
+                                        </TableRow>
+
+
+                                    ))
+                                }
+                            </TableBody> : (
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell colSpan={7}>
+                                            <div>
+                                                <p className="center_content">No Orders Available</p>
+                                            </div>
+                                        </TableCell>
+
                                     </TableRow>
 
-
-                                ))
-                            }
-                        </TableBody> : (
-                            <TableBody>
-                            <TableRow>
-                                <TableCell colSpan={7}>
-                                <div>
-                                    <p className="center_content">No Orders Available</p>
-                                </div>
-                                </TableCell>
-                               
-                            </TableRow>
-
-                        </TableBody>
-                        )}
+                                </TableBody>
+                            )}
                     </Table>
 
                 </div>
@@ -1883,42 +1902,42 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                             </TableRow>
                         </TableHead>
-                       {completed_order.length < 0 ?
-                        <TableBody>
-                            {
-                                completed_order.map((data, index) => {
-
-                                    return (
-                                        <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                            <TableCell>{a++}</TableCell>
-
-                                         {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                            <TableCell><p>{data.Category}</p> </TableCell>
-                                            <TableCell><p>{data.vendor_name}</p> </TableCell>
-                                            <TableCell><p>{data.price}</p></TableCell>
-                                            <TableCell><p>{data.address}</p></TableCell>
-                                            <TableCell><p>{data.number}</p></TableCell>
-                                            <TableCell><p>{data.paymentMethod}</p></TableCell>
-                                        </TableRow>
-                                    )
-
-
-
-                                })
-                            }
-                        </TableBody>: (
+                        {completed_order.length > 0 ?
                             <TableBody>
-                            <TableRow>
-                                <TableCell colSpan={7}>
-                                <div>
-                                    <p className="center_content">No Completed orders</p>
-                                </div>
-                                </TableCell>
-                               
-                            </TableRow>
+                                {
+                                    completed_order.map((data, index) => {
 
-                        </TableBody>
-                        )}
+                                        return (
+                                            <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                                <TableCell>{a++}</TableCell>
+
+                                                {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                                <TableCell><p>{data.Category}</p> </TableCell>
+                                                <TableCell><p>{data.vendor_name}</p> </TableCell>
+                                                <TableCell><p>{data.price}</p></TableCell>
+                                                <TableCell><p>{data.address}</p></TableCell>
+                                                <TableCell><p>{data.number}</p></TableCell>
+                                                <TableCell><p>{data.paymentMethod}</p></TableCell>
+                                            </TableRow>
+                                        )
+
+
+
+                                    })
+                                }
+                            </TableBody> : (
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell colSpan={7}>
+                                            <div>
+                                                <p className="center_content">No Completed orders</p>
+                                            </div>
+                                        </TableCell>
+
+                                    </TableRow>
+
+                                </TableBody>
+                            )}
                     </Table>
 
                 </div>
@@ -1951,42 +1970,42 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                             </TableRow>
                         </TableHead>
-                       {completed_order.length < 0 ?
-                        <TableBody>
-                            {
-                                completed_order.map((data, index) => (
+                        {completed_order.length > 0 ?
+                            <TableBody>
+                                {
+                                    completed_order.map((data, index) => (
 
-                                    <TableRow key={index} style={{ backgroundColor: "white" }}>
-                                        <TableCell>{a++}</TableCell>
+                                        <TableRow key={index} style={{ backgroundColor: "white" }}>
+                                            <TableCell>{a++}</TableCell>
 
-                                        {/* <TableCell><p>{data.Service}</p></TableCell> */}
-                                        <TableCell><p>{data.Category}</p> </TableCell>
-                                        {/* <TableCell><p>{data.price}</p></TableCell> */}
-                                        <TableCell><p>{data.address}</p></TableCell>
-                                        <TableCell><p>{data.number}</p></TableCell>
-                                        <TableCell><p>{data.vendor_name}</p></TableCell>
-                                        <TableCell style={{ textAlign: "center" }}><button onClick={() => handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
+                                            {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                            <TableCell><p>{data.Category}</p> </TableCell>
+                                            {/* <TableCell><p>{data.price}</p></TableCell> */}
+                                            <TableCell><p>{data.address}</p></TableCell>
+                                            <TableCell><p>{data.number}</p></TableCell>
+                                            <TableCell><p>{data.vendor_name}</p></TableCell>
+                                            <TableCell style={{ textAlign: "center" }}><button onClick={() => handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
+                                        </TableRow>
+
+
+
+
+
+                                    ))
+                                }
+                            </TableBody> : (
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell colSpan={6}>
+                                            <div>
+                                                <p className="center_content">No Bills Generated</p>
+                                            </div>
+                                        </TableCell>
+
                                     </TableRow>
 
-
-
-
-
-                                ))
-                            }
-                        </TableBody>:(
-                            <TableBody>
-                            <TableRow>
-                                <TableCell colSpan={6}>
-                                <div>
-                                    <p className="center_content">No Bills Generated</p>
-                                </div>
-                                </TableCell>
-                               
-                            </TableRow>
-
-                        </TableBody>
-                        )}
+                                </TableBody>
+                            )}
                     </Table>
 
 
@@ -2008,19 +2027,32 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                 <TableBody style={{ width: '100%' }}>
 
                                     {
-                                        completedbill.map((data) => (
-                                            data.workLists.map((Sub, secondindex) => (
-                                                //console.log(Sub.subCategory)
+                                        <TableRow>
+                                            <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{completedbill.Category}</p></TableCell>
+                                            <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{completedbill.price}</p></TableCell>
 
-                                                <TableRow key={secondindex} >
-                                                    <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{Sub.subCategory}</p></TableCell>
-                                                    <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{Sub.price}</p></TableCell>
-                                                </TableRow>
-                                            ))
-                                        ))
+                                        </TableRow>
+                                        // completedbill.map((data) => (
+                                        //     data.workLists.map((Sub, secondindex) => (
+                                        //         //console.log(Sub.subCategory)
+
+                                        //         <TableRow key={secondindex} >
+                                        //             <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{Sub.subCategory}</p></TableCell>
+                                        //             <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{Sub.price}</p></TableCell>
+                                        //         </TableRow>
+                                        //     ))
+                                        // ))
                                     }
-
                                     <TableRow>
+                                        <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
+                                        {
+
+                                            <TableCell style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{completedbill.price}</p></TableCell>
+
+
+                                        }
+                                    </TableRow>
+                                    {/* <TableRow>
                                         <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
                                         {
                                             completedbill.map((data, index) => (
@@ -2028,7 +2060,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                             )
                                             )
                                         }
-                                    </TableRow>
+                                    </TableRow> */}
 
                                 </TableBody>
 
@@ -2037,6 +2069,11 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                     </div>
                     <div style={{ display: "flex", gap: "5px" }}>
+                        {<button hidden={completedbill.paymentMethod === "onlinePayment" ? false : true} onClick={() => pay(completedbill)} className="Bill-btn1">Pay</button>}
+
+                        <button className="Bill-btn2" onClick={handleClose4}>Close</button>
+                    </div>
+                    {/* <div style={{ display: "flex", gap: "5px" }}>
                         {
                             completedbill.map((data, index) => (
                                 <button hidden={data.paymentMethod === "onlinePayment" ? false : true} onClick={() => pay(data)} className="Bill-btn1">Pay</button>
@@ -2044,7 +2081,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                         }
                         <button className="Bill-btn2" onClick={handleClose4}>Cancel</button>
-                    </div>
+                    </div> */}
 
                 </div>
             </div>

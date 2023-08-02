@@ -55,12 +55,12 @@ const RecivedApplication = ({ formNumber }) => {
 
 
 
-    const handleImgOpen=(name)=>{
+    const handleImgOpen = (name) => {
         setImageState(true)
         setImgUrl(name)
     }
 
-    const handleImgClose=()=>{
+    const handleImgClose = () => {
         setImageState(false)
 
     }
@@ -278,7 +278,7 @@ const RecivedApplication = ({ formNumber }) => {
                                     <div>
                                         {Array.isArray(viewdata.PhotoFiles) && viewdata.PhotoFiles.map(item => {
                                             if (item.fieldName === "Photo") {
-                                                return <img style={{ aspectRatio: 3 / 4, width: '100px', marginLeft: "90px" }} src={localpath + item.filename} alt='' onClick={()=>handleImgOpen(item.filename)}/>
+                                                return <img style={{ aspectRatio: 3 / 4, width: '100px', marginLeft: "90px" }} src={localpath + item.filename} alt='' onClick={() => handleImgOpen(item.filename)} />
 
                                             }
 
@@ -293,7 +293,7 @@ const RecivedApplication = ({ formNumber }) => {
                                     <p><b>Location</b> : {viewdata.Location}</p>
                                     <p><b>Gender</b> : {viewdata.Gender}</p>
                                     <p><b>Language</b> : {viewdata.Language}</p>
-                                    <p><b>DOB</b> : {viewdata.DOB}</p>
+                                    <p><b>DOB</b> : {new Date(viewdata.DOB).toLocaleDateString()}</p>
                                     <p><b>AAdhar Number</b> : {viewdata.AAdhar}</p>
                                     <p><b>Account Number</b> : {viewdata.AccNo}</p>
                                     <p><b>IFSC Code</b> : {viewdata.Ifsc}</p>
@@ -317,7 +317,7 @@ const RecivedApplication = ({ formNumber }) => {
                                         {Array.isArray(viewdata.PanFiles) && viewdata.PanFiles.map(item => {
                                             if (item.fieldName === "PanCard") {
                                                 return (
-                                                    <img style={{ aspectRatio: 16 / 9, width: '200px', }} src={localpath + item.filename} alt='' onClick={()=>handleImgOpen(item.filename)}/>
+                                                    <img style={{ aspectRatio: 16 / 9, width: '200px', }} src={localpath + item.filename} alt='' onClick={() => handleImgOpen(item.filename)} />
                                                 )
 
                                             }
@@ -350,7 +350,7 @@ const RecivedApplication = ({ formNumber }) => {
                             aria-describedby="modal-modal-description"
                         >
                             <Box sx={style2}>
-                                <img height={"480px"} width={"640px"} src={localpath + ImgUrl} alt="img"/>
+                                <img height={"480px"} width={"640px"} src={localpath + ImgUrl} alt="img" />
                             </Box>
                         </Modal>
                     </div>
