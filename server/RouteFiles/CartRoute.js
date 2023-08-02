@@ -11,12 +11,18 @@ app.post('/AddtoCart', async (req, res) => {
     const Price = req.body.Price
     const Name = req.body.Name
     try {
-        const data = await Cart.findOne({ "ProductID": ProductId })
+        const data = await Cart.find({ "ProductID": ProductId })
+        // console.log(data);
 
         if (data) {
-            if (data.User === User) {
-                data.Quantity = data.Quantity + 1
-                data.save()
+            
+            const Obj=data.find(value=>{if(value['User']===User){
+                return value
+            }})
+
+            if (Obj) {
+                Obj.Quantity = Obj.Quantity + 1
+                Obj.save()
                 res.json({ status: 'ok', message: 'itemAdded' })
             }
             else{
@@ -28,7 +34,7 @@ app.post('/AddtoCart', async (req, res) => {
                     User: User
                 })
                 await Item.save()
-                res.json({ status: 'ok', message: 'Item Added' })
+                res.json({ status: 'ok', message: 'Item Added in else' })
             }
 
         }
