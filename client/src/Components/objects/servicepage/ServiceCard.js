@@ -7,15 +7,22 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 
 import { useLocation } from "react-router-dom";
-
+import { toast } from "react-toastify";
+import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 const ServiceCard=({service,Range})=>{
 
+    const Token=localStorage.getItem("ty")
+    const decodedToken=Token?jwtDecode(Token):null
+    const UserId=Token?decodedToken.id:null
+
     const[Data,setData]=useState([])
     const[count,setCount]=useState(0)
+    const Nav=useNavigate()
 
 
 
@@ -104,6 +111,30 @@ useEffect(()=>{
 },[serviceName])
 
 
+const AddtoCart=async(id,Subcategory,Price)=>{
+    if(Token){
+        await axios.post("https://backend.kooblu.com/Cart/AddtoCart",{
+            ProductId:id,
+            UserID:UserId,
+            Name:Subcategory,
+            Price:Price
+        })
+        .then(res=>{
+            if(res.data.status==='ok'){
+                toast.success('Item added')
+            }
+            else{
+                toast.error('Error')
+            }
+        })
+    }
+    else{
+        Nav('/Login')
+    }
+    
+}
+
+
 
 const localpath = "https://backend.kooblu.com/";
 
@@ -137,7 +168,10 @@ else if(Data.length!==0 && count>0){
                                             <div className="Carosel-third">
                                                 
                                             </div>
+                                        <div style={{display:'flex',justifyContent:'center',gap:'5px'}}>
                                         <button onClick={Booking} className="Carosel-btn">Book Now</button>
+                                        <button onClick={()=>AddtoCart(item._id,item.Subcategory,item.Price)} className="Carosel-btn">Add to cart</button>
+                                        </div>
                                     </div>
                         </div>
                         
