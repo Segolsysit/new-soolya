@@ -93,14 +93,18 @@ const Login = () => {
                 <Header />
                 <MenuBar />
                 <div className="Login-image">
-                    <h1 className="Login-heading">SignIn</h1>
+                    <h1 className="Login-heading">Welcome back! Login to Your User Account</h1>
                 </div>
-                <div className="Signup-card">
+                <div className="Signup-card" >
                     <div className="Form-div">
                         <form className="Form" onSubmit={LoginFun}>
                             <div className="Signup-title">
-                                <h1 className="Signup-heading">LogIn to ABC</h1>
+                                <h1 className="Signup-heading">Login to User</h1>
                                 <p className="Signup-ptag">Welcome! Login using data given while register</p>
+                            </div>
+                            <div className="Already" >
+                                <p className="Primary-Signup">Don't have account</p>
+                                <Link to="/Signup"><p className="Secondary-Signup">Signup</p></Link>
                             </div>
                             <label className="Signup-Label">Email</label>
                             <input className="Signup-Input" onChange={(e) => {
@@ -125,10 +129,7 @@ const Login = () => {
                                 <Link to='/ForgetPassword'><p className="Forget">Forget Password</p></Link>
                             </div>
                             <button className="Button-Signup">Login</button>
-                            <div className="Already">
-                                <p className="Primary-Signup">Don't have account</p>
-                                <Link to="/Signup"><p className="Secondary-Signup">Signup</p></Link>
-                            </div>
+
 
                         </form>
                     </div>
@@ -227,14 +228,18 @@ const VendorLogin = () => {
                 <Header />
                 <MenuBar />
                 <div className="Login-image">
-                    <h1 className="Login-heading">SignIn</h1>
+                    <h1 className="Login-heading">Vendor Login</h1>
                 </div>
                 <div className="Signup-card">
                     <div className="Form-div">
                         <form className="Form" onSubmit={LoginFun}>
                             <div className="Signup-title">
-                                <h1 className="Signup-heading">LogIn to ABC</h1>
+                                <h1 className="Signup-heading">LogIn to Provider</h1>
                                 <p className="Signup-ptag">Welcome! Login using data given while register</p>
+                            </div>
+                            <div className="Already">
+                                <p className="Primary-Signup">Not a vendor</p>
+                                <Link to="/Provider"><p className="Secondary-Signup">Join us</p></Link>
                             </div>
                             <label className="Signup-Label">Email</label>
                             <input className="Signup-Input" onChange={(e) => {
@@ -259,10 +264,7 @@ const VendorLogin = () => {
                                 <Link to='/vendorForgetPassword'><p className="Forget">Forget Password</p></Link>
                             </div>
                             <button className="Button-Signup">Login</button>
-                            <div className="Already">
-                                <p className="Primary-Signup">Not a vendor</p>
-                                <Link to="/Provider"><p className="Secondary-Signup">Join us</p></Link>
-                            </div>
+
 
                         </form>
                     </div>
@@ -292,6 +294,7 @@ const Signup = () => {
     const [Phone, setP] = useState("")
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
+    const [ConfirmPassword, setConfirmPassword] = useState("")
 
 
     const [errF, setF] = useState("")
@@ -299,7 +302,22 @@ const Signup = () => {
     const [errP, seterrP] = useState("")
     const [errEmail, setEE] = useState("")
     const [errPwd, setPwd] = useState("")
+    const [errconfPwd, setConfPwd] = useState("")
 
+
+    const [show, setShow] = useState("password")
+    const [icon, setIcon] = useState(<i class="fa-solid fa-eye"></i>)
+
+    const PaswordState = () => {
+        if (show === "password") {
+            setShow("text")
+            setIcon(<i class="fa-sharp fa-solid fa-eye-slash"></i>)
+        }
+        else {
+            setShow("password")
+            setIcon(<i class="fa-solid fa-eye"></i>)
+        }
+    }
     //  function passverfi(){
     //     if(Password.length<8){
     //         setPwd("Your password should have at least 8 characters")
@@ -346,7 +364,9 @@ const Signup = () => {
         else if (!passwordPattern.test(Password)) {
             setPwd("Your password must have atleast one lowercase letter, one uppercase letter, one number, and one special character (!@#$%^&*).")
         }
-
+        else if (ConfirmPassword !== Password) {
+            setConfPwd("password and confirm password must be same!")
+        }
 
         else {
 
@@ -397,15 +417,20 @@ const Signup = () => {
                 <Header />
                 <MenuBar />
                 <div className="Login-image">
-                    <h1 className="Login-heading">Register</h1>
+                    <h1 className="Login-heading">Register as User Account!</h1>
                 </div>
                 <div className="Signup-card">
                     <div className="Form-div">
                         <form className="Form-signup" onSubmit={Register}>
                             <div className="Signup-title">
-                                <h1 className="Signup-heading">SignUp to ABC</h1>
+                                <h1 className="Signup-heading">SignUp to User</h1>
                                 <p className="Signup-ptag">Welcome! Register with valid data</p>
                             </div>
+                            <div className="Already">
+                                <p className="Primary-Signup">Already have an account</p>
+                                <Link to="/Login"><p className="Secondary-Signup">Login</p></Link>
+                            </div>
+
                             <label className="Signup-Label">First Name</label>
                             <input className="Signup-Input" onChange={(e) => {
                                 setFName(e.target.value)
@@ -433,16 +458,28 @@ const Signup = () => {
                             }} />
                             <p className="Error-signup">{errEmail}</p>
                             <label className="Signup-Label">Password</label>
-                            <input type="password" className="Signup-Input" onChange={(e) => {
-                                setPassword(e.target.value);
-                                setPwd("")
-                            }} />
-                            <p className="Error-signup">{errPwd}</p>
-                            <button className="Button-Signup" type="submit">Create Account</button>
-                            <div className="Already">
-                                <p className="Primary-Signup">Already have an account</p>
-                                <Link to="/Login"><p className="Secondary-Signup">Login</p></Link>
+
+                            <div className="Signup-Pwdbox">
+                                <input type={show} className="Signup-InputPwd" onChange={(e) => {
+                                    setPassword(e.target.value);
+                                    setPwd("")
+                                }} />
+                                <div onClick={PaswordState}>{icon}</div>
                             </div>
+                            <p className="Error-signup">{errPwd}</p>
+
+                            <label className="Signup-Label">Confirm Password</label>
+
+                            <div className="Signup-Pwdbox">
+                                <input type={show} className="Signup-InputPwd" onChange={(e) => {
+                                    setConfirmPassword(e.target.value);
+                                    setConfPwd("")
+                                }} />
+                                <div onClick={PaswordState}>{icon}</div>
+                            </div>
+                            <p className="Error-signup">{errconfPwd}</p>
+
+                            <button className="Button-Signup" type="submit">Create Account</button>
 
                         </form>
                     </div>
@@ -616,8 +653,12 @@ const Provider = () => {
                     <div className="Form-div">
                         <form className="Form-Provider" >
                             <div className="Signup-title">
-                                <h1 className="Signup-heading">Register as provider in ABC</h1>
+                                <h1 className="Signup-heading">Register as provider </h1>
                                 <p className="Signup-ptag">Welcome! Register with valid data</p>
+                            </div>
+                            <div className="Already">
+                                <p className="Primary-Signup">Already have an account</p>
+                                <Link to="/VendorLogin"><p className="Secondary-Signup">Login</p></Link>
                             </div>
                             <>
                                 <label className="Join-Label">Language</label>
@@ -654,10 +695,7 @@ const Provider = () => {
 
                                 <button type="button" className="Button-Signup" onClick={Form1}>Next</button>
                             </>
-                            <div className="Already">
-                                <p className="Primary-Signup">Already have an account</p>
-                                <Link to="/VendorLogin"><p className="Secondary-Signup">Login</p></Link>
-                            </div>
+
 
                         </form>
                     </div>
@@ -718,10 +756,13 @@ const Provider = () => {
                     <div className="Form-div">
                         <form className="Form-Provider" onSubmit={Form2}>
                             <div className="Signup-title">
-                                <h1 className="Signup-heading">Register as provider in ABC</h1>
+                                <h1 className="Signup-heading">Register as provider </h1>
                                 <p className="Signup-ptag">Welcome! Register with valid data</p>
                             </div>
-
+                            <div className="Already">
+                                <p className="Primary-Signup">Already have an account</p>
+                                <Link to="/Login"><p className="Secondary-Signup">Login</p></Link>
+                            </div>
                             <label className="Join-Label">First Name</label>
                             <input className="Signup-Input" type='text' defaultValue={FirstName} onChange={(e) => {
                                 setFName(e.target.value)
@@ -754,10 +795,7 @@ const Provider = () => {
                                 >Previous</button>
                                 <button className="Button-Toggle" type="submit">Next</button>
                             </div>
-                            <div className="Already">
-                                <p className="Primary-Signup">Already have an account</p>
-                                <Link to="/Login"><p className="Secondary-Signup">Login</p></Link>
-                            </div>
+
 
                         </form>
                     </div>
