@@ -12,10 +12,25 @@ app.post('/AddtoCart', async (req, res) => {
     const Name = req.body.Name
     try {
         const data = await Cart.findOne({ "ProductID": ProductId })
-        if (data && data.User === User) {
-            data.Quantity = data.Quantity + 1
-            data.save()
-            res.json({ status: 'ok', message: 'itemAdded' })
+
+        if (data) {
+            if (data.User === User) {
+                data.Quantity = data.Quantity + 1
+                data.save()
+                res.json({ status: 'ok', message: 'itemAdded' })
+            }
+            else{
+                const Item = new Cart({
+                    ProductID: ProductId,
+                    ItemName: Name,
+                    Price: Price,
+                    Quantity: 1,
+                    User: User
+                })
+                await Item.save()
+                res.json({ status: 'ok', message: 'Item Added' })
+            }
+
         }
         else {
             const Item = new Cart({
