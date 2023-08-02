@@ -16,7 +16,7 @@ bookingdetails_router.post("/new_booking", async (req, res) => {
         zip: req.body.zip,
         person: req.body.person,
         number: req.body.number,
-        Service: req.body.Service,
+        // Service: req.body.Service,
         Category: req.body.Category,
         price: req.body.price,
         paymentMethod:req.body.paymentMethod
@@ -100,8 +100,8 @@ bookingdetails_router.post("/Completed_orders/:id", async (req, res) => {
         Category: req.body.Category,
         price: req.body.price,
         paymentMethod:req.body.paymentMethod,
-        workLists,
-        total
+        // workLists,
+        // total
     })
 
    await deatails.save();
@@ -182,12 +182,6 @@ bookingdetails_router.get("/Completed_order/:user_email",async(req,res)=>{
     const item_by_id = await CompletedOder_Model.find({user_email:user_email})
     res.json(item_by_id )
 })
-
-// bookingdetails_router.get("/Completed_order",async(req,res)=>{
-//     // const user_email = req.params.user_email;
-//     const item_by_id = await CompletedOder_Model.find()
-//     res.json(item_by_id )
-// })
 
 bookingdetails_router.get("/Completed_vendor_order/:vendor_email",async(req,res)=>{
     const vendor_email = req.params.vendor_email;

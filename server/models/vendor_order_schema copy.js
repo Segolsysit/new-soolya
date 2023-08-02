@@ -23,9 +23,9 @@ const vendorOrderSchema =new mongoose.Schema({
     number:{
         type:Number
     },
-    Service:{
-        type:String
-    },
+    // Service:{
+    //     type:String
+    // },
     Category:{
         type:String
     },

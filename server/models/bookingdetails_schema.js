@@ -23,9 +23,9 @@ const bookingdetailSchema = new mongoose.Schema({
     number: {
         type: Number
     },
-    Service: {
-        type: String
-    },
+    // Service: {
+    //     type: String
+    // },
     Category: {
         type: String
     },
@@ -120,14 +120,14 @@ const CompletedOderSchema = new mongoose.Schema({
     paymentMethod: {
         type: String
     },
-    workLists: [{
-        subCategory: String,
-        price: String
-    }],
-    total: {
-        type: String,
-        required: true
-    },
+    // workLists: [{
+    //     subCategory: String,
+    //     price: String
+    // }],
+    // total: {
+    //     type: String,
+    //     required: true
+    // },
 })
 
 const pendingOrders_Model = mongoose.model("pendingOrders_Model", pendingOderSchema)

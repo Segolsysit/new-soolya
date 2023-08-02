@@ -13,8 +13,9 @@ const Applicationschema = mongoose.Schema({
     Email:{
         type:String,
     },
-    PhoneNumber:{
+    Phone:{
         type:Number,
+        
     },
     Address:{
         type:String,
@@ -69,7 +70,7 @@ const Applicationschema = mongoose.Schema({
         path: String,
         
       }],
-      PhotoFiles: [{
+       PhotoFiles: [{
         fieldName: String,
         filename:String,
         originalName: String,
@@ -77,7 +78,7 @@ const Applicationschema = mongoose.Schema({
         path: String,
         
       }],
-      PanFiles: [{
+       PanFiles: [{
         fieldName: String,
         filename:String,
         originalName: String,
