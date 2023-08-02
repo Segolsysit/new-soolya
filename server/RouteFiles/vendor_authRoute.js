@@ -6,40 +6,40 @@ const path = require("path");
 
 const vjwt = require("jsonwebtoken");
 const maxAge = 3 * 24 * 60 * 60;
-const multer=require('multer')
+const multer = require('multer')
 
 
 
 
 
-const Storage=multer.diskStorage({
-  destination:(req,file,cb)=>{
+const Storage = multer.diskStorage({
+  destination: (req, file, cb) => {
 
-cb(null , "files&img")
+    cb(null, "files&img")
 
   },
-  filename:(req,file,cb)=>{
-        cb(null,file.fieldname + "_"+Date.now() + path.extname(file.originalname))  
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
   }
 })
 const fileFilter = (req, file, cb) => {
   const acceptFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
   if (acceptFileTypes.includes(file.mimetype)) {
-      cb(null, true)
+    cb(null, true)
   }
   else {
-      cb(null, false)
+    cb(null, false)
   }
 }
 
 
 const upload = multer({
-  storage:Storage,
+  storage: Storage,
   fileFilter: fileFilter
 })
 
 
-var multipleUpload = upload.fields([{ name: 'AadharFiles' }, { name: 'PhotoFiles' },{name:'PanFiles'}])
+var multipleUpload = upload.fields([{ name: 'AadharFiles' }, { name: 'PhotoFiles' }, { name: 'PanFiles' }])
 
 
 // const auth = (req, res, next) => {
@@ -74,20 +74,20 @@ VendorAuthRoute.get('/', (req, res) => {
   }
 });
 
-VendorAuthRoute.post("/register",multipleUpload, async (req, res, next) => {
+VendorAuthRoute.post("/register", multipleUpload, async (req, res, next) => {
 
   try {
-    const { Username, Email, Password, Phonenumber,Location,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL,AadharCard,PanCard,Photo } = req.body;
-  
+    const { Username, Email, Password, Phonenumber, Location, Gender, Language, DOB, AAdhar, AccNo, BnkName, Ifsc, Education, JobTitle, WorkExp, Zone, AltPH, KnownL, AadharCard, PanCard, Photo } = req.body;
+
     const hashedPassword = await bcrypt.hash(Password, 10);
-  
+
     const isEmailExists = await VendorAuth.findOne({ Email });
-  
+
     if (isEmailExists) {
       console.log("Email is already registered");
       return res.json({ status: "error", message: "Email is already registered" });
     }
-  
+
     const fileData = new VendorAuth({
       Username,
       Email,
@@ -107,15 +107,15 @@ VendorAuthRoute.post("/register",multipleUpload, async (req, res, next) => {
       Zone,
       AltPH,
       KnownL,
-      AadharCard:[],
-      Photo:[],
-      PanCard:[]
+      AadharCard: [],
+      Photo: [],
+      PanCard: []
     });
-    if (AadharCard){
+    if (AadharCard) {
       AadharCard.forEach(element => {
         const file = {
           fieldName: 'AadharCard',
-          filename:element.filename,
+          filename: element.filename,
           originalName: element.originalname,
           mimeType: element.mimetype,
           path: element.path,
@@ -124,11 +124,11 @@ VendorAuthRoute.post("/register",multipleUpload, async (req, res, next) => {
       });
     }
 
-    if (Photo){
+    if (Photo) {
       Photo.forEach(element => {
         const file = {
           fieldName: 'Photo',
-          filename:element.filename,
+          filename: element.filename,
           originalName: element.originalname,
           mimeType: element.mimetype,
           path: element.path,
@@ -137,11 +137,11 @@ VendorAuthRoute.post("/register",multipleUpload, async (req, res, next) => {
       });
     }
 
-    if (PanCard){
+    if (PanCard) {
       PanCard.forEach(element => {
         const file = {
           fieldName: 'PanCard',
-          filename:element.filename,
+          filename: element.filename,
           originalName: element.originalname,
           mimeType: element.mimetype,
           path: element.path,
@@ -150,15 +150,15 @@ VendorAuthRoute.post("/register",multipleUpload, async (req, res, next) => {
       });
     }
 
-  
+
     await fileData.save();
-  
+
     res.json({ status: "success", message: "Signup successful" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ status: "error", message: "Something went wrong" });
   }
-})  
+})
 
 
 
@@ -177,7 +177,7 @@ VendorAuthRoute.post("/login", async (req, res) => {
     if (isPasswordValid) {
       const token = vjwt.sign({ id: user._id }, "soolya vendor super secret key");
       res.cookie("venjwt", token, { httpOnly: false, maxAge: maxAge * 1000 });
-      res.status(200).json({ user: user._id, status: true, token:token });
+      res.status(200).json({ user: user._id, status: true, token: token });
 
     }
     else {
@@ -329,47 +329,48 @@ VendorAuthRoute.post("/reset-password/:id/:token", async (req, res) => {
 });
 
 
-VendorAuthRoute.patch('/Edit/:id',multipleUpload,async(req,res)=>{
-  const id=req.params.id
-  const AadharCard=req.files["AadharFiles"]
-  const PanCard=req.files["PanFiles"]
-  const Photo=req.files["PhotoFiles"]
-  console.log(AadharCard+" "+PanCard+" "+Photo);
-   const data= await VendorAuth.findByIdAndUpdate(id)
-    data.Username=req.body.Username||data.Username
-    data.Email=req.body.mail||data.Email
-    data.Phonenumber=req.body.Phone||data.Phonenumber
-    data.Location=req.body.Location||data.Location
-    data.Gender=req.body.Gender||data.Gender
-    data.Language=req.body.Language||data.Language
-    data.DOB=req.body.DoB||data.DOB
-    data.AAdhar=req.body.Aadhar||data.AAdhar
-    data.AccNo=req.body.Accn||data.AccNo
-    data.BnkName=req.body.BnkName||data.BnkName
-    data.Ifsc=req.body.IFSC||data.Ifsc
-    data.Education=req.body.Education||data.Education
-    data.JobTitle=req.body.JobTitle||data.JobTitle
-    data.WorkExp=req.body.WorkExp||data.WorkExp
-    data.Zone=req.body.Zone||data.Zone
-    data.AltPH = req.body.AltPhone !== "null" ? req.body.AltPhone : null;
-    data.KnownL=req.body.Lang||data.KnownL
-    data.AadharFiles=AadharCard||data.AadharFiles
-    data.PhotoFiles=Photo ||data.PhotoFiles
-    data.PanFiles=PanCard ||data.PanFiles
+VendorAuthRoute.patch('/Edit/:id', multipleUpload, async (req, res) => {
+  const id = req.params.id
+  const AadharCard = req.files["AadharFiles"]
+  const PanCard = req.files["PanFiles"]
+  const Photo = req.files["PhotoFiles"]
+  console.log(AadharCard + " " + PanCard + " " + Photo);
+  const data = await VendorAuth.findByIdAndUpdate(id)
+  data.Username = req.body.Username || data.Username
+  data.Email = req.body.mail || data.Email
+  data.Phonenumber = req.body.Phone || data.Phonenumber
+  data.Location = req.body.Location || data.Location
+  data.Gender = req.body.Gender || data.Gender
+  data.Language = req.body.Language || data.Language
+  data.DOB = req.body.DoB || data.DOB
+  data.AAdhar = req.body.Aadhar || data.AAdhar
+  data.AccNo = req.body.Accn || data.AccNo
+  data.BnkName = req.body.BnkName || data.BnkName
+  data.Ifsc = req.body.IFSC || data.Ifsc
+  data.Education = req.body.Education || data.Education
+  data.JobTitle = req.body.JobTitle || data.JobTitle
+  data.WorkExp = req.body.WorkExp || data.WorkExp
+  data.Zone = req.body.Zone || data.Zone
+  data.AltPH = req.body.AltPhone !== "null" ? req.body.AltPhone : null;
+  data.KnownL = req.body.Lang || data.KnownL
+  data.AadharFiles = AadharCard || data.AadharFiles
+  data.PhotoFiles = Photo || data.PhotoFiles
+  data.PanFiles = PanCard || data.PanFiles
 
-  
-  try{
+
+  try {
     await data.save()
-    res.json({status:'ok',data})
-  }
-  
-  
-  catch(error){
-    res.json({status:'error',error})
+    res.json({ status: 'ok', data })
   }
 
-  
+
+  catch (error) {
+    res.json({ status: 'error', error })
+  }
+
+
 })
+module.exports = VendorAuthRoute;
 
 
 module.exports = VendorAuthRoute;

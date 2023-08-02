@@ -16,7 +16,7 @@ vendor_orders_router.post("/new_booking", async (req, res) => {
         zip: req.body.zip,
         person: req.body.person,
         number: req.body.number,
-        Service: req.body.Service,
+        // Service: req.body.Service,
         Category: req.body.Category,
         price: req.body.price,
         paymentMethod:req.body.paymentMethod

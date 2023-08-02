@@ -47,7 +47,7 @@ Application_Router.post("/Applications",multipleUpload,async(req,res) => {
     
     
         const fileData=new Applicationschema({
-          FirstName,LName,Location,Email,PhoneNumber:Phone,Address,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL,
+          FirstName,LName,Location,Email,Phone,Address,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL,
           AadharFiles:[],
           PhotoFiles:[],
           PanFiles:[]
@@ -95,19 +95,19 @@ Application_Router.post("/Applications",multipleUpload,async(req,res) => {
     
         const isEmail = await Applicationschema.findOne({ Email });
         const isPhone = await Applicationschema.findOne({ Phone });
-        if (isEmail) {
-          console.log("Email/Mobilenum is already registered");
+        if (isEmail||isPhone) {
+          console.log("Email/Ph.No is already registered");
           res.json({ status: "error", message: "Email/Mobilenum is already registered" });
         } else {
           
-          await fileData.save()
+         await fileData.save()
           res.json({ status: "success", message: "signup successfull" });
         }
     
     
       } catch (err) {
         console.log(err);
-        res.status(500).json({ status: 'error', message: err });
+        res.status(500).json({ status: 'error', message: "Something went wrong" });
       }
 })
 

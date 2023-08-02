@@ -18,7 +18,7 @@ OtpRoute.post('/sendotp', async (req, res) => {
 
     let data = await otpModel.findOne({ phoneNumber });
     const otp = Math.floor(100000 + Math.random() * 900000);
-    const expiryTime = new Date(Date.now() + 5 * 60 * 1000);
+    const expiryTime = new Date(Date.now() + 1 * 60 * 1000);
      // remove all non-digits and take the last 10 digits
 
      if (data && data.expiresAt > new Date()) {
@@ -112,7 +112,7 @@ OtpRoute.post('/verifyotp', async (req, res) => {
   const { phoneNumber, otp } = req.body;
   const formattedPhoneNumber = phoneNumber.toString().replace(/\D/g, '').slice(-10);
   try {
-    const expiryTime = new Date(Date.now() + 5 * 60 * 1000);
+    const expiryTime = new Date(Date.now() + 1 * 60 * 1000);
 
     let data = await otpModel.findOne({ phoneNumber });
     if (!data || data.expiresAt < new Date()) {
