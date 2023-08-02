@@ -29,7 +29,7 @@ const Header = () => {
                         <li>|</li>
                         <li><i class="fa-solid fa-envelope"></i> kooblu@gmail.com</li>
                         <li>|</li>
-                        <li className="Time"><i class="fa-solid fa-clock"></i> 10.00 AM-7.00PM</li>
+                        <li className="Time"><i class="fa-solid fa-clock"></i> 6.00 AM-10.00PM</li>
                     </ul>
                 </div>
 
