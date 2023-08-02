@@ -27,6 +27,12 @@ const VendorAuthRoute = require("./RouteFiles/vendor_authRoute");
 const OtpRoute = require("./RouteFiles/Otp");
 const vendor_orders_router = require("./RouteFiles/vendor_order_router copy");
 // server.on("request", app)
+const Cart=require('./RouteFiles/CartRoute')
+
+
+
+
+
 app.use(express.urlencoded({ extended: false }))
 app.set("view engine", "ejs")
 app.use(express.json())
@@ -56,6 +62,7 @@ app.use("/reject_api", RejectedList_router);
 // app.use("/footer_api",Footer_form_router);
 // app.use("/feedback_api",feedback_api);
 app.use("/OTP", OtpRoute);
+app.use('/Cart',Cart)
 
 app.use(express.static(path.join(__dirname, "js")));
 app.use(express.static(path.join(__dirname, "files&img")));

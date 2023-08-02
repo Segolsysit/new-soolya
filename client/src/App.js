@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css"
 import { UserDashboard,VendorDashboard,AboutUs } from './Components/objects/objects';
 
 import Contact from './Components/objects/contactpage/contact';
+import Cart from './Components/Cart/Cart';
 
 
 const Home = lazy(() => import('./Components/Home'));
@@ -51,6 +52,7 @@ function App() {
         <Route path='/VendorDashboard' element={<VendorDashboard/>}/>
         <Route path="/contact" element={<Contact></Contact>}></Route>
         <Route path='/AboutUs' element={<AboutUs/>}/>
+        <Route path='/Cart' element={<Cart/>}/>
       </Routes>
       </BrowserRouter>
       </Suspense>

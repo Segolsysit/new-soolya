@@ -25,6 +25,39 @@ vendor_orders_router.post("/new_booking", async (req, res) => {
     res.status(200).json({message:"Uploaded Successfully",deatails})
 })
 
+
+vendor_orders_router.post("/new_booking_cart", async (req, res) => {
+
+    const CartItems=req.body.Cart
+    const user_email=req.body.user_email
+    const address=req.body.address
+    const city=req.body.city
+    const zip=req.body.zip
+    const person=req.body.person
+    const number=req.body.number
+    const paymentMethod=req.body.paymentMethod
+
+    if(CartItems.length>0){
+        CartItems.forEach(async(element) => {
+            const deatails = new vendorOrder_Model({
+                user_email:user_email,
+                address: address,
+                street: req.body.street,
+                city: city,
+                zip: zip,
+                person: person,
+                number: number,
+                Service: req.body.Service,
+                Category: element.Name,
+                price: element.Price,
+                paymentMethod:paymentMethod
+            })
+            await deatails.save();
+        });
+        res.status(200).json({message:"Uploaded Successfully"})
+    }
+})
+
 // vendor_orders_router.post("/pending_orders/:id", async (req, res) => {
     
 //     const deatails = new pendingOrders_Model({
