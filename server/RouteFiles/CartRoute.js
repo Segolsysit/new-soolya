@@ -38,6 +38,50 @@ app.post('/AddtoCart', async (req, res) => {
 }
 )
 
+app.patch('/AddQty',async(req,res)=>{
+    const Id = req.body.ProductId
+     
+    try {
+        const data = await Cart.findByIdAndUpdate(Id)
+        console.log(data);
+        if (data)  {
+           
+            data.Quantity = data.Quantity + 1
+            data.save()
+            res.json({ status: 'ok', message: 'patched' })
+        
+        }
+        else{
+            res.json({status:'failed'})
+        }
+    }
+    catch(err){
+        res.json(err)
+    }
+})
+
+app.patch('/RemoveQty',async(req,res)=>{
+    const Id = req.body.ProductId
+     
+    try {
+        const data = await Cart.findByIdAndUpdate(Id)
+        console.log(data);
+        if (data)  {
+           
+            data.Quantity = data.Quantity - 1
+            data.save()
+            res.json({ status: 'ok', message: 'patched' })
+        
+        }
+        else{
+            res.json({status:'failed'})
+        }
+    }
+    catch(err){
+        res.json(err)
+    }
+})
+
 
 app.get('/getCartItems/:UserId', async (req, res) => {
     const User = req.params.UserId

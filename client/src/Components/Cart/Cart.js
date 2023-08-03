@@ -14,6 +14,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
+import'./Cart.css'
+
 
 
 const Cart=()=>{
@@ -129,6 +131,29 @@ const Cart=()=>{
   useEffect(()=>{
     getData()
   },[])
+
+
+  const AddItem=async(id)=>{
+    await axios.patch("https://backend.kooblu.com/Cart/AddQty",{
+      ProductId:id,
+    })
+    .then((res)=>{
+      if(res.data.status==='ok'){
+        getData()
+      }
+    })
+  }
+
+  const RemoveItem=async(id)=>{
+    await axios.patch("https://backend.kooblu.com/Cart/RemoveQty",{
+      ProductId:id,
+    })
+    .then((res)=>{
+      if(res.data.status==='ok'){
+        getData()
+      }
+    })
+  }
     
 
     
@@ -199,7 +224,7 @@ const Cart=()=>{
               // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell align="center">{row.ItemName}</TableCell>
-              <TableCell align="center">{row.Quantity}</TableCell>
+              <TableCell align="center" style={{display:'flex',justifyContent:'space-between'}}><button className='Increment_btn' onClick={()=>RemoveItem(row._id)}>-</button>{row.Quantity}<button className='Increment_btn' onClick={()=>AddItem(row._id)}>+</button></TableCell>
               <TableCell align="center">{row.Price}</TableCell>
               <TableCell align="center">{row.Quantity*row.Price}</TableCell>
             </TableRow>
