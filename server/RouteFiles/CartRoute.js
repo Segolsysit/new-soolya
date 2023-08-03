@@ -7,11 +7,12 @@ const Cart = require('../models/CartModel')
 
 app.post('/AddtoCart', async (req, res) => {
     const ProductId = req.body.ProductId
-    const User = req.body.UserID
+    const User = req.body.User
     const Price = req.body.Price
     const Name = req.body.Name
     try {
-        const data = await Cart.findOne({ "ProductID": ProductId })
+        const data = await Cart.find({ "ProductID": ProductId })
+        console.log(data);
         if (data && data.User === User) {
             data.Quantity = data.Quantity + 1
             data.save()

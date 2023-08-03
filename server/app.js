@@ -1,5 +1,5 @@
 const express = require("express");
-const  mongoose  = require("mongoose");
+const mongoose = require("mongoose");
 const app = express();
 require('dotenv').config()
 //vanakkam
@@ -14,9 +14,9 @@ const subcategory_router = require("./RouteFiles/subcategory_router");
 const OtpDoneRoute = require("./RouteFiles/serviceDoneRoute");
 // const service_router = require("./Router/service_route");
 // const serviceman_route = require("./Router/serviceman_route");
-const category_setup_Router =require("./RouteFiles/category_setup_Router");
+const category_setup_Router = require("./RouteFiles/category_setup_Router");
 const auth_router = require("./RouteFiles/authRoutes");
-const Application_Router=require('./RouteFiles/Application_router');
+const Application_Router = require('./RouteFiles/Application_router');
 const bookingdetails_router = require("./RouteFiles/bookingdetails_router");
 // const cart_router = require("./Router/cart_router");
 // const bookingdetails_router = require("./Router/bookingdetails_router");
@@ -27,7 +27,7 @@ const VendorAuthRoute = require("./RouteFiles/vendor_authRoute");
 const OtpRoute = require("./RouteFiles/Otp");
 const vendor_orders_router = require("./RouteFiles/vendor_order_router copy");
 // server.on("request", app)
-const Cart=require('./RouteFiles/CartRoute')
+const Cart = require('./RouteFiles/CartRoute')
 
 
 
@@ -39,30 +39,30 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(
     cors({
-      origin: "https://kooblu.com",
-      methods: ["GET", "POST","PUT","DELETE","PATCH"],
-      credentials: true
+        origin: "https://kooblu.com",
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+        credentials: true
     })
-  );
+);
 app.use("/api", category_setup_Router)
-app.use("/booking_api",bookingdetails_router);
-app.use("/vendororder_api",vendor_orders_router);
-app.use("/authUser",auth_router); 
+app.use("/booking_api", bookingdetails_router);
+app.use("/vendororder_api", vendor_orders_router);
+app.use("/authUser", auth_router);
 app.use('/vendor_Applications', Application_Router)
-app.use("/vendor_Auth",VendorAuthRoute);
+app.use("/vendor_Auth", VendorAuthRoute);
 app.use("/sub_api", subcategory_router);
 app.use("/doneOtp", OtpDoneRoute);
 // app.use("/service_api", service_router )
 // app.use("/serviceman",serviceman_route);
- 
+
 // app.use("/cart_api",cart_router);
 // app.use("/booking_api",bookingdetails_router);
-app.use("/reject_api",RejectedList_router);
+app.use("/reject_api", RejectedList_router);
 
 // app.use("/footer_api",Footer_form_router);
 // app.use("/feedback_api",feedback_api);
 app.use("/OTP", OtpRoute);
-app.use('/Cart',Cart)
+app.use('/Cart', Cart)
 
 app.use(express.static(path.join(__dirname, "js")));
 app.use(express.static(path.join(__dirname, "files&img")));
@@ -70,24 +70,24 @@ app.use(express.static(path.join(__dirname, "files&img")));
 
 
 mongoose.set('strictQuery', true);
-mongoose.connect(dburl,(err)=>{
-    if(err){
+mongoose.connect(dburl, (err) => {
+    if (err) {
         console.log(err);
     }
-    else{
+    else {
         console.log("DB connected successfully");
     }
 })
 
 
 
-app.listen(url,(err) => {
-    if(err){
+app.listen(url, (err) => {
+    if (err) {
         console.log(err);
     }
-    
 
-    else{
+
+    else {
         console.log(`Server Started On ${url} Port`);
     }
 })
