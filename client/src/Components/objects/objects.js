@@ -15,7 +15,7 @@ import { VendorProfile } from "./Userdashboardcomps/Dashboard components";
 import Swal from 'sweetalert2'
 import { capitalize } from "@mui/material";
 
-axios.defaults.baseURL = 'http://localhost:3001';
+axios.defaults.baseURL = 'http://backend.kooblu.com';
 axios.defaults.withCredentials = true;
 
 const Header = () => {
@@ -150,7 +150,7 @@ const Category = ({ Cat, setCat }) => {
     //hello
     const [Data, setData] = useState([])
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/fetch_items`)
+        axios.get(`http://backend.kooblu.com/api/fetch_items`)
             .then((data) => {
                 setData(data.data)
             })
@@ -174,7 +174,7 @@ const Category = ({ Cat, setCat }) => {
     }, [])
 
 
-    const localpath = "http://localhost:3001/";
+    const localpath = "http://backend.kooblu.com/";
 
 
     return (
@@ -210,7 +210,7 @@ const CategoryHome = ({ Cat, setCat }) => {
     //hello
     const [Data, setData] = useState([])
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/fetch_items`)
+        axios.get(`http://backend.kooblu.com/api/fetch_items`)
             .then((data) => {
                 setData(data.data)
             })
@@ -221,7 +221,7 @@ const CategoryHome = ({ Cat, setCat }) => {
         setIndex(null)
         setCat("Select")
     }
-    const localpath = "http://localhost:3001/";
+    const localpath = "http://backend.kooblu.com/";
 
     const [Selectindex, setIndex] = useState(null)
 
@@ -274,7 +274,7 @@ const Carosel = () => {
     const [cookies, setCookie] = useCookies(['cookie-name']);
 
     useEffect(() => {
-        axios.get("http://localhost:3001/sub_api/new_fetch_items_limits")
+        axios.get("http://backend.kooblu.com/sub_api/new_fetch_items_limits")
             .then((res) => setData(res.data))
         console.log(Data);
     }, [])
@@ -342,9 +342,9 @@ const Carosel = () => {
         }
     }
 
-    const localpath = "http://localhost:3001/";
+    const localpath = "http://backend.kooblu.com/";
 
-    // const localpath="http://localhost:3001/"
+    // const localpath="http://backend.kooblu.com/"
 
     return (
         <div className="Carosel-block">
@@ -906,7 +906,7 @@ const UserDashboard = () => {
     }, [])
 
     const orderss = () => {
-        axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
+        axios.get(`http://backend.kooblu.com/authUser/fetch_email/${userId}`)
             .then((res) => {
                 setMyorders1(res.data);
 
@@ -915,7 +915,7 @@ const UserDashboard = () => {
 
     useEffect(() => {
         const notification = parseInt(localStorage.getItem("userordercount"))
-        axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
+        axios.get(`http://backend.kooblu.com/booking_api/booking_data/${useremail}`)
             .then((res) => {
                 setorderdetails1(res.data)
                 if (notification === res.data.length || isNaN(notification) || notification >= res.data.length) {
@@ -1000,7 +1000,7 @@ const VendorDashboard = () => {
 
     const getdata2 = () => {
         const notification = parseInt(localStorage.getItem("ordercount"))
-        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
+        axios.get("http://backend.kooblu.com/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
             console.log(res.data.length);
             console.log(notification);
@@ -1045,7 +1045,7 @@ const VendorDashboard = () => {
                 })
 
             } else {
-                axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
+                axios.get(`http://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
                     .then((res) => {
                         console.log(res.data);
                         setVendorName(res.data)
@@ -1057,7 +1057,7 @@ const VendorDashboard = () => {
     }, [pathname, localStorage.getItem("vendor"), removeCookie])
 
 
-    const localpath = "http://localhost:3001/"
+    const localpath = "http://backend.kooblu.com/"
 
     if (!loading) {
         return (
