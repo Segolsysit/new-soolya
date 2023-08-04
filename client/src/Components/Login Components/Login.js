@@ -10,7 +10,7 @@ import { useCookies } from "react-cookie";
 import Swal from "sweetalert2";
 import 'animate.css';
 import { Select } from "@mui/material";
-axios.defaults.baseURL = 'http://backend.kooblu.com';
+axios.defaults.baseURL = 'https://backend.kooblu.com';
 axios.defaults.withCredentials = true;
 
 const Login = () => {
@@ -59,7 +59,7 @@ const Login = () => {
         }
         else {
             const { data } = await axios.post(
-                "http://backend.kooblu.com/authUser/login",
+                "https://backend.kooblu.com/authUser/login",
                 {
                     email: LoginId,
                     password: Password
@@ -190,7 +190,7 @@ const VendorLogin = () => {
         }
         else {
             await axios.post(
-                "http://backend.kooblu.com/vendor_Auth/login",
+                "https://backend.kooblu.com/vendor_Auth/login",
                 {
                     Email: LoginId,
                     Password: Password
@@ -371,7 +371,7 @@ const Signup = () => {
         else {
 
             const { data } = await axios.post(
-                "http://backend.kooblu.com/authUser/register",
+                "https://backend.kooblu.com/authUser/register",
                 {
                     firstName: First,
                     lastName: Last,
@@ -594,7 +594,7 @@ const Provider = () => {
     const [ErrPhoto, setErrPhoto] = useState('')
     const [sub1, SetSub1] = useState([]);
     useEffect(() => {
-        axios.get("http://backend.kooblu.com/sub_api/new_fetch_items").then((res) => {
+        axios.get("https://backend.kooblu.com/sub_api/new_fetch_items").then((res) => {
             SetSub1(res.data);
         })
     }, [])
@@ -1302,7 +1302,7 @@ const Provider = () => {
             Formdata.append("PanCard", PanCard)
             Formdata.append("Photo", Photo)
             try {
-                axios.post('http://backend.kooblu.com/vendor_Applications/Applications', Formdata)
+                axios.post('https://backend.kooblu.com/vendor_Applications/Applications', Formdata)
                     .then((res) => {
                         if (res.data.message === "Email/Mobilenum is already registered") {
                             toast.error("Already registered", {
@@ -1523,7 +1523,7 @@ const ForgetPassword = () => {
         }
 
 
-        axios.post("http://backend.kooblu.com/authUser/forgot_password", {
+        axios.post("https://backend.kooblu.com/authUser/forgot_password", {
             email: Email
         }, {
             method: "POST",
@@ -1608,7 +1608,7 @@ const ForgetPasswordVendor = () => {
         }
 
 
-        axios.post("http://backend.kooblu.com/vendor_Auth/forgot_password", {
+        axios.post("https://backend.kooblu.com/vendor_Auth/forgot_password", {
             Email: Email
         }, {
             method: "POST",
