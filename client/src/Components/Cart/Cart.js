@@ -42,7 +42,7 @@ const Cart=()=>{
 
   const getUser = () => {
         // console.log(userId);
-        axios.get(`https://backend.kooblu.com/authUser/fetch_email/${UserId}`)
+        axios.get(`http://localhost:3001/authUser/fetch_email/${UserId}`)
             .then((res) => {
                 console.log(res.data);
                 setUser(res.data)
@@ -58,7 +58,7 @@ const Cart=()=>{
 
 
     const PostOrder=async()=>{
-         await axios.post("https://backend.kooblu.com/booking_api/new_booking_cart", {
+         await axios.post("http://localhost:3001/booking_api/new_booking_cart", {
             Cart:TotalItems,
             user_email: User.email,
             address:Address,
@@ -73,7 +73,7 @@ const Cart=()=>{
         }
         )
         .then(() => {
-            axios.post("https://backend.kooblu.com/vendororder_api/new_booking_cart", {
+            axios.post("http://localhost:3001/vendororder_api/new_booking_cart", {
             Cart:TotalItems,
             user_email: User.email,
             address:Address,
@@ -123,7 +123,7 @@ const Cart=()=>{
 
   const getData=async()=>{
     if(Token){
-      await axios.get(`https://backend.kooblu.com/Cart/getCartItems/${UserId}`)
+      await axios.get(`http://localhost:3001/Cart/getCartItems/${UserId}`)
       .then(res=>setCartItems(res.data))
     }
   }
@@ -134,7 +134,7 @@ const Cart=()=>{
 
 
   const AddItem=async(id)=>{
-    await axios.patch("https://backend.kooblu.com/Cart/AddQty",{
+    await axios.patch("http://localhost:3001/Cart/AddQty",{
       ProductId:id,
     })
     .then((res)=>{
@@ -145,7 +145,7 @@ const Cart=()=>{
   }
 
   const RemoveItem=async(id)=>{
-    await axios.patch("https://backend.kooblu.com/Cart/RemoveQty",{
+    await axios.patch("http://localhost:3001/Cart/RemoveQty",{
       ProductId:id,
     })
     .then((res)=>{
