@@ -83,6 +83,11 @@ app.patch('/RemoveQty',async(req,res)=>{
 })
 
 
+app.delete('/deleteCartItem/:UserId',async(req,res)=>{
+    const UserId=await Cart.deleteMany()
+})
+
+
 app.get('/getCartItems/:UserId', async (req, res) => {
     const User = req.params.UserId
     try {
