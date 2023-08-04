@@ -1755,6 +1755,36 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     //     setNotificationCount("")
     // }
 
+    const [editfirstname, setEditfirstname] = useState("");
+    const [editlastname, setEditlastname] = useState("");
+    const [editPhonenumber, setEditPhonenumber] = useState("");
+    const [editEmail, setEditEmail] = useState("");
+    const [getuserdata, setGetuserdata] = useState({});
+
+    function GetedituserData() {
+        axios.get("https://backend.kooblu.com/authUser/fetch_email/" + userId).then((res) => {
+            setGetuserdata(res.data);
+            setEditfirstname(res.data.firstName);
+            setEditlastname(res.data.lastName);
+            setEditPhonenumber(res.data.phoneNumber);
+            setEditEmail(res.data.email);
+        })
+    }
+
+    useEffect(() => {
+        GetedituserData()
+    }, [])
+
+    function EditUser() {
+        axios.put("https://backend.kooblu.com/authUser/" + userId, {
+            firstName: editfirstname,
+            lastName: editlastname,
+            phoneNumber: editPhonenumber,
+            email: editEmail
+        }).then(() => {
+            window.location = "/Mydashboard"
+        })
+    }
 
 
     if (State === 3) {
@@ -2087,6 +2117,42 @@ const UserOrders = ({ State, Loader, setLoader }) => {
             </div>
 
 
+        )
+    }
+
+    else if (State === 6) {
+        return (
+            <div>
+                <h1>Edit My Profile</h1>
+                <div className="edit_table_div">
+                    <div>
+                        <table className="edit_table">
+                            <tbody>
+                                <tr>
+                                    <td>First Name</td>
+                                    <td><input defaultValue={getuserdata.firstName} onChange={(e) => { setEditfirstname(e.target.value) }} /></td>
+                                </tr>
+                                <tr>
+                                    <td>Last Name</td>
+                                    <td><input defaultValue={getuserdata.lastName} onChange={(e) => { setEditlastname(e.target.value) }} /></td>
+                                </tr>
+                                <tr>
+                                    <td>Phone Number</td>
+                                    <td><input defaultValue={getuserdata.phoneNumber} onChange={(e) => { setEditPhonenumber(e.target.value) }} /></td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td><input defaultValue={getuserdata.email} onChange={(e) => { setEditEmail(e.target.value) }} /></td>
+                                </tr>
+                                {/* <button type="button" onClick={EditUser}>Update</button> */}
+                            </tbody>
+                        </table>
+                        <div className="edit_submit_btn_div">
+                            <button className="edit_submit_btn" onClick={EditUser}>Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         )
     }
 
