@@ -593,10 +593,18 @@ const Provider = () => {
     const [ErrPan, setErrPan] = useState("")
     const [ErrPhoto, setErrPhoto] = useState('')
     const [sub1, SetSub1] = useState([]);
+    const[JobT,setJobT]=useState([])
+
+        useEffect(()=>{
+            axios.get("https://backend.kooblu.com/Job/getJob")
+            .then((res)=>setJobT(res.data))
+        },[])
+
     useEffect(() => {
         axios.get("https://backend.kooblu.com/sub_api/new_fetch_items").then((res) => {
             SetSub1(res.data);
         })
+
     }, [])
     const Form1 = (e) => {
         e.preventDefault()
@@ -1021,6 +1029,8 @@ const Provider = () => {
 
     const Form5 = (e) => {
         e.preventDefault()
+        
+
         setError(false)
         if (Education === "select" || Education === "") {
             setErrEdu("Select Education")
@@ -1095,10 +1105,10 @@ const Provider = () => {
                             }}>
                                 <option>select</option>
 
-                                {sub1.map((s) => (
+                                {JobT.length>0&& JobT.map((s) => (
 
 
-                                    <option value={s.Subcategory}>{s.Subcategory}</option>
+                                    <option value={s.Job}>{s.Job}</option>
 
 
                                 ))}
