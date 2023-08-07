@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Admin.css"
-import { CategoryForm, RejectedList, Orders, SubCategory } from './Categoryform';
+import { CategoryForm, RejectedList, Orders, SubCategory, AddJobTitle } from './Categoryform';
 import DashBoard from './Dashboard';
 import RecivedApplication from './RecivedApplications';
 import { AddNewService, ServiceList } from './Servicelist';
@@ -26,7 +26,7 @@ export const Admin = () => {
 
     const getdata2 = () => {
         const notification = parseInt(localStorage.getItem("ordercount"))
-        axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res) => {
+        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
             console.log(res.data.length);
             console.log(notification);
@@ -197,6 +197,11 @@ export const Admin = () => {
                                             setFormnum(11)
                                             setVisible(true)
                                         }} >Sub Category Setup</div>
+                                        <div className="collapse-item" onClick={() => {
+                                            setState(true)
+                                            setFormnum(14)
+                                            setVisible(true)
+                                        }} >Job Title Setup</div>
                                     </div>
                                 </div>
                             </li>
@@ -488,6 +493,7 @@ export const Admin = () => {
                                 <AddNewService formNumber={FormNum} />
                                 <RecivedApplication formNumber={FormNum} />
                                 <SubCategory formNumber={FormNum} />
+                                <AddJobTitle formNumber={FormNum}/>
 
                             </div>
                             {/* <!-- End of Main Content --> */}

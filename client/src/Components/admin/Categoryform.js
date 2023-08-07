@@ -33,11 +33,185 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
     const [imgsrc1, setImg1] = useState("")
     const [imgsrc2, setImg2] = useState("")
     const [imgsrc3, setImg3] = useState("")
+    const [VendorProfile, setVendorProfile] = useState([])
+
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedAadhar, setSelectedAadhar] = useState(null);
+    const [selectedPan, setSelectedPan] = useState(null);
+
+
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        setPicture(event.target.files[0])
+        if (file) {
+            setSelectedImage(file);
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+                setPreviewURL(reader.result);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleAadharChange = (event) => {
+        const file = event.target.files[0];
+        setAadharCard(event.target.files[0])
+        if (file) {
+            setSelectedImage(file);
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+                setAadharPreviewURL(reader.result);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handlePanChange = (event) => {
+        const file = event.target.files[0];
+        setPan(event.target.files[0])
+        if (file) {
+            setSelectedImage(file);
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+                setPanPreviewURL(reader.result);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    };
+
+
+
+const [openEdit, setOpenEdit] = useState(false);
+  const handleOpenEdit = (id) =>{
+    axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${id}`)
+            .then((res) => {
+                let newData = new Date(res.data.DOB);
+                console.log(newData.getFullYear(), newData.getDate(), newData.getMonth());
+                // console.log(res.data.DOB.getFullYear());
+                setVendorProfile(res.data)
+                setName(res.data.Username)
+                setMail(res.data.Email)
+                setPhone(res.data.Phonenumber)
+                setLocation(res.data.Location)
+                setGender(res.data.Gender)
+                setLanguage(res.data.Language)
+                // setDob("2023-07-06")
+                setDob(`${newData.getFullYear()}-${newData.toLocaleString('en-US', { month: '2-digit' })}-${newData.toLocaleString('en-US', { day: '2-digit' })}`)
+                setAadhar(res.data.AAdhar)
+                setAccn(res.data.AccNo)
+                setBnkName(res.data.BnkName)
+                setIfsc(res.data.Ifsc)
+                setEducation(res.data.Education)
+                setJobTitle(res.data.JobTitle)
+                setWorkExp(res.data.WorkExp)
+                setZone(res.data.Zone)
+                setAltPhone(res.data.AltPH)
+                setLang(res.data.KnownL)
+                setPicture(res.data.PhotoFiles)
+                setPan(res.data.PanFiles)
+                setAadharCard(res.data.AadharFiles)
+                AadharRef.current = res.data.AadharFiles[0].filename
+                ProfileRef.current = res.data.PhotoFiles[0].filename
+                PanRef.current = res.data.PanFiles[0].filename
+                console.log(res.data.PanFiles[0].filename);
+            })
+    setOpenEdit(true);
+  } 
+  const handleCloseEdit = () => setOpenEdit(false);
+
+  const style1 = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 'fit-content',
+    bgcolor: 'background.paper',
+    border: 'none',
+    boxShadow: 24,
+    p: 4,
+    height:'100%',
+    overflowY:'scroll'
+};
+
+
+  //Edit States
+  const [Name, setName] = useState("null")
+  const [mail, setMail] = useState("null")
+  const [Phone, setPhone] = useState("null")
+  const [Location, setLocation] = useState("null")
+  const [Gender, setGender] = useState("null")
+  const [Language, setLanguage] = useState("null")
+  const [DoB, setDob] = useState("null")
+  const [Aadhar, setAadhar] = useState("null")
+  const [Accn, setAccn] = useState("null")
+  const [BnkName, setBnkName] = useState("null")
+  const [IFSC, setIfsc] = useState("null")
+  const [Education, setEducation] = useState("null")
+  const [JobTitle, setJobTitle] = useState("null")
+  const [WorkExp, setWorkExp] = useState("null")
+  const [Zone, setZone] = useState("null")
+  const [AltPhone, setAltPhone] = useState("null")
+  const [Lang, setLang] = useState("null")
+  const [Picture, setPicture] = useState([])
+  const [Pan, setPan] = useState([])
+  const [AadharCard, setAadharCard] = useState([])
+  const AadharRef = useRef(null)
+  const ProfileRef = useRef(null)
+  const PanRef = useRef(null)
+//   const localpath = 'http://localhost:3001/'
+  const [previewURL, setPreviewURL] = useState('');
+  const [AadharpreviewURL, setAadharPreviewURL] = useState('');
+  const [PanpreviewURL, setPanPreviewURL] = useState('');
+
+
+  const PostData = async (id) => {
+    const formData = new FormData()
+    formData.append("Username", Name)
+    formData.append("mail", mail)
+    formData.append("Phone", Phone)
+    formData.append("Location", Location)
+    formData.append("Gender", Gender)
+    formData.append("Language", Language)
+    formData.append("DoB", DoB)
+    formData.append("Aadhar", Aadhar)
+    formData.append("Accn", Accn)
+    formData.append("BnkName", BnkName)
+    formData.append("IFSC", IFSC)
+    formData.append("Education", Education)
+    formData.append("JobTitle", JobTitle)
+    formData.append("WorkExp", WorkExp)
+    formData.append("Zone", Zone)
+    formData.append("AltPhone", AltPhone)
+    formData.append("Lang", Lang)
+    formData.append("AadharFiles", AadharCard)
+    formData.append("PhotoFiles", Picture)
+    formData.append("PanFiles", Pan)
+    await axios.patch(`http://localhost:3001/vendor_Auth/Edit/${id}`, formData)
+      .then((res) => {
+        if (res.data.status === 'ok') {
+          toast.success('Profile Updated')
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000)
+        }
+        else {
+          toast.error("Couldn't Update")
+        }
+
+      })
+
+  }
 
 
 
     const handleOpen = (id) => {
-        axios.get("https://backend.kooblu.com/vendor_Auth/fetch_vendor/" + id).then((res) => {
+        axios.get("http://localhost:3001/vendor_Auth/fetch_vendor/" + id).then((res) => {
             setGet(res.data)
             setImg1(res.data.PhotoFiles[0].filename)
             setImg2(res.data.AadharFiles[0].filename)
@@ -542,7 +716,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                                         <StyledTableCell>
                                             <Switch color="primary" /></StyledTableCell>
                                         <StyledTableCell style={{ width: '2%' }}>
-                                            <Button><i class="fa-solid fa-pencil"></i></Button>
+                                            <Button onClick={()=>handleOpenEdit(data._id)}><i class="fa-solid fa-pencil" ></i></Button>
                                             <Button onClick={() => { handleOpen(data._id) }}><i class="fa-solid fa-eye"></i></Button>
                                             <Button type="button" onClick={() => deleteOpen1(data._id)}><i class="fa-solid fa-trash"></i></Button>
                                         </StyledTableCell>
@@ -553,6 +727,123 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
                     </Table>
                 </TableContainer>
                 <div >
+                          
+              < Modal open = { openEdit }
+  onClose = { handleCloseEdit }>
+    <Box sx={style1}>
+          <table className="edit_table">
+            <tbody>
+              <tr>
+                <td>User Name</td>
+                <td><input defaultValue={VendorProfile.Username} onChange={(e) => { setName(e.target.value) }} /></td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td><input defaultValue={VendorProfile.Email} onChange={(e) => { setMail(e.target.value) }} /></td>
+              </tr>
+              <tr>
+                <td>Phone Number</td>
+                <td><input defaultValue={VendorProfile.Phonenumber} onChange={(e) => { setPhone(e.target.value) }} /></td>
+              </tr>
+              <tr>
+                <td>Location</td>
+                <td><input defaultValue={VendorProfile.Location} onChange={(e) => { setLocation(e.target.value) }} /></td>
+              </tr>
+              <tr>
+                <td>Gender</td>
+                <td><select onChange={(e) => { setGender(e.target.value) }}>
+                  <option>{VendorProfile.Gender}</option>
+                  <option>{VendorProfile.Gender === "Male" ? "Female" : "Male"}</option>
+
+                </select></td>
+              </tr>
+              <tr>
+                <td>Language</td>
+                <td><input defaultValue={VendorProfile.Language} onChange={(e) => { setLanguage(e.target.value) }} /></td>
+              </tr>
+              <tr>
+                <td>DOB</td>
+                <td><input type={'date'} defaultValue={DoB} onChange={(e) => { setDob(e.target.value) }} /></td>
+              </tr>
+              <tr>
+                <td>Aadhar</td>
+                <td><input defaultValue={VendorProfile.AAdhar} onChange={(e) => { setAadhar(e.target.value) }} /></td>
+              </tr>
+              <tr>
+                <td>AccNo</td>
+                <td><input defaultValue={VendorProfile.AccNo} onChange={(e) => { setAccn(e.target.value) }} /></td>
+              </tr>
+              <tr>
+                <td>Bank Name</td>
+                <td><input defaultValue={VendorProfile.BnkName} onChange={(e) => { setBnkName(e.target.value) }} /></td>
+              </tr>
+              <tr>
+                <td>IFSC</td>
+                <td><input defaultValue={VendorProfile.Ifsc} onChange={(e) => { setIfsc(e.target.value) }} /></td>
+              </tr>
+
+              <tr>
+                <td>Education</td>
+                <td><input defaultValue={VendorProfile.Education} onChange={(e) => { setEducation(e.target.value) }} /></td>
+              </tr>
+              <tr>
+                <td>Job Title</td>
+                <td><input defaultValue={VendorProfile.JobTitle} onChange={(e) => { setJobTitle(e.target.value) }} /></td>
+              </tr>
+              <tr>
+                <td>Work Experience</td>
+                <td><input defaultValue={VendorProfile.WorkExp} onChange={(e) => { setWorkExp(e.target.value) }} /></td>
+              </tr>
+              <tr>
+                <td>Zone</td>
+                <td><input defaultValue={VendorProfile.Zone} onChange={(e) => { setZone(e.target.value) }} /></td>
+              </tr>
+              <tr>
+                <td>Alternate Phone</td>
+                <td><input defaultValue={VendorProfile.AltPH} onChange={(e) => { setAltPhone(e.target.value) }} /></td>
+              </tr>
+              <tr>
+                <td>Languages Known</td>
+                <td><input defaultValue={VendorProfile.KnownL} onChange={(e) => { setLang(e.target.value) }} /></td>
+              </tr>
+              {/* <tr>
+                <td>Profile Picture</td>
+                <td><input type={'file'} onChange={(e) => handleImageChange(e)} /></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <img className="DisplayImage" src={previewURL === "" && VendorProfile.length>0 ? localpath + VendorProfile.PhotoFiles[0].filename : previewURL} alt="img" />
+                </td>
+              </tr> */}
+              {/* <tr>
+                <td>Pan Card</td>
+                <td><input type={'file'} onChange={(e) => handlePanChange(e)} /></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <img className="DisplayImage" src={PanpreviewURL === "" && VendorProfile.length>0 ? localpath + VendorProfile.PanFiles[0].filename : PanpreviewURL} alt="img" />
+                </td>
+              </tr>
+              <tr>
+                <td>Aadhar Card</td>
+                <td><input type={'file'} onChange={(e) => handleAadharChange(e)} /></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <img className="DisplayImage" src={AadharpreviewURL === "" && VendorProfile.length>0 ? localpath + VendorProfile.AadharFiles[0].filename : AadharpreviewURL} alt="img" />
+                </td>
+              </tr> */}
+
+            </tbody>
+          </table>
+          <div className="edit_submit_btn_div">
+            <button className="edit_submit_btn" onClick={() => PostData(VendorProfile._id)}>Submit</button>
+          </div>
+    </Box>
+      </Modal>
                     <Modal className="det"
                         open={open}
                         onClose={handleClose}
@@ -673,7 +964,7 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
 }
-const localpath = "https://backend.kooblu.com/"
+const localpath = "http://localhost:3001/"
 const SubCategory = ({ formNumber }) => {
     const [Data, setData] = useState([])
 
@@ -734,7 +1025,7 @@ const SubCategory = ({ formNumber }) => {
 
 
     const handleOpen = (ids) => {
-        axios.get("https://backend.kooblu.com/sub_api/Book_new_fetch_items/" + ids).then((data) => {
+        axios.get("http://localhost:3001/sub_api/Book_new_fetch_items/" + ids).then((data) => {
             setEdit(data.data);
             console.log(data.data);
             console.log(data.data.Subcategory);
@@ -861,10 +1152,10 @@ const SubCategory = ({ formNumber }) => {
     }
     function del(id) {
         console.log(id);
-        axios.delete("https://backend.kooblu.com/sub_api/delete_item/" + id).then(() => {
+        axios.delete("http://localhost:3001/sub_api/delete_item/" + id).then(() => {
 
 
-            axios.get("https://backend.kooblu.com/sub_api/new_fetch_items")
+            axios.get("http://localhost:3001/sub_api/new_fetch_items")
                 .then((data) => {
                     setsubcategorydata(data.data)
                 })
@@ -915,11 +1206,11 @@ const SubCategory = ({ formNumber }) => {
         formData.append("Discription", Desc)
         formData.append("Price", Pri)
         formData.append("file", Img)
-        await axios.patch(`https://backend.kooblu.com/sub_api/update_subcategory/${id}`, formData)
+        await axios.patch(`http://localhost:3001/sub_api/update_subcategory/${id}`, formData)
             .then((response) => {
                 if (response.data === "File Updated") {
                     toast.success("file updated")
-                    axios.get("https://backend.kooblu.com/sub_api/new_fetch_items")
+                    axios.get("http://localhost:3001/sub_api/new_fetch_items")
                         .then((data) => {
                             setsubcategorydata(data.data);
                             // setPreviewURL("")
@@ -1496,6 +1787,32 @@ const Orders = ({ formNumber }) => {
 }
 
 
+const AddJobTitle=({formNumber})=>{
+    const [Job,setJob]=useState("")
+    const PostJob=async(e)=>{
+        e.preventDefault()
+        await axios.post("http://localhost:3001/Job/newJob",{
+            Job:Job
+        })
+        .then((res)=>{
+            if(res.data.status==='ok'){
+                toast.success("Job added")
+                setJob("")
+            }
+        })
+    }
+    if(formNumber===14){return(
+        <form className="SubCategory" onSubmit={PostJob}>
+                    <label className="Category-Label">Job Title</label>
+                    <input className="Category-input" value={Job} onChange={(e)=>setJob(e.target.value)}/>
+                    <button className="Category-button" type="submit">Add</button>
+
+                </form>
+    )}
+    else return null
+}
 
 
-export { CategoryForm, RejectedList, Orders, SubCategory } 
+
+
+export { CategoryForm, RejectedList, Orders, SubCategory,AddJobTitle } 

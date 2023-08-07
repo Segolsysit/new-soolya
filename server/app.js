@@ -28,6 +28,7 @@ const OtpRoute = require("./RouteFiles/Otp");
 const vendor_orders_router = require("./RouteFiles/vendor_order_router copy");
 // server.on("request", app)
 const Cart = require('./RouteFiles/CartRoute')
+const Job=require('./RouteFiles/JobTitle_Route')
 
 
 
@@ -52,6 +53,7 @@ app.use('/vendor_Applications', Application_Router)
 app.use("/vendor_Auth", VendorAuthRoute);
 app.use("/sub_api", subcategory_router);
 app.use("/doneOtp", OtpDoneRoute);
+app.use("/Job",Job)
 // app.use("/service_api", service_router )
 // app.use("/serviceman",serviceman_route);
 

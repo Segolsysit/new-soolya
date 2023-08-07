@@ -3,6 +3,11 @@ import { Button, Table, TableBody, TableCell, TableRow, TableHead } from '@mui/m
 import Switch from '@mui/material/Switch';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
 
 
 
@@ -11,28 +16,44 @@ function Servicemanlist() {
 
   const [style, setstyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
   const aemail = localStorage.getItem("adminemail")
-    const apassword = localStorage.getItem("adminpassword")
-    const nav = useNavigate()
+  const apassword = localStorage.getItem("adminpassword")
+  const nav = useNavigate()
 
 
-    const verify = ()=>{
-        if(aemail === null && apassword === null){
-            nav("/admin")
-        }
+  const Style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const verify = () => {
+    if (aemail === null && apassword === null) {
+      nav("/admin")
     }
+  }
 
-    const [orderdetails, setorderdetails] = useState([])
+  const [orderdetails, setorderdetails] = useState([])
 
 
-    // const getdata2 = () => {
-    //     axios.get("http://backend.kooblu.com/booking_api/booking_data").then((res) => {
-    //         setorderdetails(res.data)
-    //     })}
+  // const getdata2 = () => {
+  //     axios.get("http://backend.kooblu.com/booking_api/booking_data").then((res) => {
+  //         setorderdetails(res.data)
+  //     })}
 
-    // useEffect(()=>{
-    //   getdata2()
-    //   verify()
-    // })
+  // useEffect(()=>{
+  //   getdata2()
+  //   verify()
+  // })
 
   const changeStyle = () => {
     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
@@ -51,8 +72,104 @@ function Servicemanlist() {
       setstyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion")
     }
   }
+  const [VendorProfile, setVendorProfile] = useState([])
+
+
+  //Edit States
+  
+
+
+
+
+ 
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setPicture(event.target.files[0])
+    if (file) {
+      setSelectedImage(file);
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setPreviewURL(reader.result);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleAadharChange = (event) => {
+    const file = event.target.files[0];
+    setAadharCard(event.target.files[0])
+    if (file) {
+      setSelectedImage(file);
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setAadharPreviewURL(reader.result);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handlePanChange = (event) => {
+    const file = event.target.files[0];
+    setPan(event.target.files[0])
+    if (file) {
+      setSelectedImage(file);
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setPanPreviewURL(reader.result);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+
+
+  useEffect(() => {
+    axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
+      .then((res) => {
+        let newData = new Date(res.data.DOB);
+        console.log(newData.getFullYear(), newData.getDate(), newData.getMonth());
+        // console.log(res.data.DOB.getFullYear());
+        setVendorProfile(res.data)
+        setName(res.data.Username)
+        setMail(res.data.Email)
+        setPhone(res.data.Phonenumber)
+        setLocation(res.data.Location)
+        setGender(res.data.Gender)
+        setLanguage(res.data.Language)
+        // setDob("2023-07-06")
+        setDob(`${newData.getFullYear()}-${newData.toLocaleString('en-US', { month: '2-digit' })}-${newData.toLocaleString('en-US', { day: '2-digit' })}`)
+        setAadhar(res.data.AAdhar)
+        setAccn(res.data.AccNo)
+        setBnkName(res.data.BnkName)
+        setIfsc(res.data.Ifsc)
+        setEducation(res.data.Education)
+        setJobTitle(res.data.JobTitle)
+        setWorkExp(res.data.WorkExp)
+        setZone(res.data.Zone)
+        setAltPhone(res.data.AltPH)
+        setLang(res.data.KnownL)
+        setPicture(res.data.PhotoFiles)
+        setPan(res.data.PanFiles)
+        setAadharCard(res.data.AadharFiles)
+        AadharRef.current = res.data.AadharFiles[0].filename
+        ProfileRef.current = res.data.PhotoFiles[0].filename
+        PanRef.current = res.data.PanFiles[0].filename
+        console.log(res.data.PanFiles[0].filename);
+      })
+  }, [])
+   
+           
+      
   return (
     <div>
+      
       <body id="page-top">
 
         {/* <!-- Page Wrapper --> */}
@@ -102,8 +219,8 @@ function Servicemanlist() {
               <a className="nav-link" href="/orders">
                 <i class="fa-regular fa-link-horizontal"></i>
                 <span>Orders
-                <span className="badge badge-danger badge-counter">{orderdetails.length}</span>
-                  </span></a>
+                  <span className="badge badge-danger badge-counter">{orderdetails.length}</span>
+                </span></a>
             </li>
             <li className="nav-item">
               <a className="nav-link collapsed" href="/" data-toggle="collapse" data-target="#collapseTwo"
@@ -427,6 +544,7 @@ function Servicemanlist() {
 
 
               <div >
+          
                 <h1> Service Man List</h1>
                 <Table className='table-cat'>
                   <TableHead>
@@ -451,7 +569,7 @@ function Servicemanlist() {
                       <TableCell>
                         <Switch color="primary" /></TableCell>
                       <TableCell>
-                        <Button><i class="fa-solid fa-pencil"></i></Button>
+                        <Button><i class="fa-solid fa-pencil" onClick={handleOpen}></i></Button>
                         <Button><i class="fa-solid fa-eye"></i></Button>
                         <Button><i class="fa-solid fa-trash"></i></Button>
                       </TableCell>
