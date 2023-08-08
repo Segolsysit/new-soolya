@@ -1021,6 +1021,9 @@ const VendorDashboard = () => {
         getdata2()
 
     }, [])
+    setTimeout(()=>{
+        localStorage.removeItem("vendor")
+      },1000*7200)
 
     useEffect(() => {
         if (pathname !== "/service") {
