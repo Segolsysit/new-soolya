@@ -219,7 +219,7 @@ a{
     background-image: url(https://images.vexels.com/media/users/3/101746/raw/da01a24b356c2778b7374e174b4806b9-light-blue-abstract-background.jpg);
     background-blend-mode: lighten;
     object-fit: fill;
-    /* height: 85vh; */
+    height: 75vh;
     z-index: 3;
 
 }
