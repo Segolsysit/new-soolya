@@ -107,6 +107,7 @@ VendorAuthRoute.post("/register", multipleUpload, async (req, res, next) => {
       Zone,
       AltPH,
       KnownL,
+      Status:'active',
       AadharCard: [],
       Photo: [],
       PanCard: []

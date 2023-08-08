@@ -21,6 +21,7 @@ const bcrypt = require("bcrypt");
         AltPH:Number,
         KnownL:String,
         SkillExp:String,
+        Status:String,
         
          AadharFiles: [{
         fieldName: String,
