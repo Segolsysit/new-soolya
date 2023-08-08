@@ -23,6 +23,9 @@ const Home = lazy(() => import('./Components/Home'));
 const Service = lazy(() => import('./Components/objects/servicepage/service'));
 
 
+
+
+
 function App() {
 
   setTimeout(()=>{
@@ -39,8 +42,6 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             {/* <Component2 /> */}
-
-
             <Route path='/service' element={<Service />} />
             <Route path='/Login' element={<Login />} />
             <Route path='/Signup' element={<Signup />} />
