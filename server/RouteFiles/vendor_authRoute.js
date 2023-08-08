@@ -167,25 +167,30 @@ VendorAuthRoute.post("/login", async (req, res) => {
   const { Email, Password } = req.body;
   try {
 
-    const user = await VendorAuth.findOne({ Email });
+    const user = await VendorAuth.findOne({ "Email":Email });
 
     if (!user) {
       return res.json({ status: "error", message: "Email Not Exist" });
     }
+if(user.Status==='active'){
+  const isPasswordValid = await bcrypt.compare(Password, user.Password);
 
-    const isPasswordValid = await bcrypt.compare(Password, user.Password);
+  if (isPasswordValid) {
+    const token = vjwt.sign({ id: user._id }, "soolya vendor super secret key");
+    res.cookie("venjwt", token, { httpOnly: false, maxAge: maxAge * 1000 });
+    res.status(200).json({ user: user._id, status: true, token: token });
 
-    if (isPasswordValid) {
-      const token = vjwt.sign({ id: user._id }, "soolya vendor super secret key");
-      res.cookie("venjwt", token, { httpOnly: false, maxAge: maxAge * 1000 });
-      res.status(200).json({ user: user._id, status: true, token: token });
+  }
+  else {
 
-    }
-    else {
+    return res.json({ status: "error", message: "Invalid password" });
 
-      return res.json({ status: "error", message: "Invalid password" });
-
-    }
+  }
+}
+else{
+  res.json({status:'failed',message:'User inactive'})
+}
+    
 
   } catch (err) {
     console.log(err);
@@ -357,7 +362,7 @@ VendorAuthRoute.patch('/Edit/:id', multipleUpload, async (req, res) => {
   data.AadharFiles = AadharCard || data.AadharFiles
   data.PhotoFiles = Photo || data.PhotoFiles
   data.PanFiles = PanCard || data.PanFiles
-
+  data.Status=req.body.Status||data.Status
 
   try {
     await data.save()
@@ -369,6 +374,35 @@ VendorAuthRoute.patch('/Edit/:id', multipleUpload, async (req, res) => {
     res.json({ status: 'error', error })
   }
 
+
+})
+
+
+VendorAuthRoute.patch('/status/:id',async(req,res)=>{
+  const Status=req.body.Status
+  const id=req.params.id
+  try{
+    const data = await VendorAuth.findByIdAndUpdate(id)
+    if(data){
+      data.Status=Status||data.Status
+      try{
+        data.save()
+      res.json({status:'ok',message:'updated'})
+      }
+      catch(err){
+        res.json({status:'failed',message:'failed in save'})
+
+      }
+      
+    }
+    else{
+      res.json({status:'failed',message:'no id found'})
+    }
+    
+  }
+  catch(error){
+    res.json({status:'failed',message:error})
+  }
 
 })
 module.exports = VendorAuthRoute;

@@ -209,6 +209,36 @@ const [openEdit, setOpenEdit] = useState(false);
   }
 
 
+  const HandleStatusChange=async(id,checked)=>{
+    await axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${id}`)
+    console.log("hello");
+    try {
+        // const response = await axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${id}`);
+        const newStatus = checked ? 'active' : 'inactive';
+        await axios.patch(`https://backend.kooblu.com/vendor_Auth/status/${id}`, {
+          Status: newStatus
+        })
+        // Call servicemandata() to update the data after status change
+        .then((res)=>{
+            if(res.data.status==='ok'){
+                setTimeout(()=>{
+                    servicemandata()
+
+                },1000)
+            }
+            else{
+                setTimeout(()=>{
+                    servicemandata()
+
+                },1000)
+            }
+        })
+      } catch (error) {
+        console.error('Error handling status change:', error);
+      }
+  }
+
+
 
     const handleOpen = (id) => {
         axios.get("https://backend.kooblu.com/vendor_Auth/fetch_vendor/" + id).then((res) => {
@@ -698,11 +728,12 @@ const [openEdit, setOpenEdit] = useState(false);
                                             <StyledTableCell>{data.Phonenumber}</StyledTableCell>
 
                                             <StyledTableCell>
-                                                <Switch color="primary" /></StyledTableCell>
+                                            <Switch color="primary"  />
+                                                </StyledTableCell>
                                             <StyledTableCell style={{ width: '2%' }}>
                                                 <Button><i class="fa-solid fa-pencil"></i></Button>
                                                 <Button ><i class="fa-solid fa-eye" ></i></Button>
-                                                <Button type="button" onClick={() => deleteOpen1(data._id)}><i class="fa-solid fa-trash"></i></Button>
+                                                <Button type="button" onChange={() => deleteOpen1(data._id)}><i class="fa-solid fa-trash"></i></Button>
                                             </StyledTableCell>
                                         </StyledTableRow >)
                                     }
@@ -714,7 +745,10 @@ const [openEdit, setOpenEdit] = useState(false);
                                         <StyledTableCell>{data.Email}</StyledTableCell>
                                         <StyledTableCell>{data.Phonenumber}</StyledTableCell>
                                         <StyledTableCell>
-                                            <Switch color="primary" /></StyledTableCell>
+                                            <Switch color="primary" defaultChecked={data.Status==="active"?true:false} onClick={(event) => HandleStatusChange(data._id, event.target.checked)}/>
+                                            <p className={data.Status==='active'?"StatusColor_Active":"StatusColor_Inactive"}>{data.Status==='active'?"Active":"Inactive"}</p>
+
+                                            </StyledTableCell>
                                         <StyledTableCell style={{ width: '2%' }}>
                                             <Button onClick={()=>handleOpenEdit(data._id)}><i class="fa-solid fa-pencil" ></i></Button>
                                             <Button onClick={() => { handleOpen(data._id) }}><i class="fa-solid fa-eye"></i></Button>

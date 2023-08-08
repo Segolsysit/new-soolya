@@ -16,6 +16,16 @@
     border-radius: 10px 0px 0px 10px;
 }
 
+
+.StatusColor_Active{
+    color: green;
+    font-weight: 800;
+}
+.StatusColor_Inactive{
+    color: red;
+    font-weight: 800;
+}
+
 .SubCategory {
     display: flex;
     flex-direction: column;
