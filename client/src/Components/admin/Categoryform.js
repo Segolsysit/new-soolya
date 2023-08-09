@@ -1604,6 +1604,8 @@ const Orders = ({ formNumber }) => {
                             <TableRow>
                                 <StyledTableCell align="center">SN</StyledTableCell>
                                 <StyledTableCell align="center">Name</StyledTableCell>
+                                <StyledTableCell align="center">DOO</StyledTableCell>
+                                <StyledTableCell align="center">DOA</StyledTableCell>
                                 <StyledTableCell align="center">Email</StyledTableCell>
                                 <StyledTableCell align="center">Category</StyledTableCell>
                                 <StyledTableCell align="center">Price</StyledTableCell>
@@ -1633,6 +1635,8 @@ const Orders = ({ formNumber }) => {
                                             <StyledTableCell>{a++}</StyledTableCell>
 
                                             <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{new Date(data.Placed).toDateString()}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{new Date(data.accepted).toDateString()}</p></StyledTableCell>
                                             <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
                                             <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
                                             <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
@@ -1666,6 +1670,7 @@ const Orders = ({ formNumber }) => {
                             <TableRow>
                                 <StyledTableCell align="center">SN</StyledTableCell>
                                 <StyledTableCell align="center">Name</StyledTableCell>
+                                <StyledTableCell align="center">Date</StyledTableCell>
                                 <StyledTableCell align="center">Email</StyledTableCell>
                                 <StyledTableCell align="center">Category</StyledTableCell>
                                 <StyledTableCell align="center">Price</StyledTableCell>
@@ -1694,6 +1699,7 @@ const Orders = ({ formNumber }) => {
                                         <StyledTableCell>{a++}</StyledTableCell>
 
                                         <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                        <StyledTableCell align="center"><p>{new Date(data.date).toDateString()}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
                                         <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
