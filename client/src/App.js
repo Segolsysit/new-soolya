@@ -26,6 +26,9 @@ const Service = lazy(() => import('./Components/objects/servicepage/service'));
 
 
 
+
+
+
 function App() {
 
   setTimeout(()=>{
