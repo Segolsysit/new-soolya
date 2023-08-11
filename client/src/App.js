@@ -28,9 +28,9 @@ const Service = lazy(() => import('./Components/objects/servicepage/service'));
 
 function App() {
 
-  setTimeout(()=>{
+  setTimeout(() => {
     localStorage.removeItem("vendor")
-  },1000*7200)
+  }, 1000 * 7200)
 
 
   return (
