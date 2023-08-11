@@ -34,6 +34,9 @@ const bookingdetailSchema = new mongoose.Schema({
     },
     paymentMethod: {
         type: String
+    },
+    date:{
+        type:Date
     }
 })
 
@@ -76,6 +79,12 @@ const pendingOderSchema = new mongoose.Schema({
     },
     paymentMethod: {
         type: String
+    },
+    accepted:{
+        type:Date
+    },
+    Placed:{
+        type:Date
     }
 })
 
@@ -120,6 +129,15 @@ const CompletedOderSchema = new mongoose.Schema({
     paymentMethod: {
         type: String
     },
+    doo:{
+        type:Date
+    },
+    doa:{
+        type:Date
+    },
+    doc:{
+        type:Date
+    }
     // workLists: [{
     //     subCategory: String,
     //     price: String

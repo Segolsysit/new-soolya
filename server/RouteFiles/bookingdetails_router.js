@@ -19,7 +19,8 @@ bookingdetails_router.post("/new_booking", async (req, res) => {
         // Service: req.body.Service,
         Category: req.body.Category,
         price: req.body.price,
-        paymentMethod:req.body.paymentMethod
+        paymentMethod:req.body.paymentMethod,
+        date:Date.now()
     })
     await deatails.save();
     res.status(200).json({message:"Uploaded Successfully",deatails})
@@ -48,7 +49,8 @@ bookingdetails_router.post("/new_booking_cart", async (req, res) => {
                 Service: req.body.Service,
                 Category: element.Name,
                 price: element.Price,
-                paymentMethod:paymentMethod
+                paymentMethod:paymentMethod,
+                date:Date.now()
             })
             await deatails.save();
         });
@@ -74,7 +76,9 @@ bookingdetails_router.post("/pending_orders/:id", async (req, res) => {
         Service: req.body.Service,
         Category: req.body.Category,
         price: req.body.price,
-        paymentMethod:req.body.paymentMethod
+        paymentMethod:req.body.paymentMethod,
+        Placed:req.body.date,
+        accepted:Date.now()
     })
 
    await deatails.save();
@@ -100,6 +104,9 @@ bookingdetails_router.post("/Completed_orders/:id", async (req, res) => {
         Category: req.body.Category,
         price: req.body.price,
         paymentMethod:req.body.paymentMethod,
+        doo:req.body.doo,
+        doa:req.body.doa,
+        doc:Date.now()
         // workLists,
         // total
     })

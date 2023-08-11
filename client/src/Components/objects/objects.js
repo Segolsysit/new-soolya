@@ -14,6 +14,8 @@ import axios from "axios";
 import { VendorProfile } from "./Userdashboardcomps/Dashboard components";
 import Swal from 'sweetalert2'
 import { capitalize } from "@mui/material";
+import jwtDecode from 'jwt-decode';
+
 
 axios.defaults.baseURL = 'https://backend.kooblu.com';
 axios.defaults.withCredentials = true;
@@ -77,12 +79,29 @@ const MenuBar = () => {
     const Token = localStorage.getItem("ty");
     const VendorToken = localStorage.getItem("vendor");
 
+    const decodedToken=Token?jwtDecode(Token):null
+  const UserId=Token?decodedToken.id:null
+
     const [Open, setOpen] = useState(false)
     const [icon, setIcon] = useState(<i class="fa-solid fa-bars"></i>)
     var status = localStorage.getItem("Status")
 
     const [state, setState] = useState(false)
     const { pathname } = useLocation();
+    const [CartItems,setCartItems]=useState([])
+
+
+
+    const getData=async()=>{
+        if(Token){
+          await axios.get(`https://backend.kooblu.com/Cart/getCartItems/${UserId}`)
+          .then(res=>setCartItems(res.data))
+        }
+      }
+
+      useEffect(()=>{
+        getData()
+      },[])
 
 
 
@@ -135,6 +154,7 @@ const MenuBar = () => {
                     <button className="Searchbutton"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div> */}
                     <Link to="/Provider"><button className="hireButton">Provider Joining</button></Link>
+                    <Link to="/Cart"><button className={Token || VendorToken ? "userButton" : "userButton-hide"}><i class="fa-solid fa-cart-shopping"></i></button><span hidden={Token?false:true} style={{fontSize:'12px',backgroundColor:'orange',color:'white',borderRadius:'50%',marginLeft:'-10px',position:'relative',top:'-20px',fontWeight:700,aspectRatio:1/1,width:'10px',padding:'3px'}}>{CartItems.length}</span></Link>
                     <Link to="/Login"><button className={Token || VendorToken ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
                     <img onClick={ProfileOpen} src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=1380&t=st=1682572419~exp=1682573019~hmac=ce813aaccc4d2e8202195a8bbb9a53a4d0e5a9b057dda865cfe06a7ee5d93f9b" alt="" className={Token || VendorToken ? "Profileimg" : "Profileimg-hide"}></img>
                 </div>
@@ -815,6 +835,23 @@ const MenuList = ({ Open, Close }) => {
     const [cookies, removeCookie] = useCookies()
     const Token = localStorage.getItem("ty")
     const VendorToken = localStorage.getItem("vendor")
+    const decodedToken=Token?jwtDecode(Token):null
+  const UserId=Token?decodedToken.id:null
+  
+
+  const getData=async()=>{
+    if(Token){
+      await axios.get(`https://backend.kooblu.com/Cart/getCartItems/${UserId}`)
+      .then(res=>setCartItems(res.data))
+    }
+  }
+
+  useEffect(()=>{
+    getData()
+  },[])
+  
+
+  const [CartItems,setCartItems]=useState([])
     const [state, setState] = useState(false)
     const ProfileOpen = () => {
         if (!state) {
@@ -843,6 +880,7 @@ const MenuList = ({ Open, Close }) => {
                     </div > */}
                     <Link to="/Provider"><button className="hireButton">Provider Joining</button></Link>
                     <Link to="/Login"><button className={Token || VendorToken ? "userButton-hide" : "userButton"}><i class="fa-solid fa-user"></i></button></Link>
+                    <Link to="/Cart"><button className={Token || VendorToken ? "userButton-hide" : "userButton-hide"}><i class="fa-solid fa-cart-shopping"></i></button><span hidden={Token?false:true} style={{fontSize:'12px',backgroundColor:'orange',color:'white',borderRadius:'50%',marginLeft:'-10px',position:'relative',top:'-20px',fontWeight:700,aspectRatio:1/1,width:'10px',padding:'3px'}}>{CartItems.length}</span></Link>
                     <img onClick={ProfileOpen} src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=1380&t=st=1682572419~exp=1682573019~hmac=ce813aaccc4d2e8202195a8bbb9a53a4d0e5a9b057dda865cfe06a7ee5d93f9b" alt="" className={Token || VendorToken ? "Profileimg" : "Profileimg-hide"}></img>
                 </div>
                 <Profile open={state} close={setState} />

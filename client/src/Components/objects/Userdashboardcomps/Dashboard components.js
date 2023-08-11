@@ -759,7 +759,8 @@ const VendorOrders = ({ State }) => {
                     Service: orders.Service,
                     Category: orders.Category,
                     price: orders.price,
-                    paymentMethod: orders.paymentMethod
+                    paymentMethod: orders.paymentMethod,
+                    date:orders.date
                 })
                 axios.delete(`https://backend.kooblu.com/booking_api/delete_item/${orders._id}`)
                     .then(() => {
@@ -884,6 +885,7 @@ const VendorOrders = ({ State }) => {
                                 <TableRow>
                                     <StyledTableCell align="center">SN</StyledTableCell>
                                     <StyledTableCell align="center">Name</StyledTableCell>
+                                    <StyledTableCell align="center">DOO</StyledTableCell>
                                     <StyledTableCell align="center">Email</StyledTableCell>
                                     <StyledTableCell align="center">Category</StyledTableCell>
                                     <StyledTableCell align="center">Price</StyledTableCell>
@@ -907,7 +909,9 @@ const VendorOrders = ({ State }) => {
                                                 <StyledTableCell>{a++}</StyledTableCell>
 
                                                 <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.date}</p></StyledTableCell>
                                                 <StyledTableCell align="center"><p>{data.user_email}</p></StyledTableCell>
+
                                                 <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
                                                 <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
                                                 <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
@@ -1049,6 +1053,9 @@ const VendorOrders = ({ State }) => {
                                 <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</StyledTableCell>
                                 {/* <TableCell>Service</TableCell> */}
                                 <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</StyledTableCell>
+                                <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>DOO</StyledTableCell>
+                                <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>DOA</StyledTableCell>
+                                <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>DOC</StyledTableCell>
                                 <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Completed By</StyledTableCell>
                                 <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</StyledTableCell>
                                 <StyledTableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</StyledTableCell>
@@ -1070,6 +1077,9 @@ const VendorOrders = ({ State }) => {
 
                                             {/* <TableCell><p>{data.Service}</p></TableCell> */}
                                             <StyledTableCell><p>{data.Category}</p> </StyledTableCell>
+                                            <StyledTableCell><p>{new Date(data.doo).toDateString()}</p> </StyledTableCell>
+                                            <StyledTableCell><p>{new Date(data.doa).toDateString()}</p> </StyledTableCell>
+                                            <StyledTableCell><p>{new Date(data.doc).toDateString()}</p> </StyledTableCell>
                                             <StyledTableCell><p>{data.vendor_name}</p></StyledTableCell>
                                             <StyledTableCell><p>{data.address}</p></StyledTableCell>
                                             <StyledTableCell><p>{data.number}</p></StyledTableCell>
@@ -1357,6 +1367,8 @@ const PendingOrders = ({ State, setState }) => {
                         Category: completePendingorders.Category,
                         price: completePendingorders.price,
                         paymentMethod: completePendingorders.paymentMethod,
+                        doo:completePendingorders.Placed,
+                        doa:completePendingorders.accepted
                         // workLists: workListsData,
                         // total: total
                     }).then(() => {
@@ -1395,6 +1407,8 @@ const PendingOrders = ({ State, setState }) => {
                                 <TableRow>
                                     <StyledTableCell align="center">SN</StyledTableCell>
                                     <StyledTableCell align="center">Name</StyledTableCell>
+                                    <StyledTableCell align="center">DOO</StyledTableCell>
+                                    <StyledTableCell align="center">DOA</StyledTableCell>
                                     <StyledTableCell align="center">Accepted By</StyledTableCell>
                                     <StyledTableCell align="center">Category</StyledTableCell>
                                     <StyledTableCell align="center">Price</StyledTableCell>
@@ -1417,6 +1431,8 @@ const PendingOrders = ({ State, setState }) => {
                                             <StyledTableCell>{a++}</StyledTableCell>
 
                                             <StyledTableCell align="center"><p>{data.person}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{new Date(data.Placed).toDateString()}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{new Date(data.accepted).toDateString()}</p></StyledTableCell>
                                             <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
                                             <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
                                             <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
@@ -1684,14 +1700,18 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
     // }
 
+    const GetData=async()=>{
+        await axios.get(`https://backend.kooblu.com/booking_api/booking_data/${useremail}`)
+        .then((res) => {
+            console.log(res.data);
+            setorderdetails(res.data)
+
+        })
+    }
+
     useEffect(() => {
-        axios.get(`https://backend.kooblu.com/booking_api/booking_data/${useremail}`)
-            .then((res) => {
-                console.log(res.data);
-                setorderdetails(res.data)
-
-            })
-
+        
+        GetData()
         axios.get(`https://backend.kooblu.com/booking_api/pending_book/${useremail}`)
             .then((res) => {
                 setpending_order(res.data)
@@ -1797,7 +1817,8 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                         <TableHead>
                             <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
-                                {/* <TableCell>Service</TableCell> */}
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>DOO</TableCell>
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>DOA</TableCell>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Accepted By</TableCell>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
@@ -1818,7 +1839,8 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                         <TableRow key={index} style={{ backgroundColor: "white" }}>
                                             <TableCell>{a++}</TableCell>
 
-                                            {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                            <TableCell><p>{new Date(data.Placed).toDateString()}</p></TableCell>
+                                            <TableCell><p>{new Date(data.accepted).toDateString()}</p></TableCell>
                                             <TableCell><p>{data.Category}</p> </TableCell>
                                             <TableCell><p>{data.vendor_name}</p> </TableCell>
                                             <TableCell><p>{data.price}</p></TableCell>
@@ -1860,7 +1882,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                         <TableHead>
                             <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>SN</TableCell>
-                                {/* <TableCell>Service</TableCell> */}
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Date</TableCell>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Category</TableCell>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Price</TableCell>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Address</TableCell>
@@ -1880,7 +1902,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                         <TableRow key={index} style={{ backgroundColor: "white" }}>
                                             <TableCell>{a++}</TableCell>
 
-                                            {/* <TableCell><p>{data.Service}</p></TableCell> */}
+                                            <TableCell><p>{new Date(data.date).toDateString()}</p></TableCell>
                                             <TableCell><p>{data.Category}</p> </TableCell>
                                             <TableCell><p>{data.price}</p></TableCell>
                                             <TableCell><p>{data.address}</p></TableCell>
