@@ -15,6 +15,7 @@ import Modal from '@mui/material/Modal';
 import Multiselect from 'multiselect-react-dropdown';
 import { toast } from 'react-toastify';
 import useRazorpay, { Razorpay } from 'react-razorpay'
+import Typography from '@mui/material/Typography';
 
 
 
@@ -674,8 +675,30 @@ const VendorOrders = ({ State }) => {
             })
     }
     // const Vemail = vendorDetails.Email
+    console.log(completedOrderdetails);
 
-    const totalearnings = completedOrderdetails.reduce((acc, curr) => acc + (curr.price), 0)
+    const totalearnings =Math.round((completedOrderdetails.reduce((acc, curr) => acc + (curr.price), 0)*(15/100))) 
+    const completed=completedOrderdetails.map(item=>{
+        return{
+            CompletedID:item._id,
+            CompletedPrice:item.price
+        }
+    })
+
+    console.log(completed);
+
+    const EdtiEarnings=async()=>{
+        await axios.patch(`https://backend.kooblu.com/vendor_Auth/EditEarning/${vendorId}`,{
+            earning:totalearnings,
+            completed:completed
+
+        })
+
+    }
+
+    useEffect(()=>{
+        EdtiEarnings()
+    },[totalearnings])
 
     const handleOpen = () => {
         setOpen(true)
@@ -730,9 +753,6 @@ const VendorOrders = ({ State }) => {
 
 
     }
-    const Buttonclick = () => {
-
-    }
 
 
 
@@ -760,7 +780,7 @@ const VendorOrders = ({ State }) => {
                     Category: orders.Category,
                     price: orders.price,
                     paymentMethod: orders.paymentMethod,
-                    date:orders.date
+                    date: orders.date
                 })
                 axios.delete(`https://backend.kooblu.com/booking_api/delete_item/${orders._id}`)
                     .then(() => {
@@ -874,6 +894,51 @@ const VendorOrders = ({ State }) => {
     // }
 
     // const total = selected.reduce((acc,curr)=> acc + curr.Price, 0)
+    const [Amount, setAmount] = useState(0)
+    const [ErrPay, setErrPay] = useState(true)
+    const handleClaimChange = (value) => {
+        const UserAmt = parseInt(value)
+        if (UserAmt <= vendorDetails.Earning) {
+            setAmount(UserAmt)
+            setErrPay(true)
+        }
+        else {
+            setErrPay(false)
+        }
+
+    }
+
+    const RequestPay = async () => {
+        if (ErrPay) {
+            await axios.post("https://backend.kooblu.com/request/newRequest", {
+                name:vendorDetails.Username,
+                Phone:vendorDetails.Phonenumber,
+                Job:vendorDetails.JobTitle,
+                claimable:totalearnings,
+                Request:Amount
+            })
+            .then(res=>{
+                if(res.data.status==='ok'){
+                    toast.success('Request made')
+                     axios.patch(`https://backend.kooblu.com/vendor_Auth/deductEarning/${vendorId}`,{
+                        earning:Amount
+                    })
+
+                    .then(get_vendor())
+                }
+                else{
+                    toast.error("Request Pending")
+                }
+            })
+        }
+
+        else{
+            toast.error("Enter amount within the claimable limit")
+        }
+    }
+
+
+
     if (State === 2) {
         return (
             <div style={{ width: "100%" }}>
@@ -1045,8 +1110,31 @@ const VendorOrders = ({ State }) => {
                     <h2>Completed Orders</h2><br />
                     <div className="Earnings" >
                         <h4>Total Earnings : <span className="Pay-button">{totalearnings}</span></h4><br />
+                        <h4>Claimable : <span className="Pay-button">{vendorDetails.Earning}</span></h4>
                         <h4>Total Orders : {completedOrderdetails.length}</h4>
+                        <button className="Pay_btn" onClick={handleOpen}>Request Pay</button>
                     </div>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h4" component="h1">
+                                Request Payment
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                Claimable Amount:  ₹{vendorDetails.Earning}
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ display: 'flex' }}>
+                                Amount to request:₹<div className="Pay_req_inpt_div"><input className={
+                                    ErrPay ? "Pay_req_inpt" : "Pay_req_inpt_err"} onChange={(e) => handleClaimChange(e.target.value)} /><p hidden={ErrPay} style={{ color: 'red', fontSize: '11px' }}>Enter less than the claimable amount</p></div>
+                            </Typography>
+                            <button className="Pay_btn" onClick={RequestPay}>Send</button>
+                        </Box>
+                    </Modal>
+
                     <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
                         <TableHead>
                             <TableRow style={{ border: "2px solid black", margin: "0px", textAlign: "center" }}>
@@ -1367,8 +1455,8 @@ const PendingOrders = ({ State, setState }) => {
                         Category: completePendingorders.Category,
                         price: completePendingorders.price,
                         paymentMethod: completePendingorders.paymentMethod,
-                        doo:completePendingorders.Placed,
-                        doa:completePendingorders.accepted
+                        doo: completePendingorders.Placed,
+                        doa: completePendingorders.accepted
                         // workLists: workListsData,
                         // total: total
                     }).then(() => {
@@ -1700,17 +1788,17 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
     // }
 
-    const GetData=async()=>{
+    const GetData = async () => {
         await axios.get(`https://backend.kooblu.com/booking_api/booking_data/${useremail}`)
-        .then((res) => {
-            console.log(res.data);
-            setorderdetails(res.data)
+            .then((res) => {
+                console.log(res.data);
+                setorderdetails(res.data)
 
-        })
+            })
     }
 
     useEffect(() => {
-        
+
         GetData()
         axios.get(`https://backend.kooblu.com/booking_api/pending_book/${useremail}`)
             .then((res) => {

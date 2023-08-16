@@ -1828,7 +1828,43 @@ const Orders = ({ formNumber }) => {
 
 
 const AddJobTitle=({formNumber})=>{
+    const [JobTitle,setJobTitle]=useState([])
     const [Job,setJob]=useState("")
+
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
+            textAlign:'left'
+
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+            border: 0,
+            textAlign:'left'
+        },
+    }));
+
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+        // hide last border
+        // '&:last-child td, &:last-child th': {
+        //     border: 0,
+        // },
+    }));
+
+    const getData=async()=>{
+        await axios.get("https://backend.kooblu.com/Job/getJob")
+        .then((res)=>setJobTitle(res.data))
+    }
+useEffect(()=>{
+    getData()
+},[])
+
+
+
     const PostJob=async(e)=>{
         e.preventDefault()
         await axios.post("https://backend.kooblu.com/Job/newJob",{
@@ -1838,21 +1874,163 @@ const AddJobTitle=({formNumber})=>{
             if(res.data.status==='ok'){
                 toast.success("Job added")
                 setJob("")
+                getData()
             }
         })
     }
+
+    const DeleteItem=async(id)=>{
+        await axios.delete(`https://backend.kooblu.com/Job/deleteJob/${id}`)
+        .then(toast.success("item deleted"))
+        getData()
+    }
+
+
+
+
     if(formNumber===14){return(
+        <div className="Job_Title_maindiv">
         <form className="SubCategory" onSubmit={PostJob}>
                     <label className="Category-Label">Job Title</label>
                     <input className="Category-input" value={Job} onChange={(e)=>setJob(e.target.value)}/>
                     <button className="Category-button" type="submit">Add</button>
 
-                </form>
+        </form>
+
+        <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                    <Table className='table-cat' style={{ margin: "0px" }}>
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>SN</StyledTableCell>
+                                <StyledTableCell>Job Title</StyledTableCell>
+                                <StyledTableCell>Action</StyledTableCell>
+
+                                
+                            </TableRow>
+                        </TableHead>
+                        {JobTitle.length === 0 ? (
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell colSpan={10}>
+                                        <h3 className="no_data">No completed orders Found!</h3>
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>) :
+                            (
+                                <TableBody>
+                                    {
+                                        JobTitle.map((data, index) => (
+                                            <StyledTableRow key={index}>
+                                                <StyledTableCell>{index+1}</StyledTableCell>
+                                                <StyledTableCell align="center"><p>{data.Job}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><button className="Delete_btn" onClick={()=>DeleteItem(data._id)}>Delete</button></StyledTableCell>
+                                            </StyledTableRow>
+                                        ))
+                                    }
+                                </TableBody>
+                            )}
+                    </Table>
+                </TableContainer>
+
+        </div>
     )}
     else return null
 }
 
 
+const PaymentList=({formNumber})=>{
+
+    const[Data,setData]=useState([])
 
 
-export { CategoryForm, RejectedList, Orders, SubCategory,AddJobTitle } 
+    const getPay=async()=>{
+        await axios.get('https://backend.kooblu.com/request/payDetails')
+        .then(res=>setData(res.data))
+    }
+
+    useEffect(()=>{
+        getPay()
+    },[])
+
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
+            textAlign:'left'
+
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+            border: 0,
+            textAlign:'left'
+        },
+    }));
+
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+        // hide last border
+        // '&:last-child td, &:last-child th': {
+        //     border: 0,
+        // },
+    }));
+
+    if(formNumber===15){
+        return(
+            <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                        <Table className='table-cat' style={{ margin: "0px" }}>
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>SN</StyledTableCell>
+                                    <StyledTableCell>Name</StyledTableCell>
+                                    <StyledTableCell>Job</StyledTableCell>
+                                    <StyledTableCell>Phone</StyledTableCell>
+                                    <StyledTableCell>Claimable</StyledTableCell>
+                                    <StyledTableCell>Request</StyledTableCell>
+                                    <StyledTableCell>Action</StyledTableCell>
+    
+                                    
+                                </TableRow>
+                            </TableHead>
+                            {Data.length === 0 ? (
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell colSpan={10}>
+                                            <h3 className="no_data">No payment request found</h3>
+                                        </TableCell>
+                                    </TableRow>
+                                </TableBody>) :
+                                (
+                                    <TableBody>
+                                        {
+                                           Array.isArray(Data)&& Data.map((data, index) => (
+                                                <StyledTableRow key={index}>
+                                                    <StyledTableCell>{index+1}</StyledTableCell>
+                                                    <StyledTableCell align="center"><p>{data.Name}</p></StyledTableCell>
+                                                    <StyledTableCell align="center"><p>{data.Job}</p></StyledTableCell>
+                                                    <StyledTableCell align="center"><p>{data.Phone}</p></StyledTableCell>
+                                                    <StyledTableCell align="center"><p>{data.Claimable}</p></StyledTableCell>
+                                                    <StyledTableCell align="center"><p>{data.Request}</p></StyledTableCell>
+                                                    <StyledTableCell align="center"><button className="Pay_btn">Pay</button></StyledTableCell>
+
+                                                </StyledTableRow>
+                                            ))
+                                        }
+                                    </TableBody>
+                                )}
+                        </Table>
+                    </TableContainer>
+    
+        )
+    }
+
+    else return null
+
+   
+
+}
+
+
+
+export { CategoryForm, RejectedList, Orders, SubCategory,AddJobTitle,PaymentList } 

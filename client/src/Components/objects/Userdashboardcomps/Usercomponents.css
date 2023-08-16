@@ -90,6 +90,38 @@ completedOrderdetails
     background-color:white;
 }
 
+.Pay_btn{
+    background-color: green;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    padding: 3px 10px 3px 10px;
+}
+
+.Pay_req_inpt{
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+.Pay_req_inpt_err{
+border: none;
+    border-bottom: 1px solid red;
+    color: red;
+}
+
+.Pay_req_inpt_err:focus{
+    outline: none;
+}
+
+.Pay_req_inpt_div{
+    display: flex;
+    flex-direction: column;
+}
+
+.Pay_req_inpt:focus{
+    outline: none;
+}
+
 .Order-container{
     width: 95%;
      margin: 10px;

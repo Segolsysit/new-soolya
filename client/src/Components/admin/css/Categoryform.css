@@ -181,3 +181,15 @@ th {
 /* .det {
     margin-top: 10px;
 } */
+
+.Job_Title_maindiv{
+    display: flex;
+    flex-direction: column;
+}
+
+.Delete_btn{
+    border: none;
+    border-radius: 3px;
+    color: red;
+    font-weight:bolder;
+}

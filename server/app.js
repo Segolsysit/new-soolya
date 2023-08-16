@@ -29,6 +29,7 @@ const vendor_orders_router = require("./RouteFiles/vendor_order_router copy");
 // server.on("request", app)
 const Cart = require('./RouteFiles/CartRoute')
 const Job=require('./RouteFiles/JobTitle_Route')
+const request=require('./RouteFiles/Request_Model')
 
 
 
@@ -54,6 +55,7 @@ app.use("/vendor_Auth", VendorAuthRoute);
 app.use("/sub_api", subcategory_router);
 app.use("/doneOtp", OtpDoneRoute);
 app.use("/Job",Job)
+app.use("/request",request)
 // app.use("/service_api", service_router )
 // app.use("/serviceman",serviceman_route);
 

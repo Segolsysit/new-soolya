@@ -37,5 +37,17 @@ app.post('/newJob',async(req,res)=>{
    
 })
 
+app.delete('/deleteJob/:id',async(req,res)=>{
+    const id=req.params.id
+    try{
+        const data=await newJob.findByIdAndDelete(id)
+        res.json("Deleted")
+    }   
+    
+    catch(err){
+        res.json(err)
+    }
+})
+
 
 module.exports=app

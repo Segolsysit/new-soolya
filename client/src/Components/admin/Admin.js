@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Admin.css"
-import { CategoryForm, RejectedList, Orders, SubCategory, AddJobTitle } from './Categoryform';
+import { CategoryForm, RejectedList, Orders, SubCategory, AddJobTitle, PaymentList } from './Categoryform';
 import DashBoard from './Dashboard';
 import RecivedApplication from './RecivedApplications';
 import { AddNewService, ServiceList } from './Servicelist';
@@ -138,6 +138,12 @@ export const Admin = () => {
                                     <span>Application</span></div>
                             </li>
 
+                            <li className="nav-item active" onClick={() => setFormnum(15)}>
+                                <div className="nav-link"  >
+                                <i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <span>Payment</span></div>
+                                    </li>
+
                             {/* <!-- Divider --> */}
                             <hr className="sidebar-divider" />
 
@@ -240,6 +246,7 @@ export const Admin = () => {
                                     <i className="fas fa-fw fa-user"></i>
                                     <span>SERVICE MAN</span>
                                 </div>
+                                
                                 <div id="collapsePages1" className="collapse" aria-labelledby="headingPages1" data-bs-parent="#accordionSidebar" hidden={Visible}>
                                     <div className="bg-white py-2 collapse-inner rounded">
                                         {/* <h6 className="collapse-header">Login Screens:</h6> */}
@@ -494,6 +501,7 @@ export const Admin = () => {
                                 <RecivedApplication formNumber={FormNum} />
                                 <SubCategory formNumber={FormNum} />
                                 <AddJobTitle formNumber={FormNum}/>
+                                <PaymentList formNumber={FormNum}/>
 
                             </div>
                             {/* <!-- End of Main Content --> */}

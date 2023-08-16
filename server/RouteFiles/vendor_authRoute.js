@@ -6,7 +6,8 @@ const path = require("path");
 
 const vjwt = require("jsonwebtoken");
 const maxAge = 3 * 24 * 60 * 60;
-const multer = require('multer')
+const multer = require('multer');
+const { log } = require("console");
 
 
 
@@ -106,8 +107,10 @@ VendorAuthRoute.post("/register", multipleUpload, async (req, res, next) => {
       WorkExp,
       Zone,
       AltPH,
+      Earning:0,
       KnownL,
       Status:'active',
+      Completed:[],
       AadharCard: [],
       Photo: [],
       PanCard: []
@@ -159,6 +162,105 @@ VendorAuthRoute.post("/register", multipleUpload, async (req, res, next) => {
     console.log(err);
     res.status(500).json({ status: "error", message: "Something went wrong" });
   }
+})
+
+
+VendorAuthRoute.patch('/EditEarning/:id',async(req,res)=>{
+  const id=req.params.id
+  const earning=req.body.earning
+  const completed=req.body.completed
+  // console.log(completed);
+  try{
+    const data=await VendorAuth.findByIdAndUpdate(id)
+
+function Find(arr1,arr2){
+ return arr2.filter(val=>!arr1.includes(val))
+}    
+
+const arr1=data.Completed
+const arr2=completed.map(item=>item.CompletedID)
+
+// console.log(arr1)
+// console.log(arr2)
+
+const New=Find(arr1,arr2)
+
+// console.log("new: "+New);
+
+
+var LoopPrice=data.Earning
+
+const Sub=completed.filter(obj=>New.includes(obj.CompletedID))
+console.log(New);
+
+
+
+if(New.length>0){
+  console.log(New);
+  New.map((item,index)=>{
+    console.log(item);
+    data.Completed.push(item)
+  })
+  Sub.map((item,index)=>{
+    data.CompletedPrice.push(item.CompletedPrice)
+    LoopPrice+=Math.round((item.CompletedPrice)*(15/100))
+
+  })
+  data.save()
+  console.log('patched')
+}
+
+
+
+      
+  // console.log(status);
+  
+    if(data.Earning!==LoopPrice){
+      data.Earning=LoopPrice
+    }
+    else{
+      data.Earning=data.Earning
+    }
+    
+    try{
+      await data.save()
+      res.json({status:'ok',message:'patched'})
+
+    }
+    catch(err){
+      res.json({status:'failed',message:err})
+    }    
+
+  }
+  catch(err){
+    res.json({status:'failed',message:err})
+  }
+  
+})
+
+VendorAuthRoute.patch('/deductEarning/:id',async(req,res)=>{
+  const id=req.params.id
+  const earning=req.body.earning
+  try{
+    const data=await VendorAuth.findByIdAndUpdate(id)
+   
+      data.Earning=data.Earning-earning
+    
+    
+    try{
+      await data.save()
+      res.json({status:'ok',message:'patched'})
+
+    }
+    catch(err){
+      res.json({status:'failed',message:err})
+    }    
+
+  }
+  catch(err){
+    res.json({status:'failed',message:err})
+  }
+  
 })
 
 

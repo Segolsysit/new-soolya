@@ -22,6 +22,9 @@ const bcrypt = require("bcrypt");
         KnownL:String,
         SkillExp:String,
         Status:String,
+        Earning:Number,
+        Completed:[String],
+        CompletedPrice:[Number],
         
          AadharFiles: [{
         fieldName: String,
