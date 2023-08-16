@@ -50,4 +50,25 @@ app.get('/payDetails',async(req,res)=>{
     }
 })
 
+app.get('/Unique/:id',async(req,res)=>{
+    const id=req.params.id
+    try{
+        const data=await request.findById(id)
+        res.json(data)
+    }
+    catch(error){
+        res.json(error)
+    }
+})
+
+app.get('/delete/:id',async(req,res)=>{
+    const id=req.params.id
+    try{
+        const data=await request.findByIdAndDelete(id)
+        res.json("item deleted")
+    }
+    catch(error){
+        res.json(error)
+    }
+})
 module.exports=app

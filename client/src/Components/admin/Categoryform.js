@@ -18,6 +18,8 @@ import Modal from '@mui/material/Modal';
 // import { useNavigate } from 'react-router-dom';
 import Switch from '@mui/material/Switch';
 import Swal from "sweetalert2";
+import useRazorpay, { Razorpay } from 'react-razorpay'
+
 
 
 
@@ -1941,6 +1943,67 @@ useEffect(()=>{
 const PaymentList=({formNumber})=>{
 
     const[Data,setData]=useState([])
+    const[Unique,setUnique]=useState(null)
+    const[Id,setId]=useState('')
+
+
+    const getUnique=async(id)=>{
+        setId(id)
+        await axios.get(`https://backend.kooblu.com/request/Unique/${id}`)
+        .then(res=>setUnique(res.data))
+    }
+
+    useEffect(()=>{
+        if(Unique!==null){
+            pay()
+        }
+    },[Unique])
+
+   
+
+    const Razorpay = useRazorpay()
+    // const Total = completedbill.map((data) => data.total)
+
+
+    function pay() {
+
+        // var amount = parseInt(Total);
+        var amount = Unique.Request
+
+        var options = {
+            key: "rzp_test_1SnQnLm783h5Op",
+            key_secret: "W3x1XiUXiyqIKQJrSBqaXGmE",
+            "amount": amount * 100, // Example: 2000 paise = INR 20
+            "name":Unique.Name+"("+Unique.Phone+")",
+            "description": "description",
+            "image": "img/logo.png",// COMPANY LOGO
+            "handler": function (response) {
+                console.log(response);
+                completePayment()
+                // AFTER TRANSACTION IS COMPLETE YOU WILL GET THE RESPONSE HERE.
+            },
+            "prefill": {
+                "name": "Kooblu", // pass customer name
+                "email": 'A@A.COM',// customer email
+                "contact": '+919123456780' //customer phone no.
+            },
+            "notes": {
+                "address": "address" //customer address 
+            },
+            "theme": {
+                "color": "#15b8f3" // screen color
+            }
+        };
+        console.log(options);
+        var propay = new Razorpay(options);
+        propay.open()
+        // .then(()=>{
+        function completePayment() {
+            axios.delete(`https://backend.kooblu.com/request/delete/${Id}`)
+        }
+        // })
+    }
+
 
 
     const getPay=async()=>{
@@ -2012,7 +2075,7 @@ const PaymentList=({formNumber})=>{
                                                     <StyledTableCell align="center"><p>{data.Phone}</p></StyledTableCell>
                                                     <StyledTableCell align="center"><p>{data.Claimable}</p></StyledTableCell>
                                                     <StyledTableCell align="center"><p>{data.Request}</p></StyledTableCell>
-                                                    <StyledTableCell align="center"><button className="Pay_btn">Pay</button></StyledTableCell>
+                                                    <StyledTableCell align="center"><button className="Pay_btn" onClick={()=>{getUnique(data._id)}}>Pay</button></StyledTableCell>
 
                                                 </StyledTableRow>
                                             ))

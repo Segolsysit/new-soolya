@@ -1723,7 +1723,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                 // AFTER TRANSACTION IS COMPLETE YOU WILL GET THE RESPONSE HERE.
             },
             "prefill": {
-                "name": "ABC", // pass customer name
+                "name": "Kooblu", // pass customer name
                 "email": 'A@A.COM',// customer email
                 "contact": '+919123456780' //customer phone no.
             },
