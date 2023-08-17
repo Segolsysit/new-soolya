@@ -6,7 +6,8 @@ const Schema=new mongoose.Schema({
     Job:String,
     Phone:Number,
     Claimable:Number,
-    Request:Number
+    Request:Number,
+    VendorId:String
 })
 
 

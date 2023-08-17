@@ -1971,6 +1971,7 @@ const PaymentList = ({ formNumber }) => {
 
         // var amount = parseInt(Total);
         var amount = Unique.Request
+        var VendorId = Unique.VendorId
 
         var options = {
             key: "rzp_test_1SnQnLm783h5Op",
@@ -2000,12 +2001,31 @@ const PaymentList = ({ formNumber }) => {
         var propay = new Razorpay(options);
         propay.open()
         // .then(()=>{
-        function completePayment() {
-            axios.delete(`https://backend.kooblu.com/request/delete/${Id}`)
+        const completePayment = async () => {
+            await axios.patch(`https://backend.kooblu.com/vendor_Auth/Recieved/${VendorId}`, {
+                recieved: amount
+            })
+                .then(
+                    await axios.delete(`https://backend.kooblu.com/request/delete/${Id}`)
+                        .then(res => {
+                            if (res.data === "item deleted") {
+                                getPay()
+                            }
+
+                        })
+                )
+
+
+
         }
         // })
     }
 
+    useEffect(() => {
+        setTimeout(() => {
+            getPay()
+        }, 3000)
+    }, [])
 
 
     const getPay = async () => {

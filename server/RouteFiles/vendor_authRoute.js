@@ -108,6 +108,7 @@ VendorAuthRoute.post("/register", multipleUpload, async (req, res, next) => {
       Zone,
       AltPH,
       Earning: 0,
+      Payment: 0,
       KnownL,
       Status: 'active',
       CompletedPrice: [],
@@ -264,6 +265,26 @@ VendorAuthRoute.patch('/deductEarning/:id', async (req, res) => {
 
 })
 
+
+VendorAuthRoute.patch('/Recieved/:id', async (req, res) => {
+  const id = req.params.id
+  const recieved = req.body.recieved
+  try {
+    const data = await VendorAuth.findByIdAndUpdate(id)
+    data.Payment = data.Payment + recieved
+    try {
+      await data.save()
+      res.json({ status: 'ok', message: 'recieved' })
+    }
+    catch (err) {
+      res.json(err)
+    }
+  }
+  catch (err) {
+    res.json(err)
+  }
+
+})
 
 
 VendorAuthRoute.post("/login", async (req, res) => {

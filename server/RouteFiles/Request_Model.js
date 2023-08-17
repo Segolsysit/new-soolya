@@ -12,6 +12,7 @@ app.post('/newRequest', async (req, res) => {
     const Job = req.body.Job
     const claimable = req.body.claimable
     const Request = req.body.Request
+    const Vid = req.body.vendorID
     try {
         const data = await request.findOne({ "Phone": Phone })
         if (data) {
@@ -23,7 +24,8 @@ app.post('/newRequest', async (req, res) => {
                 Job: Job,
                 Phone: Phone,
                 Claimable: claimable,
-                Request: Request
+                Request: Request,
+                VendorId: Vid
             })
             try {
                 await New.save()

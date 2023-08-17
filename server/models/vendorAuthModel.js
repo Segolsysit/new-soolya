@@ -23,6 +23,7 @@ const bcrypt = require("bcrypt");
         SkillExp:String,
         Status:String,
         Earning:Number,
+        Payment:Number,
         Completed:[String],
         CompletedPrice:[Number],
         
