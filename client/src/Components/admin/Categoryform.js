@@ -89,9 +89,9 @@ const CategoryForm = ({ FormNumber, setNumber }) => {
 
 
 
-const [openEdit, setOpenEdit] = useState(false);
-  const handleOpenEdit = (id) =>{
-    axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${id}`)
+    const [openEdit, setOpenEdit] = useState(false);
+    const handleOpenEdit = (id) => {
+        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${id}`)
             .then((res) => {
                 let newData = new Date(res.data.DOB);
                 console.log(newData.getFullYear(), newData.getDate(), newData.getMonth());
@@ -123,122 +123,122 @@ const [openEdit, setOpenEdit] = useState(false);
                 PanRef.current = res.data.PanFiles[0].filename
                 console.log(res.data.PanFiles[0].filename);
             })
-    setOpenEdit(true);
-  } 
-  const handleCloseEdit = () => setOpenEdit(false);
+        setOpenEdit(true);
+    }
+    const handleCloseEdit = () => setOpenEdit(false);
 
-  const style1 = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 'fit-content',
-    bgcolor: 'background.paper',
-    border: 'none',
-    boxShadow: 24,
-    p: 4,
-    height:'100%',
-    overflowY:'scroll'
-};
-
-
-  //Edit States
-  const [Name, setName] = useState("null")
-  const [mail, setMail] = useState("null")
-  const [Phone, setPhone] = useState("null")
-  const [Location, setLocation] = useState("null")
-  const [Gender, setGender] = useState("null")
-  const [Language, setLanguage] = useState("null")
-  const [DoB, setDob] = useState("null")
-  const [Aadhar, setAadhar] = useState("null")
-  const [Accn, setAccn] = useState("null")
-  const [BnkName, setBnkName] = useState("null")
-  const [IFSC, setIfsc] = useState("null")
-  const [Education, setEducation] = useState("null")
-  const [JobTitle, setJobTitle] = useState("null")
-  const [WorkExp, setWorkExp] = useState("null")
-  const [Zone, setZone] = useState("null")
-  const [AltPhone, setAltPhone] = useState("null")
-  const [Lang, setLang] = useState("null")
-  const [Picture, setPicture] = useState([])
-  const [Pan, setPan] = useState([])
-  const [AadharCard, setAadharCard] = useState([])
-  const AadharRef = useRef(null)
-  const ProfileRef = useRef(null)
-  const PanRef = useRef(null)
-//   const localpath = 'https://backend.kooblu.com/'
-  const [previewURL, setPreviewURL] = useState('');
-  const [AadharpreviewURL, setAadharPreviewURL] = useState('');
-  const [PanpreviewURL, setPanPreviewURL] = useState('');
+    const style1 = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 'fit-content',
+        bgcolor: 'background.paper',
+        border: 'none',
+        boxShadow: 24,
+        p: 4,
+        height: '100%',
+        overflowY: 'scroll'
+    };
 
 
-  const PostData = async (id) => {
-    const formData = new FormData()
-    formData.append("Username", Name)
-    formData.append("mail", mail)
-    formData.append("Phone", Phone)
-    formData.append("Location", Location)
-    formData.append("Gender", Gender)
-    formData.append("Language", Language)
-    formData.append("DoB", DoB)
-    formData.append("Aadhar", Aadhar)
-    formData.append("Accn", Accn)
-    formData.append("BnkName", BnkName)
-    formData.append("IFSC", IFSC)
-    formData.append("Education", Education)
-    formData.append("JobTitle", JobTitle)
-    formData.append("WorkExp", WorkExp)
-    formData.append("Zone", Zone)
-    formData.append("AltPhone", AltPhone)
-    formData.append("Lang", Lang)
-    formData.append("AadharFiles", AadharCard)
-    formData.append("PhotoFiles", Picture)
-    formData.append("PanFiles", Pan)
-    await axios.patch(`https://backend.kooblu.com/vendor_Auth/Edit/${id}`, formData)
-      .then((res) => {
-        if (res.data.status === 'ok') {
-          toast.success('Profile Updated')
-          setTimeout(() => {
-            window.location.reload()
-          }, 2000)
+    //Edit States
+    const [Name, setName] = useState("null")
+    const [mail, setMail] = useState("null")
+    const [Phone, setPhone] = useState("null")
+    const [Location, setLocation] = useState("null")
+    const [Gender, setGender] = useState("null")
+    const [Language, setLanguage] = useState("null")
+    const [DoB, setDob] = useState("null")
+    const [Aadhar, setAadhar] = useState("null")
+    const [Accn, setAccn] = useState("null")
+    const [BnkName, setBnkName] = useState("null")
+    const [IFSC, setIfsc] = useState("null")
+    const [Education, setEducation] = useState("null")
+    const [JobTitle, setJobTitle] = useState("null")
+    const [WorkExp, setWorkExp] = useState("null")
+    const [Zone, setZone] = useState("null")
+    const [AltPhone, setAltPhone] = useState("null")
+    const [Lang, setLang] = useState("null")
+    const [Picture, setPicture] = useState([])
+    const [Pan, setPan] = useState([])
+    const [AadharCard, setAadharCard] = useState([])
+    const AadharRef = useRef(null)
+    const ProfileRef = useRef(null)
+    const PanRef = useRef(null)
+    //   const localpath = 'https://backend.kooblu.com/'
+    const [previewURL, setPreviewURL] = useState('');
+    const [AadharpreviewURL, setAadharPreviewURL] = useState('');
+    const [PanpreviewURL, setPanPreviewURL] = useState('');
+
+
+    const PostData = async (id) => {
+        const formData = new FormData()
+        formData.append("Username", Name)
+        formData.append("mail", mail)
+        formData.append("Phone", Phone)
+        formData.append("Location", Location)
+        formData.append("Gender", Gender)
+        formData.append("Language", Language)
+        formData.append("DoB", DoB)
+        formData.append("Aadhar", Aadhar)
+        formData.append("Accn", Accn)
+        formData.append("BnkName", BnkName)
+        formData.append("IFSC", IFSC)
+        formData.append("Education", Education)
+        formData.append("JobTitle", JobTitle)
+        formData.append("WorkExp", WorkExp)
+        formData.append("Zone", Zone)
+        formData.append("AltPhone", AltPhone)
+        formData.append("Lang", Lang)
+        formData.append("AadharFiles", AadharCard)
+        formData.append("PhotoFiles", Picture)
+        formData.append("PanFiles", Pan)
+        await axios.patch(`https://backend.kooblu.com/vendor_Auth/Edit/${id}`, formData)
+            .then((res) => {
+                if (res.data.status === 'ok') {
+                    toast.success('Profile Updated')
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 2000)
+                }
+                else {
+                    toast.error("Couldn't Update")
+                }
+
+            })
+
+    }
+
+
+    const HandleStatusChange = async (id, checked) => {
+        await axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${id}`)
+        console.log("hello");
+        try {
+            // const response = await axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${id}`);
+            const newStatus = checked ? 'active' : 'inactive';
+            await axios.patch(`https://backend.kooblu.com/vendor_Auth/status/${id}`, {
+                Status: newStatus
+            })
+                // Call servicemandata() to update the data after status change
+                .then((res) => {
+                    if (res.data.status === 'ok') {
+                        setTimeout(() => {
+                            servicemandata()
+
+                        }, 1000)
+                    }
+                    else {
+                        setTimeout(() => {
+                            servicemandata()
+
+                        }, 1000)
+                    }
+                })
+        } catch (error) {
+            console.error('Error handling status change:', error);
         }
-        else {
-          toast.error("Couldn't Update")
-        }
-
-      })
-
-  }
-
-
-  const HandleStatusChange=async(id,checked)=>{
-    await axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${id}`)
-    console.log("hello");
-    try {
-        // const response = await axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${id}`);
-        const newStatus = checked ? 'active' : 'inactive';
-        await axios.patch(`https://backend.kooblu.com/vendor_Auth/status/${id}`, {
-          Status: newStatus
-        })
-        // Call servicemandata() to update the data after status change
-        .then((res)=>{
-            if(res.data.status==='ok'){
-                setTimeout(()=>{
-                    servicemandata()
-
-                },1000)
-            }
-            else{
-                setTimeout(()=>{
-                    servicemandata()
-
-                },1000)
-            }
-        })
-      } catch (error) {
-        console.error('Error handling status change:', error);
-      }
-  }
+    }
 
 
 
@@ -730,8 +730,8 @@ const [openEdit, setOpenEdit] = useState(false);
                                             <StyledTableCell>{data.Phonenumber}</StyledTableCell>
 
                                             <StyledTableCell>
-                                            <Switch color="primary"  />
-                                                </StyledTableCell>
+                                                <Switch color="primary" />
+                                            </StyledTableCell>
                                             <StyledTableCell style={{ width: '2%' }}>
                                                 <Button><i class="fa-solid fa-pencil"></i></Button>
                                                 <Button ><i class="fa-solid fa-eye" ></i></Button>
@@ -747,12 +747,12 @@ const [openEdit, setOpenEdit] = useState(false);
                                         <StyledTableCell>{data.Email}</StyledTableCell>
                                         <StyledTableCell>{data.Phonenumber}</StyledTableCell>
                                         <StyledTableCell>
-                                            <Switch color="primary" defaultChecked={data.Status==="active"?true:false} onClick={(event) => HandleStatusChange(data._id, event.target.checked)}/>
-                                            <p className={data.Status==='active'?"StatusColor_Active":"StatusColor_Inactive"}>{data.Status==='active'?"Active":"Inactive"}</p>
+                                            <Switch color="primary" defaultChecked={data.Status === "active" ? true : false} onClick={(event) => HandleStatusChange(data._id, event.target.checked)} />
+                                            <p className={data.Status === 'active' ? "StatusColor_Active" : "StatusColor_Inactive"}>{data.Status === 'active' ? "Active" : "Inactive"}</p>
 
-                                            </StyledTableCell>
+                                        </StyledTableCell>
                                         <StyledTableCell style={{ width: '2%' }}>
-                                            <Button onClick={()=>handleOpenEdit(data._id)}><i class="fa-solid fa-pencil" ></i></Button>
+                                            <Button onClick={() => handleOpenEdit(data._id)}><i class="fa-solid fa-pencil" ></i></Button>
                                             <Button onClick={() => { handleOpen(data._id) }}><i class="fa-solid fa-eye"></i></Button>
                                             <Button type="button" onClick={() => deleteOpen1(data._id)}><i class="fa-solid fa-trash"></i></Button>
                                         </StyledTableCell>
@@ -763,86 +763,86 @@ const [openEdit, setOpenEdit] = useState(false);
                     </Table>
                 </TableContainer>
                 <div >
-                          
-              < Modal open = { openEdit }
-  onClose = { handleCloseEdit }>
-    <Box sx={style1}>
-          <table className="edit_table">
-            <tbody>
-              <tr>
-                <td>User Name</td>
-                <td><input defaultValue={VendorProfile.Username} onChange={(e) => { setName(e.target.value) }} /></td>
-              </tr>
-              <tr>
-                <td>Email</td>
-                <td><input defaultValue={VendorProfile.Email} onChange={(e) => { setMail(e.target.value) }} /></td>
-              </tr>
-              <tr>
-                <td>Phone Number</td>
-                <td><input defaultValue={VendorProfile.Phonenumber} onChange={(e) => { setPhone(e.target.value) }} /></td>
-              </tr>
-              <tr>
-                <td>Location</td>
-                <td><input defaultValue={VendorProfile.Location} onChange={(e) => { setLocation(e.target.value) }} /></td>
-              </tr>
-              <tr>
-                <td>Gender</td>
-                <td><select onChange={(e) => { setGender(e.target.value) }}>
-                  <option>{VendorProfile.Gender}</option>
-                  <option>{VendorProfile.Gender === "Male" ? "Female" : "Male"}</option>
 
-                </select></td>
-              </tr>
-              <tr>
-                <td>Language</td>
-                <td><input defaultValue={VendorProfile.Language} onChange={(e) => { setLanguage(e.target.value) }} /></td>
-              </tr>
-              <tr>
-                <td>DOB</td>
-                <td><input type={'date'} defaultValue={DoB} onChange={(e) => { setDob(e.target.value) }} /></td>
-              </tr>
-              <tr>
-                <td>Aadhar</td>
-                <td><input defaultValue={VendorProfile.AAdhar} onChange={(e) => { setAadhar(e.target.value) }} /></td>
-              </tr>
-              <tr>
-                <td>AccNo</td>
-                <td><input defaultValue={VendorProfile.AccNo} onChange={(e) => { setAccn(e.target.value) }} /></td>
-              </tr>
-              <tr>
-                <td>Bank Name</td>
-                <td><input defaultValue={VendorProfile.BnkName} onChange={(e) => { setBnkName(e.target.value) }} /></td>
-              </tr>
-              <tr>
-                <td>IFSC</td>
-                <td><input defaultValue={VendorProfile.Ifsc} onChange={(e) => { setIfsc(e.target.value) }} /></td>
-              </tr>
+                    < Modal open={openEdit}
+                        onClose={handleCloseEdit}>
+                        <Box sx={style1}>
+                            <table className="edit_table">
+                                <tbody>
+                                    <tr>
+                                        <td>User Name</td>
+                                        <td><input defaultValue={VendorProfile.Username} onChange={(e) => { setName(e.target.value) }} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td><input defaultValue={VendorProfile.Email} onChange={(e) => { setMail(e.target.value) }} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phone Number</td>
+                                        <td><input defaultValue={VendorProfile.Phonenumber} onChange={(e) => { setPhone(e.target.value) }} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Location</td>
+                                        <td><input defaultValue={VendorProfile.Location} onChange={(e) => { setLocation(e.target.value) }} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gender</td>
+                                        <td><select onChange={(e) => { setGender(e.target.value) }}>
+                                            <option>{VendorProfile.Gender}</option>
+                                            <option>{VendorProfile.Gender === "Male" ? "Female" : "Male"}</option>
 
-              <tr>
-                <td>Education</td>
-                <td><input defaultValue={VendorProfile.Education} onChange={(e) => { setEducation(e.target.value) }} /></td>
-              </tr>
-              <tr>
-                <td>Job Title</td>
-                <td><input defaultValue={VendorProfile.JobTitle} onChange={(e) => { setJobTitle(e.target.value) }} /></td>
-              </tr>
-              <tr>
-                <td>Work Experience</td>
-                <td><input defaultValue={VendorProfile.WorkExp} onChange={(e) => { setWorkExp(e.target.value) }} /></td>
-              </tr>
-              <tr>
-                <td>Zone</td>
-                <td><input defaultValue={VendorProfile.Zone} onChange={(e) => { setZone(e.target.value) }} /></td>
-              </tr>
-              <tr>
-                <td>Alternate Phone</td>
-                <td><input defaultValue={VendorProfile.AltPH} onChange={(e) => { setAltPhone(e.target.value) }} /></td>
-              </tr>
-              <tr>
-                <td>Languages Known</td>
-                <td><input defaultValue={VendorProfile.KnownL} onChange={(e) => { setLang(e.target.value) }} /></td>
-              </tr>
-              {/* <tr>
+                                        </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Language</td>
+                                        <td><input defaultValue={VendorProfile.Language} onChange={(e) => { setLanguage(e.target.value) }} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>DOB</td>
+                                        <td><input type={'date'} defaultValue={DoB} onChange={(e) => { setDob(e.target.value) }} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Aadhar</td>
+                                        <td><input defaultValue={VendorProfile.AAdhar} onChange={(e) => { setAadhar(e.target.value) }} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>AccNo</td>
+                                        <td><input defaultValue={VendorProfile.AccNo} onChange={(e) => { setAccn(e.target.value) }} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bank Name</td>
+                                        <td><input defaultValue={VendorProfile.BnkName} onChange={(e) => { setBnkName(e.target.value) }} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>IFSC</td>
+                                        <td><input defaultValue={VendorProfile.Ifsc} onChange={(e) => { setIfsc(e.target.value) }} /></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Education</td>
+                                        <td><input defaultValue={VendorProfile.Education} onChange={(e) => { setEducation(e.target.value) }} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Job Title</td>
+                                        <td><input defaultValue={VendorProfile.JobTitle} onChange={(e) => { setJobTitle(e.target.value) }} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Work Experience</td>
+                                        <td><input defaultValue={VendorProfile.WorkExp} onChange={(e) => { setWorkExp(e.target.value) }} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Zone</td>
+                                        <td><input defaultValue={VendorProfile.Zone} onChange={(e) => { setZone(e.target.value) }} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alternate Phone</td>
+                                        <td><input defaultValue={VendorProfile.AltPH} onChange={(e) => { setAltPhone(e.target.value) }} /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Languages Known</td>
+                                        <td><input defaultValue={VendorProfile.KnownL} onChange={(e) => { setLang(e.target.value) }} /></td>
+                                    </tr>
+                                    {/* <tr>
                 <td>Profile Picture</td>
                 <td><input type={'file'} onChange={(e) => handleImageChange(e)} /></td>
               </tr>
@@ -852,7 +852,7 @@ const [openEdit, setOpenEdit] = useState(false);
                   <img className="DisplayImage" src={previewURL === "" && VendorProfile.length>0 ? localpath + VendorProfile.PhotoFiles[0].filename : previewURL} alt="img" />
                 </td>
               </tr> */}
-              {/* <tr>
+                                    {/* <tr>
                 <td>Pan Card</td>
                 <td><input type={'file'} onChange={(e) => handlePanChange(e)} /></td>
               </tr>
@@ -873,13 +873,13 @@ const [openEdit, setOpenEdit] = useState(false);
                 </td>
               </tr> */}
 
-            </tbody>
-          </table>
-          <div className="edit_submit_btn_div">
-            <button className="edit_submit_btn" onClick={() => PostData(VendorProfile._id)}>Submit</button>
-          </div>
-    </Box>
-      </Modal>
+                                </tbody>
+                            </table>
+                            <div className="edit_submit_btn_div">
+                                <button className="edit_submit_btn" onClick={() => PostData(VendorProfile._id)}>Submit</button>
+                            </div>
+                        </Box>
+                    </Modal>
                     <Modal className="det"
                         open={open}
                         onClose={handleClose}
@@ -1829,21 +1829,21 @@ const Orders = ({ formNumber }) => {
 }
 
 
-const AddJobTitle=({formNumber})=>{
-    const [JobTitle,setJobTitle]=useState([])
-    const [Job,setJob]=useState("")
+const AddJobTitle = ({ formNumber }) => {
+    const [JobTitle, setJobTitle] = useState([])
+    const [Job, setJob] = useState("")
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: theme.palette.common.black,
             color: theme.palette.common.white,
-            textAlign:'left'
+            textAlign: 'left'
 
         },
         [`&.${tableCellClasses.body}`]: {
             fontSize: 14,
             border: 0,
-            textAlign:'left'
+            textAlign: 'left'
         },
     }));
 
@@ -1857,49 +1857,50 @@ const AddJobTitle=({formNumber})=>{
         // },
     }));
 
-    const getData=async()=>{
+    const getData = async () => {
         await axios.get("https://backend.kooblu.com/Job/getJob")
-        .then((res)=>setJobTitle(res.data))
+            .then((res) => setJobTitle(res.data))
     }
-useEffect(()=>{
-    getData()
-},[])
+    useEffect(() => {
+        getData()
+    }, [])
 
 
 
-    const PostJob=async(e)=>{
+    const PostJob = async (e) => {
         e.preventDefault()
-        await axios.post("https://backend.kooblu.com/Job/newJob",{
-            Job:Job
+        await axios.post("https://backend.kooblu.com/Job/newJob", {
+            Job: Job
         })
-        .then((res)=>{
-            if(res.data.status==='ok'){
-                toast.success("Job added")
-                setJob("")
-                getData()
-            }
-        })
+            .then((res) => {
+                if (res.data.status === 'ok') {
+                    toast.success("Job added")
+                    setJob("")
+                    getData()
+                }
+            })
     }
 
-    const DeleteItem=async(id)=>{
+    const DeleteItem = async (id) => {
         await axios.delete(`https://backend.kooblu.com/Job/deleteJob/${id}`)
-        .then(toast.success("item deleted"))
+            .then(toast.success("item deleted"))
         getData()
     }
 
 
 
 
-    if(formNumber===14){return(
-        <div className="Job_Title_maindiv">
-        <form className="SubCategory" onSubmit={PostJob}>
+    if (formNumber === 14) {
+        return (
+            <div className="Job_Title_maindiv">
+                <form className="SubCategory" onSubmit={PostJob}>
                     <label className="Category-Label">Job Title</label>
-                    <input className="Category-input" value={Job} onChange={(e)=>setJob(e.target.value)}/>
+                    <input className="Category-input" value={Job} onChange={(e) => setJob(e.target.value)} />
                     <button className="Category-button" type="submit">Add</button>
 
-        </form>
+                </form>
 
-        <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
                     <Table className='table-cat' style={{ margin: "0px" }}>
                         <TableHead>
                             <TableRow>
@@ -1907,7 +1908,7 @@ useEffect(()=>{
                                 <StyledTableCell>Job Title</StyledTableCell>
                                 <StyledTableCell>Action</StyledTableCell>
 
-                                
+
                             </TableRow>
                         </TableHead>
                         {JobTitle.length === 0 ? (
@@ -1923,9 +1924,9 @@ useEffect(()=>{
                                     {
                                         JobTitle.map((data, index) => (
                                             <StyledTableRow key={index}>
-                                                <StyledTableCell>{index+1}</StyledTableCell>
+                                                <StyledTableCell>{index + 1}</StyledTableCell>
                                                 <StyledTableCell align="center"><p>{data.Job}</p></StyledTableCell>
-                                                <StyledTableCell align="center"><button className="Delete_btn" onClick={()=>DeleteItem(data._id)}>Delete</button></StyledTableCell>
+                                                <StyledTableCell align="center"><button className="Delete_btn" onClick={() => DeleteItem(data._id)}>Delete</button></StyledTableCell>
                                             </StyledTableRow>
                                         ))
                                     }
@@ -1934,32 +1935,33 @@ useEffect(()=>{
                     </Table>
                 </TableContainer>
 
-        </div>
-    )}
+            </div>
+        )
+    }
     else return null
 }
 
 
-const PaymentList=({formNumber})=>{
+const PaymentList = ({ formNumber }) => {
 
-    const[Data,setData]=useState([])
-    const[Unique,setUnique]=useState(null)
-    const[Id,setId]=useState('')
+    const [Data, setData] = useState([])
+    const [Unique, setUnique] = useState(null)
+    const [Id, setId] = useState('')
 
 
-    const getUnique=async(id)=>{
+    const getUnique = async (id) => {
         setId(id)
         await axios.get(`https://backend.kooblu.com/request/Unique/${id}`)
-        .then(res=>setUnique(res.data))
+            .then(res => setUnique(res.data))
     }
 
-    useEffect(()=>{
-        if(Unique!==null){
+    useEffect(() => {
+        if (Unique !== null) {
             pay()
         }
-    },[Unique])
+    }, [Unique])
 
-   
+
 
     const Razorpay = useRazorpay()
     // const Total = completedbill.map((data) => data.total)
@@ -1969,12 +1971,13 @@ const PaymentList=({formNumber})=>{
 
         // var amount = parseInt(Total);
         var amount = Unique.Request
+        var VendorId = Unique.VendorId
 
         var options = {
             key: "rzp_test_1SnQnLm783h5Op",
             key_secret: "W3x1XiUXiyqIKQJrSBqaXGmE",
             "amount": amount * 100, // Example: 2000 paise = INR 20
-            "name":Unique.Name+"("+Unique.Phone+")",
+            "name": Unique.Name + "(" + Unique.Phone + ")",
             "description": "description",
             "image": "img/logo.png",// COMPANY LOGO
             "handler": function (response) {
@@ -1998,34 +2001,54 @@ const PaymentList=({formNumber})=>{
         var propay = new Razorpay(options);
         propay.open()
         // .then(()=>{
-        function completePayment() {
-            axios.delete(`https://backend.kooblu.com/request/delete/${Id}`)
+        const completePayment = async () => {
+            await axios.patch(`https://backend.kooblu.com/vendor_Auth/Recieved/${VendorId}`, {
+                recieved: amount
+            })
+                .then(
+                    await axios.delete(`https://backend.kooblu.com/request/delete/${Id}`)
+                        .then(res => {
+                            if (res.data === "item deleted") {
+                                getPay()
+                            }
+
+                        })
+                )
+
+
+
         }
         // })
     }
 
+    useEffect(() => {
+        setTimeout(() => {
+            getPay()
+        }, 3000)
+    }, [])
 
 
-    const getPay=async()=>{
+
+    const getPay = async () => {
         await axios.get('https://backend.kooblu.com/request/payDetails')
-        .then(res=>setData(res.data))
+            .then(res => setData(res.data))
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getPay()
-    },[])
+    }, [])
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: theme.palette.common.black,
             color: theme.palette.common.white,
-            textAlign:'left'
+            textAlign: 'left'
 
         },
         [`&.${tableCellClasses.body}`]: {
             fontSize: 14,
             border: 0,
-            textAlign:'left'
+            textAlign: 'left'
         },
     }));
 
@@ -2039,61 +2062,61 @@ const PaymentList=({formNumber})=>{
         // },
     }));
 
-    if(formNumber===15){
-        return(
+    if (formNumber === 15) {
+        return (
             <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
-                        <Table className='table-cat' style={{ margin: "0px" }}>
-                            <TableHead>
-                                <TableRow>
-                                    <StyledTableCell>SN</StyledTableCell>
-                                    <StyledTableCell>Name</StyledTableCell>
-                                    <StyledTableCell>Job</StyledTableCell>
-                                    <StyledTableCell>Phone</StyledTableCell>
-                                    <StyledTableCell>Claimable</StyledTableCell>
-                                    <StyledTableCell>Request</StyledTableCell>
-                                    <StyledTableCell>Action</StyledTableCell>
-    
-                                    
-                                </TableRow>
-                            </TableHead>
-                            {Data.length === 0 ? (
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell colSpan={10}>
-                                            <h3 className="no_data">No payment request found</h3>
-                                        </TableCell>
-                                    </TableRow>
-                                </TableBody>) :
-                                (
-                                    <TableBody>
-                                        {
-                                           Array.isArray(Data)&& Data.map((data, index) => (
-                                                <StyledTableRow key={index}>
-                                                    <StyledTableCell>{index+1}</StyledTableCell>
-                                                    <StyledTableCell align="center"><p>{data.Name}</p></StyledTableCell>
-                                                    <StyledTableCell align="center"><p>{data.Job}</p></StyledTableCell>
-                                                    <StyledTableCell align="center"><p>{data.Phone}</p></StyledTableCell>
-                                                    <StyledTableCell align="center"><p>{data.Claimable}</p></StyledTableCell>
-                                                    <StyledTableCell align="center"><p>{data.Request}</p></StyledTableCell>
-                                                    <StyledTableCell align="center"><button className="Pay_btn" onClick={()=>{getUnique(data._id)}}>Pay</button></StyledTableCell>
+                <Table className='table-cat' style={{ margin: "0px" }}>
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>SN</StyledTableCell>
+                            <StyledTableCell>Name</StyledTableCell>
+                            <StyledTableCell>Job</StyledTableCell>
+                            <StyledTableCell>Phone</StyledTableCell>
+                            <StyledTableCell>Claimable</StyledTableCell>
+                            <StyledTableCell>Request</StyledTableCell>
+                            <StyledTableCell>Action</StyledTableCell>
 
-                                                </StyledTableRow>
-                                            ))
-                                        }
-                                    </TableBody>
-                                )}
-                        </Table>
-                    </TableContainer>
-    
+
+                        </TableRow>
+                    </TableHead>
+                    {Data.length === 0 ? (
+                        <TableBody>
+                            <TableRow>
+                                <TableCell colSpan={10}>
+                                    <h3 className="no_data">No payment request found</h3>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>) :
+                        (
+                            <TableBody>
+                                {
+                                    Array.isArray(Data) && Data.map((data, index) => (
+                                        <StyledTableRow key={index}>
+                                            <StyledTableCell>{index + 1}</StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.Name}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.Job}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.Phone}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.Claimable}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><p>{data.Request}</p></StyledTableCell>
+                                            <StyledTableCell align="center"><button className="Pay_btn" onClick={() => { getUnique(data._id) }}>Pay</button></StyledTableCell>
+
+                                        </StyledTableRow>
+                                    ))
+                                }
+                            </TableBody>
+                        )}
+                </Table>
+            </TableContainer>
+
         )
     }
 
     else return null
 
-   
+
 
 }
 
 
 
-export { CategoryForm, RejectedList, Orders, SubCategory,AddJobTitle,PaymentList } 
+export { CategoryForm, RejectedList, Orders, SubCategory, AddJobTitle, PaymentList } 

@@ -894,6 +894,7 @@ const VendorOrders = ({ State }) => {
     // }
 
     // const total = selected.reduce((acc,curr)=> acc + curr.Price, 0)
+    console.log(vendorDetails);
     const [Amount, setAmount] = useState(0)
     const [ErrPay, setErrPay] = useState(true)
     const handleClaimChange = (value) => {
@@ -911,10 +912,11 @@ const VendorOrders = ({ State }) => {
     const RequestPay = async () => {
         if (ErrPay) {
             await axios.post("https://backend.kooblu.com/request/newRequest", {
+                vendorID:vendorDetails._id,
                 name:vendorDetails.Username,
                 Phone:vendorDetails.Phonenumber,
                 Job:vendorDetails.JobTitle,
-                claimable:totalearnings,
+                claimable:vendorDetails.Earning,
                 Request:Amount
             })
             .then(res=>{
@@ -1109,9 +1111,10 @@ const VendorOrders = ({ State }) => {
                 <div className="container-fluid">
                     <h2>Completed Orders</h2><br />
                     <div className="Earnings" >
-                        <h4>Total Earnings : <span className="Pay-button">{totalearnings}</span></h4><br />
-                        <h4>Claimable : <span className="Pay-button">{vendorDetails.Earning}</span></h4>
-                        <h4>Total Orders : {completedOrderdetails.length}</h4>
+                        <h4>Total Earnings : <span className="Pay-button">₹{totalearnings}</span></h4><br />
+                        <h4>Claimable : <span className="Pay-button">₹{vendorDetails.Earning}</span></h4>
+                        {/* <h4>Total Orders : {completedOrderdetails.length}</h4> */}
+                        <h4>Payment Recieved : <span className="Pay-button">₹{vendorDetails.Payment}</span></h4>
                         <button className="Pay_btn" onClick={handleOpen}>Request Pay</button>
                     </div>
                     <Modal
