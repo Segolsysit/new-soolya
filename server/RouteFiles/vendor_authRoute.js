@@ -107,10 +107,11 @@ VendorAuthRoute.post("/register", multipleUpload, async (req, res, next) => {
       WorkExp,
       Zone,
       AltPH,
-      Earning:0,
+      Earning: 0,
       KnownL,
-      Status:'active',
-      Completed:[],
+      Status: 'active',
+      CompletedPrice: [],
+      Completed: [],
       AadharCard: [],
       Photo: [],
       PanCard: []
@@ -165,102 +166,102 @@ VendorAuthRoute.post("/register", multipleUpload, async (req, res, next) => {
 })
 
 
-VendorAuthRoute.patch('/EditEarning/:id',async(req,res)=>{
-  const id=req.params.id
-  const earning=req.body.earning
-  const completed=req.body.completed
+VendorAuthRoute.patch('/EditEarning/:id', async (req, res) => {
+  const id = req.params.id
+  const earning = req.body.earning
+  const completed = req.body.completed
   // console.log(completed);
-  try{
-    const data=await VendorAuth.findByIdAndUpdate(id)
+  try {
+    const data = await VendorAuth.findByIdAndUpdate(id)
 
-function Find(arr1,arr2){
- return arr2.filter(val=>!arr1.includes(val))
-}    
-
-const arr1=data.Completed
-const arr2=completed.map(item=>item.CompletedID)
-
-// console.log(arr1)
-// console.log(arr2)
-
-const New=Find(arr1,arr2)
-
-// console.log("new: "+New);
-
-
-var LoopPrice=data.Earning
-
-const Sub=completed.filter(obj=>New.includes(obj.CompletedID))
-console.log(New);
-
-
-
-if(New.length>0){
-  console.log(New);
-  New.map((item,index)=>{
-    console.log(item);
-    data.Completed.push(item)
-  })
-  Sub.map((item,index)=>{
-    data.CompletedPrice.push(item.CompletedPrice)
-    LoopPrice+=Math.round((item.CompletedPrice)*(15/100))
-
-  })
-  data.save()
-  console.log('patched')
-}
-
-
-
-      
-  // console.log(status);
-  
-    if(data.Earning!==LoopPrice){
-      data.Earning=LoopPrice
+    function Find(arr1, arr2) {
+      return arr2.filter(val => !arr1.includes(val))
     }
-    else{
-      data.Earning=data.Earning
+
+    const arr1 = data.Completed
+    const arr2 = completed.map(item => item.CompletedID)
+
+    // console.log(arr1)
+    // console.log(arr2)
+
+    const New = Find(arr1, arr2)
+
+    // console.log("new: "+New);
+
+
+    var LoopPrice = data.Earning
+
+    const Sub = completed.filter(obj => New.includes(obj.CompletedID))
+    console.log(New);
+
+
+
+    if (New.length > 0) {
+      console.log(New);
+      New.map((item, index) => {
+        console.log(item);
+        data.Completed.push(item)
+      })
+      Sub.map((item, index) => {
+        data.CompletedPrice.push(item.CompletedPrice)
+        LoopPrice += Math.round((item.CompletedPrice) * (15 / 100))
+
+      })
+      data.save()
+      console.log('patched')
     }
-    
-    try{
+
+
+
+
+    // console.log(status);
+
+    if (data.Earning !== LoopPrice) {
+      data.Earning = LoopPrice
+    }
+    else {
+      data.Earning = data.Earning
+    }
+
+    try {
       await data.save()
-      res.json({status:'ok',message:'patched'})
+      res.json({ status: 'ok', message: 'patched' })
 
     }
-    catch(err){
-      res.json({status:'failed',message:err})
-    }    
+    catch (err) {
+      res.json({ status: 'failed', message: err })
+    }
 
   }
-  catch(err){
-    res.json({status:'failed',message:err})
+  catch (err) {
+    res.json({ status: 'failed', message: err })
   }
-  
+
 })
 
-VendorAuthRoute.patch('/deductEarning/:id',async(req,res)=>{
-  const id=req.params.id
-  const earning=req.body.earning
-  try{
-    const data=await VendorAuth.findByIdAndUpdate(id)
-   
-      data.Earning=data.Earning-earning
-    
-    
-    try{
+VendorAuthRoute.patch('/deductEarning/:id', async (req, res) => {
+  const id = req.params.id
+  const earning = req.body.earning
+  try {
+    const data = await VendorAuth.findByIdAndUpdate(id)
+
+    data.Earning = data.Earning - earning
+
+
+    try {
       await data.save()
-      res.json({status:'ok',message:'patched'})
+      res.json({ status: 'ok', message: 'patched' })
 
     }
-    catch(err){
-      res.json({status:'failed',message:err})
-    }    
+    catch (err) {
+      res.json({ status: 'failed', message: err })
+    }
 
   }
-  catch(err){
-    res.json({status:'failed',message:err})
+  catch (err) {
+    res.json({ status: 'failed', message: err })
   }
-  
+
 })
 
 
@@ -269,30 +270,30 @@ VendorAuthRoute.post("/login", async (req, res) => {
   const { Email, Password } = req.body;
   try {
 
-    const user = await VendorAuth.findOne({ "Email":Email });
+    const user = await VendorAuth.findOne({ "Email": Email });
 
     if (!user) {
       return res.json({ status: "error", message: "Email Not Exist" });
     }
-if(user.Status==='active'){
-  const isPasswordValid = await bcrypt.compare(Password, user.Password);
+    if (user.Status === 'active') {
+      const isPasswordValid = await bcrypt.compare(Password, user.Password);
 
-  if (isPasswordValid) {
-    const token = vjwt.sign({ id: user._id }, "soolya vendor super secret key");
-    res.cookie("venjwt", token, { httpOnly: false, maxAge: maxAge * 1000 });
-    res.status(200).json({ user: user._id, status: true, token: token });
+      if (isPasswordValid) {
+        const token = vjwt.sign({ id: user._id }, "soolya vendor super secret key");
+        res.cookie("venjwt", token, { httpOnly: false, maxAge: maxAge * 1000 });
+        res.status(200).json({ user: user._id, status: true, token: token });
 
-  }
-  else {
+      }
+      else {
 
-    return res.json({ status: "error", message: "Invalid password" });
+        return res.json({ status: "error", message: "Invalid password" });
 
-  }
-}
-else{
-  res.json({status:'failed',message:'User inactive'})
-}
-    
+      }
+    }
+    else {
+      res.json({ status: 'failed', message: 'User inactive' })
+    }
+
 
   } catch (err) {
     console.log(err);
@@ -464,7 +465,7 @@ VendorAuthRoute.patch('/Edit/:id', multipleUpload, async (req, res) => {
   data.AadharFiles = AadharCard || data.AadharFiles
   data.PhotoFiles = Photo || data.PhotoFiles
   data.PanFiles = PanCard || data.PanFiles
-  data.Status=req.body.Status||data.Status
+  data.Status = req.body.Status || data.Status
 
   try {
     await data.save()
@@ -480,30 +481,30 @@ VendorAuthRoute.patch('/Edit/:id', multipleUpload, async (req, res) => {
 })
 
 
-VendorAuthRoute.patch('/status/:id',async(req,res)=>{
-  const Status=req.body.Status
-  const id=req.params.id
-  try{
+VendorAuthRoute.patch('/status/:id', async (req, res) => {
+  const Status = req.body.Status
+  const id = req.params.id
+  try {
     const data = await VendorAuth.findByIdAndUpdate(id)
-    if(data){
-      data.Status=Status||data.Status
-      try{
+    if (data) {
+      data.Status = Status || data.Status
+      try {
         data.save()
-      res.json({status:'ok',message:'updated'})
+        res.json({ status: 'ok', message: 'updated' })
       }
-      catch(err){
-        res.json({status:'failed',message:'failed in save'})
+      catch (err) {
+        res.json({ status: 'failed', message: 'failed in save' })
 
       }
-      
+
     }
-    else{
-      res.json({status:'failed',message:'no id found'})
+    else {
+      res.json({ status: 'failed', message: 'no id found' })
     }
-    
+
   }
-  catch(error){
-    res.json({status:'failed',message:error})
+  catch (error) {
+    res.json({ status: 'failed', message: error })
   }
 
 })
