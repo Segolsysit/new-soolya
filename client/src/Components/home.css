@@ -703,8 +703,9 @@ a{
     }    
     .covercontent{
         flex-direction: column;
-        gap: 0px;
-        justify-content: space-around;
+        height: 100%;
+        gap: 60px;
+        justify-content: space-between;
     }
 
     
@@ -731,6 +732,7 @@ a{
         border-radius: 10px;
         margin-top: 30px;
         width: 100%;
+        height: fit-content;
     }
     .SelectionBox{
         padding: 7px 10px 7px 10px ;
@@ -746,9 +748,14 @@ a{
     .solid{
         display: none;
     }
+
+    .cover{
+        height: fit-content;
+
+    }
     
     .covercontent{
-        height: 60rem;
+        height: fit-content;
     }
     
     .coverimage1{
