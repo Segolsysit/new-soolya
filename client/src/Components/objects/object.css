@@ -4,6 +4,11 @@
     /* display: flex;
     justify-content: center; */
     align-items: center;
+    overflow-x: scroll;
+}
+
+.Card-dic::-webkit-scrollbar{
+    visibility: hidden;
 }
 
 .card-active>h3{
@@ -60,10 +65,12 @@
 
 .cardouter{
     display: flex;
-    align-items: center;
+    align-items: stretch;
     gap: 20px;
     margin: 20px;
     overflow-x: scroll;
+    justify-content: space-evenly;
+    width: fit-content;
 }
 .Category-card{
     display: flex;
@@ -75,8 +82,7 @@
     transition-duration: 0.5s;
     cursor: pointer;
     padding: 10px;
-    width: 30rem;
-    height: fit-content;
+    width: 10rem;
 }
 .card-active{
     display: flex;
@@ -88,8 +94,7 @@
     transition-duration: 0.5s;
     cursor: pointer;
     padding: 10px;
-    width:20rem;
-    height: fit-content;
+    width:10rem;
 
 }
 .main{

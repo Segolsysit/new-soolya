@@ -677,6 +677,11 @@ const VendorOrders = ({ State }) => {
     // const Vemail = vendorDetails.Email
     console.log(completedOrderdetails);
 
+
+    useEffect(()=>{
+        get_vendor()
+    },[State])
+
     const totalearnings =Math.round((completedOrderdetails.reduce((acc, curr) => acc + (curr.price), 0)*(15/100))) 
     const completed=completedOrderdetails.map(item=>{
         return{
@@ -1348,7 +1353,7 @@ const PendingOrders = ({ State, setState }) => {
     const handleOpen2 = () => {
         setOpen2(true)
     }
-    const completeOtp = async () => {
+    const completeOtp = async (data) => {
         // if (selected.length === 0) {
         //     toast.error("Select the work done", {
         //         position: 'top-center'
@@ -1360,19 +1365,22 @@ const PendingOrders = ({ State, setState }) => {
         console.log(selected);
         try {
             // console.log(orders.number);
-            const response = await axios.post('https://backend.kooblu.com/doneOtp/service-done-otp', {
-                phoneNumber: Phonenumber
-            });
-            console.log(response.data.message);
-            toast.success(response.data.message, {
-                position: 'top-center'
-            })
-            handleOpen2()
-            setOTPSent(true);
-            setTimeRemaining(120);
-            setTimer(setInterval(() => {
-                setTimeRemaining(prevTime => prevTime - 1);
-            }, 1000));
+        
+                const response = await axios.post('https://backend.kooblu.com/doneOtp/service-done-otp', {
+                    phoneNumber: data.number
+                });
+                console.log(response.data.message);
+                toast.success(response.data.message, {
+                    position: 'top-center'
+                })
+                handleOpen2()
+                setOTPSent(true);
+                setTimeRemaining(120);
+                setTimer(setInterval(() => {
+                    setTimeRemaining(prevTime => prevTime - 1);
+                }, 1000));
+            
+            
         } catch (error) {
             console.log(error.response.data.message);
             //   setError(error.response.data.message);
@@ -1389,8 +1397,8 @@ const PendingOrders = ({ State, setState }) => {
                 console.log(res.data);
             })
     }
-    function vendor_orders() {
-        axios.get(`https://backend.kooblu.com/booking_api/pending_booking_data/${vendorDetails.Email}`)
+    const  vendor_orders= async() =>{
+        await axios.get(`https://backend.kooblu.com/booking_api/pending_booking_data/${vendorDetails.Email}`)
             .then((res) => {
                 setPendingorders(res.data)
             })
@@ -1407,6 +1415,10 @@ const PendingOrders = ({ State, setState }) => {
         vendor_orders()
         listofwork()
     }, [vendorDetails.Email])
+
+    useEffect(()=>{
+        vendor_orders()
+    },[State])
 
 
 
@@ -1470,6 +1482,7 @@ const PendingOrders = ({ State, setState }) => {
                         // getdata()
                         handleClose()
                         vendor_orders()
+
                     })
 
                 } else {
@@ -1531,10 +1544,9 @@ const PendingOrders = ({ State, setState }) => {
                                             <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                             <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
                                             <StyledTableCell align="center"><button onClick={() => {
-                                                completeOtp();
-                                                setState(4);
-                                                handleOpen2();
                                                 setPhone(data.number);
+                                                completeOtp(data);
+                                                handleOpen2();
                                                 console.log(data.number);
                                                 setCompletePendingorders(data)
                                             }} className="Action-btn">completed</button></StyledTableCell>
@@ -1557,18 +1569,7 @@ const PendingOrders = ({ State, setState }) => {
                         </Table>
                     </TableContainer>
 
-                </div>
-            </div>
-
-
-        )
-    }
-    if (State === 4) {
-        return (
-            <div style={{ width: "100%" }}>
-                <div className="container-fluid vendor-container">
-                    <div>
-                        <Modal
+                    <Modal
                             open={open2}
                             // onClose={handleClose2}
                             aria-labelledby="child-modal-title"
@@ -1602,6 +1603,19 @@ const PendingOrders = ({ State, setState }) => {
                                 {/* <ChildModal /> */}
                             </Box>
                         </Modal>
+
+                </div>
+            </div>
+
+
+        )
+    }
+    if (State === 4) {
+        return (
+            <div style={{ width: "100%" }}>
+                <div className="container-fluid vendor-container">
+                    <div>
+                        
                     </div>
                     {/* <h1>List of Works</h1> */}
                     {/* <div>
