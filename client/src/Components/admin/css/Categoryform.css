@@ -16,6 +16,16 @@
     border-radius: 10px 0px 0px 10px;
 }
 
+.Bill-Bill_outer_div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Bill-modal{
+    position: fixed;
+}
+
 
 .StatusColor_Active{
     color: green;

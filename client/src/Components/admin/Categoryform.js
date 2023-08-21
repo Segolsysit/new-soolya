@@ -1772,6 +1772,7 @@ const Orders = ({ formNumber }) => {
                             )}
                     </Table>
                 </TableContainer>
+                <div className="Bill_outer_div">
                 <div className="Bill-modal" hidden={open4}>
                     <h2 className="Bills-heading">Your bill</h2>
                     <div className="Bill-sec2">
@@ -1819,6 +1820,8 @@ const Orders = ({ formNumber }) => {
                     <div style={{ display: "flex", gap: "5px" }}>
                         <button className="Bill-btn2" onClick={handleClose4}>Cancel</button>
                     </div>
+
+                </div>
 
                 </div>
 
