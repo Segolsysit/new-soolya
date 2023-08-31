@@ -1202,10 +1202,7 @@ const Provider = () => {
             setError(true)
         }
 
-        else if (SkillExp === "" || SkillExp === null) {
-            setErrSkillExp("Select your current working")
-            setError(true)
-        }
+       
 
         else if (!Error) {
             setPno(7)
@@ -1281,18 +1278,15 @@ const Provider = () => {
     const Form7 = (e) => {
         e.preventDefault()
         setError(false)
-        if (PanCard === "" || PanCard === null) {
-            setErrPan("Add your pancard file")
-            setError(true)
-        }
-        else if (Photo === "" || Photo === null) {
+       
+        if (Photo === "" || Photo === null) {
             setErrPhoto("Add Your photo")
             setError(true)
 
         }
 
 
-        else if (!Error) {
+        else if(!Error) {
             const Formdata = new FormData()
             Formdata.append("FirstName", FirstName)
             Formdata.append("LName", LName)
