@@ -1872,6 +1872,12 @@ const postReview=async()=>{
             if(res.data.status==='ok'){
                 toast.success('Success')
                 handleClose5()
+                axios.get(`http://localhost:3001/booking_api/Completed_order/${useremail}`)
+                .then((res) => {
+                    setCompleted_order(res.data)
+                    setSubcategory(res.data.workLists)
+                    console.log(res.data);
+                })
             }
             
         })
