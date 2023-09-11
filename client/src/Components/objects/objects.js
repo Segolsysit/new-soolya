@@ -17,7 +17,7 @@ import { capitalize } from "@mui/material";
 import jwtDecode from 'jwt-decode';
 
 
-axios.defaults.baseURL = 'https://backend.kooblu.com';
+axios.defaults.baseURL = 'http://localhost:3001';
 axios.defaults.withCredentials = true;
 
 const Header = () => {
@@ -94,7 +94,7 @@ const MenuBar = () => {
 
     const getData=async()=>{
         if(Token){
-          await axios.get(`https://backend.kooblu.com/Cart/getCartItems/${UserId}`)
+          await axios.get(`http://localhost:3001/Cart/getCartItems/${UserId}`)
           .then(res=>setCartItems(res.data))
         }
       }
@@ -170,7 +170,7 @@ const Category = ({ Cat, setCat }) => {
     //hello
     const [Data, setData] = useState([])
     useEffect(() => {
-        axios.get(`https://backend.kooblu.com/api/fetch_items`)
+        axios.get(`http://localhost:3001/api/fetch_items`)
             .then((data) => {
                 setData(data.data)
             })
@@ -194,7 +194,7 @@ const Category = ({ Cat, setCat }) => {
     }, [])
 
 
-    const localpath = "https://backend.kooblu.com/";
+    const localpath = "http://localhost:3001/";
 
 
     return (
@@ -230,7 +230,7 @@ const CategoryHome = ({ Cat, setCat }) => {
     //hello
     const [Data, setData] = useState([])
     useEffect(() => {
-        axios.get(`https://backend.kooblu.com/api/fetch_items`)
+        axios.get(`http://localhost:3001/api/fetch_items`)
             .then((data) => {
                 setData(data.data)
             })
@@ -241,7 +241,7 @@ const CategoryHome = ({ Cat, setCat }) => {
         setIndex(null)
         setCat("Select")
     }
-    const localpath = "https://backend.kooblu.com/";
+    const localpath = "http://localhost:3001/";
 
     const [Selectindex, setIndex] = useState(null)
 
@@ -294,7 +294,7 @@ const Carosel = () => {
     const [cookies, setCookie] = useCookies(['cookie-name']);
 
     useEffect(() => {
-        axios.get("https://backend.kooblu.com/sub_api/new_fetch_items_limits")
+        axios.get("http://localhost:3001/sub_api/new_fetch_items_limits")
             .then((res) => setData(res.data))
         console.log(Data);
     }, [])
@@ -362,9 +362,9 @@ const Carosel = () => {
         }
     }
 
-    const localpath = "https://backend.kooblu.com/";
+    const localpath = "http://localhost:3001/";
 
-    // const localpath="https://backend.kooblu.com/"
+    // const localpath="http://localhost:3001/"
 
     return (
         <div className="Carosel-block">
@@ -841,7 +841,7 @@ const MenuList = ({ Open, Close }) => {
 
   const getData=async()=>{
     if(Token){
-      await axios.get(`https://backend.kooblu.com/Cart/getCartItems/${UserId}`)
+      await axios.get(`http://localhost:3001/Cart/getCartItems/${UserId}`)
       .then(res=>setCartItems(res.data))
     }
   }
@@ -944,7 +944,7 @@ const UserDashboard = () => {
     }, [])
 
     const orderss = () => {
-        axios.get(`https://backend.kooblu.com/authUser/fetch_email/${userId}`)
+        axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
             .then((res) => {
                 setMyorders1(res.data);
 
@@ -953,7 +953,7 @@ const UserDashboard = () => {
 
     useEffect(() => {
         const notification = parseInt(localStorage.getItem("userordercount"))
-        axios.get(`https://backend.kooblu.com/booking_api/booking_data/${useremail}`)
+        axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
             .then((res) => {
                 setorderdetails1(res.data)
                 if (notification === res.data.length || isNaN(notification) || notification >= res.data.length) {
@@ -1038,7 +1038,7 @@ const VendorDashboard = () => {
 
     const getdata2 = () => {
         const notification = parseInt(localStorage.getItem("ordercount"))
-        axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res) => {
+        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
             console.log(res.data.length);
             console.log(notification);
@@ -1086,7 +1086,7 @@ const VendorDashboard = () => {
                 })
 
             } else {
-                axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
+                axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
                     .then((res) => {
                         console.log(res.data);
                         setVendorName(res.data)
@@ -1098,7 +1098,7 @@ const VendorDashboard = () => {
     }, [pathname, localStorage.getItem("vendor"), removeCookie])
 
 
-    const localpath = "https://backend.kooblu.com/"
+    const localpath = "http://localhost:3001/"
 
     if (!loading) {
         return (

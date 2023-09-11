@@ -58,7 +58,7 @@ const Page1 = ({ Page, setPage }) => {
         console.log(lisub);
     }
     useEffect(() => {
-        axios.get("https://backend.kooblu.com/sub_api/new_fetch_items").then((data) => {
+        axios.get("http://localhost:3001/sub_api/new_fetch_items").then((data) => {
             console.log(data.data);
             setSubCat(data.data);
         })
@@ -269,7 +269,7 @@ const Page2 = () => {
     const id = localStorage.getItem("order_id")
 
     function get() {
-        axios.get(`https://backend.kooblu.com/sub_api/Book_new_fetch_items/${id}`)
+        axios.get(`http://localhost:3001/sub_api/Book_new_fetch_items/${id}`)
             .then((data) => setData(data.data))
     }
     useEffect(() => {
@@ -350,7 +350,7 @@ const Page3 = ({ Page, setPage }) => {
     const Orderid = localStorage.getItem("order_id")
 
     function get() {
-        axios.get(`https://backend.kooblu.com/sub_api/Book_new_fetch_items/${Orderid}`)
+        axios.get(`http://localhost:3001/sub_api/Book_new_fetch_items/${Orderid}`)
             .then((data) => setData(data.data))
     }
     useEffect(() => {

@@ -137,6 +137,12 @@ const CompletedOderSchema = new mongoose.Schema({
     },
     doc:{
         type:Date
+    },
+    rating:{
+        type:Number
+    },
+    feedback:{
+        type:String
     }
     // workLists: [{
     //     subCategory: String,

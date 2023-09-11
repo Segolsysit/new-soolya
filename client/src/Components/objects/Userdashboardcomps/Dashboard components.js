@@ -27,10 +27,13 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: 'none',
     boxShadow: 24,
+    borderRadius:'5px',
     p: 4,
 };
+
+
 
 //completed orders
 const UserProfile = ({ State }) => {
@@ -46,6 +49,15 @@ const UserProfile = ({ State }) => {
     // const [dummy, setDummy] = useState(0)
     const useremail = myorders.email
     const { pathname } = useLocation();
+
+
+    const [open5, setOpen5] = useState(false)
+
+    const handleOpen5 = () => {
+        setOpen5(true)
+    }
+
+
     useEffect(() => {
         window.scrollTo(0, 0);
 
@@ -59,7 +71,7 @@ const UserProfile = ({ State }) => {
 
 
     useEffect(() => {
-        axios.get(`https://backend.kooblu.com/authUser/fetch_email/${userId}`)
+        axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
             .then((res) => {
                 // console.log(res.data);
                 setMyorders(res.data)
@@ -72,7 +84,7 @@ const UserProfile = ({ State }) => {
 
     useEffect(() => {
 
-        axios.get(`https://backend.kooblu.com/booking_api/booking_data/${useremail}`)
+        axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
             .then((res) => {
                 // console.log(res.data);
                 setorderdetails(res.data)
@@ -95,6 +107,7 @@ const UserProfile = ({ State }) => {
 
 
     //   console.log(myorders);
+
 
 
 
@@ -167,7 +180,7 @@ const EditForm = ({ State }) => {
     const AadharRef = useRef(null)
     const ProfileRef = useRef(null)
     const PanRef = useRef(null)
-    const localpath = 'https://backend.kooblu.com/'
+    const localpath = 'http://localhost:3001/'
     const [previewURL, setPreviewURL] = useState('');
     const [AadharpreviewURL, setAadharPreviewURL] = useState('');
     const [PanpreviewURL, setPanPreviewURL] = useState('');
@@ -202,7 +215,7 @@ const EditForm = ({ State }) => {
         formData.append("AadharFiles", AadharCard)
         formData.append("PhotoFiles", Picture)
         formData.append("PanFiles", Pan)
-        await axios.patch(`https://backend.kooblu.com/vendor_Auth/Edit/${id}`, formData)
+        await axios.patch(`http://localhost:3001/vendor_Auth/Edit/${id}`, formData)
             .then((res) => {
                 if (res.data.status === 'ok') {
                     toast.success('Profile Updated')
@@ -266,7 +279,7 @@ const EditForm = ({ State }) => {
 
 
     useEffect(() => {
-        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
+        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
             .then((res) => {
                 let newData = new Date(res.data.DOB);
                 console.log(newData.getFullYear(), newData.getDate(), newData.getMonth());
@@ -450,10 +463,10 @@ const VendorProfile = ({ State }) => {
 
     function get_vendor() {
 
-        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
+        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
             .then((res) => {
                 setVendorDetails(res.data)
-                axios.get(`https://backend.kooblu.com/booking_api/Completed_vendor_order/${res.data.Email}`)
+                axios.get(`http://localhost:3001/booking_api/Completed_vendor_order/${res.data.Email}`)
                     .then((res) => {
                         setcompletedOrderdetails(res.data)
                         console.log(res.data);
@@ -465,13 +478,13 @@ const VendorProfile = ({ State }) => {
 
 
     useEffect(() => {
-        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${userId}`)
+        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${userId}`)
             .then((res) => {
                 console.log(res.data);
                 setMyorders(res.data)
             })
 
-        axios.get("https://backend.kooblu.com/booking_api/booking_data")
+        axios.get("http://localhost:3001/booking_api/booking_data")
             .then((res) => {
                 console.log(res.data);
                 setorderdetails(res.data)
@@ -502,7 +515,7 @@ const VendorProfile = ({ State }) => {
     // }
 
 
-    const localpath = "https://backend.kooblu.com"
+    const localpath = "http://localhost:3001"
 
 
     if (State === 1) {
@@ -662,10 +675,10 @@ const VendorOrders = ({ State }) => {
 
     function get_vendor() {
 
-        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${vendorId}`)
+        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${vendorId}`)
             .then((res) => {
                 setVendorDetails(res.data)
-                axios.get(`https://backend.kooblu.com/booking_api/Completed_vendor_order/${res.data.Email}`)
+                axios.get(`http://localhost:3001/booking_api/Completed_vendor_order/${res.data.Email}`)
                     .then((res) => {
                         setcompletedOrderdetails(res.data)
                         console.log(res.data);
@@ -678,32 +691,32 @@ const VendorOrders = ({ State }) => {
     console.log(completedOrderdetails);
 
 
-    useEffect(()=>{
+    useEffect(() => {
         get_vendor()
-    },[State])
+    }, [State])
 
-    const totalearnings =Math.round((completedOrderdetails.reduce((acc, curr) => acc + (curr.price), 0)*(15/100))) 
-    const completed=completedOrderdetails.map(item=>{
-        return{
-            CompletedID:item._id,
-            CompletedPrice:item.price
+    const totalearnings = Math.round((completedOrderdetails.reduce((acc, curr) => acc + (curr.price), 0) * (15 / 100)))
+    const completed = completedOrderdetails.map(item => {
+        return {
+            CompletedID: item._id,
+            CompletedPrice: item.price
         }
     })
 
     console.log(completed);
 
-    const EdtiEarnings=async()=>{
-        await axios.patch(`https://backend.kooblu.com/vendor_Auth/EditEarning/${vendorId}`,{
-            earning:totalearnings,
-            completed:completed
+    const EdtiEarnings = async () => {
+        await axios.patch(`http://localhost:3001/vendor_Auth/EditEarning/${vendorId}`, {
+            earning: totalearnings,
+            completed: completed
 
         })
 
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         EdtiEarnings()
-    },[totalearnings])
+    }, [totalearnings])
 
     const handleOpen = () => {
         setOpen(true)
@@ -723,7 +736,7 @@ const VendorOrders = ({ State }) => {
 
 
         try {
-            axios.get(`https://backend.kooblu.com/booking_api/booking/${order._id}`).then(async (res) => {
+            axios.get(`http://localhost:3001/booking_api/booking/${order._id}`).then(async (res) => {
                 console.log(confirm);
                 if (res.data === null) {
                     toast.error("Order was already accepted", {
@@ -734,7 +747,7 @@ const VendorOrders = ({ State }) => {
                 else {
                     try {
                         //console.log(order.number);
-                        const response = await axios.post('https://backend.kooblu.com/OTP/sendotp', { phoneNumber: order.number }, { withCredentials: true })
+                        const response = await axios.post('http://localhost:3001/OTP/sendotp', { phoneNumber: order.number }, { withCredentials: true })
                         console.log(response.data.message);
 
                         setOrderId(order)
@@ -766,12 +779,12 @@ const VendorOrders = ({ State }) => {
     const handleVerifyOtp = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post('https://backend.kooblu.com/OTP/verifyotp', { phoneNumber: orders.number, otp: veriyfyOtp }, { withCredentials: true })
+            const response = await axios.post('http://localhost:3001/OTP/verifyotp', { phoneNumber: orders.number, otp: veriyfyOtp }, { withCredentials: true })
             console.log(response.data.message)
             setError('');
             if (response.data.message === "OTP verified successfully") {
 
-                await axios.post(`https://backend.kooblu.com/booking_api/pending_orders/${orders._id}`, {
+                await axios.post(`http://localhost:3001/booking_api/pending_orders/${orders._id}`, {
                     vendor_email: vendorDetails.Email,
                     vendor_name: vendorDetails.Username,
                     user_email: orders.user_email,
@@ -787,7 +800,7 @@ const VendorOrders = ({ State }) => {
                     paymentMethod: orders.paymentMethod,
                     date: orders.date
                 })
-                axios.delete(`https://backend.kooblu.com/booking_api/delete_item/${orders._id}`)
+                axios.delete(`http://localhost:3001/booking_api/delete_item/${orders._id}`)
                     .then(() => {
                         toast.success("Successfully verified", {
                             position: 'top-center'
@@ -814,7 +827,7 @@ const VendorOrders = ({ State }) => {
 
 
     const handleOpen4 = (id) => {
-        axios.get(`https://backend.kooblu.com/booking_api/Completed_billing/${id}`)
+        axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
                 setCompletedbill(res.data)
@@ -835,7 +848,7 @@ const VendorOrders = ({ State }) => {
     }
 
     const getdata = () => {
-        axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res) => {
+        axios.get("http://localhost:3001/booking_api/booking_data").then((res) => {
             setorderdetails(res.data)
             // console.log(vendorDetails.Username);
         })
@@ -845,7 +858,7 @@ const VendorOrders = ({ State }) => {
     let a = 1;
 
     // const listofwork = () => {
-    //     axios.get("https://backend.kooblu.com/sub_api/new_fetch_items").then((res) => {
+    //     axios.get("http://localhost:3001/sub_api/new_fetch_items").then((res) => {
     //         setoptions2(res.data)
     //         console.log(res.data);
     //     })
@@ -882,7 +895,7 @@ const VendorOrders = ({ State }) => {
     //     clearInterval(timer);
     //     try {
     //         // console.log(orders.number);
-    //       const response = await axios.post('https://backend.kooblu.com/doneOtp/service-done-otp', {
+    //       const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
     //         phoneNumber: orders.number
     //       });
     //       console.log(response.data.message);
@@ -916,32 +929,38 @@ const VendorOrders = ({ State }) => {
 
     const RequestPay = async () => {
         if (ErrPay) {
-            await axios.post("https://backend.kooblu.com/request/newRequest", {
-                vendorID:vendorDetails._id,
-                name:vendorDetails.Username,
-                Phone:vendorDetails.Phonenumber,
-                Job:vendorDetails.JobTitle,
-                claimable:vendorDetails.Earning,
-                Request:Amount
+            await axios.post("http://localhost:3001/request/newRequest", {
+                vendorID: vendorDetails._id,
+                name: vendorDetails.Username,
+                Phone: vendorDetails.Phonenumber,
+                Job: vendorDetails.JobTitle,
+                claimable: vendorDetails.Earning,
+                Request: Amount
             })
-            .then(res=>{
-                if(res.data.status==='ok'){
-                    toast.success('Request made')
-                     axios.patch(`https://backend.kooblu.com/vendor_Auth/deductEarning/${vendorId}`,{
-                        earning:Amount
-                    })
+                .then(res => {
+                    if (res.data.status === 'ok') {
+                        toast.success('Request made')
+                        axios.patch(`http://localhost:3001/vendor_Auth/deductEarning/${vendorId}`, {
+                            earning: Amount
+                        })
 
-                    .then(get_vendor())
-                }
-                else{
-                    toast.error("Request Pending")
-                }
-            })
+                            .then(get_vendor())
+                    }
+                    else {
+                        toast.error("Request Pending")
+                    }
+                })
         }
 
-        else{
+        else {
             toast.error("Enter amount within the claimable limit")
         }
+    }
+
+    const [open5, setOpen5] = useState(false)
+
+    const handleOpen5 = () => {
+        setOpen5(true)
     }
 
 
@@ -1277,6 +1296,12 @@ const PendingOrders = ({ State, setState }) => {
     const [selected, setSelected] = useState([]);
     const [open, setOpen] = useState(false);
 
+    const [open5, setOpen5] = useState(false)
+
+    const handleOpen5 = () => {
+        setOpen5(true)
+    }
+
 
 
     function onSelect1(selectedList, selectedItem) {
@@ -1365,22 +1390,22 @@ const PendingOrders = ({ State, setState }) => {
         console.log(selected);
         try {
             // console.log(orders.number);
-        
-                const response = await axios.post('https://backend.kooblu.com/doneOtp/service-done-otp', {
-                    phoneNumber: data.number
-                });
-                console.log(response.data.message);
-                toast.success(response.data.message, {
-                    position: 'top-center'
-                })
-                handleOpen2()
-                setOTPSent(true);
-                setTimeRemaining(120);
-                setTimer(setInterval(() => {
-                    setTimeRemaining(prevTime => prevTime - 1);
-                }, 1000));
-            
-            
+
+            const response = await axios.post('http://localhost:3001/doneOtp/service-done-otp', {
+                phoneNumber: data.number
+            });
+            console.log(response.data.message);
+            toast.success(response.data.message, {
+                position: 'top-center'
+            })
+            handleOpen2()
+            setOTPSent(true);
+            setTimeRemaining(120);
+            setTimer(setInterval(() => {
+                setTimeRemaining(prevTime => prevTime - 1);
+            }, 1000));
+
+
         } catch (error) {
             console.log(error.response.data.message);
             //   setError(error.response.data.message);
@@ -1391,20 +1416,20 @@ const PendingOrders = ({ State, setState }) => {
         }
     }
     function get_vendor() {
-        axios.get(`https://backend.kooblu.com/vendor_Auth/fetch_vendor/${vendorId}`)
+        axios.get(`http://localhost:3001/vendor_Auth/fetch_vendor/${vendorId}`)
             .then((res) => {
                 setVendorDetails(res.data)
                 console.log(res.data);
             })
     }
-    const  vendor_orders= async() =>{
-        await axios.get(`https://backend.kooblu.com/booking_api/pending_booking_data/${vendorDetails.Email}`)
+    const vendor_orders = async () => {
+        await axios.get(`http://localhost:3001/booking_api/pending_booking_data/${vendorDetails.Email}`)
             .then((res) => {
                 setPendingorders(res.data)
             })
     }
     const listofwork = () => {
-        axios.get("https://backend.kooblu.com/sub_api/new_fetch_items").then((res) => {
+        axios.get("http://localhost:3001/sub_api/new_fetch_items").then((res) => {
             setoptions2(res.data)
             console.log(res.data);
         })
@@ -1416,9 +1441,9 @@ const PendingOrders = ({ State, setState }) => {
         listofwork()
     }, [vendorDetails.Email])
 
-    useEffect(()=>{
+    useEffect(() => {
         vendor_orders()
-    },[State])
+    }, [State])
 
 
 
@@ -1446,7 +1471,7 @@ const PendingOrders = ({ State, setState }) => {
             subCategory: data.Subcategory,
             price: data.Price
         }));
-        axios.post("https://backend.kooblu.com/doneOtp/verifyotp", {
+        axios.post("http://localhost:3001/doneOtp/verifyotp", {
             phoneNumber: Phonenumber,
             otp: OTP
         }
@@ -1456,7 +1481,7 @@ const PendingOrders = ({ State, setState }) => {
                 handleClose2()
                 if (res.data.message === "OTP verified successfully") {
                     console.log(completePendingorders._id);
-                    axios.post(`https://backend.kooblu.com/booking_api/Completed_orders/${completePendingorders._id}`, {
+                    axios.post(`http://localhost:3001/booking_api/Completed_orders/${completePendingorders._id}`, {
                         vendor_email: vendorDetails.Email,
                         vendor_name: vendorDetails.Username,
                         user_email: completePendingorders.user_email,
@@ -1471,11 +1496,12 @@ const PendingOrders = ({ State, setState }) => {
                         price: completePendingorders.price,
                         paymentMethod: completePendingorders.paymentMethod,
                         doo: completePendingorders.Placed,
-                        doa: completePendingorders.accepted
+                        doa: completePendingorders.accepted,
+
                         // workLists: workListsData,
                         // total: total
                     }).then(() => {
-                        axios.delete(`https://backend.kooblu.com/booking_api/delete_pending_item/${completePendingorders._id}`)
+                        axios.delete(`http://localhost:3001/booking_api/delete_pending_item/${completePendingorders._id}`)
                         toast.success("OTP verified", {
                             position: 'top-center'
                         })
@@ -1570,39 +1596,39 @@ const PendingOrders = ({ State, setState }) => {
                     </TableContainer>
 
                     <Modal
-                            open={open2}
-                            // onClose={handleClose2}
-                            aria-labelledby="child-modal-title"
-                            aria-describedby="child-modal-description"
-                        >
-                            <Box sx={{ ...style, width: 400 }}>
+                        open={open2}
+                        // onClose={handleClose2}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                    >
+                        <Box sx={{ ...style, width: 400 }}>
 
-                                <form onSubmit={VerifiyOTP}>
+                            <form onSubmit={VerifiyOTP}>
 
-                                    <div >
-                                        <TextField
-                                            type='text'
-                                            id="outlined-basic"
-                                            label="otp"
-                                            value={OTP}
-                                            variant="outlined"
-                                            autoComplete="off"
-                                            onChange={e => setOTP(e.target.value)}
-                                        /><br /><br />
+                                <div >
+                                    <TextField
+                                        type='text'
+                                        id="outlined-basic"
+                                        label="otp"
+                                        value={OTP}
+                                        variant="outlined"
+                                        autoComplete="off"
+                                        onChange={e => setOTP(e.target.value)}
+                                    /><br /><br />
 
-                                        <Button type="submit">verifyOtp</Button>
-                                        <Button type="submit" onClick={handleClose2}>cancel</Button>
+                                    <Button type="submit">verifyOtp</Button>
+                                    <Button type="submit" onClick={handleClose2}>cancel</Button>
 
-                                    </div>
-
-
-
-                                </form>
+                                </div>
 
 
-                                {/* <ChildModal /> */}
-                            </Box>
-                        </Modal>
+
+                            </form>
+
+
+                            {/* <ChildModal /> */}
+                        </Box>
+                    </Modal>
 
                 </div>
             </div>
@@ -1615,7 +1641,7 @@ const PendingOrders = ({ State, setState }) => {
             <div style={{ width: "100%" }}>
                 <div className="container-fluid vendor-container">
                     <div>
-                        
+
                     </div>
                     {/* <h1>List of Works</h1> */}
                     {/* <div>
@@ -1703,7 +1729,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         setOpen4(true)
     }
     const handleOpen4 = (id) => {
-        axios.get(`https://backend.kooblu.com/booking_api/Completed_billing/${id}`)
+        axios.get(`http://localhost:3001/booking_api/Completed_billing/${id}`)
             .then((res) => {
                 console.log(res.data);
                 setCompletedbill(res.data)
@@ -1757,7 +1783,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         propay.open()
         // .then(()=>{
         function completePayment() {
-            axios.patch(`https://backend.kooblu.com/booking_api/edit_Completed_orders/${data._id}`, {
+            axios.patch(`http://localhost:3001/booking_api/edit_Completed_orders/${data._id}`, {
                 vendor_email: data.vendor_email,
                 vendor_name: data.vendor_name,
                 user_email: data.user_email,
@@ -1793,7 +1819,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
     const orders = () => {
         console.log(userId);
-        axios.get(`https://backend.kooblu.com/authUser/fetch_email/${userId}`)
+        axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
             .then((res) => {
                 // console.log(res.data);
                 setMyorders(res.data);
@@ -1806,7 +1832,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     // }
 
     const GetData = async () => {
-        await axios.get(`https://backend.kooblu.com/booking_api/booking_data/${useremail}`)
+        await axios.get(`http://localhost:3001/booking_api/booking_data/${useremail}`)
             .then((res) => {
                 console.log(res.data);
                 setorderdetails(res.data)
@@ -1817,13 +1843,13 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     useEffect(() => {
 
         GetData()
-        axios.get(`https://backend.kooblu.com/booking_api/pending_book/${useremail}`)
+        axios.get(`http://localhost:3001/booking_api/pending_book/${useremail}`)
             .then((res) => {
                 setpending_order(res.data)
                 console.log(res.data);
             })
 
-        axios.get(`https://backend.kooblu.com/booking_api/Completed_order/${useremail}`)
+        axios.get(`http://localhost:3001/booking_api/Completed_order/${useremail}`)
             .then((res) => {
                 setCompleted_order(res.data)
                 setSubcategory(res.data.workLists)
@@ -1834,7 +1860,27 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
     const [subCategory, setSubcategory] = useState([])
 
+    const[reviewID,setReviewId]=useState("")
 
+const postReview=async()=>{
+    if(starIndex>0&&Feedback!==""){
+        await axios.patch(`http://localhost:3001/booking_api/editReview/review/${reviewID}`,{
+            rating:starIndex,
+            feedback:Feedback
+        })
+        .then((res)=>{
+            if(res.data.status==='ok'){
+                toast.success('Success')
+                handleClose5()
+            }
+            
+        })
+    }
+    else{
+        toast.info('Every field must be filled')
+    }
+    
+}
 
     // const verify = ()=>{
     //     if(aemail === null || apassword === null){
@@ -1861,7 +1907,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     // }
 
     // const getdata = () => {
-    //     axios.get("https://backend.kooblu.com/booking_api/booking_data").then((res)=>{
+    //     axios.get("http://localhost:3001/booking_api/booking_data").then((res)=>{
     //             setorderdetails(res.data)
     //             setNotificationCount(orderdetails.length)
     //         })
@@ -1885,9 +1931,11 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     const [editPhonenumber, setEditPhonenumber] = useState("");
     const [editEmail, setEditEmail] = useState("");
     const [getuserdata, setGetuserdata] = useState({});
+    const [starIndex,setStarIndex]=useState(-1);
+    const [Feedback,setFeedback]=useState("")
 
     function GetedituserData() {
-        axios.get("https://backend.kooblu.com/authUser/fetch_email/" + userId).then((res) => {
+        axios.get("http://localhost:3001/authUser/fetch_email/" + userId).then((res) => {
             setGetuserdata(res.data);
             setEditfirstname(res.data.firstName);
             setEditlastname(res.data.lastName);
@@ -1901,7 +1949,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
     }, [])
 
     function EditUser() {
-        axios.put("https://backend.kooblu.com/authUser/" + userId, {
+        axios.put("http://localhost:3001/authUser/" + userId, {
             firstName: editfirstname,
             lastName: editlastname,
             phoneNumber: editPhonenumber,
@@ -1909,6 +1957,18 @@ const UserOrders = ({ State, Loader, setLoader }) => {
         }).then(() => {
             window.location = "/Mydashboard"
         })
+    }
+
+    const [open5, setOpen5] = useState(false)
+
+    const handleOpen5 = (id) => {
+        setStarIndex(-1)
+        setOpen5(true)
+        setReviewId(id)
+    }
+
+    const handleClose5 = () => {
+        setOpen5(false)
     }
 
 
@@ -2109,7 +2169,31 @@ const UserOrders = ({ State, Loader, setLoader }) => {
 
                 <div className="container-fluid" >
                     <h2>Bills & Payment</h2>
-
+                    <Modal
+                        open={open5}
+                        onClose={handleClose5}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Rate our service
+                            </Typography>
+                            {[...Array(5)].map((star, index) => {
+                                return (
+                                    <label>
+                                        <i class="fa-solid fa-star" style={{color:`${starIndex>=index?'#f5d400':"#252525"}`}}></i>
+                                        <input style={{display:'none'}} onClick={()=>setStarIndex(index)} type="radio"/>
+                                    </label>
+                                )
+                            })}
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                Feedback
+                            </Typography>
+                            <textarea style={{width:'100%'}} onChange={(e)=>setFeedback(e.target.value)}/>
+                            <button className="review_subt_btn" onClick={postReview}>submit</button>
+                        </Box>
+                    </Modal>
 
                     <Table className='table-cat' style={{ margin: "40px 0px 0px 0px" }}>
                         <TableHead>
@@ -2122,7 +2206,7 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Number</TableCell>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Completed By</TableCell>
                                 <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Bill</TableCell>
-
+                                <TableCell style={{ textAlign: "center", fontWeight: '600' }}>Feedback</TableCell>
 
 
                             </TableRow>
@@ -2131,10 +2215,8 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                             <TableBody>
                                 {
                                     completed_order.map((data, index) => (
-
                                         <TableRow key={index} style={{ backgroundColor: "white" }}>
                                             <TableCell>{a++}</TableCell>
-
                                             {/* <TableCell><p>{data.Service}</p></TableCell> */}
                                             <TableCell><p>{data.Category}</p> </TableCell>
                                             {/* <TableCell><p>{data.price}</p></TableCell> */}
@@ -2142,11 +2224,8 @@ const UserOrders = ({ State, Loader, setLoader }) => {
                                             <TableCell><p>{data.number}</p></TableCell>
                                             <TableCell><p>{data.vendor_name}</p></TableCell>
                                             <TableCell style={{ textAlign: "center" }}><button onClick={() => handleOpen4(data._id)} className="Pay-button">View Bill</button></TableCell>
+                                            <TableCell style={{ textAlign: "center" }}><button onClick={() => handleOpen5(data._id)} className="Pay-button" hidden={data.rating==0||data.feedback===""?false:true}>Write</button></TableCell>
                                         </TableRow>
-
-
-
-
 
                                     ))
                                 }

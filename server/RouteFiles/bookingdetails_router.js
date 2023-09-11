@@ -106,13 +106,38 @@ bookingdetails_router.post("/Completed_orders/:id", async (req, res) => {
         paymentMethod:req.body.paymentMethod,
         doo:req.body.doo,
         doa:req.body.doa,
-        doc:Date.now()
+        doc:Date.now(),
+        rating: 0,
+        feedback: "",
         // workLists,
         // total
     })
 
    await deatails.save();
     res.status(200).json({message:"Uploaded Successfully",deatails})
+})
+
+
+bookingdetails_router.patch("/editReview/review/:id",async(req,res)=>{
+    const id=req.params.id
+    const rating=req.body.rating
+    const feedback=req.body.feedback
+
+    try{
+        const data=await CompletedOder_Model.findByIdAndUpdate(id)
+        data.rating=rating+1;
+        data.feedback=feedback;
+        data.save()
+        res.json({status:'ok'})
+
+    }
+    catch(err){
+        res.json(err)
+    }
+
+
+   
+
 })
 
 bookingdetails_router.patch("/edit_Completed_orders/:id", async (req, res) => {
