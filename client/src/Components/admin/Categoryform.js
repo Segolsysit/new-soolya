@@ -1413,6 +1413,9 @@ const RejectedList = ({ formNumber }) => {
     let serialNumber = 1;
 
     const [rejected, setRejected] = useState([])
+   
+
+
 
     useEffect(() => {
         axios.get("http://localhost:3001/reject_api/rejected_data")
@@ -1592,6 +1595,26 @@ const Orders = ({ formNumber }) => {
         setOpen4(true)
     }
 
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        p: 4,
+      };
+
+    const [reviewText,setReviewText]=useState('')
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = (index) => {
+        setReviewText(completed_orderdetails[index].feedback)
+        setOpen(true)
+    };
+    const handleClose = () => setOpen(false);
+
     // function resetNoti() {
     //     setNotificationCount("")
     // }
@@ -1725,6 +1748,21 @@ const Orders = ({ formNumber }) => {
     else if (formNumber === 13) {
         return (
             <div className="container-fluid">
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={style}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Feedback
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            {reviewText}
+                        </Typography>
+                    </Box>
+                </Modal>
                 <h1>Completed Orders</h1>
                 <TableContainer component={Paper} style={{ padding: "20px", alignItems: "center", justifyContent: "center" }}>
                     <Table className='table-cat' style={{ margin: "0px" }}>
@@ -1762,7 +1800,7 @@ const Orders = ({ formNumber }) => {
                                                 <StyledTableCell align="center"><p>{data.Category}</p> </StyledTableCell>
                                                 <StyledTableCell align="center"><p>{data.price}</p></StyledTableCell>
                                                 <StyledTableCell align="center"><p>{data.address}</p></StyledTableCell>
-                                                <StyledTableCell align="center"><p hidden={data.rating?false:true}><i class="fa-solid fa-star" style={{color:`${data.rating>3?'#f5d400':'#f54100'}`}}></i>{data.rating}</p></StyledTableCell>
+                                                <StyledTableCell align="center"><p hidden={data.rating ? false : true} onClick={()=>handleOpen(index)}><i class="fa-solid fa-star" style={{ color: `${data.rating > 3 ? '#f5d400' : '#f54100'}` }}></i>{data.rating}</p></StyledTableCell>
                                                 <StyledTableCell align="center"><p>{data.number}</p></StyledTableCell>
                                                 <StyledTableCell align="center"><p>{data.paymentMethod}</p></StyledTableCell>
                                                 <StyledTableCell align="center"><p>{data.vendor_name}</p></StyledTableCell>
@@ -1775,55 +1813,55 @@ const Orders = ({ formNumber }) => {
                     </Table>
                 </TableContainer>
                 <div className="Bill_outer_div">
-                <div className="Bill-modal" hidden={open4}>
-                    <h2 className="Bills-heading">Your bill</h2>
-                    <div className="Bill-sec2">
-                        <div style={{ height: "15rem", overflow: 'scroll', width: '100%' }}>
+                    <div className="Bill-modal" hidden={open4}>
+                        <h2 className="Bills-heading">Your bill</h2>
+                        <div className="Bill-sec2">
+                            <div style={{ height: "15rem", overflow: 'scroll', width: '100%' }}>
 
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell style={{ backgroundColor: 'White', textAlign: "center", fontWeight: '600', border: 'none' }}>Work Done</TableCell>
-                                        <TableCell style={{ backgroundColor: 'White', textAlign: "center", fontWeight: '600', border: 'none' }}>Charges</TableCell>
-                                    </TableRow>
-                                </TableHead>
-
-                                <TableBody style={{ width: '100%' }}>
-
-                                    {
-                                        // completedbill.map((data) => (
-                                        //     data.workLists.map((Sub, secondindex) => (
-                                        //console.log(Sub.subCategory)
-
-                                        <TableRow >
-                                            <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{completedbill.Category}</p></TableCell>
-                                            <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{completedbill.price}</p></TableCell>
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell style={{ backgroundColor: 'White', textAlign: "center", fontWeight: '600', border: 'none' }}>Work Done</TableCell>
+                                            <TableCell style={{ backgroundColor: 'White', textAlign: "center", fontWeight: '600', border: 'none' }}>Charges</TableCell>
                                         </TableRow>
-                                        // ))
-                                        // ))
-                                    }
+                                    </TableHead>
 
-                                    <TableRow>
-                                        <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
+                                    <TableBody style={{ width: '100%' }}>
+
                                         {
-                                            // completedbill.map((data, index) => (
-                                            <TableCell style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{completedbill.price}</p></TableCell>
-                                            // )
-                                            // )
+                                            // completedbill.map((data) => (
+                                            //     data.workLists.map((Sub, secondindex) => (
+                                            //console.log(Sub.subCategory)
+
+                                            <TableRow >
+                                                <TableCell style={{ backgroundColor: "white", border: 'none' }}><p>{completedbill.Category}</p></TableCell>
+                                                <TableCell style={{ backgroundColor: "white", border: 'none', textAlign: 'center' }}><p>{completedbill.price}</p></TableCell>
+                                            </TableRow>
+                                            // ))
+                                            // ))
                                         }
-                                    </TableRow>
 
-                                </TableBody>
+                                        <TableRow>
+                                            <TableCell style={{ backgroundColor: "grey", display: 'flex', alignItems: 'center', border: 'none' }}><p style={{ margin: '0px', fontWeight: '600', color: 'white' }}>Total</p></TableCell>
+                                            {
+                                                // completedbill.map((data, index) => (
+                                                <TableCell style={{ backgroundColor: "white" }}><p style={{ margin: '0px', textAlign: 'center' }}>{completedbill.price}</p></TableCell>
+                                                // )
+                                                // )
+                                            }
+                                        </TableRow>
 
-                            </Table>
+                                    </TableBody>
+
+                                </Table>
+                            </div>
+
+                        </div>
+                        <div style={{ display: "flex", gap: "5px" }}>
+                            <button className="Bill-btn2" onClick={handleClose4}>Cancel</button>
                         </div>
 
                     </div>
-                    <div style={{ display: "flex", gap: "5px" }}>
-                        <button className="Bill-btn2" onClick={handleClose4}>Cancel</button>
-                    </div>
-
-                </div>
 
                 </div>
 
