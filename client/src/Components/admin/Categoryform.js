@@ -1603,6 +1603,7 @@ const Orders = ({ formNumber }) => {
         width: 400,
         bgcolor: 'background.paper',
         boxShadow: 24,
+        outline:'none',
         p: 4,
       };
 
@@ -1610,7 +1611,7 @@ const Orders = ({ formNumber }) => {
 
     const [open, setOpen] = useState(false);
     const handleOpen = (index) => {
-        setReviewText(completed_orderdetails[index].feedback)
+        setReviewText(completed_orderdetails[index])
         setOpen(true)
     };
     const handleClose = () => setOpen(false);
@@ -1755,11 +1756,15 @@ const Orders = ({ formNumber }) => {
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={style}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Feedback
+                        <Typography>
+                            {[...Array(reviewText.rating)].map((item,index)=>{
+                               return( <lable>
+                                    <i class="fa-solid fa-star" style={{color:'#f5b800'}}></i>
+                                </lable>)
+                            })}
                         </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            {reviewText}
+                        <Typography id="modal-modal-title" sx={{ mt: 2 }}>
+                            {reviewText.feedback}
                         </Typography>
                     </Box>
                 </Modal>
