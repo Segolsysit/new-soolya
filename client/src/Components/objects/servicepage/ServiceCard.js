@@ -37,7 +37,7 @@ const ServiceCard = ({ service, Range }) => {
     useEffect(() => {
         setCategory(localStorage.getItem("SubCategory"))
         if ((Category !== "" && (Category !== null || Category !== undefined)) && (service === "Select" || service === null || service === undefined) && count < 1) {
-            axios.get(`http://localhost:3001/sub_api/new_fetch_items/${Category}`)
+            axios.get(`https://backend.kooblu.com/sub_api/new_fetch_items/${Category}`)
                 .then((data) => {
                     setData(data.data)
                     setCount(count + 1)
@@ -54,7 +54,7 @@ const ServiceCard = ({ service, Range }) => {
     // console.log(pathname);
     useEffect(() => {
         if (service !== "Select" && service !== null) {
-            axios.get(`http://localhost:3001/sub_api/new_fetch_items/${service}`)
+            axios.get(`https://backend.kooblu.com/sub_api/new_fetch_items/${service}`)
                 .then((data) => {
 
                     setData(data.data)
@@ -113,7 +113,7 @@ const ServiceCard = ({ service, Range }) => {
 
     const AddtoCart = async (id, Subcategory, Price) => {
         if (Token) {
-            await axios.post("http://localhost:3001/Cart/AddtoCart", {
+            await axios.post("https://backend.kooblu.com/Cart/AddtoCart", {
                 ProductId: id,
                 UserID: UserId,
                 Name: Subcategory,
@@ -136,7 +136,7 @@ const ServiceCard = ({ service, Range }) => {
 
 
 
-    const localpath = "http://localhost:3001/";
+    const localpath = "https://backend.kooblu.com/";
 
 
 

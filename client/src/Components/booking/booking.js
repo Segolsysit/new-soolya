@@ -33,7 +33,7 @@ const BookingPage = () => {
 
     const orders = () => {
         // console.log(userId);
-        axios.get(`http://localhost:3001/authUser/fetch_email/${userId}`)
+        axios.get(`https://backend.kooblu.com/authUser/fetch_email/${userId}`)
             .then((res) => {
                 console.log(res.data);
                 setMyorders(res.data)
@@ -41,7 +41,7 @@ const BookingPage = () => {
     }
 
     function get() {
-        axios.get(`http://localhost:3001/sub_api/Book_new_fetch_items/${id}`)
+        axios.get(`https://backend.kooblu.com/sub_api/Book_new_fetch_items/${id}`)
             .then((res) => setbooking_service(res.data))
     }
 
@@ -74,7 +74,7 @@ const BookingPage = () => {
 
 
         // console.log(Time);
-        axios.post("http://localhost:3001/booking_api/new_booking", {
+        axios.post("https://backend.kooblu.com/booking_api/new_booking", {
             user_email: myorders.email,
             address,
             street,
@@ -88,7 +88,7 @@ const BookingPage = () => {
             paymentMethod: localStorage.getItem("paymentType")
         }
         ).then(() => {
-            axios.post("http://localhost:3001/vendororder_api/new_booking", {
+            axios.post("https://backend.kooblu.com/vendororder_api/new_booking", {
                 user_email: myorders.email,
                 address,
                 street,
