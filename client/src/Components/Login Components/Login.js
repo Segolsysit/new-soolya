@@ -539,6 +539,17 @@ const Provider = () => {
         'Virudhunagar',
     ]
 
+    const Taluks=[{'Chennai':['Alandur','Ambattur','Aminjikarai','Ayanavaram','Egmore','Guindy','Madhavaram','Madhuravoyal','Mambalam','Mylapore','Perambur','Purasavakkam','Sholinganallur','Thiruvottriyur','Tondiarpet','Velacherry'],
+                    'Coimbatore':['Aanaimalai','Annur','Coimbatore(North)','Coimbatore(South)','Kinathukadavu','Madukarai','Mettupalayam','Perur','Pollachi','Sulur','Valparai'],
+                    'Cuddalore':['Cuddalore','Bhuvanagiri','Chidambaram','Kattumannarkoil','Kurinjipadi','Panruti','Srimushnam','Thittakudi','Veppur','Virudhachalam'],
+                    'Dharmapuri':['Dharmapuri','Harur','Karimangalam','Nallampalli','Palacode','Pappireddipatti','Pennagaram'],
+                    'Dindigul':['Atthur','Dindigul (East)','Dindigul (West)','Guziliyamparai','Kodaikanal','Natham','Nilakottai','Oddanchatram','Palani','Vedasandur'],
+                    'Erode':['Anthiyur','Bhavani','Gobichettipalayam','Kodumudi','Modakurichi','Nambiyur','Perundurai','Sathiyamangalam','Thalavadi'],
+                    'Kancheepuram':['Kundrathur','Sriperumbudur','Uthiramerur','Walajabad'],
+                    'Kanniyakumari':['Agasteeswaram','Kalkulam','Killiyur','Thiruvatar','Thovalai','Vilavankodu'],
+                    'Karur':['Karur','Aravakurichi','Kadavur','Krishnarayapuram','Kulithalai','Manmangalam','Pugalur']
+                }]
+
     const [FirstName, setFName] = useState("")
     const [LName, setLName] = useState("")
     const [Location, setLocation] = useState("Select")
