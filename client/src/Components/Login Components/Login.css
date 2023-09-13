@@ -36,6 +36,10 @@ a{
     visibility: hidden;
 }
 
+.KnownLanguage_box::-webkit-scrollbar-track{
+    visibility: hidden;
+}
+
 .KnownLanguage_box{
      padding: 10px;
     border: rgb(226, 232, 246) solid;
@@ -43,7 +47,7 @@ a{
     display: flex;
     flex-wrap: wrap;
     gap: 3px;
-    height: 50px;
+    height: 80px;
     overflow: scroll;
 }
 
