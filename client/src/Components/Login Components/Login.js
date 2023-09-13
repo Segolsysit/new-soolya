@@ -549,10 +549,36 @@ const Provider = () => {
         'Kancheepuram': ['Kundrathur', 'Sriperumbudur', 'Uthiramerur', 'Walajabad'],
         'Kanniyakumari': ['Agasteeswaram', 'Kalkulam', 'Killiyur', 'Thiruvatar', 'Thovalai', 'Vilavankodu'],
         'Karur': ['Karur', 'Aravakurichi', 'Kadavur', 'Krishnarayapuram', 'Kulithalai', 'Manmangalam', 'Pugalur'],
+        'Madurai': ['Kallikudi', 'Madurai (East)', 'Madurai (North)', 'Madurai (South)', 'Madurai (West)', 'Melur', 'Peraiyur', 'Thirumangalam', 'Thiruparankundram', 'Usilampatti', 'Vadipatti'],
+        'Nagapattinam': ['Nagapattinam', 'Kilvelur', 'Thirukkuvalai', 'Vedaranyam'],
+        'Namakkal': ['Namakkal', 'Kholli Hills', 'Kumarapalayam', 'Mohanoor', 'Paramathi Velur', 'Rasipuram', 'Senthamangalam', 'Tiruchengode'],
+        'Nilgiris': ['Udagamandalam', 'Coonoor', 'Gudalur', 'Kothagiri', 'Kundah', 'Pandalur'],
+        'Perambalur': ['Perambalur', 'Alathur', 'Kunnam', 'Veppanthattai'],
+        'Pudukottai': ['Pudukottai', 'Alangudi', 'Aranthangi', 'Avudiyarkoil', 'Gandarvakottai', 'Iluppur', 'Karambakudi', 'Kulathur', 'Manamelkudi', 'Ponnamaravathi', 'Thirumayam', 'Viralimalai'],
+        'Ramanathapuram': ['Ramanathapuram', 'Kadaladi', 'Kamuthi', 'Kezhakarai', 'Mudukulathur', 'Paramakudi', 'Rajasingamangalam', 'Rameswaram', 'Tiruvadanai'],
+        'Salem': ['Salem', 'Attur', 'Edapadi', 'Gangavalli', 'Kadaiyampatti', 'Mettur', 'Omalur', 'Pethanayakanpalayam', 'Salem South', 'Salem West', 'Sankari', 'Vazhapadi', 'Yercaud'],
+        'Sivagangai': ['Sivagangai', 'Devakottai', 'Ilayankudi', 'Kalaiyarkovil', 'Karaikudi', 'Manamadurai', 'Singampunari', 'Thirupuvanam', 'Tirupathur'],
+        'Thanjavur': ['Thanjavur', 'Boothalur', 'Kumbakonam', 'Orathanadu', 'Papanasam', 'Pattukottai', 'Peravurani', 'Thiruvaiyaru', 'Thiruvidaimaruthur'],
+        'Theni': ['Theni', 'Aandipatti', 'Bodinayakanur', 'Periyakulam', 'Uthamapalayam'],
         'Thiruvallur': ['Uthamapalayam', 'Thiruvallur', 'Avadi', 'Gummidipoondi', 'Pallipattu', 'Ponneri', 'Poonamallee', 'R.K. Pet', 'Tiruthani', 'Uthukottai'],
         'Thiruvannamalai': ['Thiruvannamalai', 'Arni', 'Chengam', 'Chetpet', 'Cheyyar', 'Jamunamarathur', 'Kalasapakkam', 'Kilpennathur', 'Polur', 'Thandramet', 'Vandavasi', 'Vembakkam'],
         'Thiruvarur': ['Thiruvarur', 'Kodavasal', 'Koothanallur', 'Mannargudi', 'Nannilam', 'Needamangalam', 'Thiruthuraipoondi', 'Valangaiman'],
-        'Thoothukudi': ['Thoothukudi', '']
+        'Thoothukudi': ['Thoothukudi', 'Eral', 'Ettayapuram', 'Kayathar', 'Kovilpatti', 'Ottapidaram', 'Sattankulam', 'Srivaikundam', 'Tiruchendur', 'Vilathikulam'],
+        'Tiruchirappalli': ['Lalgudi', 'Manachanallur', 'Manapparai', 'Marungapuri', 'Musiri', 'Srirangam', 'Thottiam', 'Thuraiyur', 'Tiruchirapalli (West)', 'Tiruchirappalli (East)', 'Tiruverumbur'],
+        'Tirunelveli': ['Tirunelveli', 'Ambasamudram', 'Cheranmahadevi', 'Manur', 'Nanguneri', 'Palayamkottai', 'Radhapuram', 'Thisayanvilai'],
+        'Vellore': ['Vellore', 'Aanikattu', 'Gudiyatham', 'K V Kuppam', 'katpadi', 'Pernambut'],
+        'Villupuram': ['Villupuram', 'Gingee', 'Kandachipuram', 'Marakanam', 'melmalaiyanur', 'Thiruvennainallur', 'Tindivanam', 'Vanur', 'Vikravandi'],
+        'Virudhunagar': ['Aruppukottai', 'kariyapatti', 'Rajapalayam', 'Sathur', 'Sivakasi', 'Srivilliputhur', 'Tiruchuli', 'Vembakottai', 'Watrap'],
+        'Ariyalur': ['Ariyalur', 'Andimadam', 'Sendurai', 'Udaiyarpalayam'],
+        'Krishnagiri': ['Krishnagiri', 'Anjetty', 'Bargur', 'Hosur', 'Pochampalli', 'Sulagiri', 'Thenkanikottai', 'Uthangarai'],
+        'Tiruppur': ['Avinashi', 'Dharapuram', 'Kangeyam', 'Madathukkulam', 'Oothukuli', 'Palladam', 'Tiruppur (North)', 'Tiruppur (South)', 'Udumalaipettai'],
+        'Chengalpattu': ['Chengalpattu', 'Cheyyur', 'Maduranthakam', 'Pallavaram', 'Tambaram', 'Thirukalukundram', 'Tiruporur', 'Vandalur'],
+        'Kallakurichi': ['Kallakurichi', 'Chinnasalem', 'Kalvarayan Hills', 'Sankarapuram', 'Tirukoilur', 'Ulundurpet'],
+        'Ranipet': ['Arakkonam', 'Arcot', 'Kalavai', 'Nemili', 'Sholingur', 'Walajah'],
+        'Tenkasi': ['Tenkasi', 'Alangulam', 'Kadayanallur', 'Sankarankovil', 'Shenkottai', 'Sivagiri', 'Thiruvengadam', 'Veerakeralampudur'],
+        'Tirupathur': ['Tirupathur', 'Ambur', 'Natrampalli', 'Vaniyambadi'],
+        'Mayiladuthurai': ['Mayiladuthurai', 'Kuthalam', 'Sirkali', 'Tharangambadi']
+
     }]
 
     const [FirstName, setFName] = useState("")
