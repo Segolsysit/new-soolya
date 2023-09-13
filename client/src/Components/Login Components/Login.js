@@ -546,7 +546,7 @@ const Provider = () => {
         'Virudhunagar',
     ]
 
-    const Taluks = [{
+    const Taluks = {
         'Chennai': ['Alandur', 'Ambattur', 'Aminjikarai', 'Ayanavaram', 'Egmore', 'Guindy', 'Madhavaram', 'Madhuravoyal', 'Mambalam', 'Mylapore', 'Perambur', 'Purasavakkam', 'Sholinganallur', 'Thiruvottriyur', 'Tondiarpet', 'Velacherry'],
         'Coimbatore': ['Aanaimalai', 'Annur', 'Coimbatore(North)', 'Coimbatore(South)', 'Kinathukadavu', 'Madukarai', 'Mettupalayam', 'Perur', 'Pollachi', 'Sulur', 'Valparai'],
         'Cuddalore': ['Cuddalore', 'Bhuvanagiri', 'Chidambaram', 'Kattumannarkoil', 'Kurinjipadi', 'Panruti', 'Srimushnam', 'Thittakudi', 'Veppur', 'Virudhachalam'],
@@ -586,7 +586,7 @@ const Provider = () => {
         'Tirupathur': ['Tirupathur', 'Ambur', 'Natrampalli', 'Vaniyambadi'],
         'Mayiladuthurai': ['Mayiladuthurai', 'Kuthalam', 'Sirkali', 'Tharangambadi']
 
-    }]
+    }
 
     const [FirstName, setFName] = useState("")
     const [LName, setLName] = useState("")
