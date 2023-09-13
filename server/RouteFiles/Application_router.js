@@ -40,7 +40,7 @@ const Storage=multer.diskStorage({
 
 Application_Router.post("/Applications",multipleUpload,async(req,res) => {
     try {
-        const{FirstName,LName,Location,Email,Phone,Address,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL}=req.body
+        const{FirstName,LName,Location,Email,Phone,Address,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL,taluka}=req.body
         const AadharCard=req.files['AadharCard']
         const PanCard=req.files['PanCard']
         const Photo=req.files['Photo']
@@ -48,6 +48,7 @@ Application_Router.post("/Applications",multipleUpload,async(req,res) => {
     
         const fileData=new Applicationschema({
           FirstName,LName,Location,Email,Phone,Address,Gender,Language,DOB,AAdhar,AccNo,BnkName,Ifsc,Education,JobTitle,WorkExp,Zone,AltPH,KnownL,
+          Taluka:taluka,
           AadharFiles:[],
           PhotoFiles:[],
           PanFiles:[]

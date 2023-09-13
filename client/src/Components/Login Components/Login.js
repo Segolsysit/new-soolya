@@ -509,23 +509,30 @@ const Provider = () => {
         'Ariyalur',
         'Chennai',
         'Coimbatore',
+        'Chengalpattu',
         'Cuddalore',
         'Dharmapuri',
         'Dindigul',
         'Erode',
         'Kanchipuram',
+        'Krishnagiri',
         'Kanyakumari',
+        'Kallakurichi',
         'Karur',
         'Madurai',
+        'Mayiladuthurai',
         'Nagapattinam',
         'Nilgiris',
         'Namakkal',
         'Perambalur',
         'Pudukkottai',
         'Ramanathapuram',
+        'Ranipet',
         'Salem',
         'Sivaganga',
-        'Tirupur',
+        'Tenkasi',
+        'Tirupathur',
+        'Tiruppur',
         'Tiruchirappalli',
         'Theni',
         'Tirunelveli',
@@ -609,6 +616,7 @@ const Provider = () => {
     const [PanCard, setPanCard] = useState('')
     const [Photo, setPhoto] = useState("")
     const Navigate = useNavigate();
+    const [unique, setUnique] = useState([])
 
     const [Pno, setPno] = useState(1)//page number
 
@@ -666,6 +674,7 @@ const Provider = () => {
 
         setErrC("")
         setErrL("")
+        setErrTaluka("")
         setError(false)
 
 
@@ -684,6 +693,10 @@ const Provider = () => {
         }
         else if (Location === "Select" || Location === null) {
             setErrL("Enter your Location")
+            setError(true)
+        }
+        else if (SelectTaluka === "Select" || SelectTaluka === "" || SelectTaluka === null) {
+            setErrTaluka("Select taluka")
             setError(true)
         }
 
@@ -769,6 +782,21 @@ const Provider = () => {
 
                                 </select>
                                 <p className="Error-signup">{ErrL}</p>
+
+                                <label className="Join-Label">Taluka</label>
+                                <select defaultValue={SelectTaluka} className="Signup-Input" onChange={(e) => {
+                                    setTaluka(e.target.value)
+                                    setErrTaluka("")
+                                    setError(false)
+                                }}>
+                                    <option>Select</option>
+                                    {Array.isArray(unique) && unique.map((item, index) => (
+                                        <option key={index}>{item}</option>
+                                    ))}
+
+                                </select>
+                                <p className="Error-signup">{ErrTaluka}</p>
+
 
 
                                 <button type="button" className="Button-Signup" onClick={Form1}>Next</button>
@@ -1420,6 +1448,7 @@ const Provider = () => {
             Formdata.append("SkillExp", SkillExp)
             Formdata.append("PanCard", PanCard)
             Formdata.append("Photo", Photo)
+            Formdata.append("taluka", SelectTaluka)
             try {
                 axios.post('https://backend.kooblu.com/vendor_Applications/Applications', Formdata)
                     .then((res) => {

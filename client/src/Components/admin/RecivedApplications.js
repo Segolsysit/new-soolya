@@ -11,7 +11,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: '90%',
     bgcolor: 'background.paper',
     border: 'none',
     boxShadow: 24,
@@ -270,12 +270,129 @@ const RecivedApplication = ({ formNumber }) => {
                     >
 
                         <Box sx={{ ...style, height: '100%', overflowY: 'scroll' }}>
-                            <div >
+                            <div style={{width:"100%"}}>
                                 {/* style={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }} */}
+                                <table style={{width:'100%'}} id='Application_modal'>
+                                    <tbody>
+                                        <tr style={{width:'100%'}}>
+                                            <td style={{width:'50%',border:'none'}}></td>
+                                            <td style={{width:'100%',display:'flex',justifyContent:'flex-end',border:'none'}}> {Array.isArray(viewdata.PhotoFiles) && viewdata.PhotoFiles.map(item => {
+                                            if (item.fieldName === "Photo") {
+                                                return <img style={{ aspectRatio: 3 / 4, width: '150px' }} src={localpath + item.filename} alt='' onClick={() => handleImgOpen(item.filename)} />
+
+                                            }
+
+
+                                        })}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <td>{viewdata.FirstName}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Last Name</th>
+                                            <td>{viewdata.LName}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>{viewdata.Email}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>phone</th>
+                                            <td>{viewdata.Phone}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Address</th>
+                                            <td>{viewdata.Address}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Location</th>
+                                            <td>{viewdata.Location}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Taluka</th>
+                                            <td>{viewdata.Taluka||null}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Gender</th>
+                                            <td>{viewdata.Gender}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Language</th>
+                                            <td>{viewdata.Gender}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>DOB</th>
+                                            <td>{new Date(viewdata.DOB).toLocaleDateString()}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>AAdhar Number</th>
+                                            <td>{viewdata.AAdhar}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Account Number</th>
+                                            <td>{viewdata.AccNo}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>IFSC Code</th>
+                                            <td>{viewdata.Ifsc}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Education Level</th>
+                                            <td>{viewdata.Education}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Job Title</th>
+                                            <td>{viewdata.JobTitle}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Work Experience</th>
+                                            <td>{viewdata.WorkExp}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Work Zone</th>
+                                            <td>{viewdata.Zone}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Alternate Ph.No</th>
+                                            <td>{viewdata.AltPH}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Languages Known</th>
+                                            <td>{viewdata.KnownL}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            {Array.isArray(viewdata.AadharFiles) && viewdata.AadharFiles.map(item => {
+                                            if (item.fieldName === "AadharCard") {
+                                                return (
+                                                    <img style={{ aspectRatio: 16 / 9, width: '200px', }} src={localpath + item.filename} alt='' onClick={() => handleImgOpen(item.filename)} />
+                                                )
+
+                                            }
+
+
+                                        })}
+                                            </td>
+                                            <td>
+                                            {Array.isArray(viewdata.PanFiles) && viewdata.PanFiles.map(item => {
+                                            if (item.fieldName === "PanCard") {
+                                                return (
+                                                    <img style={{ aspectRatio: 16 / 9, width: '200px', }} src={localpath + item.filename} alt='' onClick={() => handleImgOpen(item.filename)} />
+                                                )
+
+                                            }
+
+
+                                        })}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                 <div >
                                     {/* style={{ width: 'fit-content' }} */}
 
-                                    <div>
+                                    {/* <div>
                                         {Array.isArray(viewdata.PhotoFiles) && viewdata.PhotoFiles.map(item => {
                                             if (item.fieldName === "Photo") {
                                                 return <img style={{ aspectRatio: 3 / 4, width: '100px', marginLeft: "90px" }} src={localpath + item.filename} alt='' onClick={() => handleImgOpen(item.filename)} />
@@ -291,6 +408,7 @@ const RecivedApplication = ({ formNumber }) => {
                                     <p><b>phone</b>    : {viewdata.Phone}</p>
                                     <p><b>Address </b> : {viewdata.Address}</p>
                                     <p><b>Location</b> : {viewdata.Location}</p>
+                                    <p><b>Taluka</b>   : {viewdata.Taluka||null}</p>
                                     <p><b>Gender</b> : {viewdata.Gender}</p>
                                     <p><b>Language</b> : {viewdata.Language}</p>
                                     <p><b>DOB</b> : {new Date(viewdata.DOB).toLocaleDateString()}</p>
@@ -303,6 +421,7 @@ const RecivedApplication = ({ formNumber }) => {
                                     <p><b>Work Zone</b>   : {viewdata.Zone}</p>
                                     <p><b>Alternate Ph.No</b>   : {viewdata.AltPH}</p>
                                     <p><b>Languages Known</b>   : {viewdata.KnownL}</p>
+                                    
                                     <div style={{ display: 'flex', gap: '20px' }}>
                                         {Array.isArray(viewdata.AadharFiles) && viewdata.AadharFiles.map(item => {
                                             if (item.fieldName === "AadharCard") {
@@ -324,7 +443,7 @@ const RecivedApplication = ({ formNumber }) => {
 
 
                                         })}
-                                    </div>
+                                    </div> */}
 
 
 
