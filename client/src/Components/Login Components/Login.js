@@ -1257,7 +1257,6 @@ const Provider = () => {
                                 setZone(e.target.value)
                                 setErrZone("")
                             }}>
-                                <option>select</option>
                                 {city.map((c) => (
                                     <option value={c}>{c}</option>
                                 ))}
@@ -1314,6 +1313,15 @@ const Provider = () => {
             toast.error("already added")
         }
 
+    }
+
+    const RemoveLanguage=(e)=>{
+            const copy= Known.filter(item=>{
+                return item!==e
+            })
+            setKnown(copy)
+        
+      
     }
 
 
@@ -1390,7 +1398,7 @@ const Provider = () => {
                             </select>
                             <div className="KnownLanguage_box">
                                 {Known.map((item, index) => {
-                                    return <p className="KnownL_text" key={index}>{item}</p>
+                                    return <p className="KnownL_text" key={index}>{item} <span style={{cursor:'pointer',color:'#f59a9a'}} onClick={()=>RemoveLanguage(item)}>x</span></p>
                                 })}
 
                             </div>
