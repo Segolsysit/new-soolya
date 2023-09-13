@@ -1756,10 +1756,11 @@ const Orders = ({ formNumber }) => {
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={style}>
+                    <h3 style={{textAlign:'center',fontSize:'25px',fontWeight:700}}>User Review</h3>
                         <Typography>
-                            {[...Array(reviewText.rating)].map((item,index)=>{
+                            {[...Array(5)].map((item,index)=>{
                                return( <lable>
-                                    <i class="fa-solid fa-star" style={{color:'#f5b800'}}></i>
+                                    <i class="fa-solid fa-star" style={{color:`${index<reviewText.rating?'#e6b327':'#252525'}`}}></i>
                                 </lable>)
                             })}
                         </Typography>
