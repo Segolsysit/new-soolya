@@ -616,7 +616,7 @@ const Provider = () => {
     const [PanCard, setPanCard] = useState('')
     const [Photo, setPhoto] = useState("")
     const Navigate = useNavigate();
-    const [unique, setUnique] = useState([])
+    const[unique,setUnique]=useState([])
 
     const [Pno, setPno] = useState(1)//page number
 
@@ -649,9 +649,21 @@ const Provider = () => {
     const [ErrPan, setErrPan] = useState("")
     const [ErrPhoto, setErrPhoto] = useState('')
     const [sub1, SetSub1] = useState([]);
-    const [JobT, setJobT] = useState([])
-    const [ApiErr, setApiErr] = useState(false)
-    const [Known, setKnown] = useState([])
+    const[JobT,setJobT]=useState([])
+    const[ApiErr,setApiErr]=useState(false)
+    const [Known,setKnown]=useState([])
+    const[ErrTaluka,setErrTaluka]=useState("")
+    const[SelectTaluka,setTaluka]=useState("")
+
+    const getTaluk=()=>{
+        return Taluks[Location]
+    }
+
+
+    useEffect(()=>{
+        const a=getTaluk()
+        setUnique(a)
+    },[Location])
 
 
     useEffect(() => {
