@@ -62,6 +62,9 @@ const Applicationschema = mongoose.Schema({
     SkillExp:{
         type:String,
     },
+    Taluka:{
+        type:String
+    },
     AadharFiles: [{
         fieldName: String,
         filename:String,

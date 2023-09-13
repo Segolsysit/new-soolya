@@ -539,7 +539,7 @@ const Provider = () => {
         'Virudhunagar',
     ]
 
-    const Taluks=[{'Chennai':['Alandur','Ambattur','Aminjikarai','Ayanavaram','Egmore','Guindy','Madhavaram','Madhuravoyal','Mambalam','Mylapore','Perambur','Purasavakkam','Sholinganallur','Thiruvottriyur','Tondiarpet','Velacherry'],
+    const Taluks={'Chennai':['Alandur','Ambattur','Aminjikarai','Ayanavaram','Egmore','Guindy','Madhavaram','Madhuravoyal','Mambalam','Mylapore','Perambur','Purasavakkam','Sholinganallur','Thiruvottriyur','Tondiarpet','Velacherry'],
                     'Coimbatore':['Aanaimalai','Annur','Coimbatore(North)','Coimbatore(South)','Kinathukadavu','Madukarai','Mettupalayam','Perur','Pollachi','Sulur','Valparai'],
                     'Cuddalore':['Cuddalore','Bhuvanagiri','Chidambaram','Kattumannarkoil','Kurinjipadi','Panruti','Srimushnam','Thittakudi','Veppur','Virudhachalam'],
                     'Dharmapuri':['Dharmapuri','Harur','Karimangalam','Nallampalli','Palacode','Pappireddipatti','Pennagaram'],
@@ -559,7 +559,8 @@ const Provider = () => {
                     'Sivagangai':['Sivagangai','Devakottai','Ilayankudi','Kalaiyarkovil','Karaikudi','Manamadurai','Singampunari','Thirupuvanam','Tirupathur'],
                     'Thanjavur':['Thanjavur','Boothalur','Kumbakonam','Orathanadu','Papanasam','Pattukottai','Peravurani','Thiruvaiyaru','Thiruvidaimaruthur'],
                     'Theni':['Theni','Aandipatti','Bodinayakanur','Periyakulam','Uthamapalayam']
-                }]
+                }
+
 
     const [FirstName, setFName] = useState("")
     const [LName, setLName] = useState("")
@@ -589,6 +590,7 @@ const Provider = () => {
     const [PanCard, setPanCard] = useState('')
     const [Photo, setPhoto] = useState("")
     const Navigate = useNavigate();
+    const[unique,setUnique]=useState([])
 
     const [Pno, setPno] = useState(1)//page number
 
@@ -624,6 +626,18 @@ const Provider = () => {
     const[JobT,setJobT]=useState([])
     const[ApiErr,setApiErr]=useState(false)
     const [Known,setKnown]=useState([])
+    const[ErrTaluka,setErrTaluka]=useState("")
+    const[SelectTaluka,setTaluka]=useState("")
+
+    const getTaluk=()=>{
+        return Taluks[Location]
+    }
+
+
+    useEffect(()=>{
+        const a=getTaluk()
+        setUnique(a)
+    },[Location])
 
 
         useEffect(()=>{
@@ -646,6 +660,7 @@ const Provider = () => {
 
         setErrC("")
         setErrL("")
+        setErrTaluka("")
         setError(false)
 
 
@@ -664,6 +679,10 @@ const Provider = () => {
         }
         else if (Location === "Select" || Location === null) {
             setErrL("Enter your Location")
+            setError(true)
+        }
+        else if(SelectTaluka==="Select"||SelectTaluka===""||SelectTaluka===null){
+            setErrTaluka("Select taluka")
             setError(true)
         }
 
@@ -747,6 +766,21 @@ const Provider = () => {
 
                                 </select>
                                 <p className="Error-signup">{ErrL}</p>
+
+                                <label className="Join-Label">Taluka</label>
+                                <select defaultValue={SelectTaluka} className="Signup-Input" onChange={(e) => {
+                                    setTaluka(e.target.value)
+                                    setErrTaluka("")
+                                    setError(false)
+                                }}>
+                                    <option>Select</option>
+                                    {Array.isArray(unique)&&unique.map((item, index) => (
+                                        <option key={index}>{item}</option>
+                                    ))}
+
+                                </select>
+                                <p className="Error-signup">{ErrTaluka}</p>
+
 
 
                                 <button type="button" className="Button-Signup" onClick={Form1}>Next</button>
@@ -1398,6 +1432,7 @@ const Provider = () => {
             Formdata.append("SkillExp", SkillExp)
             Formdata.append("PanCard", PanCard)
             Formdata.append("Photo", Photo)
+            Formdata.append("taluka",SelectTaluka)
             try {
                 axios.post('https://backend.kooblu.com/vendor_Applications/Applications', Formdata)
                     .then((res) => {
