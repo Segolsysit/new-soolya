@@ -547,7 +547,18 @@ const Provider = () => {
                     'Erode':['Anthiyur','Bhavani','Gobichettipalayam','Kodumudi','Modakurichi','Nambiyur','Perundurai','Sathiyamangalam','Thalavadi'],
                     'Kancheepuram':['Kundrathur','Sriperumbudur','Uthiramerur','Walajabad'],
                     'Kanniyakumari':['Agasteeswaram','Kalkulam','Killiyur','Thiruvatar','Thovalai','Vilavankodu'],
-                    'Karur':['Karur','Aravakurichi','Kadavur','Krishnarayapuram','Kulithalai','Manmangalam','Pugalur']
+                    'Karur':['Karur','Aravakurichi','Kadavur','Krishnarayapuram','Kulithalai','Manmangalam','Pugalur'],
+                    'Madurai':['Kallikudi','Madurai (East)','Madurai (North)','Madurai (South)','Madurai (West)','Melur','Peraiyur','Thirumangalam','Thiruparankundram','Usilampatti','Vadipatti'],
+                    'Nagapattinam':['Nagapattinam','Kilvelur','Thirukkuvalai','Vedaranyam'],
+                    'Namakkal':['Namakkal','Kholli Hills','Kumarapalayam','Mohanoor','Paramathi Velur','Rasipuram','Senthamangalam','Tiruchengode'],
+                    'Nilgiris':['Udagamandalam','Coonoor','Gudalur','Kothagiri','Kundah','Pandalur'],
+                    'Perambalur':['Perambalur','Alathur','Kunnam','Veppanthattai'],
+                    'Pudukottai':['Pudukottai','Alangudi','Aranthangi','Avudiyarkoil','Gandarvakottai','Iluppur','Karambakudi','Kulathur','Manamelkudi','Ponnamaravathi','Thirumayam','Viralimalai'],
+                    'Ramanathapuram':['Ramanathapuram','Kadaladi','Kamuthi','Kezhakarai','Mudukulathur','Paramakudi','Rajasingamangalam','Rameswaram','Tiruvadanai'],
+                    'Salem':['Salem','Attur','Edapadi','Gangavalli','Kadaiyampatti','Mettur','Omalur','Pethanayakanpalayam','Salem South','Salem West','Sankari','Vazhapadi','Yercaud'],
+                    'Sivagangai':['Sivagangai','Devakottai','Ilayankudi','Kalaiyarkovil','Karaikudi','Manamadurai','Singampunari','Thirupuvanam','Tirupathur'],
+                    'Thanjavur':['Thanjavur','Boothalur','Kumbakonam','Orathanadu','Papanasam','Pattukottai','Peravurani','Thiruvaiyaru','Thiruvidaimaruthur'],
+                    'Theni':['Theni','Aandipatti','Bodinayakanur','Periyakulam','Uthamapalayam']
                 }]
 
     const [FirstName, setFName] = useState("")
