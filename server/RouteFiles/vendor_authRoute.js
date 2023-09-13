@@ -265,6 +265,27 @@ VendorAuthRoute.patch('/deductEarning/:id', async (req, res) => {
 
 })
 
+VendorAuthRoute.post('/checkPhone', async(req,res)=>{
+  const number=parseInt(req.body.number)
+  try{
+    const data= await VendorAuth.findOne({"Phonenumber":number})
+    if(data){
+      res.json({status:'ok',message:'user exist',data:data})
+
+    }
+    else{
+      res.json({status:'failed',message:'user doesnot exist'})
+
+    }
+
+  }
+  catch(err){
+    res.json({status:'failed',message:'user doesnot exist'})
+  }
+  
+  
+})
+
 
 VendorAuthRoute.patch('/Recieved/:id', async (req, res) => {
   const id = req.params.id

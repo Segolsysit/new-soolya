@@ -1126,7 +1126,7 @@ const VendorDashboard = () => {
                         </ul>
                     </div>
                     <div className="Dashboard-right" >
-                        <VendorProfile State={state} />
+                        <VendorProfile State={state} setState={setState}/>
                         <VendorOrders State={state} />
                         <PendingOrders State={state} setState={setState} />
                         <EditForm State={state} />

@@ -600,6 +600,9 @@ const Provider = () => {
     const [ErrPhoto, setErrPhoto] = useState('')
     const [sub1, SetSub1] = useState([]);
     const[JobT,setJobT]=useState([])
+    const[ApiErr,setApiErr]=useState(false)
+    const [Known,setKnown]=useState([])
+
 
         useEffect(()=>{
             axios.get("https://backend.kooblu.com/Job/getJob")
@@ -643,7 +646,7 @@ const Provider = () => {
         }
 
 
-        else if (!Error) {
+        else if (!Error&&!ApiErr) {
 
             setPno(Pno + 1)
         }
@@ -653,6 +656,23 @@ const Provider = () => {
 
 
     }
+
+    useEffect(()=>{
+       if(Phone.length>0){ axios.post("https://backend.kooblu.com/vendor_Auth/checkPhone",{
+            number:Phone
+        })
+        .then(res=>{
+            if(res.data.status==='ok'){
+                setErrP('Number already exist')
+                setApiErr(true)
+            }
+            else{
+                setApiErr(false)
+                setErrP('')
+            }
+        })}
+
+    },[Phone])
 
 
     if (Pno === 1) {
@@ -1184,10 +1204,41 @@ const Provider = () => {
 
     }
 
+    const getExist=(e)=>{
+        console.log(e.target.value);
+        let index = Known.indexOf(e.target.value)
+        
+        if(index>=0){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+
+    const changeKnownL=(e)=>{
+        
+        let copy=[...Known]
+        let exist=getExist(e)
+        console.log(exist);
+        if(!exist){
+            copy.push(e.target.value)
+            setKnown(copy)
+            console.log(Known);
+        }
+        else{
+            toast.error("already added")
+        }
+        
+    }
+
+
 
     const Form6 = (e) => {
         e.preventDefault()
         setError(false)
+        console.log(Known);
+
         if (Email === "" || Education === "") {
             setErrE("Enter your mail Id")
             setError(true)
@@ -1197,7 +1248,7 @@ const Provider = () => {
             setError(true)
 
         }
-        else if (KnownL === "" || KnownL === null) {
+        else if (Known.length<=0) {
             setErrKnownL("Select your Known Language")
             setError(true)
         }
@@ -1241,10 +1292,24 @@ const Provider = () => {
                             }} />
                             <p style={{ color: "red" }}>{ErrAlpH}</p>
                             <label className="Join-Label">Languages Known</label>
-                            <input className="Signup-Input" value={KnownL} onChange={(e) => {
-                                setKnownL(e.target.value)
+                            <select className="Signup-Input" value={KnownL} onChange={(e) => {
+                                changeKnownL(e)
                                 setErrKnownL('')
-                            }} />
+                            }}>
+                                <option   selected >Select</option>
+                                <option>Tamil</option>
+                                <option>English</option>
+                                <option>Hindi</option>
+                                <option>Kanndada</option>
+                                <option>Telugu</option>
+                                <option>Malayalam</option>
+                            </select>
+                            <div className="KnownLanguage_box">
+                                {Known.map((item,index)=>{
+                                    return <p className="KnownL_text" key={index}>{item}</p>
+                                })}
+
+                            </div>
                             <p style={{ color: "red" }}>{ErrKnownL}</p>
                             <label className="Join-Label">Skill Experience</label>
                             <input className="Signup-Input" value={SkillExp} onChange={(e) => {
@@ -1307,7 +1372,7 @@ const Provider = () => {
             Formdata.append("WorkExp", WorkExp)
             Formdata.append("Zone", Zone)
             Formdata.append("AltPH", AltPH)
-            Formdata.append("KnownL", KnownL)
+            Formdata.append("KnownL", Known)
             Formdata.append("SkillExp", SkillExp)
             Formdata.append("PanCard", PanCard)
             Formdata.append("Photo", Photo)

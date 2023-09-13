@@ -493,7 +493,7 @@ export const Admin = () => {
                                 {/* <!-- End of Topbar --> */}
 
                                 <CategoryForm open={state} close={setState} FormNumber={FormNum} setNumber={setFormnum} />
-                                <DashBoard open={state} close={setState} formNumber={FormNum} />
+                                <DashBoard open={state} close={setState} formNumber={FormNum} setForm={setFormnum}/>
                                 <RejectedList formNumber={FormNum} />
                                 <Orders formNumber={FormNum} />
                                 <ServiceList formNumber={FormNum} />

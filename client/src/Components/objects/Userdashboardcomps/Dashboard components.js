@@ -434,7 +434,7 @@ const EditForm = ({ State }) => {
     else return null
 }
 
-const VendorProfile = ({ State }) => {
+const VendorProfile = ({ State ,setState}) => {
     const [orderdetails, setorderdetails] = useState([])
     const [cookies, setCookie, removeCookie] = useCookies([]);
     const [myorders, setMyorders] = useState([])
@@ -549,7 +549,7 @@ const VendorProfile = ({ State }) => {
 
                 </div>
                 <div className="User-Screen">
-                    <div className="vendor-sec2" >
+                    <div className="vendor-sec2" style={{cursor:'pointer'}} onClick={()=>setState(2)}>
                         <h1 className="Count">{count}</h1>
                         <h2 className="Orders">Orders Available</h2>
                     </div>
@@ -558,7 +558,7 @@ const VendorProfile = ({ State }) => {
 
                         <img className="User-img" src="https://img.freepik.com/free-vector/happy-rich-banker-celebrating-income-growth_74855-5867.jpg?w=2000&t=st=1688534814~exp=1688535414~hmac=a9a55492da7c5b15131b76f834629e922261d35d6ce566f85b7d97540d42e006" alt="" />
 
-                        <div className="Vendor-sec2Data" style={{ color: 'white' }}>
+                        <div className="Vendor-sec2Data" style={{ color: 'white',cursor:'pointer' }}  onClick={()=>setState(5)}>
                             <div>
                                 <h2 className="Vendor-data">Completed Orders</h2>
 
@@ -574,11 +574,11 @@ const VendorProfile = ({ State }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="Vendor-sec1" style={{ backgroundColor: 'dodgerblue' }}>
+                    <div className="Vendor-sec1" style={{ backgroundColor: 'dodgerblue',cursor:'pointer' }} onClick={()=>setState(5)}>
 
                         <img className="User-img" src="https://img.freepik.com/free-vector/happy-rich-banker-celebrating-income-growth_74855-5867.jpg?w=2000&t=st=1688534814~exp=1688535414~hmac=a9a55492da7c5b15131b76f834629e922261d35d6ce566f85b7d97540d42e006" alt="" />
 
-                        <div className="Vendor-sec2Data">
+                        <div className="Vendor-sec2Data"  >
                             <div>
                                 <h2 className="Vendor-data">Total Earnings</h2>
 

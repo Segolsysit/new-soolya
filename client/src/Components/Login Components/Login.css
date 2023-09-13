@@ -32,6 +32,22 @@ a{
     margin: 0px;
 }
 
+.KnownLanguage_box{
+     padding: 10px;
+    border: rgb(226, 232, 246) solid;
+    border-radius: 3px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    height: 50px;
+    overflow: scroll;
+}
+
+.KnownL_text{
+    padding: 2px;
+    background-color: whitesmoke;
+    border-radius: 3px;
+}
 
 .Login-heading{
     display: flex;

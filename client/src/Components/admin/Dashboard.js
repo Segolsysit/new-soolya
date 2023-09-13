@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 
-function DashBoard({ open, close, formNumber }) {
+function DashBoard({ open, close, formNumber,setForm }) {
 
 
 
@@ -16,6 +16,7 @@ function DashBoard({ open, close, formNumber }) {
     const [Workers, setWorkers] = useState([])
     const [completedOrderdetails, setcompletedOrderdetails] = useState([])
 
+    const [activeWorkers,setActiveWorkers]=useState([])
 
     useEffect(() => {
         axios.get("https://backend.kooblu.com/booking_api/completed_booking_data").then((res) => {
@@ -44,6 +45,15 @@ function DashBoard({ open, close, formNumber }) {
 
     }, [])
 
+    const getActive=(e)=>{
+        return e.Status==="active"
+    }
+
+    const active=Workers.filter(getActive)
+
+    console.log(active);
+    
+
     const totalearnings = ((completedOrderdetails.reduce((acc, curr) => acc + curr.price, 0)))
     console.log(totalearnings);
 
@@ -61,12 +71,12 @@ function DashBoard({ open, close, formNumber }) {
 
                 <div className="dashboard_overall_count_div">
 
-                    <div className="dashboard_view" style={{ backgroundColor: 'dodgerblue' }}>
+                    <div className="dashboard_view" style={{ backgroundColor: 'dodgerblue',cursor:'pointer' }} onClick={()=>setForm(12)}>
                         <div className="dashboard_view_img" >
                             {/* <i id="teams_img" class="fa-solid fa-people-group fa-beat-fade fa-2xl"></i> */}
                             <i id="teams_img_2" class="fa-solid fa-cart-arrow-down fa-beat-fade" style={{ color: 'white' }}></i>
                         </div>
-                        <div className="team_count_div">
+                        <div className="team_count_div"  >
                             <div className="teams_count">
                                 <h5 style={{ color: 'white' }}>{Orders.length}</h5>
                             </div>
@@ -74,7 +84,7 @@ function DashBoard({ open, close, formNumber }) {
                         </div>
                     </div>
 
-                    <div className="dashboard_view" style={{ backgroundColor: '#cc666a' }}>
+                    <div className="dashboard_view" style={{ backgroundColor: '#cc666a',cursor:'pointer' }} onClick={()=>setForm(5)}>
                         <div className="dashboard_view_img">
                             {/* <i id="teams_img_2" class="fa-solid fa-cart-arrow-down fa-beat-fade"></i> */}
                             <i style={{ color: 'white' }} id="teams_img" class="fa-solid fa-hourglass-end fa-beat-fade"></i>
@@ -87,7 +97,7 @@ function DashBoard({ open, close, formNumber }) {
                         </div>
                     </div>
 
-                    <div className="dashboard_view" style={{ backgroundColor: '#79a3e0' }}>
+                    <div className="dashboard_view" style={{ backgroundColor: '#79a3e0',cursor:'pointer' }} onClick={()=>setForm(13)}>
                         <div className="dashboard_view_img">
                             <i id='teams_img_2' class="fa-solid fa-check fa-beat" style={{ color: "#2d6fe1;" }}></i>
                         </div>
@@ -100,7 +110,7 @@ function DashBoard({ open, close, formNumber }) {
                     </div>
 
 
-                    <div className="dashboard_view" style={{ backgroundColor: '#6dd1ab' }}>
+                    <div className="dashboard_view" style={{ backgroundColor: '#6dd1ab',cursor:'pointer' }} onClick={()=>setForm(10)}>
                         <div className="dashboard_view_img">
                             <i id='teams_img_2' class="fa-solid fa-list fa-beat-fade"></i>                                </div>
                         <div className="team_count_div">
@@ -111,13 +121,25 @@ function DashBoard({ open, close, formNumber }) {
                         </div>
                     </div>
 
-                    <div className="dashboard_view" style={{ backgroundColor: '#f0a05b' }}>
+                    <div className="dashboard_view" style={{ backgroundColor: '#f0a05b' ,cursor:'pointer'}} onClick={()=>setForm(2)}>
                         <div className="dashboard_view_img">
                             <i id="teams_img_3" class="fa-solid fa-users fa-beat-fade"></i>
                         </div>
                         <div className="team_count_div">
                             <div className="teams_count">
                                 <h5 style={{ color: 'white' }}>{Workers.length}</h5>
+                            </div>
+                            <h6 style={{ color: 'white' }}>Total Workers</h6>
+                        </div>
+                    </div>
+
+                    <div className="dashboard_view" style={{ backgroundColor: '#fad264',cursor:'pointer' }} onClick={()=>setForm(2)}>
+                        <div className="dashboard_view_img">
+                            <i id="teams_img_3" class="fa-solid fa-users fa-beat-fade"></i>
+                        </div>
+                        <div className="team_count_div">
+                            <div className="teams_count">
+                                <h5 style={{ color: 'white' }}>{active.length}</h5>
                             </div>
                             <h6 style={{ color: 'white' }}>Active Workers</h6>
                         </div>
