@@ -204,7 +204,7 @@ const VendorLogin = () => {
                     if (res.data.status === 'error') {
                         toast.error(res.data.status)
                     }
-                    else if(res.data.status === 'failed'){
+                    else if (res.data.status === 'failed') {
                         toast.error('user id is blocked contact admin')
                     }
                     else {
@@ -539,16 +539,21 @@ const Provider = () => {
         'Virudhunagar',
     ]
 
-    const Taluks=[{'Chennai':['Alandur','Ambattur','Aminjikarai','Ayanavaram','Egmore','Guindy','Madhavaram','Madhuravoyal','Mambalam','Mylapore','Perambur','Purasavakkam','Sholinganallur','Thiruvottriyur','Tondiarpet','Velacherry'],
-                    'Coimbatore':['Aanaimalai','Annur','Coimbatore(North)','Coimbatore(South)','Kinathukadavu','Madukarai','Mettupalayam','Perur','Pollachi','Sulur','Valparai'],
-                    'Cuddalore':['Cuddalore','Bhuvanagiri','Chidambaram','Kattumannarkoil','Kurinjipadi','Panruti','Srimushnam','Thittakudi','Veppur','Virudhachalam'],
-                    'Dharmapuri':['Dharmapuri','Harur','Karimangalam','Nallampalli','Palacode','Pappireddipatti','Pennagaram'],
-                    'Dindigul':['Atthur','Dindigul (East)','Dindigul (West)','Guziliyamparai','Kodaikanal','Natham','Nilakottai','Oddanchatram','Palani','Vedasandur'],
-                    'Erode':['Anthiyur','Bhavani','Gobichettipalayam','Kodumudi','Modakurichi','Nambiyur','Perundurai','Sathiyamangalam','Thalavadi'],
-                    'Kancheepuram':['Kundrathur','Sriperumbudur','Uthiramerur','Walajabad'],
-                    'Kanniyakumari':['Agasteeswaram','Kalkulam','Killiyur','Thiruvatar','Thovalai','Vilavankodu'],
-                    'Karur':['Karur','Aravakurichi','Kadavur','Krishnarayapuram','Kulithalai','Manmangalam','Pugalur']
-                }]
+    const Taluks = [{
+        'Chennai': ['Alandur', 'Ambattur', 'Aminjikarai', 'Ayanavaram', 'Egmore', 'Guindy', 'Madhavaram', 'Madhuravoyal', 'Mambalam', 'Mylapore', 'Perambur', 'Purasavakkam', 'Sholinganallur', 'Thiruvottriyur', 'Tondiarpet', 'Velacherry'],
+        'Coimbatore': ['Aanaimalai', 'Annur', 'Coimbatore(North)', 'Coimbatore(South)', 'Kinathukadavu', 'Madukarai', 'Mettupalayam', 'Perur', 'Pollachi', 'Sulur', 'Valparai'],
+        'Cuddalore': ['Cuddalore', 'Bhuvanagiri', 'Chidambaram', 'Kattumannarkoil', 'Kurinjipadi', 'Panruti', 'Srimushnam', 'Thittakudi', 'Veppur', 'Virudhachalam'],
+        'Dharmapuri': ['Dharmapuri', 'Harur', 'Karimangalam', 'Nallampalli', 'Palacode', 'Pappireddipatti', 'Pennagaram'],
+        'Dindigul': ['Atthur', 'Dindigul (East)', 'Dindigul (West)', 'Guziliyamparai', 'Kodaikanal', 'Natham', 'Nilakottai', 'Oddanchatram', 'Palani', 'Vedasandur'],
+        'Erode': ['Anthiyur', 'Bhavani', 'Gobichettipalayam', 'Kodumudi', 'Modakurichi', 'Nambiyur', 'Perundurai', 'Sathiyamangalam', 'Thalavadi'],
+        'Kancheepuram': ['Kundrathur', 'Sriperumbudur', 'Uthiramerur', 'Walajabad'],
+        'Kanniyakumari': ['Agasteeswaram', 'Kalkulam', 'Killiyur', 'Thiruvatar', 'Thovalai', 'Vilavankodu'],
+        'Karur': ['Karur', 'Aravakurichi', 'Kadavur', 'Krishnarayapuram', 'Kulithalai', 'Manmangalam', 'Pugalur'],
+        'Thiruvallur': ['Uthamapalayam', 'Thiruvallur', 'Avadi', 'Gummidipoondi', 'Pallipattu', 'Ponneri', 'Poonamallee', 'R.K. Pet', 'Tiruthani', 'Uthukottai'],
+        'Thiruvannamalai': ['Thiruvannamalai', 'Arni', 'Chengam', 'Chetpet', 'Cheyyar', 'Jamunamarathur', 'Kalasapakkam', 'Kilpennathur', 'Polur', 'Thandramet', 'Vandavasi', 'Vembakkam'],
+        'Thiruvarur': ['Thiruvarur', 'Kodavasal', 'Koothanallur', 'Mannargudi', 'Nannilam', 'Needamangalam', 'Thiruthuraipoondi', 'Valangaiman'],
+        'Thoothukudi': ['Thoothukudi', '']
+    }]
 
     const [FirstName, setFName] = useState("")
     const [LName, setLName] = useState("")
@@ -610,15 +615,15 @@ const Provider = () => {
     const [ErrPan, setErrPan] = useState("")
     const [ErrPhoto, setErrPhoto] = useState('')
     const [sub1, SetSub1] = useState([]);
-    const[JobT,setJobT]=useState([])
-    const[ApiErr,setApiErr]=useState(false)
-    const [Known,setKnown]=useState([])
+    const [JobT, setJobT] = useState([])
+    const [ApiErr, setApiErr] = useState(false)
+    const [Known, setKnown] = useState([])
 
 
-        useEffect(()=>{
-            axios.get("https://backend.kooblu.com/Job/getJob")
-            .then((res)=>setJobT(res.data))
-        },[])
+    useEffect(() => {
+        axios.get("https://backend.kooblu.com/Job/getJob")
+            .then((res) => setJobT(res.data))
+    }, [])
 
     useEffect(() => {
         axios.get("https://backend.kooblu.com/sub_api/new_fetch_items").then((res) => {
@@ -657,7 +662,7 @@ const Provider = () => {
         }
 
 
-        else if (!Error&&!ApiErr) {
+        else if (!Error && !ApiErr) {
 
             setPno(Pno + 1)
         }
@@ -668,22 +673,24 @@ const Provider = () => {
 
     }
 
-    useEffect(()=>{
-       if(Phone.length>0){ axios.post("https://backend.kooblu.com/vendor_Auth/checkPhone",{
-            number:Phone
-        })
-        .then(res=>{
-            if(res.data.status==='ok'){
-                setErrP('Number already exist')
-                setApiErr(true)
-            }
-            else{
-                setApiErr(false)
-                setErrP('')
-            }
-        })}
+    useEffect(() => {
+        if (Phone.length > 0) {
+            axios.post("https://backend.kooblu.com/vendor_Auth/checkPhone", {
+                number: Phone
+            })
+                .then(res => {
+                    if (res.data.status === 'ok') {
+                        setErrP('Number already exist')
+                        setApiErr(true)
+                    }
+                    else {
+                        setApiErr(false)
+                        setErrP('')
+                    }
+                })
+        }
 
-    },[Phone])
+    }, [Phone])
 
 
     if (Pno === 1) {
@@ -1066,7 +1073,7 @@ const Provider = () => {
 
     const Form5 = (e) => {
         e.preventDefault()
-        
+
 
         setError(false)
         if (Education === "select" || Education === "") {
@@ -1142,7 +1149,7 @@ const Provider = () => {
                             }}>
                                 <option>select</option>
 
-                                {JobT.length>0&& JobT.map((s) => (
+                                {JobT.length > 0 && JobT.map((s) => (
 
 
                                     <option value={s.Job}>{s.Job}</option>
@@ -1215,32 +1222,32 @@ const Provider = () => {
 
     }
 
-    const getExist=(e)=>{
+    const getExist = (e) => {
         console.log(e.target.value);
         let index = Known.indexOf(e.target.value)
-        
-        if(index>=0){
+
+        if (index >= 0) {
             return true
         }
-        else{
+        else {
             return false
         }
     }
 
-    const changeKnownL=(e)=>{
-        
-        let copy=[...Known]
-        let exist=getExist(e)
+    const changeKnownL = (e) => {
+
+        let copy = [...Known]
+        let exist = getExist(e)
         console.log(exist);
-        if(!exist){
+        if (!exist) {
             copy.push(e.target.value)
             setKnown(copy)
             console.log(Known);
         }
-        else{
+        else {
             toast.error("already added")
         }
-        
+
     }
 
 
@@ -1259,12 +1266,12 @@ const Provider = () => {
             setError(true)
 
         }
-        else if (Known.length<=0) {
+        else if (Known.length <= 0) {
             setErrKnownL("Select your Known Language")
             setError(true)
         }
 
-       
+
 
         else if (!Error) {
             setPno(7)
@@ -1307,7 +1314,7 @@ const Provider = () => {
                                 changeKnownL(e)
                                 setErrKnownL('')
                             }}>
-                                <option   selected >Select</option>
+                                <option selected >Select</option>
                                 <option>Tamil</option>
                                 <option>English</option>
                                 <option>Hindi</option>
@@ -1316,7 +1323,7 @@ const Provider = () => {
                                 <option>Malayalam</option>
                             </select>
                             <div className="KnownLanguage_box">
-                                {Known.map((item,index)=>{
+                                {Known.map((item, index) => {
                                     return <p className="KnownL_text" key={index}>{item}</p>
                                 })}
 
@@ -1354,7 +1361,7 @@ const Provider = () => {
     const Form7 = (e) => {
         e.preventDefault()
         setError(false)
-       
+
         if (Photo === "" || Photo === null) {
             setErrPhoto("Add Your photo")
             setError(true)
@@ -1362,7 +1369,7 @@ const Provider = () => {
         }
 
 
-        else if(!Error) {
+        else if (!Error) {
             const Formdata = new FormData()
             Formdata.append("FirstName", FirstName)
             Formdata.append("LName", LName)
