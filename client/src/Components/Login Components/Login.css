@@ -32,6 +32,10 @@ a{
     margin: 0px;
 }
 
+.KnownLanguage_box::-webkit-scrollbar{
+    visibility: hidden;
+}
+
 .KnownLanguage_box{
      padding: 10px;
     border: rgb(226, 232, 246) solid;
